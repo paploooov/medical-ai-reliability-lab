@@ -1,0 +1,44 @@
+{
+  "source": "https://zenodo.org/records/10519652/files/pneumoniamnist.npz?download=1",
+  "md5": "28209eda62fecd6e6a2d98b1501bb15f",
+  "seed": 42,
+  "splits": {
+    "train": {
+      "count": 4708,
+      "normal": 1214,
+      "pneumonia": 3494
+    },
+    "val": {
+      "count": 524,
+      "normal": 135,
+      "pneumonia": 389
+    },
+    "test": {
+      "count": 624,
+      "normal": 234,
+      "pneumonia": 390
+    }
+  },
+  "displayed_training_indices": [
+    3629,
+    3374,
+    946,
+    4585,
+    3952,
+    3578,
+    602,
+    418,
+    3070,
+    2414,
+    2032,
+    403,
+    2120,
+    4030,
+    442,
+    3458,
+    3697,
+    2059,
+    3274,
+    2473
+  ]
+}
