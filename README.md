@@ -7,7 +7,7 @@
 
 A research project investigating confident errors in chest X-ray classification.
 
-[First results](docs/research/PILOT.md) · [Methods](docs/PROTOCOL.md) · [Explore the data](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) · [Model card](models/README.md)
+[First results](docs/research/PILOT.md) · [Methods](docs/PROTOCOL.md) · [Explore the data](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) · [Model card](models/README.md) · [Error detection](docs/research/ERROR_DETECTION.md)
 
 </div>
 
@@ -25,6 +25,14 @@ These are **pilot results**, not evidence of clinical readiness. The neural mode
 
 ![Image transformations](reports/figures/corruptions.png)
 
+## Can the model flag its own errors?
+
+Uncertainty flags **54 of 100 neural-model errors** on original test images, using a threshold set on validation data. It also flags 107 correct predictions. Under strong contrast loss, **20% of retained predictions remain wrong**. This is a limited warning signal, not reliable self-diagnosis.
+
+![Error detection and selective prediction](reports/figures/error_detection.png)
+
+[Analysis and trade-offs](docs/research/ERROR_DETECTION.md) · [What we trained](docs/research/MODELS.md)
+
 ## Reproduce
 
 Python 3.12; CPU sufficient. No API key, paid server or GPU required.
@@ -35,6 +43,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 python scripts/inspect_data.py
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 python experiments/train.py
+python experiments/error_detection.py
 python -m unittest discover -s tests -v
 ```
 
@@ -73,3 +82,7 @@ tests/                    Metric correctness checks
 This project currently concerns low-resolution **pediatric chest X-rays**. Synthetic perturbations do not demonstrate transfer across hospitals or scanners. Patient independence cannot be independently verified from the distributed arrays. No clinical diagnosis or treatment use is intended.
 
 Data: [MedMNIST](https://medmnist.com/) · [Official metadata](https://github.com/MedMNIST/MedMNIST) · [Archive](https://zenodo.org/records/10519652). PneumoniaMNIST is listed as **CC BY 4.0** by its maintainers; displayed samples and transformed examples derive from that dataset. See Yang et al., *MedMNIST v2*, Scientific Data (2023), [DOI](https://doi.org/10.1038/s41597-022-01721-8), and the underlying pediatric X-ray source described there.
+
+## Licensing
+
+Software licensing is not yet assigned. Dataset attribution and rights are separate. See [licensing status](docs/LICENSING.md).

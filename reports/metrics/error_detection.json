@@ -1,0 +1,15 @@
+{
+  "logistic": {
+    "validation_confidence_threshold": 0.9422061904425779,
+    "target_validation_coverage": 0.8,
+    "actual_validation_coverage": 0.799618320610687,
+    "weights_sha256": "fc3d639e436d9b49d80ffe37e11a809a82f15cb9f34c4f30bf029f22fde3fe16"
+  },
+  "mlp": {
+    "validation_confidence_threshold": 0.9405728192073164,
+    "target_validation_coverage": 0.8,
+    "actual_validation_coverage": 0.799618320610687,
+    "weights_sha256": "40cb8338385f1524acb051f833e90ca27f660bd766a8f6dda11d6e07259829db"
+  },
+  "analysis_type": "Exploratory follow-up after pilot test inspection; no model retraining or test-selected rejection threshold."
+}
