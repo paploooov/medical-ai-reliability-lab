@@ -18,3 +18,7 @@ Next candidates include a small CNN trained from scratch and an established conv
 ## Evidence
 
 `models/*.npz`: weights. `reports/metrics/validation.json`: checkpoint search. `run.json`: software versions, configuration and pre-evaluation commit. `predictions.npz`: test outputs. The saved MLP weights were checked against all 624 clean test outputs to numerical tolerance 1e-12.
+
+## Convolutional follow-up
+
+A two-block CNN with 105,281 parameters has now been trained from scratch with three seeds, 25 epochs each. See [CNN study](CNN_STUDY.md) for results, calibration and limitations. This replaces the earlier CNN planning status; it is still a small research model, not a medical foundation model.

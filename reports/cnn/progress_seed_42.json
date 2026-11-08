@@ -1,0 +1,7 @@
+{
+  "seed": 42,
+  "epoch": 24,
+  "validation_loss": 0.0969538539648056,
+  "temperature": 0.9743784526969107,
+  "parameters": 105281
+}

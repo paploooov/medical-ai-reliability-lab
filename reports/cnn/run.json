@@ -1,0 +1,43 @@
+{
+  "config": {
+    "seeds": [
+      17,
+      42,
+      83
+    ],
+    "epochs": 25,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "checkpoint_selection": "minimum clean validation BCE",
+    "calibration": "one temperature fitted on clean validation",
+    "rejection": "validation confidence 20th percentile",
+    "study": "exploratory follow-up on already examined benchmark"
+  },
+  "choices": [
+    {
+      "seed": 17,
+      "epoch": 25,
+      "validation_loss": 0.09039576351642609,
+      "temperature": 0.947732208343492,
+      "parameters": 105281
+    },
+    {
+      "seed": 42,
+      "epoch": 24,
+      "validation_loss": 0.0969538539648056,
+      "temperature": 0.9743784526969107,
+      "parameters": 105281
+    },
+    {
+      "seed": 83,
+      "epoch": 23,
+      "validation_loss": 0.08955090492963791,
+      "temperature": 0.8904478598731153,
+      "parameters": 105281
+    }
+  ],
+  "torch": "2.5.1+cpu",
+  "numpy": "2.2.6",
+  "commit": "7226f617a547b97ba59a9883dcb270a0e87f2d9a",
+  "data_sha256": "e1792d3f03751cb101e99f19a63b3c1941436c988665f47853417b05be250cd8"
+}

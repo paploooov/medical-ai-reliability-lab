@@ -7,3 +7,5 @@ Next milestone: related-work review and higher-resolution data assessment, follo
 Reproduction commands are in the project README. Model provenance is recorded in reports/metrics/run.json. Colab UI execution has not been tested; the underlying data workflow and CPU experiment were run locally in the cloud environment. Telegram export is not configured.
 
 Follow-up: confidence-based error detection and validation-selected rejection evaluated for both models across all ten conditions. Six metric tests pass. Model classification and licensing status documented. Repeated training, detection uncertainty intervals, calibration and external evaluation remain outstanding.
+
+CNN follow-up completed: three seeds × 25 epochs, validation-selected checkpoints, temperature scaling, ten conditions each, 60 result rows. Eight unit tests passed; all three stored CNN checkpoints reproduce clean predictions. Learning curves, calibration plots, per-image predictions and full study are saved. No independent external validation yet.

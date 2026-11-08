@@ -13,6 +13,14 @@ A research project investigating confident errors in chest X-ray classification.
 
 ![Robustness experiment](reports/figures/robustness.png)
 
+## Latest study: three CNN training runs
+
+A convolutional model with **105,281 parameters** completed **three runs of 25 epochs**. Clean test accuracy averaged **84.8%** (range 84.3–85.4%). More capacity did not eliminate confident errors, and validation-fitted temperature scaling did not improve mean test Brier score in this experiment.
+
+![CNN learning curves](reports/cnn/learning_curves.png)
+
+[Full CNN study and scientific figures](docs/research/CNN_STUDY.md) · [Prespecified follow-up protocol](docs/research/CNN_PROTOCOL.md)
+
 ## The question
 
 A classifier can become less accurate without becoming less confident. This project studies that gap under controlled noise, blur and contrast changes, using public medical imaging benchmarks.
@@ -73,7 +81,8 @@ tests/                    Metric correctness checks
 - [x] Evaluate nine corruption conditions and clean control
 - [x] Publish predictions, weights and paired uncertainty estimates
 - [ ] Compare related research and select a higher-resolution dataset
-- [ ] Multiple seeds, convolutional baseline and calibration
+- [x] Three-seed convolutional baseline and validation-fitted temperature scaling
+- [ ] Paired uncertainty estimates and broader model comparisons
 - [ ] External validation
 - [ ] Local Core ML / SwiftUI demonstration
 
