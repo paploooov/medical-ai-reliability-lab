@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 ROOT=Path(__file__).resolve().parents[1]
 def build():
  data={r:np.load(ROOT/'data'/('pneumoniamnist.npz' if r==28 else 'pneumoniamnist_64.npz'),allow_pickle=False) for r in [28,64]}
+ data={r:{k:archive[k] for k in archive.files} for r,archive in data.items()}
  records=[(s,i) for s in ['train','val','test'] for i in range(len(data[28][s+'_labels']))]
  parent=list(range(len(records)))
  def root(i):
