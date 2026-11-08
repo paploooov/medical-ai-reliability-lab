@@ -1,0 +1,8 @@
+{
+  "train": 4682,
+  "test": 621,
+  "selection": 262,
+  "calibration": 262,
+  "total_exact_groups": 5827,
+  "groups_with_multiple_members": 27
+}

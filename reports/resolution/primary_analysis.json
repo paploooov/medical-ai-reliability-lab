@@ -1,0 +1,25 @@
+{
+  "estimands": [
+    "blur_minus_clean_risk_28",
+    "blur_minus_clean_risk_64",
+    "difference_in_changes_64_minus_28"
+  ],
+  "point": [
+    0.1860945777709059,
+    0.08524187940861601,
+    -0.10085269836228992
+  ],
+  "ci_low": [
+    0.15968747814722029,
+    0.0699244184174958,
+    -0.12027646598519653
+  ],
+  "ci_high": [
+    0.21250048694995516,
+    0.10149095035252438,
+    -0.08232361384957539
+  ],
+  "bootstrap_replicates": 2000,
+  "discarded_empty_subset_draws": 0,
+  "interpretation": "Paired equal-exact-group percentile intervals, conditional on six fitted models. Not patient-level or training-population uncertainty."
+}

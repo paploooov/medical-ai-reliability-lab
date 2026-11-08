@@ -19,7 +19,17 @@ This is an **exploratory benchmark project**, not a clinically validated system.
 
 [Audit and verified checks](docs/research/AUDIT.md) · [Literature map](docs/research/LITERATURE.md) · [Revised study plan](docs/research/NEXT_STUDY.md)
 
-## Latest study: three CNN training runs
+## Current experiment: resolution and rejection
+
+A separate duplicate-aware analysis now compares **28×28 and 64×64**, with distinct data for fitting, checkpoint selection and calibration. Six runs use an identical 21,249-parameter network.
+
+Under the prespecified relative blur, error among accepted predictions rises from **11.0% to 29.6% at 28px**, versus **11.0% to 19.5% at 64px**. Acceptance rates also differ; this is an exploratory operational comparison, not evidence of clinical safety.
+
+![Resolution and selective risk](reports/resolution/risk_coverage.png)
+
+[Study, paired intervals and limitations](docs/research/RESOLUTION_STUDY.md) · [Locked protocol](docs/research/RESOLUTION_PROTOCOL.md) · [Project scope](docs/research/PROJECT_SCOPE.md)
+
+## Earlier pilot: three CNN training runs
 
 A convolutional model with **105,281 parameters** completed **three runs of 25 epochs**. Clean test accuracy averaged **84.8%** (range 84.3–85.4%). More capacity did not eliminate confident errors, and validation-fitted temperature scaling did not improve mean test Brier score in this experiment.
 

@@ -13,3 +13,5 @@ CNN follow-up completed: three seeds × 25 epochs, validation-selected checkpoin
 Audit completed: 80 metric rows recomputed successfully; eight exact 28×28 train/validation shared image hashes and three excess test repeats identified. Further claims must include these limitations. Six-source foundational literature map and revised resolution/rejection study plan added. No further models trained during the audit.
 
 MedMNIST+ 64×64 archive downloaded, checksum verified, all split labels matched to 28×28. Exact overlap counts persist at 64×64. A same-case resolution figure is in reports/audit. Higher-resolution training is pending revised duplicate/split handling.
+
+Resolution sensitivity analysis completed: 4682 fit / 262 selection / 262 calibration / 621 unique test cases; six runs × 15 epochs; fixed 21249-parameter adaptive CNN; paired bootstrap primary endpoint and PDF figures saved. 30 metric rows, six weights and six cutoffs independently verified. All 12 tests pass. Results are conditional on fixed fitted models and a known benchmark, not patient-level external validation. See RESOLUTION_STUDY.md for interpretation and convergence limitations.
