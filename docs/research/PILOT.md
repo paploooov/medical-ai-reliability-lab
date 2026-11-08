@@ -1,5 +1,8 @@
 # Pilot 01 — When confidence survives image degradation
 
+**Audit update:** Exact train/validation pixel overlaps and internal test repeats were found after these experiments. Interpret these as official-split exploratory results; see [the audit](AUDIT.md).
+
+
 Two CPU-trained classifiers were evaluated on the same 624 official PneumoniaMNIST test images. Hyperparameters and neural checkpoint were selected using validation log loss. The experiment implementation and protocol were committed before the test evaluation (`d835b86`).
 
 | Model / condition | Accuracy | Mean confidence | Confident errors / all images |

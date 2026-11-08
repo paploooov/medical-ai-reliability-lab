@@ -1,5 +1,8 @@
 # CNN study — three training runs
 
+**Audit update:** Exact train/validation pixel overlaps and internal test repeats were found after these experiments. Interpret these as official-split exploratory results; see [the audit](AUDIT.md).
+
+
 A convolutional model was trained from scratch three times on the official training split. Each run completed 25 epochs. Checkpoints and temperature scaling used only validation data. This is a follow-up on an already examined test benchmark, not an independent confirmation.
 
 Architecture: two convolutional blocks and a dense head; **105,281 parameters**. Seeds: 17, 42, 83.

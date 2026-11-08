@@ -9,3 +9,7 @@ Reproduction commands are in the project README. Model provenance is recorded in
 Follow-up: confidence-based error detection and validation-selected rejection evaluated for both models across all ten conditions. Six metric tests pass. Model classification and licensing status documented. Repeated training, detection uncertainty intervals, calibration and external evaluation remain outstanding.
 
 CNN follow-up completed: three seeds × 25 epochs, validation-selected checkpoints, temperature scaling, ten conditions each, 60 result rows. Eight unit tests passed; all three stored CNN checkpoints reproduce clean predictions. Learning curves, calibration plots, per-image predictions and full study are saved. No independent external validation yet.
+
+Audit completed: 80 metric rows recomputed successfully; eight exact 28×28 train/validation shared image hashes and three excess test repeats identified. Further claims must include these limitations. Six-source foundational literature map and revised resolution/rejection study plan added. No further models trained during the audit.
+
+MedMNIST+ 64×64 archive downloaded, checksum verified, all split labels matched to 28×28. Exact overlap counts persist at 64×64. A same-case resolution figure is in reports/audit. Higher-resolution training is pending revised duplicate/split handling.

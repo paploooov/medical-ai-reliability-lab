@@ -13,6 +13,12 @@ A research project investigating confident errors in chest X-ray classification.
 
 ![Robustness experiment](reports/figures/robustness.png)
 
+## Evidence status
+
+This is an **exploratory benchmark project**, not a clinically validated system. An audit found **eight unique pixel-identical images shared between training and validation at 28×28**, plus repeated test images. Results remain documented official-split pilots; patient independence has not been established.
+
+[Audit and verified checks](docs/research/AUDIT.md) · [Literature map](docs/research/LITERATURE.md) · [Revised study plan](docs/research/NEXT_STUDY.md)
+
 ## Latest study: three CNN training runs
 
 A convolutional model with **105,281 parameters** completed **three runs of 25 epochs**. Clean test accuracy averaged **84.8%** (range 84.3–85.4%). More capacity did not eliminate confident errors, and validation-fitted temperature scaling did not improve mean test Brier score in this experiment.

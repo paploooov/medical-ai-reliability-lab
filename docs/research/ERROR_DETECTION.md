@@ -1,5 +1,8 @@
 # Can uncertainty flag the model's mistakes?
 
+**Audit update:** Exact train/validation pixel overlaps and internal test repeats were found after these experiments. Interpret these as official-split exploratory results; see [the audit](AUDIT.md).
+
+
 The first pilot counted confident errors. That did not directly test whether uncertainty could distinguish a wrong prediction from a correct one. This follow-up does, using the saved models without retraining.
 
 ## What was tested
