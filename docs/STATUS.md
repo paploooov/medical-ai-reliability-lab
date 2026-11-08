@@ -15,3 +15,5 @@ Audit completed: 80 metric rows recomputed successfully; eight exact 28×28 trai
 MedMNIST+ 64×64 archive downloaded, checksum verified, all split labels matched to 28×28. Exact overlap counts persist at 64×64. A same-case resolution figure is in reports/audit. Higher-resolution training is pending revised duplicate/split handling.
 
 Resolution sensitivity analysis completed: 4682 fit / 262 selection / 262 calibration / 621 unique test cases; six runs × 15 epochs; fixed 21249-parameter adaptive CNN; paired bootstrap primary endpoint and PDF figures saved. 30 metric rows, six weights and six cutoffs independently verified. All 12 tests pass. Results are conditional on fixed fitted models and a known benchmark, not patient-level external validation. See RESOLUTION_STUDY.md for interpretation and convergence limitations.
+
+Study 05 completed: equal-coverage sensitivity analysis, 180 rows, paired bootstrap, class breakdown, deterministic error atlas, and full-condition plots. No new training. 18 tests pass. Three external sources assessed from public documentation; no restricted data accessed. README now leads with study 05.

@@ -1,6 +1,6 @@
 # Verzeichnis der Untersuchungen
 
-Stand: 8. November 2026. **Der aktuelle Stand ist Versuch 04.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
+Stand: 8. November 2026. **Der aktuelle Stand ist die Nachanalyse 05.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
 
 ## 01 – Erste Modelle und Bildstörungen
 
@@ -40,7 +40,7 @@ Alle 80 Ergebniszeilen aus Versuch 01 und 03 wurden anhand der Vorhersagen nachg
 
 **Folge:** Alte Ergebnisse bleiben als historische Vorversuche erhalten. Versuch 04 verwendet eine neue, ausdrücklich dokumentierte Behandlung pixelidentischer Gruppen.
 
-## 04 – Aktuell: Auflösung und Fehlererkennung
+## 04 – Auflösung und Fehlererkennung
 
 **Frage:** Verändert höhere Auflösung, wie stark die Fehlerrate unter akzeptierten Vorhersagen bei Unschärfe steigt?
 
@@ -52,9 +52,19 @@ Bei relativer Unschärfe steigt die mittlere Fehlerrate unter akzeptierten Vorhe
 
 **Grenze:** Weiterhin derselbe bekannte Benchmark, keine unabhängige Patientenprüfung. Anderes Modell und Trainingsbudget als in Versuch 03. Ein Ergebnis bei definierter synthetischer Unschärfe belegt keine allgemeine medizinische Zuverlässigkeit.
 
+## 05 – Aktuell: gleicher akzeptierter Anteil
+
+**Frage:** Erklärt die unterschiedliche Zahl zurückgehaltener Vorhersagen den Auflösungsunterschied?
+
+Keine neuen Modelle. Vergleich bei exakt 80 % akzeptierten Fällen, mit labelunabhängiger Behandlung gleicher Konfidenzen und 2.000 gepaarten Bootstrap-Stichproben. Der Unterschied der Fehleranstiege schrumpft gegenüber Versuch 04 von etwa 10,1 auf 2,5 Prozentpunkte; die Regeln beantworten unterschiedliche Fragen. Alle Bedingungen und konkrete Fehlfälle sind sichtbar, einschließlich vollständiger Normal-Klassifikation unter Rauschen bei zwei 28px-Seeds.
+
+[Bericht](SELECTIVE_REVIEW.md) · [Protokoll](SELECTIVE_REVIEW_PROTOCOL.md) · [180 Ergebniszeilen](../../reports/selective_review/matched_coverage.csv) · [PDF](../../reports/selective_review/equal_coverage.pdf) · [Code](../../experiments/selective_review.py)
+
+**Grenze:** Rückblickende Rangdiagnostik anhand derselben Testfälle, keine neue Validierung und keine einsatzfertige Annahmeschwelle. [Externe Datensätze](EXTERNAL_DATA.md) wurden auf fachliche Eignung und dokumentierte Zugangshürden vorgeprüft; noch keine externen Bilder ausgewertet.
+
 ## Softwaretests sind etwas anderes als Forschungsergebnisse
 
-Die zwölf automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
+Die 18 automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
 
 [Tests](../../tests) · [Nachprüfung von Versuch 04](../../experiments/verify_resolution.py)
 

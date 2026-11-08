@@ -1,0 +1,25 @@
+{
+  "estimands": [
+    "clean_risk_64_minus_28",
+    "blur_risk_64_minus_28",
+    "difference_in_changes_64_minus_28"
+  ],
+  "point": [
+    -0.0021808378949583207,
+    -0.02715406772357168,
+    -0.024973229828613358
+  ],
+  "ci_low": [
+    -0.019142952676721663,
+    -0.04257316593641161,
+    -0.041575066776728835
+  ],
+  "ci_high": [
+    0.014208256154886408,
+    -0.0115944002399672,
+    -0.007180874152032442
+  ],
+  "bootstrap_replicates": 2000,
+  "coverage": 0.8,
+  "scope": "Retrospective ranking analysis conditional on six fixed fitted models; exact-pixel groups, not patients."
+}

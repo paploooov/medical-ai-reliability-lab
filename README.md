@@ -5,11 +5,26 @@
 
 **Thorax-Röntgenbilder · Bildqualität · Fehlererkennung · Reproduzierbare Forschung**
 
-[Aktuelle Ergebnisse](docs/research/RESOLUTION_STUDY.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Methoden](docs/research/RESOLUTION_PROTOCOL.md) · [Projektumfang](docs/research/PROJECT_SCOPE.md)
+[Aktuelle Ergebnisse](docs/research/SELECTIVE_REVIEW.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Methoden](docs/research/RESOLUTION_PROTOCOL.md) · [Projektumfang](docs/research/PROJECT_SCOPE.md)
 
 </div>
 
-## Aktueller Stand: Versuch 04 – Auflösung und Fehlererkennung
+## Aktueller Stand: Versuch 05 – Vergleich bei gleicher Akzeptanzrate
+
+**Nachanalyse, kein neues Training.** Im letzten Versuch hielt 64×64 mehr Vorhersagen zurück. Jetzt vergleichen wir beide Auflösungen bei jeweils **80 % akzeptierten Vorhersagen**.
+
+| Auflösung | Fehler bei Originalbildern | Fehler bei definierter Unschärfe |
+|---|---:|---:|
+| 28×28 | 12,5 % | 22,0 % |
+| 64×64 | 12,3 % | 19,3 % |
+
+Mittelwerte über drei Seeds. Der Unterschied im Fehleranstieg beträgt etwa **2,5 Prozentpunkte** zugunsten von 64×64 – deutlich weniger als beim vorherigen Vergleich mit unterschiedlichen Akzeptanzraten. Die rückblickend angeglichene Akzeptanzrate ist keine klinisch einsatzbereite Regel.
+
+![Vergleich bei gleicher Akzeptanzrate](reports/selective_review/equal_coverage.png)
+
+[**Neue Auswertung, konkrete Fehlfälle und Grenzen →**](docs/research/SELECTIVE_REVIEW.md) · [Alle Bedingungen einschließlich Rauschen](reports/selective_review/all_conditions.png) · [Externe Daten: Machbarkeit](docs/research/EXTERNAL_DATA.md)
+
+## Versuch 04 – Grundlage: Auflösung und Fehlererkennung
 
 **Stand: 8. November 2026.** Wir vergleichen dieselben Röntgenfälle in **28×28 und 64×64 Pixeln**. Sechs Modelle wurden trainiert: drei Zufallsinitialisierungen pro Auflösung, jeweils 15 Epochen. Die Architektur ist identisch und hat jeweils 21.249 Parameter.
 
@@ -46,14 +61,15 @@ Jede Linie zeigt einen Trainingslauf. Links: Fehler unter akzeptierten Vorhersag
 | 02 – Fehlererkennung | Hilft Unsicherheit, falsche Vorhersagen zu markieren? | Abgeschlossene Nachanalyse: [Bericht](docs/research/ERROR_DETECTION.md) |
 | 03 – CNN und Kalibrierung | Wie stabil sind drei Trainingsläufe, und hilft eine Wahrscheinlichkeitskorrektur? | Abgeschlossener Vorversuch: [Bericht](docs/research/CNN_STUDY.md) |
 | Datenprüfung | Stimmen Zahlen und Datentrennung? | Zahlen geprüft; Duplikate gefunden: [Prüfbericht](docs/research/AUDIT.md) |
-| **04 – Auflösung und getrennte Kalibrierung** | Ändert höhere Auflösung das Verhalten beim Zurückhalten unsicherer Vorhersagen? | **Aktuell abgeschlossen:** [Bericht](docs/research/RESOLUTION_STUDY.md) |
+| 04 – Auflösung und getrennte Kalibrierung | Ändert höhere Auflösung das Verhalten beim Zurückhalten unsicherer Vorhersagen? | Abgeschlossen: [Bericht](docs/research/RESOLUTION_STUDY.md) |
+| **05 – Gleiche Akzeptanzrate** | Bleibt der Unterschied bestehen, wenn beide Auflösungen gleich viele Vorhersagen akzeptieren? | **Aktuelle Nachanalyse:** [Bericht](docs/research/SELECTIVE_REVIEW.md) |
 
 Die alten Berichte bleiben erhalten, damit Entscheidungen und Änderungen nachvollziehbar sind. Ihre Ergebnisse sind **nicht direkt mit Versuch 04 gleichzusetzen**: Datenaufteilung, Architektur und Trainingsbudget unterscheiden sich. [Das Versuchsverzeichnis](docs/research/EXPERIMENTS.md) erklärt die Unterschiede und verlinkt die Belege.
 
 ## Was ist belegt – und was fehlt?
 
 - Trainierte Modelle, Gewichte, Datenindizes, Vorhersagen und Lernverläufe sind gespeichert.
-- Für Versuch 04 wurden alle 30 Ergebniszeilen, sechs gespeicherten Modelle und sechs Kalibrierungsschwellen nachgeprüft. Zwölf Softwaretests bestanden.
+- Für Versuch 04 wurden alle 30 Ergebniszeilen, sechs gespeicherten Modelle und sechs Kalibrierungsschwellen nachgeprüft. Aktuell bestehen 18 Softwaretests.
 - Die Daten stammen aus einem bekannten pädiatrischen Benchmark. Es gibt noch **keine unabhängige klinische Validierung**.
 - Pixelgleichheit ist keine Patientenidentität. Synthetische Bildstörungen entsprechen nicht automatisch einem Geräte- oder Krankenhauswechsel.
 - Ein gezielter [Literaturüberblick](docs/research/LITERATURE.md) liegt vor; wissenschaftliche Neuheit ist nicht nachgewiesen.
@@ -72,6 +88,8 @@ python scripts/compare_resolutions.py
 OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 python experiments/resolution_study.py
 python experiments/resolution_analysis.py
 python experiments/verify_resolution.py
+python experiments/selective_review.py
+python experiments/verify_selective_review.py
 python -m unittest discover -s tests -v
 ```
 
@@ -84,7 +102,7 @@ Das [Colab-Notebook](https://colab.research.google.com/github/paploooov/medical-
 - `docs/research/`: Berichte, Methoden, Literatur und Versuchsverzeichnis.
 - `experiments/`: Training, Auswertung und Nachprüfung.
 - `configs/`: festgelegte Einstellungen und Datenindizes.
-- `reports/resolution/`: **aktuelle Ergebnisse**, Diagramme, Vorhersagen und Protokolle.
+- `reports/selective_review/`: aktuelle Nachanalyse; `reports/resolution/`: zugrunde liegende Trainingsstudie mit Ergebnissen, Diagrammen, Vorhersagen und Protokollen.
 - `reports/cnn/`, `reports/metrics/`: frühere Versuche.
 - `models/resolution/`: aktuelle Modellgewichte; `tests/`: Softwareprüfungen.
 

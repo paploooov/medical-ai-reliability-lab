@@ -1,0 +1,23 @@
+[
+  {
+    "source": "mimic",
+    "url": "https://physionet.org/content/mimic-cxr-jpg/2.1.0/",
+    "accessed": "2026-11-08",
+    "scope": "Public dataset documentation only; no image download or license acceptance",
+    "html_sha256": "dc047cd2e144e292fa0dbe93953384484df5178927a963d3537d242a74f489ff"
+  },
+  {
+    "source": "vindr",
+    "url": "https://physionet.org/content/vindr-cxr/1.0.0/",
+    "accessed": "2026-11-08",
+    "scope": "Public dataset documentation only; no image download or license acceptance",
+    "html_sha256": "718c94928d1d64bb5672b6ea5500d86c7eeed96c57334dfd57dd0fe07d8e011c"
+  },
+  {
+    "source": "chexpert",
+    "url": "https://stanfordmlgroup.github.io/competitions/chexpert/",
+    "accessed": "2026-11-08",
+    "scope": "Public dataset documentation only; no image download or license acceptance",
+    "html_sha256": "673298136d7d45c1e862673f73530757c661ff62deef01abe1cfb86362f04307"
+  }
+]
