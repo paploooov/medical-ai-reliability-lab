@@ -1,113 +1,95 @@
 <div align="center">
 
 # Medical AI Reliability Lab
-### When image quality drops, does model confidence follow?
+### Erkennt medizinische KI, wenn ihre Vorhersagen unzuverlässig werden?
 
-**Medical imaging · Robustness · Calibration · Reproducible research**
+**Thorax-Röntgenbilder · Bildqualität · Fehlererkennung · Reproduzierbare Forschung**
 
-A research project investigating confident errors in chest X-ray classification.
-
-[First results](docs/research/PILOT.md) · [Methods](docs/PROTOCOL.md) · [Explore the data](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) · [Model card](models/README.md) · [Error detection](docs/research/ERROR_DETECTION.md)
+[Aktuelle Ergebnisse](docs/research/RESOLUTION_STUDY.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Methoden](docs/research/RESOLUTION_PROTOCOL.md) · [Projektumfang](docs/research/PROJECT_SCOPE.md)
 
 </div>
 
-![Robustness experiment](reports/figures/robustness.png)
+## Aktueller Stand: Versuch 04 – Auflösung und Fehlererkennung
 
-## Evidence status
+**Stand: 8. November 2026.** Wir vergleichen dieselben Röntgenfälle in **28×28 und 64×64 Pixeln**. Sechs Modelle wurden trainiert: drei Zufallsinitialisierungen pro Auflösung, jeweils 15 Epochen. Die Architektur ist identisch und hat jeweils 21.249 Parameter.
 
-This is an **exploratory benchmark project**, not a clinically validated system. An audit found **eight unique pixel-identical images shared between training and validation at 28×28**, plus repeated test images. Results remain documented official-split pilots; patient independence has not been established.
+Pixelidentische Wiederholungen wurden für diesen Versuch gruppiert. Die Daten für Training, Modellwahl, Kalibrierung und Auswertung sind bezüglich dieser Gruppen getrennt. Das ersetzt keine Prüfung der Patientenidentität.
 
-[Audit and verified checks](docs/research/AUDIT.md) · [Literature map](docs/research/LITERATURE.md) · [Revised study plan](docs/research/NEXT_STUDY.md)
+### Was ist herausgekommen?
 
-## Current experiment: resolution and rejection
+Das Modell darf unsichere Vorhersagen zurückhalten. Wir prüfen, **wie viele Fehler unter den akzeptierten Vorhersagen übrig bleiben** und wie viele Fälle überhaupt akzeptiert werden.
 
-A separate duplicate-aware analysis now compares **28×28 and 64×64**, with distinct data for fitting, checkpoint selection and calibration. Six runs use an identical 21,249-parameter network.
+| Auflösung | Bildzustand | Fehler unter akzeptierten Vorhersagen | Anteil akzeptierter Vorhersagen |
+|---|---|---:|---:|
+| 28×28 | Original | 11,0 % | 85,2 % |
+| 28×28 | Definierte Unschärfe | 29,6 % | 90,0 % |
+| 64×64 | Original | 11,0 % | 82,6 % |
+| 64×64 | Definierte Unschärfe | 19,5 % | 83,8 % |
 
-Under the prespecified relative blur, error among accepted predictions rises from **11.0% to 29.6% at 28px**, versus **11.0% to 19.5% at 64px**. Acceptance rates also differ; this is an exploratory operational comparison, not evidence of clinical safety.
+Mittelwerte über drei Trainingsläufe. Die Unschärfe wird relativ zur Bildbreite festgelegt. Die Schwelle zum Zurückhalten stammt ausschließlich aus separaten Kalibrierungsdaten.
 
-![Resolution and selective risk](reports/resolution/risk_coverage.png)
+**Einordnung:** Bei diesem Versuch steigt der Fehleranteil mit 64×64 weniger stark. Allerdings werden auch weniger Vorhersagen akzeptiert. Das belegt weder zuverlässige automatische Fehlererkennung noch klinische Sicherheit.
 
-[Study, paired intervals and limitations](docs/research/RESOLUTION_STUDY.md) · [Locked protocol](docs/research/RESOLUTION_PROTOCOL.md) · [Project scope](docs/research/PROJECT_SCOPE.md)
+![Aktueller Versuch: Fehleranteil und akzeptierte Vorhersagen](reports/resolution/risk_coverage.png)
 
-## Earlier pilot: three CNN training runs
+Jede Linie zeigt einen Trainingslauf. Links: Fehler unter akzeptierten Vorhersagen. Rechts: Anteil akzeptierter Vorhersagen. Beide Größen müssen gemeinsam betrachtet werden.
 
-A convolutional model with **105,281 parameters** completed **three runs of 25 epochs**. Clean test accuracy averaged **84.8%** (range 84.3–85.4%). More capacity did not eliminate confident errors, and validation-fitted temperature scaling did not improve mean test Brier score in this experiment.
+[**Vollständiger Bericht mit Unsicherheitsintervallen und Grenzen →**](docs/research/RESOLUTION_STUDY.md)
 
-![CNN learning curves](reports/cnn/learning_curves.png)
+[Lernkurven](reports/resolution/learning_curves.png) · [Diagramm als PDF](reports/resolution/risk_coverage.pdf) · [Ergebnistabelle](reports/resolution/results.csv) · [Technische Nachprüfung](reports/resolution/verification.json)
 
-[Full CNN study and scientific figures](docs/research/CNN_STUDY.md) · [Prespecified follow-up protocol](docs/research/CNN_PROTOCOL.md)
+## Welche Untersuchungen gibt es bisher?
 
-## The question
+| Schritt | Frage | Status und Dokumentation |
+|---|---|---|
+| 01 – Erste Baselines | Was passiert bei Rauschen, Unschärfe und Kontrastverlust? | Abgeschlossen als Vorversuch: [Bericht](docs/research/PILOT.md) |
+| 02 – Fehlererkennung | Hilft Unsicherheit, falsche Vorhersagen zu markieren? | Abgeschlossene Nachanalyse: [Bericht](docs/research/ERROR_DETECTION.md) |
+| 03 – CNN und Kalibrierung | Wie stabil sind drei Trainingsläufe, und hilft eine Wahrscheinlichkeitskorrektur? | Abgeschlossener Vorversuch: [Bericht](docs/research/CNN_STUDY.md) |
+| Datenprüfung | Stimmen Zahlen und Datentrennung? | Zahlen geprüft; Duplikate gefunden: [Prüfbericht](docs/research/AUDIT.md) |
+| **04 – Auflösung und getrennte Kalibrierung** | Ändert höhere Auflösung das Verhalten beim Zurückhalten unsicherer Vorhersagen? | **Aktuell abgeschlossen:** [Bericht](docs/research/RESOLUTION_STUDY.md) |
 
-A classifier can become less accurate without becoming less confident. This project studies that gap under controlled noise, blur and contrast changes, using public medical imaging benchmarks.
+Die alten Berichte bleiben erhalten, damit Entscheidungen und Änderungen nachvollziehbar sind. Ihre Ergebnisse sind **nicht direkt mit Versuch 04 gleichzusetzen**: Datenaufteilung, Architektur und Trainingsbudget unterscheiden sich. [Das Versuchsverzeichnis](docs/research/EXPERIMENTS.md) erklärt die Unterschiede und verlinkt die Belege.
 
-## First experiment
+## Was ist belegt – und was fehlt?
 
-A small neural network and a logistic baseline have been trained and evaluated on PneumoniaMNIST. The neural model achieves **84.0% clean test accuracy**. Under the strongest contrast reduction, accuracy falls to **62.5%**, while mean confidence rises to **95.5%**. It predicts pneumonia for every image in that condition, with zero specificity.
+- Trainierte Modelle, Gewichte, Datenindizes, Vorhersagen und Lernverläufe sind gespeichert.
+- Für Versuch 04 wurden alle 30 Ergebniszeilen, sechs gespeicherten Modelle und sechs Kalibrierungsschwellen nachgeprüft. Zwölf Softwaretests bestanden.
+- Die Daten stammen aus einem bekannten pädiatrischen Benchmark. Es gibt noch **keine unabhängige klinische Validierung**.
+- Pixelgleichheit ist keine Patientenidentität. Synthetische Bildstörungen entsprechen nicht automatisch einem Geräte- oder Krankenhauswechsel.
+- Ein gezielter [Literaturüberblick](docs/research/LITERATURE.md) liegt vor; wissenschaftliche Neuheit ist nicht nachgewiesen.
 
-These are **pilot results**, not evidence of clinical readiness. The neural model does not outperform the linear baseline on clean accuracy. Read the [full report](docs/research/PILOT.md) for denominators, uncertainty and limitations.
+## Aktuellen Versuch reproduzieren
 
-![Image transformations](reports/figures/corruptions.png)
-
-## Can the model flag its own errors?
-
-Uncertainty flags **54 of 100 neural-model errors** on original test images, using a threshold set on validation data. It also flags 107 correct predictions. Under strong contrast loss, **20% of retained predictions remain wrong**. This is a limited warning signal, not reliable self-diagnosis.
-
-![Error detection and selective prediction](reports/figures/error_detection.png)
-
-[Analysis and trade-offs](docs/research/ERROR_DETECTION.md) · [What we trained](docs/research/MODELS.md)
-
-## Reproduce
-
-Python 3.12; CPU sufficient. No API key, paid server or GPU required.
+Python 3.12 und CPU reichen aus. Kein API-Schlüssel und kein kostenpflichtiger Dienst erforderlich.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.5.1
 python scripts/inspect_data.py
-OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 python experiments/train.py
-python experiments/error_detection.py
+python scripts/compare_resolutions.py
+OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 python experiments/resolution_study.py
+python experiments/resolution_analysis.py
+python experiments/verify_resolution.py
 python -m unittest discover -s tests -v
 ```
 
-The official ~4 MB archive is downloaded and checksum-verified. Training uses 4,708 images, validation uses 524, and final evaluation uses 624. Re-running replaces generated reports and weights. Raw data and virtual environments are excluded from Git. The Colab notebook covers data exploration; model training is available through the command above.
+Die beiden Datenskripte laden und prüfen die offiziellen Archive. Das Training verwendet das bereits gespeicherte Gruppen- und Indexverzeichnis `configs/resolution_manifest.json`: 4.682 Trainingsfälle, je 262 Fälle für Modellwahl und Kalibrierung, 621 eindeutige Testrepräsentanten. Ein erneuter Lauf ersetzt die erzeugten Gewichte und Ergebnisse dieses Versuchs. Rohdaten und virtuelle Umgebung bleiben außerhalb von Git.
 
-## Project map
+Das [Colab-Notebook](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) zeigt bisher nur den Dateneinstieg, nicht die aktuelle Trainingsstudie.
 
-```text
-configs/                  Frozen experiment settings
-experiments/              Training and evaluation
-models/                   Numeric weights and model card
-notebooks/                Explained data exploration
-scripts/                  Dataset inspection
-reports/
-  figures/                Visual comparisons
-  metrics/                Predictions, results and provenance
-docs/
-  research/               Research reports
-  PROTOCOL.md             Methods and endpoints
-tests/                    Metric correctness checks
-```
+## Orientierung im Repository
 
-## Research direction
+- `docs/research/`: Berichte, Methoden, Literatur und Versuchsverzeichnis.
+- `experiments/`: Training, Auswertung und Nachprüfung.
+- `configs/`: festgelegte Einstellungen und Datenindizes.
+- `reports/resolution/`: **aktuelle Ergebnisse**, Diagramme, Vorhersagen und Protokolle.
+- `reports/cnn/`, `reports/metrics/`: frühere Versuche.
+- `models/resolution/`: aktuelle Modellgewichte; `tests/`: Softwareprüfungen.
 
-- [x] Verified public data and official splits
-- [x] Train linear and neural baselines
-- [x] Evaluate nine corruption conditions and clean control
-- [x] Publish predictions, weights and paired uncertainty estimates
-- [ ] Compare related research and select a higher-resolution dataset
-- [x] Three-seed convolutional baseline and validation-fitted temperature scaling
-- [ ] Paired uncertainty estimates and broader model comparisons
-- [ ] External validation
-- [ ] Local Core ML / SwiftUI demonstration
+## Daten, Nutzung und Lizenz
 
-## Scope and sources
+Öffentliche pädiatrische Thorax-Röntgenbilder aus [MedMNIST](https://medmnist.com/) / [MedMNIST+](https://github.com/MedMNIST/MedMNIST/blob/main/on_medmnist_plus.md). PneumoniaMNIST wird von den Herausgebern unter **CC BY 4.0** geführt; die gezeigten Bildbeispiele sind daraus abgeleitet. Quelle: Yang et al., *MedMNIST v2*, Scientific Data (2023), [DOI](https://doi.org/10.1038/s41597-022-01721-8), sowie die dort dokumentierte Originaldatenquelle.
 
-This project currently concerns low-resolution **pediatric chest X-rays**. Synthetic perturbations do not demonstrate transfer across hospitals or scanners. Patient independence cannot be independently verified from the distributed arrays. No clinical diagnosis or treatment use is intended.
-
-Data: [MedMNIST](https://medmnist.com/) · [Official metadata](https://github.com/MedMNIST/MedMNIST) · [Archive](https://zenodo.org/records/10519652). PneumoniaMNIST is listed as **CC BY 4.0** by its maintainers; displayed samples and transformed examples derive from that dataset. See Yang et al., *MedMNIST v2*, Scientific Data (2023), [DOI](https://doi.org/10.1038/s41597-022-01721-8), and the underlying pediatric X-ray source described there.
-
-## Licensing
-
-Software licensing is not yet assigned. Dataset attribution and rights are separate. See [licensing status](docs/LICENSING.md).
+Forschungsprojekt, keine Anwendung zur Diagnose oder Behandlung. Eine Softwarelizenz wurde noch nicht vergeben; [Daten- und Softwarerechte sind getrennt](docs/LICENSING.md).
