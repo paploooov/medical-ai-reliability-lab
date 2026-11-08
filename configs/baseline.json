@@ -1,0 +1,1 @@
+{"seed":42,"logistic_C":[0.01,0.1,1.0],"mlp_hidden":[64],"mlp_epochs":40,"selection":"minimum validation log loss","threshold":0.5,"high_confidence":0.9,"noise":[0.05,0.1,0.2],"blur":[0.5,1,2],"contrast":[0.75,0.5,0.25]}
