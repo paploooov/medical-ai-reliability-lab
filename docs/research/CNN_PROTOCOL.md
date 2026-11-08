@@ -1,0 +1,7 @@
+# CNN follow-up protocol
+
+Three fixed seeds (17, 42, 83), 25 epochs each, Adam 0.001, batch 128. Architecture: two 3×3 convolution layers (16 and 32 channels), ReLU and 2×2 max pooling, 64-unit dense head and one logit. Input 28×28 grayscale /255. No augmentation. Select the lowest clean validation BCE checkpoint separately for each seed. Fit one positive temperature on the same validation split, not the test set; this reuse can overfit validation and warrants a separate calibration split in future work. Use the validation 20th confidence percentile for rejection.
+
+Evaluate every selected checkpoint on clean and nine prespecified corruptions from the pilot. Save every epoch, weights, predictions, selected temperatures and software provenance. Show means and min–max across seeds, explicitly not population confidence intervals. The same images appear in every seed: pooling predictions does not increase independent sample size. Calibration diagrams pool seed predictions descriptively. This benchmark was already examined; this is exploratory follow-up, not independent confirmation. No clinically validated model or external dataset is claimed.
+
+Temperature scaling preserves each model's class predictions and uncertainty ordering in binary classification; changes in fixed confidence thresholds and Brier score must not be confused with improved error ranking. The validation-percentile rejection rule should retain the same cases before and after positive temperature scaling, up to numerical ties.

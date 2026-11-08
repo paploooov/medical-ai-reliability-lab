@@ -1,0 +1,2 @@
+-r requirements.txt
+# Install CPU torch separately: pip install --index-url https://download.pytorch.org/whl/cpu torch==2.5.1
