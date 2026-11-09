@@ -1,0 +1,23 @@
+{
+  "estimand": "45-minus-15 change in noise-minus-clean retained error risk",
+  "resolutions": [
+    28,
+    64
+  ],
+  "primary_resolution": 28,
+  "point": [
+    -0.03310041642778394,
+    0.03881401385469849
+  ],
+  "ci_low": [
+    -0.0530998073425218,
+    0.010372531278652253
+  ],
+  "ci_high": [
+    -0.014708335372090885,
+    0.06729900749631129
+  ],
+  "replicates": 2000,
+  "discarded": 0,
+  "scope": "Paired exact-group bootstrap conditional on models and cutoffs; not patient-level or population training uncertainty."
+}

@@ -1,0 +1,89 @@
+{
+  "config": {
+    "resolutions": [
+      28,
+      64
+    ],
+    "seeds": [
+      17,
+      42,
+      83
+    ],
+    "epochs": 45,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "primary_blur_sigma_fraction": 0.03571428571428571,
+    "target_calibration_coverage": 0.8,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 2026,
+    "primary_endpoint": "noise-minus-clean retained risk change at 45 versus 15 epochs, 28px mean across three matched seeds",
+    "study": "06: fixed training-budget extension, exploratory known benchmark",
+    "noise_seed": 42
+  },
+  "choices": [
+    {
+      "resolution": 28,
+      "seed": 17,
+      "epoch": 45,
+      "selection_bce": 0.10208053141832352,
+      "threshold": 0.9403024315834045,
+      "training_seconds": 16.987509863989544,
+      "parameters": 21249,
+      "weights_sha256": "9ec791e5f96ff50b9d94db5bcf96dfc850ce25641006faf28222206fc2a7ee03"
+    },
+    {
+      "resolution": 28,
+      "seed": 42,
+      "epoch": 45,
+      "selection_bce": 0.13392162322998047,
+      "threshold": 0.7681560516357422,
+      "training_seconds": 17.671865848999005,
+      "parameters": 21249,
+      "weights_sha256": "4cfdb12424bbb95bc379a18a54b7e7d72a9218127ccf5a273fc63b6df290a21e"
+    },
+    {
+      "resolution": 28,
+      "seed": 83,
+      "epoch": 42,
+      "selection_bce": 0.1356583833694458,
+      "threshold": 0.7463995218276978,
+      "training_seconds": 17.947146816994064,
+      "parameters": 21249,
+      "weights_sha256": "ad6b27e41526a9f54690f8f6060b49ff6b2f8603b6d0414df50e548f49d0c738"
+    },
+    {
+      "resolution": 64,
+      "seed": 17,
+      "epoch": 42,
+      "selection_bce": 0.1045483872294426,
+      "threshold": 0.9409592747688293,
+      "training_seconds": 116.48611867800355,
+      "parameters": 21249,
+      "weights_sha256": "8e867a668c33f592e34d6d71628347bbff9fb30dddfd2aa831e0a0932bf4b528"
+    },
+    {
+      "resolution": 64,
+      "seed": 42,
+      "epoch": 45,
+      "selection_bce": 0.14713479578495026,
+      "threshold": 0.7842500805854797,
+      "training_seconds": 115.86811670499446,
+      "parameters": 21249,
+      "weights_sha256": "eae6512416f93865ad062840dd25e23e6541fc1c766b36fe53f8d7b2c4d3b883"
+    },
+    {
+      "resolution": 64,
+      "seed": 83,
+      "epoch": 44,
+      "selection_bce": 0.1515892595052719,
+      "threshold": 0.7645025849342346,
+      "training_seconds": 123.29629163700156,
+      "parameters": 21249,
+      "weights_sha256": "5f4631d4390f32473e0ab69647fd321d44daee2e4daca9908883696edcf27039"
+    }
+  ],
+  "torch": "2.5.1+cpu",
+  "elapsed_seconds": 412.5978933469887,
+  "commit": "4aad095e431b5d9c041a16c5a53f11350f6c9b5e",
+  "manifest_sha256": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0"
+}

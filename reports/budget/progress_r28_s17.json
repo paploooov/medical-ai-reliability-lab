@@ -1,0 +1,10 @@
+{
+  "resolution": 28,
+  "seed": 17,
+  "epoch": 45,
+  "selection_bce": 0.10208053141832352,
+  "threshold": 0.9403024315834045,
+  "training_seconds": 16.987509863989544,
+  "parameters": 21249,
+  "weights_sha256": "9ec791e5f96ff50b9d94db5bcf96dfc850ce25641006faf28222206fc2a7ee03"
+}

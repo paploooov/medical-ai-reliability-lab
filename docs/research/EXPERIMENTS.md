@@ -1,6 +1,6 @@
 # Verzeichnis der Untersuchungen
 
-Stand: 8. November 2026. **Der aktuelle Stand ist die Nachanalyse 05.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
+Stand: 9. November 2026. **Der aktuelle Stand ist Versuch 06.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
 
 ## 01 – Erste Modelle und Bildstörungen
 
@@ -52,7 +52,7 @@ Bei relativer Unschärfe steigt die mittlere Fehlerrate unter akzeptierten Vorhe
 
 **Grenze:** Weiterhin derselbe bekannte Benchmark, keine unabhängige Patientenprüfung. Anderes Modell und Trainingsbudget als in Versuch 03. Ein Ergebnis bei definierter synthetischer Unschärfe belegt keine allgemeine medizinische Zuverlässigkeit.
 
-## 05 – Aktuell: gleicher akzeptierter Anteil
+## 05 – gleicher akzeptierter Anteil
 
 **Frage:** Erklärt die unterschiedliche Zahl zurückgehaltener Vorhersagen den Auflösungsunterschied?
 
@@ -62,9 +62,19 @@ Keine neuen Modelle. Vergleich bei exakt 80 % akzeptierten Fällen, mit labeluna
 
 **Grenze:** Rückblickende Rangdiagnostik anhand derselben Testfälle, keine neue Validierung und keine einsatzfertige Annahmeschwelle. [Externe Datensätze](EXTERNAL_DATA.md) wurden auf fachliche Eignung und dokumentierte Zugangshürden vorgeprüft; noch keine externen Bilder ausgewertet.
 
+## 06 – Aktuell: Rauschdiagnose und 45-Epochen-Budget
+
+**Frage:** Warum kollabieren Modelle unter Rauschen, und reicht längeres Training als Gegenmaßnahme?
+
+Sechs erneute Trainingsläufe, je 45 Epochen; die ersten 15 stimmen mit Versuch 04 überein. Der Zusammenbruch bleibt bestehen. Bei mehreren Modellen werden die letzten Merkmale null, sodass nur der Ausgabebias wirkt. Eine Zusatzdiagnose untersucht sechs Rauschstärken mit drei Rauschseeds, insgesamt 108 Kombinationen.
+
+[Bericht](BUDGET_STUDY.md) · [Protokoll](BUDGET_PROTOCOL.md) · [Ergebnisse](../../reports/budget/results.csv) · [Nachprüfung](../../reports/budget/verification.json)
+
+**Grenze:** Bekannter Benchmark, feste kleine Architektur, keine klinische oder externe Validierung. Die interne Nullvektor-Diagnose erklärt nicht alle Fehler und ist kein medizinischer Befund.
+
 ## Softwaretests sind etwas anderes als Forschungsergebnisse
 
-Die 18 automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
+Die 20 automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
 
 [Tests](../../tests) · [Nachprüfung von Versuch 04](../../experiments/verify_resolution.py)
 

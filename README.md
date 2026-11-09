@@ -5,11 +5,21 @@
 
 **Thorax-Röntgenbilder · Bildqualität · Fehlererkennung · Reproduzierbare Forschung**
 
-[Aktuelle Ergebnisse](docs/research/SELECTIVE_REVIEW.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Methoden](docs/research/RESOLUTION_PROTOCOL.md) · [Projektumfang](docs/research/PROJECT_SCOPE.md)
+[Aktuelle Ergebnisse](docs/research/BUDGET_STUDY.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Methoden](docs/research/RESOLUTION_PROTOCOL.md) · [Projektumfang](docs/research/PROJECT_SCOPE.md)
 
 </div>
 
-## Aktueller Stand: Versuch 05 – Vergleich bei gleicher Akzeptanzrate
+## Aktueller Stand: Versuch 06 – Längeres Training behebt den Rauschfehler nicht
+
+**9. November 2026.** Sechs erneute Trainingsläufe mit 45 statt 15 Epochen zeigen: Mehr Training allein löst die beobachteten Robustheitsprobleme nicht. Unter dem getesteten Rauschen bleibt die mittlere Accuracy bei 28×28 ungefähr bei **40 %**; bei 64×64 sinkt sie von **76,1 auf 65,6 %**.
+
+Die interne Diagnose zeigt bei mehreren Modellen vollständig leere letzte Merkmalsvektoren. Dann bestimmt nur noch der feste Bias die Ausgabe. Diese Fälle werden von der Annahmeregel häufig weiterhin akzeptiert.
+
+![Merkmalsverlust unter Rauschen](reports/budget/hidden_collapse.png)
+
+[**Vergleich, Lernkurven und Grenzen →**](docs/research/BUDGET_STUDY.md) · [Sechs Rauschstärken](reports/budget/noise_severity.png) · [Prüfnachweis](reports/budget/verification.json)
+
+## Versuch 05 – Vergleich bei gleicher Akzeptanzrate
 
 **Nachanalyse, kein neues Training.** Im letzten Versuch hielt 64×64 mehr Vorhersagen zurück. Jetzt vergleichen wir beide Auflösungen bei jeweils **80 % akzeptierten Vorhersagen**.
 
@@ -62,14 +72,15 @@ Jede Linie zeigt einen Trainingslauf. Links: Fehler unter akzeptierten Vorhersag
 | 03 – CNN und Kalibrierung | Wie stabil sind drei Trainingsläufe, und hilft eine Wahrscheinlichkeitskorrektur? | Abgeschlossener Vorversuch: [Bericht](docs/research/CNN_STUDY.md) |
 | Datenprüfung | Stimmen Zahlen und Datentrennung? | Zahlen geprüft; Duplikate gefunden: [Prüfbericht](docs/research/AUDIT.md) |
 | 04 – Auflösung und getrennte Kalibrierung | Ändert höhere Auflösung das Verhalten beim Zurückhalten unsicherer Vorhersagen? | Abgeschlossen: [Bericht](docs/research/RESOLUTION_STUDY.md) |
-| **05 – Gleiche Akzeptanzrate** | Bleibt der Unterschied bestehen, wenn beide Auflösungen gleich viele Vorhersagen akzeptieren? | **Aktuelle Nachanalyse:** [Bericht](docs/research/SELECTIVE_REVIEW.md) |
+| **05 – Gleiche Akzeptanzrate** | Bleibt der Unterschied bestehen, wenn beide Auflösungen gleich viele Vorhersagen akzeptieren? | Abgeschlossen: [Bericht](docs/research/SELECTIVE_REVIEW.md) |
+| **06 – Trainingsbudget und Rauschfehler** | Hilft längeres Training, und wo gehen die Bildmerkmale verloren? | **Aktuell:** [Bericht](docs/research/BUDGET_STUDY.md) |
 
 Die alten Berichte bleiben erhalten, damit Entscheidungen und Änderungen nachvollziehbar sind. Ihre Ergebnisse sind **nicht direkt mit Versuch 04 gleichzusetzen**: Datenaufteilung, Architektur und Trainingsbudget unterscheiden sich. [Das Versuchsverzeichnis](docs/research/EXPERIMENTS.md) erklärt die Unterschiede und verlinkt die Belege.
 
 ## Was ist belegt – und was fehlt?
 
 - Trainierte Modelle, Gewichte, Datenindizes, Vorhersagen und Lernverläufe sind gespeichert.
-- Für Versuch 04 wurden alle 30 Ergebniszeilen, sechs gespeicherten Modelle und sechs Kalibrierungsschwellen nachgeprüft. Aktuell bestehen 18 Softwaretests.
+- Für Versuch 04 wurden alle 30 Ergebniszeilen, sechs gespeicherten Modelle und sechs Kalibrierungsschwellen nachgeprüft. Aktuell bestehen 20 Softwaretests.
 - Die Daten stammen aus einem bekannten pädiatrischen Benchmark. Es gibt noch **keine unabhängige klinische Validierung**.
 - Pixelgleichheit ist keine Patientenidentität. Synthetische Bildstörungen entsprechen nicht automatisch einem Geräte- oder Krankenhauswechsel.
 - Ein gezielter [Literaturüberblick](docs/research/LITERATURE.md) liegt vor; wissenschaftliche Neuheit ist nicht nachgewiesen.

@@ -7,6 +7,7 @@ Alle Modelle wurden für dieses Projekt auf PneumoniaMNIST trainiert. Es sind kl
 | `logistic.npz`, `mlp.npz` | Logistische Regression; 784→64 ReLU→1 Sigmoid | Offizielle Splits, früher Pilot | [Versuch 01](../docs/research/PILOT.md) |
 | `cnn/seed_*.pt` | Zwei Faltungsblöcke, 105.281 Parameter | Drei Seeds, 25 Epochen; offizielle Splits | [Versuch 03](../docs/research/CNN_STUDY.md) |
 | `resolution/r*_s*.pt` | Zwei Faltungsblöcke, adaptives Pooling, 21.249 Parameter | Duplikatgruppen getrennt; 15 Epochen Budget, Auswahl nach Modellwahl-BCE | [Versuch 04](../docs/research/RESOLUTION_STUDY.md) |
+| `budget/r*_s*.pt` | Identische adaptive Architektur, 21.249 Parameter | 45 statt 15 Epochen Budget, gleiche Daten und Auswahlregel | [Versuch 06](../docs/research/BUDGET_STUDY.md) |
 
 Versuch 05 verwendet die Modelle von Versuch 04 unverändert. Die gewählte Auflösung ist Teil der Eingabespezifikation; eine adaptive Architektur allein macht die Gewichte nicht beliebig zwischen Auflösungen austauschbar.
 

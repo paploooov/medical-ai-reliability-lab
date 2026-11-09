@@ -1,0 +1,5 @@
+{
+  "severity_rows": 108,
+  "zero_noise_matches_clean": true,
+  "sigma_0_1_seed42_matches_previous_predictions_and_zero_counts": true
+}
