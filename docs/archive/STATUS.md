@@ -1,6 +1,6 @@
 # Project status — 8 November 2026
 
-Completed: dataset validation, linear and 64-unit neural training, validation selection, ten-condition test evaluation, paired bootstrap intervals, figures, portable numeric weights, and metric checks. Full findings: [pilot report](research/PILOT.md).
+Completed: dataset validation, linear and 64-unit neural training, validation selection, ten-condition test evaluation, paired bootstrap intervals, figures, portable numeric weights, and metric checks. Full findings: [pilot report](PILOT.md).
 
 Next milestone: related-work review and higher-resolution data assessment, followed by declared multi-seed and calibration experiments. The pilot test set has been seen; do not represent further tuning as independent confirmation. No external validation or Apple app has been completed. Infrastructure expenditure: none.
 

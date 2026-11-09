@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "released_artifacts_unchanged": 193,
+  "metric_summaries_checked": 32,
+  "figures_byte_identical": 2,
+  "source_hashes_verified": true,
+  "verifier_sha256": "0be8103f631bb167d584e922656fab57aa72a96acc37893fd095729a0e65bd0e"
+}

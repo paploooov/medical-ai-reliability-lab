@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "existing_model_result_and_raw_files_unchanged": 195,
+  "raw_archives_sha256": {
+    "data/pneumoniamnist_64.npz": "97c5a52c65a74f6c5b77a3d8b3bb8aba58276d5a1aaa3b0340d079e54f8e9756",
+    "data/pneumoniamnist.npz": "e1792d3f03751cb101e99f19a63b3c1941436c988665f47853417b05be250cd8"
+  },
+  "released_manifest": "docs/releases/v1.0.0/artifacts.sha256.json"
+}
