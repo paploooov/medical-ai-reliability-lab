@@ -1,0 +1,66 @@
+{
+  "inputs_sha256": {
+    "models/budget/r28_s17.pt": "9ec791e5f96ff50b9d94db5bcf96dfc850ce25641006faf28222206fc2a7ee03",
+    "models/budget/r28_s42.pt": "4cfdb12424bbb95bc379a18a54b7e7d72a9218127ccf5a273fc63b6df290a21e",
+    "models/budget/r28_s83.pt": "ad6b27e41526a9f54690f8f6060b49ff6b2f8603b6d0414df50e548f49d0c738",
+    "models/augmentation/r28_s17.pt": "d6a7889990dd40262f61854e7d57332712cc5eb41cf4ee78cef87f1d33bee3c4",
+    "models/augmentation/r28_s42.pt": "48456cd90f75a2fe5d85f6c88a35950e2399c7f43090e5404ab3cbdb6e0e2fc1",
+    "models/augmentation/r28_s83.pt": "e2350d1afd71b6611f3798af90cfb9a0ffb88327b6886112a8ac85043b4461cb",
+    "reports/calibration/predictions.npz": "0e19afeb356ca50e5cef403bbc5a3be0d64e5a6be6f2861bf7b42fa5e1ced8f5",
+    "reports/calibration/provenance.json": "c4542eecfaadc877944f9c9df6507cd3154df1a3dd4706e2df3d0075faec575f",
+    "reports/augmentation/comparison_predictions.npz": "add7605ce948db9446eb4eb2d86fbb41e0a3a2db46f8d3b379bb74b90321f52c",
+    "configs/resolution_manifest.json": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0",
+    "data/pneumoniamnist.npz": "e1792d3f03751cb101e99f19a63b3c1941436c988665f47853417b05be250cd8",
+    "experiments/transfer_study.py": "9443a4714bbda0e7732067d84bc1fb910493eee900513009195dd4a4c9898237",
+    "experiments/mechanistic_ties.py": "8eb71dfe8080207c5069ac9a81a57d36316a6b6cc5cfbc60b55cd7eaa47008ef",
+    "experiments/noise_diagnostics.py": "7c54895a1f793a11b785224ebaf077d05962e11a08a988791ec0efd33ecd58b4",
+    "experiments/resolution_study.py": "44e9c293f3862a5a72228fed5e418eef6419696bee183249c0b75ddc3581a7ea",
+    "experiments/augmentation_analysis.py": "7140b81286f908772f561e6f3e13a8e0fd8cb8702a297524baa90f24ec23ecc8"
+  },
+  "models": [
+    {
+      "arm": "control",
+      "seed": 17,
+      "weights_sha256": "9ec791e5f96ff50b9d94db5bcf96dfc850ce25641006faf28222206fc2a7ee03"
+    },
+    {
+      "arm": "control",
+      "seed": 42,
+      "weights_sha256": "4cfdb12424bbb95bc379a18a54b7e7d72a9218127ccf5a273fc63b6df290a21e"
+    },
+    {
+      "arm": "control",
+      "seed": 83,
+      "weights_sha256": "ad6b27e41526a9f54690f8f6060b49ff6b2f8603b6d0414df50e548f49d0c738"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 17,
+      "weights_sha256": "d6a7889990dd40262f61854e7d57332712cc5eb41cf4ee78cef87f1d33bee3c4"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 42,
+      "weights_sha256": "48456cd90f75a2fe5d85f6c88a35950e2399c7f43090e5404ab3cbdb6e0e2fc1"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 83,
+      "weights_sha256": "e2350d1afd71b6611f3798af90cfb9a0ffb88327b6886112a8ac85043b4461cb"
+    }
+  ],
+  "conditions": [
+    "clean",
+    "noise",
+    "blur",
+    "contrast"
+  ],
+  "torch": "2.5.1+cpu",
+  "numpy": "2.2.6",
+  "threads": 2,
+  "deterministic_algorithms": true,
+  "rule": "Originalkalibrierung; Study09-Hash-Salt; keine Nachkalibrierung unter St\u00f6rung",
+  "blur": "Gaussian sigma=1 pixel, reflect; relative_blur == fixed_blur at 28px",
+  "noise": "Gaussian SD=0.1, seed=42, clip[0,1]",
+  "contrast": "0.5+0.5*(image-0.5)"
+}

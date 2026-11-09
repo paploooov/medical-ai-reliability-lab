@@ -1,0 +1,6 @@
+{
+  "prefix_epochs_checked": 90,
+  "max_prefix_loss_difference": 0.0,
+  "metric_rows_verified": 30,
+  "weights_and_cutoffs_verified": 6
+}

@@ -58,3 +58,12 @@ Die Reduktion auf 28×28 Pixel eliminiert radiologische Feinstrukturen. Das synt
 [Versuch 09](MECHANISTIC_TIES.md) erklärt alle 250 Modell-Fall-Paare auf den fünf betroffenen Kalibrierungsschwellen durch einen vollständig leeren letzten Merkmalsvektor und den daraus folgenden Bias-Logit. Weder Sättigung bei Konfidenz 1,0 noch eine diskrete Wahrscheinlichkeitskalibrierung verursacht diese Gleichstände. Die 54 leeren Ziehungen entstehen, weil die gezogene Schwelle über sämtliche Konfidenzen der Rauschfälle steigt.
 
 Eine feste Hash-Reihenfolge löst Gleichstände auf: Alle Modelle akzeptieren dann 209 von 262 Kalibrierungsfällen (79,77 %; exakt 80 % ist hier binär nicht möglich). Auf Testdaten garantiert das weder dieselbe Quote noch weniger Fehler. Nullvektoren pauschal zurückzuhalten senkt die Verfügbarkeit teilweise bis auf null und kann die verbleibende Fehlerrate erhöhen. Die Gegenproben begrenzen damit die Interpretation; sie liefern keine neue validierte Sicherheitsregel. Frühere Gewichte und Ergebnisse bleiben erhalten.
+
+
+## Versuch 10: Transfer ist nicht gleich Kollapsvermeidung
+
+Die Nachanalyse verwendet unveränderte Modelle, Original-Kalibrierung und dieselben Testfälle. Blur und Kontrastreduktion waren nicht Teil des Rauschaugmentationstrainings, aber bereits bekannte Projekt-Testbedingungen. Eine unabhängige OOD-Validierung liegt deshalb nicht vor.
+
+Unter Blur haben augmentierte Modelle mehr Nullvektoren als die Kontrollen, erreichen aber bei allen drei Seeds eine höhere Gesamt-Accuracy. Bei beiden Armen sind die Nullvektorzahlen niedriger als auf Originalbildern; der massive Rausch-Kollaps kehrt unter diesen Störungsstärken nicht wieder. Unter Kontrastreduktion bleiben bei augmentierten Modellen nur 10, 3 und 0 Nullvektoren, während 20,08 %, 22,09 % und 30,89 % ihrer nach Standardregel akzeptierten Vorhersagen falsch sind. Die Kombination aus Tie-Breaking und Nullvektor-Ausschluss beseitigt dieses Problem nicht und kann den verbleibenden Fehleranteil erhöhen.
+
+Nullaktivierung ist somit ein konkreter interner Mechanismus, aber kein allgemeines Maß für Fehlererkennung oder Robustheit. Auch beim bekannten Rauschen hatte Augmentation den Nullvektor nicht vollständig verhindert, sondern den massiven Kollaps deutlich reduziert. Der [Versuch-10-Bericht](TRANSFER_STUDY.md) enthält alle Seeds, beide Annahmeregeln, Originalreferenzen, Abbildungen und die Grenzen der Aussage.

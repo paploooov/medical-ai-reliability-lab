@@ -5,11 +5,21 @@
 
 **Thorax-Röntgenbilder · Fehlererkennung · Kontrollierte Experimente · Reproduzierbare Forschung**
 
-[Aktuelle Ergebnisse](docs/research/MECHANISTIC_TIES.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Forschungsüberblick](docs/research/RESEARCH_SUMMARY.md) · [Modelle](models/README.md)
+[Aktuelle Ergebnisse](docs/research/TRANSFER_STUDY.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Forschungsüberblick](docs/research/RESEARCH_SUMMARY.md) · [Modelle](models/README.md)
 
 </div>
 
-## Aktuell: Versuch 09 – Woher kommen die Gleichstände?
+## Aktuell: Versuch 10 – Transfer auf Blur und Kontrastreduktion
+
+Sechs unveränderte Modelle, keine neue Optimierung. Unter **Blur** erreichen die augmentierten Modelle bei allen drei Seeds eine höhere Accuracy als die Kontrollen, obwohl sie mehr Nullvektoren haben. Unter **Kontrastreduktion** sind Nullvektoren selten, während bei den augmentierten Modellen **20,08–30,89 % der akzeptierten Vorhersagen falsch** sind. Tie-Breaking plus Nullvektor-Ausschluss senkt diese Fehlerraten nicht allgemein.
+
+Diese Störungen waren nicht im Augmentationstraining enthalten, wurden im Projekt aber bereits untersucht. Das ist eine explorative Transferdiagnose, keine unabhängige OOD-Validierung.
+
+![Transferdiagnose: einzelne Modelle und Bedingungen](reports/transfer/mechanism.png)
+
+[**Versuch 10: Methoden, vollständige Ergebnisse und Grenzen →**](docs/research/TRANSFER_STUDY.md) · [Prüfnachweis](reports/transfer/verification.json) · [Alle Ergebniszeilen](reports/transfer/results.md)
+
+## Versuch 09 – Woher kommen die Gleichstände?
 
 Alle **250 Modell-Fall-Paare auf den fünf betroffenen Kalibrierungsschwellen** haben einen vollständig nullgesetzten letzten Merkmalsvektor: Das Modell gibt exakt seinen Bias-Logit aus. Float-Sättigung erklärt diese Gleichstände nicht.
 
@@ -66,6 +76,7 @@ Punkte: Mittelwerte der drei Trainingsläufe. Fehlerbalken: Minimum bis Maximum,
 | **07 – Rauschaugmentation** | Hilft gezieltes Training gegen diese Störung? | **Deutliche Verbesserung unter Rauschen, mit Grenzen und Nebenwirkungen.** [Bericht](docs/research/AUGMENTATION_STUDY.md) |
 | **08 – Kalibrierungsstichprobe** | Wie stabil sind Annahmeschwellen aus 262 Fällen? | Gleichstände und leere Teilmengen begrenzen die Interpretation. [Bericht](docs/research/CALIBRATION_STUDY.md) |
 | **09 – Mechanistische Nachanalyse** | Woher kommen Gleichstände, was ändern Gegenregeln? | Nullvektoren erklären die Grenzgruppe; Gegenregeln beheben die Fehlerrate nicht allgemein. [Bericht](docs/research/MECHANISTIC_TIES.md) |
+| **10 – Störungstransfer** | Überträgt sich die Rauschaugmentation auf Blur und Kontrast? | Mehr Nullvektoren können mit höherer Accuracy einhergehen; wenige Nullvektoren garantieren keine verlässliche Annahme. [Bericht](docs/research/TRANSFER_STUDY.md) |
 
 Die Folgeversuche verwenden denselben bereits untersuchten Benchmark. Sie sind keine unabhängigen klinischen Replikationen. Frühere Ergebnisse bleiben nachvollziehbar; verschiedene Architekturen und Datenaufteilungen dürfen nicht als einfache Bestenliste verglichen werden.
 
@@ -87,22 +98,21 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.5.1
 python scripts/inspect_data.py
-python experiments/mechanistic_ties.py --output /tmp/study09-new
-cp reports/mechanistic_ties/previous_artifacts.json /tmp/study09-new/
-python experiments/verify_mechanistic_ties.py --output /tmp/study09-new
+python experiments/transfer_study.py --output /tmp/study10-new
+python experiments/verify_transfer.py --output /tmp/study10-new
 python -m unittest discover -s tests -v
 ```
 
-Versuch 09 verweigert das Überschreiben bestehender Ergebnisdateien. Für erneute Berechnungen ist ein neuer Ausgabeordner erforderlich. Gewichte und Ergebnisse früherer Versuche bleiben erhalten. Rohdaten werden heruntergeladen und geprüft; sie sind nicht in Git enthalten. Die Berichte enthalten die Befehle für frühere Versuche. Das [Colab-Notebook](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) zeigt bisher nur den Dateneinstieg.
+Versuch 10 verlangt einen neuen Ausgabeordner und überschreibt keine bestehenden Ergebnisse. Für erneute Berechnungen ist ein neuer Ausgabeordner erforderlich. Gewichte und Ergebnisse früherer Versuche bleiben erhalten. Rohdaten werden heruntergeladen und geprüft; sie sind nicht in Git enthalten. Die Berichte enthalten die Befehle für frühere Versuche. Das [Colab-Notebook](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) zeigt bisher nur den Dateneinstieg.
 
-**Prüfstand:** 37 Softwaretests bestanden; [Protokolle der vollständigen Projektprüfung](reports/mechanistic_ties/project_checks/verification.json). Versuch 09 prüft die Annahmeregeln separat und wiederholt die gesamte Berechnung deterministisch. Für Versuch 08 wurden 2.000 gepaarte Bootstrap-Ziehungen in beiden Varianten und 2.000 Teilmengen-Auswertungen separat nachgerechnet. Softwaretests sichern Berechnungen ab; sie belegen keine medizinische Sicherheit.
+**Prüfstand:** 43 Softwaretests bestanden; [Protokolle der vollständigen Projektprüfung](reports/transfer/project_checks/verification.json). Versuch 10 prüft 48 Ergebniszeilen separat, reproduziert 129 Arrays und vier Abbildungsdateien exakt und bestätigt 166 unveränderte frühere Artefakte. Versuch 09 prüft die Annahmeregeln separat und wiederholt die gesamte Berechnung deterministisch. Für Versuch 08 wurden 2.000 gepaarte Bootstrap-Ziehungen in beiden Varianten und 2.000 Teilmengen-Auswertungen separat nachgerechnet. Softwaretests sichern Berechnungen ab; sie belegen keine medizinische Sicherheit.
 
 ## Orientierung
 
 - `docs/research/`: Berichte, Protokolle, Literatur und Versuchsverzeichnis.
 - `configs/`: festgelegte Einstellungen und Datenindizes.
 - `experiments/`: Training, Diagnose und Auswertung; `tests/`: Softwareprüfungen.
-- `reports/mechanistic_ties/`: aktuelle Nachanalyse; `reports/calibration/`: Versuch 08; `reports/augmentation/`, `models/augmentation/`: zugrunde liegende Trainingsstudie.
+- `reports/transfer/`: aktuelle Nachanalyse; `reports/mechanistic_ties/`: Versuch 09; `reports/calibration/`: Versuch 08; `reports/augmentation/`, `models/augmentation/`: zugrunde liegende Trainingsstudie.
 - Weitere Unterordner in `reports/` und `models/`: erhaltene frühere Versuche.
 
 ## Quellen und Nutzung

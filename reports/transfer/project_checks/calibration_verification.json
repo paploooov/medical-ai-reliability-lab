@@ -1,0 +1,7 @@
+{
+  "paired_bootstrap_replicates_recomputed": 2000,
+  "fixed_and_joint_checked": true,
+  "subset_replicates_recomputed": 2000,
+  "accepted_counts_checked": true,
+  "source_hashes_verified": true
+}

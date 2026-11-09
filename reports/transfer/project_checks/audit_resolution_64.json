@@ -1,0 +1,15 @@
+{
+  "resolution": 64,
+  "md5": "8f4eceb4ccffa70c672198ea285246c6",
+  "labels_match_28px": true,
+  "overlaps": {
+    "train_val": 8,
+    "train_test": 0,
+    "val_test": 0
+  },
+  "duplicate_excess": {
+    "train": 18,
+    "val": 0,
+    "test": 3
+  }
+}

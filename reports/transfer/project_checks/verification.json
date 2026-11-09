@@ -1,0 +1,46 @@
+{
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "log": "00.log"
+    },
+    {
+      "command": "python experiments/audit.py",
+      "exit_code": 0,
+      "log": "01.log"
+    },
+    {
+      "command": "python experiments/verify_resolution.py",
+      "exit_code": 0,
+      "log": "02.log"
+    },
+    {
+      "command": "python experiments/verify_selective_review.py",
+      "exit_code": 0,
+      "log": "03.log"
+    },
+    {
+      "command": "python experiments/verify_calibration.py",
+      "exit_code": 0,
+      "log": "04.log"
+    },
+    {
+      "command": "python experiments/budget_analysis.py",
+      "exit_code": 0,
+      "log": "05.log"
+    },
+    {
+      "command": "python experiments/augmentation_analysis.py",
+      "exit_code": 0,
+      "log": "06.log"
+    },
+    {
+      "command": "python scripts/compare_resolutions.py",
+      "exit_code": 0,
+      "log": "07.log"
+    }
+  ],
+  "previous_artifacts_unchanged": 143,
+  "passed": true
+}

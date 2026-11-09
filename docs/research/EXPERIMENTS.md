@@ -108,3 +108,8 @@ Patientenbezogene externe Daten, klinisch begründete Störungen, größere Prü
 ## Versuch 09 – Mechanistische Gleichstandsdiagnose
 
 Sechs unveränderte Modelle aus Versuch 06/07; Nachweis von Null-Merkmalsvektoren an den Kalibrierungsschwellen, deterministisches Tie-Breaking und Nullvektor-Ausschluss. [Bericht](MECHANISTIC_TIES.md) · [Prüfartefakt](../../reports/mechanistic_ties/verification.json). Kein neues Training; frühere Artefakte bleiben erhalten.
+
+
+## Versuch 10 – Störungstransfer ohne neues Training
+
+Sechs eingefrorene Modelle aus dem Vergleich in Versuch 07, Originalkalibrierung und unveränderte Testfälle. Blur und Kontrastreduktion werden mit Original und bekanntem Rauschen verglichen: Accuracy, Nullvektor- und Schwellen-Gleichstandsanteil sowie Akzeptanz und Fehler für Standardregel und die kombinierte Regel aus Versuch 09. Alle 48 Ergebniszeilen separat geprüft; 166 frühere Artefakte unverändert. [Bericht](TRANSFER_STUDY.md) · [Ergebnistabelle](../../reports/transfer/results.md) · [Prüfartefakt](../../reports/transfer/verification.json).
