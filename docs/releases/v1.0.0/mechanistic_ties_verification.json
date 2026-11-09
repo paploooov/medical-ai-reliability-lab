@@ -1,0 +1,10 @@
+{
+  "previous_artifacts_unchanged": 143,
+  "model_weights_verified": 6,
+  "scalar_decision_rows_verified": 72,
+  "deterministic_arrays_verified": 115,
+  "bootstrap_draws_per_model": 2000,
+  "control83_original_noise_empty": 54,
+  "input_hashes_verified": 14,
+  "passed": true
+}

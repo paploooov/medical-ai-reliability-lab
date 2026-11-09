@@ -1,0 +1,24 @@
+{
+  "exact_pixel_overlap_unique_hashes": {
+    "train_val": 8,
+    "train_test": 0,
+    "val_test": 0
+  },
+  "within_split_duplicate_excess": {
+    "train": 18,
+    "val": 0,
+    "test": 3
+  },
+  "verified_results": [
+    {
+      "archive": "reports/metrics",
+      "rows_verified": 20
+    },
+    {
+      "archive": "reports/cnn",
+      "rows_verified": 60
+    }
+  ],
+  "cnn_decision_invariance_conditions": 30,
+  "limitations": "Pixel equality is not patient identity; resized duplicates and related acquisitions may remain undetected."
+}

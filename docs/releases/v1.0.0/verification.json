@@ -1,0 +1,18 @@
+{
+  "additional_verifiers": [
+    {
+      "command": "python experiments/verify_mechanistic_ties.py --output <temporary copy of reports/mechanistic_ties>",
+      "exit_code": 0
+    },
+    {
+      "command": "python experiments/verify_transfer.py --output <temporary copy of reports/transfer>",
+      "exit_code": 0
+    }
+  ],
+  "artifacts_unchanged": 193,
+  "passed": true,
+  "project_checks": "project_checks/verification.json",
+  "project_checks_passed": true,
+  "unit_tests_passed": 43,
+  "previous_166_included": true
+}

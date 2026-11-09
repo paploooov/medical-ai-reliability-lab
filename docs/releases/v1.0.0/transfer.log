@@ -1,0 +1,13 @@
+48 Ergebniszeilen; 166 frühere Artefakte unverändert
+{
+  "passed": true,
+  "previous_artifacts_unchanged": 166,
+  "scalar_rows_verified": 48,
+  "study09_decision_rows_verified": 24,
+  "deterministic_arrays_verified": 129,
+  "deterministic_figures_verified": 4,
+  "models": 6,
+  "calibration_cases": 262,
+  "test_cases": 621,
+  "verifier_sha256": "c11317230290e7d0d1ff90cd62457eeef19535f7a09a8df17219b3557e3140f7"
+}

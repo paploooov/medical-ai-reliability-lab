@@ -1,6 +1,26 @@
-# Arbeitsstand für eine spätere Facharbeit
+# Abschlusssynthese der Versuchsreihe 01–10
 
-**Stand: 9. November 2026. Forschungsnotiz, kein begutachteter Fachartikel.**
+**Abgeschlossene explorative Studie auf PneumoniaMNIST, Forschungsstand v1.0.0. Kein begutachteter Fachartikel.**
+
+Die Versuchsreihe endet mit Versuch 10. Dieser Abschluss ergänzt ausschließlich die redaktionelle Synthese und wiederholt bestehende Prüfungen; er enthält kein neues Experiment und kein neues Training.
+
+## Gesamterkenntnis und mechanistischer Zusammenhang
+
+**Ein konstantes, hochkonfidentes Modell kann häufig falsch sein; ein nichtkonstantes Modell ist deshalb noch nicht zuverlässig.** Die zehn Versuche verbinden die anfängliche Beobachtung hochkonfidenter Fehler mit einem exakt nachgewiesenen internen Mechanismus und dessen Grenzen.
+
+Versuche 01–03 etablierten trainierte Baselines und zeigten, dass Accuracy, Wahrscheinlichkeitskalibrierung und Fehlererkennung verschiedene Eigenschaften sind. Der Daten-Audit führte in Versuch 04 zu Pixelgruppen-Deduplizierung und getrennten Modellwahl-/Kalibrierungssplits; Versuch 05 zeigte, wie stark Schlussfolgerungen von der Akzeptanzregel abhängen. Erst auf dieser eingegrenzten Grundlage folgten die mechanistische Diagnose und Gegenproben:
+
+**Versuche 06 → 08 → 09: Nullvektor, Bias-Logit und Annahmeversagen.** Für den letzten Klassifikator gilt `z = wᵀh + b`. Bei vollständig nullgesetztem ReLU-Merkmalsvektor ist daher exakt `z = b`, also `p = sigmoid(b)`. Verschiedene Bilder erhalten denselben Logit und dieselbe Konfidenz. Alle 250 Modell-Fall-Paare exakt auf den fünf betroffenen Original-Kalibrierungsschwellen stammen aus dieser Nullvektorgruppe; Float-Sättigung und diskrete Wahrscheinlichkeitskalibrierung erklären diese Gleichstände nicht. Die Regel `confidence >= tau` akzeptiert die ganze Punktmasse. Dadurch verfehlt sie bereits auf der Kalibrierungsmenge das 80%-Ziel und nimmt unter Rauschen viele falsche konstante Ausgaben an. In 54 Kalibrierungs-/Testwiederziehungen liegt die Schwelle über allen Rauschkonfidenzen; die Annahmemenge ist leer. Tie-Breaking behandelt die Punktmasse, stellt verlorene Merkmalsunterschiede aber nicht wieder her.
+
+Dies ist eine mathematisch und anhand gespeicherter Aktivierungen belegte Kausalkette innerhalb der festgehaltenen Modelle. Sie erklärt den Mechanismus dieser Gleichstände und dieses Versagens der Annahmeregel. Sie ist keine vollständige kausale Erklärung des Trainingsverlaufs, aller Rauschfehler oder sämtlicher Kalibrierungsverfahren.
+
+**Versuche 07 → 10: Die Umkehrung gilt nicht.** Rauschaugmentation reduziert den massiven Kollaps unter der trainierten Rauschfamilie, verhindert Nullvektoren jedoch nicht vollständig. Unter Blur erreichen augmentierte Modelle trotz mehr Nullvektoren eine höhere Accuracy als ihre Kontrollen. Unter Kontrastreduktion haben sie nur 10, 3 beziehungsweise 0 Nullvektoren, aber 20,08 %, 22,09 % beziehungsweise 30,89 % Fehler unter den nach Standardregel akzeptierten Fällen. `h != 0` ist somit keine hinreichende Bedingung für Zuverlässigkeit. Die Störungen fehlten im Augmentationstraining, waren aber bereits bekannte Projekt-Testbedingungen; dies ist kein unabhängiger externer OOD-Test.
+
+**Warum Nullvektor-Ausschluss auch richtige Vorhersagen entfernt.** Der Bias-only-Klassifikator gibt innerhalb dieser Aktivierungsregion stets dasselbe Label aus. Stimmt das Ziel eines Falls mit diesem Label überein, zählt die Vorhersage als korrekt, obwohl der letzte Merkmalsvektor keine Unterschiede zwischen diesen Fällen enthält. Ein Ausschluss anhand von `h = 0` unterscheidet solche korrekten von inkorrekten konstanten Vorhersagen nicht. Unter Blur und Kontrast kann er daher überwiegend korrekte Fälle entfernen und den verbleibenden Fehleranteil erhöhen.
+
+Der Ausdruck „Mehrheitsklassen-Bias“ wäre hier sachlich falsch: Die [gespeicherten Bias-Werte](../../reports/transfer/calibration.csv) der fünf Modelle mit Schwellen-Gleichständen sind negativ; bei positivem Label „Pneumonie“ ergibt sich die konstante Vorhersage **„normal“**. Im [offiziellen Datensatz](../../reports/dataset_summary.json) überwiegt dagegen Pneumonie. Ein gemeinsam mit Gewichten gelernter Intercept ist nicht gleich dem Logit der Klassenhäufigkeit. „Richtiges Label ohne Bildinformation“ ist daher nur als Kurzform für fehlende **zwischen diesen Fällen variierende Information am letzten Merkmalsvektor** zulässig. Der Eingang beeinflusst weiterhin, ob das Netz in diese Nullaktivierungsregion gelangt; völlige Bildunabhängigkeit des gesamten Netzes wird nicht behauptet.
+
+Der abgeschlossene Befund ist deshalb enger als ein allgemeines Sicherheitsverfahren: Nullaktivierung erklärt eine konkrete Konfidenz-Punktmasse; weder ihre Beseitigung noch ihr Herausfiltern garantiert brauchbare selektive Vorhersagen. [Abschlussprüfung und unveränderte Artefakte](../releases/v1.0.0/README.md).
 
 ## Fragestellung
 
@@ -40,7 +60,7 @@ Minima und Maxima über drei Seeds sind als solche beschriftet und keine Konfide
 
 Die Arbeit belegt weder klinischen Nutzen noch eine neue wissenschaftliche Methode. Rauschen, Unschärfe und Kontraständerungen sind synthetische Eingriffe; sie bilden keinen bestimmten Scanner und keinen Krankenhauswechsel verlässlich ab. Höhere MedMNIST-Auflösung liefert dieselben Fälle mit mehr Bildpunkten, keine externe Validierung. Die meisten Quellen stammen aus einem einzelnen pädiatrischen Benchmark, während potenzielle externe Quellen andere Populationen und Labeldefinitionen haben.
 
-Die nächste belastbare Erweiterung muss über weiteres Optimieren dieses bekannten Testsatzes hinausgehen: eine begründete externe Zielpopulation und Labeldefinition, überprüfbare Patientengruppen, zulässiger Datenzugang und eine vorab eingefrorene Auswertung. Die geprüften Kandidaten und ihre Hürden stehen in [Externe Daten](EXTERNAL_DATA.md).
+Eine mögliche eigenständige Folgestudie müsste über weiteres Optimieren dieses bekannten Testsatzes hinausgehen: eine begründete externe Zielpopulation und Labeldefinition, überprüfbare Patientengruppen, zulässiger Datenzugang und eine vorab eingefrorene Auswertung. Die geprüften Kandidaten und ihre Hürden stehen in [Externe Daten](EXTERNAL_DATA.md). Das ist ein Ausblick außerhalb der abgeschlossenen Versuchsreihe 01–10, kein noch ausstehender Versuch dieser Studie.
 
 ## Grundlage und Reproduzierbarkeit
 

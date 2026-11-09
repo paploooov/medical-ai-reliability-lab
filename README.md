@@ -1,15 +1,30 @@
-<div align="center">
-
 # Medical AI Reliability Lab
-### Wie zuverlässig bleibt medizinische KI, wenn sich die Bildqualität verschlechtert?
 
-**Thorax-Röntgenbilder · Fehlererkennung · Kontrollierte Experimente · Reproduzierbare Forschung**
+## Abstract (English)
 
-[Aktuelle Ergebnisse](docs/research/TRANSFER_STUDY.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Forschungsüberblick](docs/research/RESEARCH_SUMMARY.md) · [Modelle](models/README.md)
+This completed ten-experiment study examines confidence-based error detection in small CNNs on PneumoniaMNIST under synthetic image corruptions.
+After initial baselines, exact-pixel deduplication and separate model-selection and calibration splits improved split hygiene, without establishing patient independence.
+Frozen checkpoints, saved predictions, software tests and SHA-256 verification support reproducibility and preserve historical artifacts.
+Zero final hidden vectors produce bias-only logits, explaining all observed calibration-boundary ties and a specific failure of quantile-based acceptance under noise.
+Noise augmentation reduces this collapse, but nonzero representations do not guarantee reliable accepted predictions under other corruptions.
+Rejecting zero vectors can discard correct constant-label predictions and increase the error rate among retained cases; the learned bias is not necessarily a majority-class predictor.
+These findings concern a repeatedly examined low-resolution benchmark, not clinical safety or independent external validation.
 
-</div>
+## Abgeschlossene Studie: Versuche 01–10
 
-## Aktuell: Versuch 10 – Transfer auf Blur und Kontrastreduktion
+**Konfidenz kann einen konstanten Bias-Output als verlässlich erscheinen lassen. Umgekehrt ist ein nichtleerer Merkmalsvektor kein Zuverlässigkeitsnachweis.** Das ist die gemeinsame Erkenntnis der zehn abgeschlossenen Versuche; Versuch 10 bildet ihren Abschluss, keinen neuen Studienbeginn.
+
+Der nachvollziehbare mechanistische Zusammenhang lautet:
+
+1. **Merkmalsverlust → konstanter Output → Gleichstände:** Bei `h = 0` folgt aus `Logit = wᵀh + b` exakt `Logit = b`. Dieser Mechanismus erklärt sämtliche 250 Modell-Fall-Paare auf den fünf betroffenen Kalibrierungsschwellen. Eine inklusive Quantilschwelle akzeptiert die gesamte Grenzgruppe: statt ungefähr 80 % werden 90–94 % der Kalibrierungsfälle angenommen. Unter Rauschen kann die Regel viele falsche Bias-Ausgaben akzeptieren; verschiebt sich die Schwelle über die Punktmasse, kann die Annahmemenge leer werden (Versuche 06, 08, 09).
+2. **Kein Kollaps ≠ verlässliche Vorhersage:** Rauschaugmentation reduziert den massiven Kollaps, beseitigt aber nicht jede Nullaktivierung. Unter Kontrastreduktion haben die augmentierten Modelle nur 0–10 Nullvektoren, während 20,08–30,89 % ihrer nach Standardregel akzeptierten Vorhersagen falsch sind (Versuche 07, 10).
+3. **Nullvektor-Ausschluss ≠ Fehlererkennung:** Ein konstanter Bias-Output kann das richtige Label treffen. Ihn herauszufiltern entfernt deshalb auch korrekte Vorhersagen und kann die Fehlerrate der verbleibenden Fälle erhöhen. Hier sagen die fünf betroffenen Modelle bei `h = 0` „normal“ voraus — **nicht die Mehrheitsklasse Pneumonie**. „Richtiges Label ohne Bildinformation“ bedeutet hier präzise: ohne zwischen diesen Fällen variierende Information im letzten Merkmalsvektor; das Bild bestimmt weiterhin, ob diese Aktivierungsregion erreicht wird.
+
+Die mathematische Kette erklärt einen nachgewiesenen Mechanismus, nicht sämtliche Fehler oder die gesamte Entstehung des Kollapses im Training. Mit „Kalibrierung“ ist in diesem Zusammenhang die Bestimmung der Annahmeschwelle gemeint, kein allgemeiner Nachweis des Versagens aller Verfahren zur Wahrscheinlichkeitskalibrierung.
+
+[**Gesamtsynthese →**](docs/research/RESEARCH_SUMMARY.md) · [Versuche 01–10](docs/research/EXPERIMENTS.md) · [Abschlussprüfung v1.0.0](docs/releases/v1.0.0/README.md) · [Modelle](models/README.md)
+
+## Versuch 10 – Transfer auf Blur und Kontrastreduktion
 
 Sechs unveränderte Modelle, keine neue Optimierung. Unter **Blur** erreichen die augmentierten Modelle bei allen drei Seeds eine höhere Accuracy als die Kontrollen, obwohl sie mehr Nullvektoren haben. Unter **Kontrastreduktion** sind Nullvektoren selten, während bei den augmentierten Modellen **20,08–30,89 % der akzeptierten Vorhersagen falsch** sind. Tie-Breaking plus Nullvektor-Ausschluss senkt diese Fehlerraten nicht allgemein.
 
@@ -86,11 +101,11 @@ Seit Versuch 04: **4.682 Trainingsfälle**, je **262 getrennte Fälle für Model
 
 Die Untersuchung betrifft öffentliche pädiatrische Röntgenbilder. **28×28 Pixel eliminieren radiologische Feinstrukturen.** Synthetisches Pixelrauschen auf 28×28 dient hier als kontrolliertes ML-Testbed für niedriges Signal-Rausch-Verhältnis (SNR), nicht als physikalisches Modell klinischer Röntgendegradation. Dosis, Detektorantwort und klinische Bildverarbeitung werden nicht simuliert. Synthetisches Rauschen und Unschärfe ersetzen keine externe Prüfung auf anderen Patienten oder Geräten. Höhere MedMNIST-Auflösungen liefern dieselben Fälle mit mehr Bildpunkten. [Externe Datenquellen](docs/research/EXTERNAL_DATA.md) sind vorgeprüft, aber noch nicht ausgewertet.
 
-Die kleinen CNNs haben in den aktuellen Versuchen jeweils **21.249 Parameter**. Eigene trainierte Gewichte, etablierte Architektur – kein medizinisches Foundation-Modell. Die [Forschungsnotiz](docs/research/RESEARCH_SUMMARY.md) erklärt Fragestellung, methodische Änderungen, Befunde und offene Fragen zusammenhängend.
+Die kleinen CNNs haben in den abschließenden Versuchen jeweils **21.249 Parameter**. Eigene trainierte Gewichte, etablierte Architektur – kein medizinisches Foundation-Modell. Die [Forschungsnotiz](docs/research/RESEARCH_SUMMARY.md) erklärt Fragestellung, methodische Änderungen, Befunde und verbleibende Grenzen zusammenhängend.
 
 ## Reproduzieren
 
-Python 3.12, CPU, keine kostenpflichtigen Dienste. Die aktuelle Nachanalyse nutzt die bereits versionierten Modelle aus Versuch 06 und 07. Für ihre Reproduktion ist kein neues Training erforderlich.
+Python 3.12, CPU, keine kostenpflichtigen Dienste. Die letzte Nachanalyse (Versuch 10) nutzt die bereits versionierten Modelle aus Versuch 06 und 07. Für ihre Reproduktion ist kein neues Training erforderlich.
 
 ```bash
 python3 -m venv .venv
@@ -105,14 +120,14 @@ python -m unittest discover -s tests -v
 
 Versuch 10 verlangt einen neuen Ausgabeordner und überschreibt keine bestehenden Ergebnisse. Für erneute Berechnungen ist ein neuer Ausgabeordner erforderlich. Gewichte und Ergebnisse früherer Versuche bleiben erhalten. Rohdaten werden heruntergeladen und geprüft; sie sind nicht in Git enthalten. Die Berichte enthalten die Befehle für frühere Versuche. Das [Colab-Notebook](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) zeigt bisher nur den Dateneinstieg.
 
-**Prüfstand:** 43 Softwaretests bestanden; [Protokolle der vollständigen Projektprüfung](reports/transfer/project_checks/verification.json). Versuch 10 prüft 48 Ergebniszeilen separat, reproduziert 129 Arrays und vier Abbildungsdateien exakt und bestätigt 166 unveränderte frühere Artefakte. Versuch 09 prüft die Annahmeregeln separat und wiederholt die gesamte Berechnung deterministisch. Für Versuch 08 wurden 2.000 gepaarte Bootstrap-Ziehungen in beiden Varianten und 2.000 Teilmengen-Auswertungen separat nachgerechnet. Softwaretests sichern Berechnungen ab; sie belegen keine medizinische Sicherheit.
+**Abschlussprüfstand:** Alle 43 Softwaretests und Verifikationsskripte erneut bestanden; [Abschlussprotokolle](docs/releases/v1.0.0/README.md). Alle 193 vorhandenen Modell- und Ergebnisartefakte, einschließlich der zuvor gesicherten 166, bleiben unverändert. Historischer Prüfstand von Versuch 10: [Protokolle der vollständigen Projektprüfung](reports/transfer/project_checks/verification.json). Versuch 10 prüft 48 Ergebniszeilen separat, reproduziert 129 Arrays und vier Abbildungsdateien exakt und bestätigt 166 unveränderte frühere Artefakte. Versuch 09 prüft die Annahmeregeln separat und wiederholt die gesamte Berechnung deterministisch. Für Versuch 08 wurden 2.000 gepaarte Bootstrap-Ziehungen in beiden Varianten und 2.000 Teilmengen-Auswertungen separat nachgerechnet. Softwaretests sichern Berechnungen ab; sie belegen keine medizinische Sicherheit.
 
 ## Orientierung
 
 - `docs/research/`: Berichte, Protokolle, Literatur und Versuchsverzeichnis.
 - `configs/`: festgelegte Einstellungen und Datenindizes.
 - `experiments/`: Training, Diagnose und Auswertung; `tests/`: Softwareprüfungen.
-- `reports/transfer/`: aktuelle Nachanalyse; `reports/mechanistic_ties/`: Versuch 09; `reports/calibration/`: Versuch 08; `reports/augmentation/`, `models/augmentation/`: zugrunde liegende Trainingsstudie.
+- `reports/transfer/`: abschließender Versuch 10; `reports/mechanistic_ties/`: Versuch 09; `reports/calibration/`: Versuch 08; `reports/augmentation/`, `models/augmentation/`: zugrunde liegende Trainingsstudie.
 - Weitere Unterordner in `reports/` und `models/`: erhaltene frühere Versuche.
 
 ## Quellen und Nutzung

@@ -1,0 +1,8 @@
+{
+  "weights_and_cutoffs_verified": 6,
+  "augmentation_result_rows_verified": 24,
+  "control_existing_condition_outputs_verified": 15,
+  "comparison_rows": 48,
+  "test_groups": 621,
+  "manifest_hash_verified": true
+}

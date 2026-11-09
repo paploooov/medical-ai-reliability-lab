@@ -1,0 +1,31 @@
+{
+  "estimands": [
+    "augmentation_minus_control_change_in_noise_minus_clean_retained_risk",
+    "secondary_clean_accuracy_difference"
+  ],
+  "point": [
+    -0.46330619722513244,
+    -0.0005367686527106841
+  ],
+  "ci_low": [
+    -0.5195930895770108,
+    -0.013419216317767066
+  ],
+  "ci_high": [
+    -0.40784267172878447,
+    0.011808910359635015
+  ],
+  "replicates": 2000,
+  "bootstrap_seed": 20261110,
+  "discarded": 0,
+  "scope": "Conditional on fitted models and cutoffs; exact-group resampling, not patients. Secondary interval exploratory without multiplicity correction."
+}
+| Bedingung | Arm | Accuracy | Fehler unter akzeptierten Fällen | Akzeptierter Anteil | Fehler bei rückblickend 80% Akzeptanz |
+|---|---|---:|---:|---:|---:|
+| clean | control | 84.1% | 11.2% | 78.5% | 12.2% |
+| clean | augmentation | 84.1% | 13.0% | 82.2% | 13.4% |
+| noise | control | 40.0% | 57.0% | 88.1% | 58.8% |
+| noise | augmentation | 84.0% | 12.6% | 82.2% | 12.9% |
+| noise_7 | control | 40.1% | 56.6% | 86.7% | 59.0% |
+| noise_7 | augmentation | 84.0% | 12.9% | 81.7% | 13.1% |
+| noise_99 | control | 39.6% | 57.3% | 88.0% | 59.2% |

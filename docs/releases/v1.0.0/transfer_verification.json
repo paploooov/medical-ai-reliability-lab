@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "previous_artifacts_unchanged": 166,
+  "scalar_rows_verified": 48,
+  "study09_decision_rows_verified": 24,
+  "deterministic_arrays_verified": 129,
+  "deterministic_figures_verified": 4,
+  "models": 6,
+  "calibration_cases": 262,
+  "test_cases": 621,
+  "verifier_sha256": "c11317230290e7d0d1ff90cd62457eeef19535f7a09a8df17219b3557e3140f7",
+  "outputs_sha256": {
+    "calibration.csv": "6f2cb324a59fb12ab2ccb0a57e760663f4880c30ba4c5c165d27cc170cdf2327",
+    "mechanism.pdf": "89308107f4b094b6336c07f3b6f8e4104713a60f7a21510115d650b0ccb4e92d",
+    "mechanism.png": "49e02edf30c8769c09713abf57604965ca923bc3b0a331b87273f844fbce8f50",
+    "predictions.npz": "2736ccb95419af2b379afedbef97a20a5c36c005bc4d96fc2d24a6370289f901",
+    "previous_artifacts.json": "af033e48efa272dddc4419e7fed3623df02436b88795f5147f10a9a65512904a",
+    "provenance.json": "9cd886c950752e53f9e67b334f51caeec4a5a57475f05518c87b068fc2319582",
+    "results.csv": "88aef97f367c74e4d39dc98ff3a9d96f2c8161c4b6beb0afaa927bcd2f90c2d0",
+    "results.md": "72389f6b0986603d2ad00a480f39f427b5d20eeed5d39b3b191ea878f77aed1b",
+    "selection.pdf": "1a36adbbee39b25bbf12d9afe70a7bc8f9bd4c6a3a41abf967f38e3f2a05641b",
+    "selection.png": "b8cad3c787a5269a81b867835e98bb90e6c580638bac714d649ebb6df58f5d2a"
+  }
+}
