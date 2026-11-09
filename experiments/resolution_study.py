@@ -18,6 +18,12 @@ class ResolutionCNN(nn.Module):
 def logits(model,x):
  with torch.no_grad():return torch.cat([model(b) for b in x.split(128)]).numpy()
 def tensor(x):return torch.tensor(x[:,None]/255,dtype=torch.float32)
+def augment_batch(x, probability, sigma, generator):
+ if not 0<=probability<=1 or sigma<0:raise ValueError('Invalid augmentation parameters')
+ if probability==0 or sigma==0:return x
+ mask=(torch.rand((len(x),1,1,1),generator=generator)<probability)
+ noise=torch.randn(x.shape,generator=generator,dtype=x.dtype)*sigma
+ return torch.clamp(x+mask*noise,0,1)
 def main(config_path=ROOT/"configs/resolution_study.json", output_dir=OUT, model_dir=ROOT/"models/resolution"):
  OUT=Path(output_dir);OUT.mkdir(parents=True,exist_ok=True)
  model_dir=Path(model_dir);model_dir.mkdir(parents=True,exist_ok=True)
@@ -31,12 +37,17 @@ def main(config_path=ROOT/"configs/resolution_study.json", output_dir=OUT, model
   vx=tensor(data['val_images'][idx['selection']]);vy=data['val_labels'][idx['selection']].ravel();cx=tensor(data['val_images'][idx['calibration']])
   images=data['test_images'][idx['test']].astype(np.float32)/255;labels=data['test_labels'][idx['test']].ravel()
   variants={'clean':images,'relative_blur':gaussian_filter(images,(0,res/28,res/28),mode='reflect'),'fixed_blur':gaussian_filter(images,(0,1,1),mode='reflect'),'noise':np.clip(images+np.random.default_rng(42).normal(0,.1,images.shape),0,1),'contrast':np.clip(.5+.5*(images-.5),0,1)}
+  for extra in config.get('extra_noise',[]):
+   variants[extra['name']]=np.clip(images+np.random.default_rng(extra['seed']).normal(0,extra['sigma'],images.shape),0,1)
   for seed in config['seeds']:
+   augmentation_generator=torch.Generator().manual_seed(100000+seed)
    torch.manual_seed(seed);model=ResolutionCNN();optim=torch.optim.Adam(model.parameters(),lr=config['learning_rate']);lossfn=nn.BCEWithLogitsLoss();best=None;start=time.perf_counter()
    for epoch in range(1,config['epochs']+1):
     model.train();total=0
     for batch in torch.randperm(len(x)).split(config['batch_size']):
-     optim.zero_grad();loss=lossfn(model(x[batch]),y[batch]);loss.backward();optim.step();total+=loss.item()*len(batch)
+     optim.zero_grad();inputs=x[batch]
+     if 'augmentation' in config:inputs=augment_batch(inputs,config['augmentation']['probability'],config['augmentation']['sigma'],augmentation_generator)
+     loss=lossfn(model(inputs),y[batch]);loss.backward();optim.step();total+=loss.item()*len(batch)
     model.eval();vl=logits(model,vx);v_loss=float(np.mean(np.logaddexp(0,vl)-vy*vl))
     history.append(dict(resolution=res,seed=seed,epoch=epoch,training_online_bce=total/len(x),selection_bce=v_loss))
     if best is None or v_loss<best[0]:best=(v_loss,copy.deepcopy(model.state_dict()),epoch)

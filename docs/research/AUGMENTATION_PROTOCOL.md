@@ -1,0 +1,11 @@
+# Study 07 — targeted augmentation, not a general fix
+
+9 November 2026. Study 06 failed to remove the 28px noise collapse with more epochs alone. This explicitly exploratory follow-up introduces one prespecified intervention: during fitting only, add fresh Gaussian noise SD 0.1 to each image with probability 0.5, clip to [0,1]. The independent augmentation generator is seeded 100000 + training seed. Keep the 21,249-parameter architecture, 45-epoch budget, Adam settings, fitting indices and seeds 17/42/83 unchanged. Preserve the model-initialization and minibatch RNG stream by using a separate augmentation generator.
+
+Limit this intervention to 28px, where the failure is clearest. Control: the already completed 28px 45-epoch models from study 06. Do not select the best seed. Both arms choose checkpoints by clean model-selection BCE, and set an 80%-target cutoff using the separate clean calibration data. No test-selected epoch, cutoff or augmentation intensity.
+
+Primary: augmentation-minus-control difference in the mean (noise SD 0.1 seed42 minus clean) retained-risk change, across matched seeds. Always show accuracy, acceptance and class-specific performance on both clean/noisy cases. A negative primary value alone is not a safety claim. Use 2,000 paired exact-test-group bootstrap draws, seed 20261110; hold models and thresholds fixed, count/drop empty accepted-subset draws. Conditional intervals exclude training/calibration and unknown patient uncertainty.
+
+Secondary: retrospective risk at matched 80% coverage; Gaussian draws 7 and 99 at SD 0.1; stronger SD 0.2 seed42; relative/fixed blur and contrast. These draws and severities have appeared in prior diagnostics, so they are not blind external challenges. Training and evaluation intentionally share the noise family and primary intensity: success would establish narrow perturbation-specific adaptation, not general robustness or scanner realism. Monitor negative transfer to clean and non-noise conditions.
+
+Save all 24 model-condition result rows, per-case predictions, training history, weights/hashes, cutoffs and final-hidden diagnostics. Verify models, cutoffs and metrics. No hyperparameter search or repeated trial selection is authorized by this protocol; subsequent changes require a new explicit study record.
