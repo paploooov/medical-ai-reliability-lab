@@ -1,0 +1,21 @@
+{
+  "resolutions": [
+    28,
+    64
+  ],
+  "seeds": [
+    17,
+    42,
+    83
+  ],
+  "epochs": 45,
+  "batch_size": 128,
+  "learning_rate": 0.001,
+  "primary_blur_sigma_fraction": 0.03571428571428571,
+  "target_calibration_coverage": 0.8,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 2026,
+  "primary_endpoint": "noise-minus-clean retained risk change at 45 versus 15 epochs, 28px mean across three matched seeds",
+  "study": "06: fixed training-budget extension, exploratory known benchmark",
+  "noise_seed": 42
+}

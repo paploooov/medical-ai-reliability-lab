@@ -18,9 +18,11 @@ class ResolutionCNN(nn.Module):
 def logits(model,x):
  with torch.no_grad():return torch.cat([model(b) for b in x.split(128)]).numpy()
 def tensor(x):return torch.tensor(x[:,None]/255,dtype=torch.float32)
-def main():
+def main(config_path=ROOT/"configs/resolution_study.json", output_dir=OUT, model_dir=ROOT/"models/resolution"):
+ OUT=Path(output_dir);OUT.mkdir(parents=True,exist_ok=True)
+ model_dir=Path(model_dir);model_dir.mkdir(parents=True,exist_ok=True)
  torch.set_num_threads(2);torch.use_deterministic_algorithms(True)
- config=json.loads((ROOT/'configs/resolution_study.json').read_text());manifest=json.loads((ROOT/'configs/resolution_manifest.json').read_text());idx=manifest['indices'];rows=[];history=[];choices=[];pred={}
+ config=json.loads(Path(config_path).read_text());manifest=json.loads((ROOT/'configs/resolution_manifest.json').read_text());idx=manifest['indices'];rows=[];history=[];choices=[];pred={}
  started=time.perf_counter()
  for res in config['resolutions']:
   path=ROOT/'data'/('pneumoniamnist.npz' if res==28 else 'pneumoniamnist_64.npz');assert hashlib.sha256(path.read_bytes()).hexdigest()==manifest['archives'][str(res)]
@@ -40,7 +42,7 @@ def main():
     if best is None or v_loss<best[0]:best=(v_loss,copy.deepcopy(model.state_dict()),epoch)
     print(f'res={res} seed={seed} epoch={epoch} train={total/len(x):.4f} selection={v_loss:.4f}',flush=True)
    seconds=time.perf_counter()-start;model.load_state_dict(best[1]);model.eval();cp=expit(logits(model,cx));cut=float(np.quantile(np.maximum(cp,1-cp),.2))
-   path=ROOT/f'models/resolution/r{res}_s{seed}.pt';torch.save(model.state_dict(),path)
+   path=model_dir/f'r{res}_s{seed}.pt';torch.save(model.state_dict(),path)
    choices.append(dict(resolution=res,seed=seed,epoch=best[2],selection_bce=best[0],threshold=cut,training_seconds=seconds,parameters=sum(p.numel() for p in model.parameters()),weights_sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
    for condition,im in variants.items():
     p=expit(logits(model,torch.tensor(im[:,None],dtype=torch.float32)));pred[f'r{res}_s{seed}_{condition}']=p
@@ -50,4 +52,10 @@ def main():
   with (OUT/f'{name}.csv').open('w') as f:w=csv.DictWriter(f,fieldnames=records[0]);w.writeheader();w.writerows(records)
  np.savez_compressed(OUT/'predictions.npz',labels=labels,test_indices=idx['test'],**pred)
  (OUT/'run.json').write_text(json.dumps(dict(config=config,choices=choices,torch=torch.__version__,elapsed_seconds=time.perf_counter()-started,commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),manifest_sha256=hashlib.sha256((ROOT/'configs/resolution_manifest.json').read_bytes()).hexdigest()),indent=2))
-if __name__=='__main__':main()
+if __name__=='__main__':
+ import argparse
+ parser=argparse.ArgumentParser()
+ parser.add_argument('--config',type=Path,default=ROOT/'configs/resolution_study.json')
+ parser.add_argument('--output',type=Path,default=OUT)
+ parser.add_argument('--models',type=Path,default=ROOT/'models/resolution')
+ args=parser.parse_args();main(args.config,args.output,args.models)
