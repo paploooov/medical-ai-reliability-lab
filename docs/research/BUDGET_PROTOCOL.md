@@ -19,3 +19,7 @@ Use 2,000 paired exact-test-group bootstrap replicates, seed 20261109. Recalcula
 ## Evidence
 
 Store raw per-epoch losses and timing, selected checkpoints, thresholds, model hashes, complete per-case probabilities, activation diagnostics, diagnostic figures and a report of all conditions. Weight checks and independently recomputed metric rows are required. This study does not establish external clinical validity or architectural novelty.
+
+## Additional diagnostic sweep (specified during the budget run)
+
+For the frozen 15-budget models only, examine Gaussian noise SD 0, 0.025, 0.05, 0.1, 0.15 and 0.2 using noise seeds 7, 42 and 99. Scale the same sampled standard-normal field across severities within each resolution/noise seed. Record full-case accuracy and the fraction with an all-zero final hidden vector. This is an exploratory mechanism check prompted by the activation findings; it does not modify training, checkpoint selection, the primary endpoint or the operational cutoff. Plot separate training seeds and show the range across three noise realizations, not statistical confidence bands.
