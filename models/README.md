@@ -8,6 +8,7 @@ Alle Modelle wurden für dieses Projekt auf PneumoniaMNIST trainiert. Es sind kl
 | `cnn/seed_*.pt` | Zwei Faltungsblöcke, 105.281 Parameter | Drei Seeds, 25 Epochen; offizielle Splits | [Versuch 03](../docs/research/CNN_STUDY.md) |
 | `resolution/r*_s*.pt` | Zwei Faltungsblöcke, adaptives Pooling, 21.249 Parameter | Duplikatgruppen getrennt; 15 Epochen Budget, Auswahl nach Modellwahl-BCE | [Versuch 04](../docs/research/RESOLUTION_STUDY.md) |
 | `budget/r*_s*.pt` | Identische adaptive Architektur, 21.249 Parameter | 45 statt 15 Epochen Budget, gleiche Daten und Auswahlregel | [Versuch 06](../docs/research/BUDGET_STUDY.md) |
+| `augmentation/r28_s*.pt` | Identische adaptive Architektur, 21.249 Parameter | 45 Epochen mit gezielter Rauschaugmentation, nur 28px | [Versuch 07](../docs/research/AUGMENTATION_STUDY.md) |
 
 Versuch 05 verwendet die Modelle von Versuch 04 unverändert. Die gewählte Auflösung ist Teil der Eingabespezifikation; eine adaptive Architektur allein macht die Gewichte nicht beliebig zwischen Auflösungen austauschbar.
 

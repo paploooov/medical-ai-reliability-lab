@@ -43,7 +43,7 @@ def main():
  for _ in range(2000):
   sample=rng.integers(0,len(y),len(y));boots.append([contrast(sample,r) for r in [28,64]])
  boots=np.array(boots);valid=np.isfinite(boots).all(1);ci=np.quantile(boots[valid],[.025,.975],axis=0)
- primary={'estimand':'45-minus-15 change in noise-minus-clean retained error risk','resolutions':[28,64],'primary_resolution':28,'point':point,'ci_low':ci[0].tolist(),'ci_high':ci[1].tolist(),'replicates':2000,'discarded':int((~valid).sum()),'scope':'Paired exact-group bootstrap conditional on models and cutoffs; not patient-level or population training uncertainty.'};(OUT/'primary.json').write_text(json.dumps(primary,indent=2)+'\n')
+ primary={'estimand':'45-minus-15 change in noise-minus-clean retained error risk','resolutions':[28,64],'primary_resolution':28,'point':point,'ci_low':ci[0].tolist(),'ci_high':ci[1].tolist(),'replicates':2000,'bootstrap_seed':20261109,'discarded':int((~valid).sum()),'scope':'Paired exact-group bootstrap conditional on models and cutoffs; not patient-level or population training uncertainty.'};(OUT/'primary.json').write_text(json.dumps(primary,indent=2)+'\n')
  verification={'prefix_epochs_checked':len(prefix),'max_prefix_loss_difference':max(prefix),'metric_rows_verified':30,'weights_and_cutoffs_verified':6};(OUT/'verification.json').write_text(json.dumps(verification,indent=2)+'\n')
  plt.rcParams.update({'axes.spines.top':False,'axes.spines.right':False})
  fig,axes=plt.subplots(2,3,figsize=(12,7))

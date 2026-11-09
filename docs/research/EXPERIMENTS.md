@@ -1,6 +1,6 @@
 # Verzeichnis der Untersuchungen
 
-Stand: 9. November 2026. **Der aktuelle Stand ist Versuch 06.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
+Stand: 9. November 2026. **Der aktuelle Stand ist Versuch 07.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
 
 ## 01 – Erste Modelle und Bildstörungen
 
@@ -62,7 +62,7 @@ Keine neuen Modelle. Vergleich bei exakt 80 % akzeptierten Fällen, mit labeluna
 
 **Grenze:** Rückblickende Rangdiagnostik anhand derselben Testfälle, keine neue Validierung und keine einsatzfertige Annahmeschwelle. [Externe Datensätze](EXTERNAL_DATA.md) wurden auf fachliche Eignung und dokumentierte Zugangshürden vorgeprüft; noch keine externen Bilder ausgewertet.
 
-## 06 – Aktuell: Rauschdiagnose und 45-Epochen-Budget
+## 06 – Rauschdiagnose und 45-Epochen-Budget
 
 **Frage:** Warum kollabieren Modelle unter Rauschen, und reicht längeres Training als Gegenmaßnahme?
 
@@ -72,9 +72,19 @@ Sechs erneute Trainingsläufe, je 45 Epochen; die ersten 15 stimmen mit Versuch 
 
 **Grenze:** Bekannter Benchmark, feste kleine Architektur, keine klinische oder externe Validierung. Die interne Nullvektor-Diagnose erklärt nicht alle Fehler und ist kein medizinischer Befund.
 
+## 07 – Aktuell: Gezielte Rauschaugmentation
+
+**Frage:** Hilft eine vorab festgelegte Gegenmaßnahme, und welche Nachteile hat sie?
+
+Drei neue 28px-Modelle, identisches 45-Epochen-Budget und identische Daten wie die Kontrolle aus Versuch 06. Während des Trainings bekommt die Hälfte der Bilder zufällig Gaußrauschen. Die Rausch-Accuracy steigt im Mittel von 40,0 auf 84,0%; die Original-Accuracy bleibt etwa gleich. Der Fehleranteil unter akzeptierten Originalfällen steigt jedoch von 11,2 auf 13,0%.
+
+[Bericht](AUGMENTATION_STUDY.md) · [Protokoll](AUGMENTATION_PROTOCOL.md) · [48 Vergleichszeilen](../../reports/augmentation/comparison.csv) · [Nachprüfung](../../reports/augmentation/verification.json)
+
+**Grenze:** Absichtlich passende synthetische Störungsfamilie, keine externe Validierung und keine allgemeine Sicherheitsgarantie. [Zusammenhängender Forschungsüberblick](RESEARCH_SUMMARY.md).
+
 ## Softwaretests sind etwas anderes als Forschungsergebnisse
 
-Die 20 automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
+Die 24 automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
 
 [Tests](../../tests) · [Nachprüfung von Versuch 04](../../experiments/verify_resolution.py)
 

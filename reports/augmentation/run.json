@@ -1,0 +1,79 @@
+{
+  "config": {
+    "resolutions": [
+      28
+    ],
+    "seeds": [
+      17,
+      42,
+      83
+    ],
+    "epochs": 45,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "primary_blur_sigma_fraction": 0.03571428571428571,
+    "target_calibration_coverage": 0.8,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 2026,
+    "primary_endpoint": "augmentation-minus-control mean noise-minus-clean retained-risk change at 28px",
+    "study": "07: matched 45-epoch Gaussian augmentation intervention at 28px",
+    "noise_seed": 42,
+    "augmentation": {
+      "probability": 0.5,
+      "sigma": 0.1
+    },
+    "extra_noise": [
+      {
+        "name": "noise_7",
+        "seed": 7,
+        "sigma": 0.1
+      },
+      {
+        "name": "noise_99",
+        "seed": 99,
+        "sigma": 0.1
+      },
+      {
+        "name": "noise_high",
+        "seed": 42,
+        "sigma": 0.2
+      }
+    ]
+  },
+  "choices": [
+    {
+      "resolution": 28,
+      "seed": 17,
+      "epoch": 43,
+      "selection_bce": 0.17401881515979767,
+      "threshold": 0.7370129823684692,
+      "training_seconds": 17.827593201000127,
+      "parameters": 21249,
+      "weights_sha256": "d6a7889990dd40262f61854e7d57332712cc5eb41cf4ee78cef87f1d33bee3c4"
+    },
+    {
+      "resolution": 28,
+      "seed": 42,
+      "epoch": 44,
+      "selection_bce": 0.15229758620262146,
+      "threshold": 0.7679675817489624,
+      "training_seconds": 17.750089543987997,
+      "parameters": 21249,
+      "weights_sha256": "48456cd90f75a2fe5d85f6c88a35950e2399c7f43090e5404ab3cbdb6e0e2fc1"
+    },
+    {
+      "resolution": 28,
+      "seed": 83,
+      "epoch": 42,
+      "selection_bce": 0.14355267584323883,
+      "threshold": 0.7534900903701782,
+      "training_seconds": 18.18824127598782,
+      "parameters": 21249,
+      "weights_sha256": "e2350d1afd71b6611f3798af90cfb9a0ffb88327b6886112a8ac85043b4461cb"
+    }
+  ],
+  "torch": "2.5.1+cpu",
+  "elapsed_seconds": 55.058746521011926,
+  "commit": "d895098c4a30255ba00aed712ce20262f1ad23de",
+  "manifest_sha256": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0"
+}

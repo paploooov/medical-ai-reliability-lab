@@ -1,0 +1,7 @@
+{
+  "analysis_script_sha256": "7140b81286f908772f561e6f3e13a8e0fd8cb8702a297524baa90f24ec23ecc8",
+  "control_predictions_sha256": "c89c6bfc2ac913d1c0e314cea804de92854f7b2cb4af794118c8eb292798a10e",
+  "augmentation_predictions_sha256": "c99694bff633127bb5ca733bc2fac5ee586ac6e3d9e89f148f66957223f4aba9",
+  "bootstrap_seed": 20261110,
+  "primary_protocol": "docs/research/AUGMENTATION_PROTOCOL.md"
+}

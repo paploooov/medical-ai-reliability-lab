@@ -19,5 +19,6 @@
   ],
   "replicates": 2000,
   "discarded": 0,
-  "scope": "Paired exact-group bootstrap conditional on models and cutoffs; not patient-level or population training uncertainty."
+  "scope": "Paired exact-group bootstrap conditional on models and cutoffs; not patient-level or population training uncertainty.",
+  "bootstrap_seed": 20261109
 }

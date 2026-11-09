@@ -19,3 +19,5 @@ Resolution sensitivity analysis completed: 4682 fit / 262 selection / 262 calibr
 Study 05 completed: equal-coverage sensitivity analysis, 180 rows, paired bootstrap, class breakdown, deterministic error atlas, and full-condition plots. No new training. 18 tests pass. Three external sources assessed from public documentation; no restricted data accessed. README now leads with study 05.
 
 9 November: study 06 finished, six × 45-epoch runs; all 90 prefix entries match study 04. Noise preprocessing reproduced; zero final-hidden vectors identified and bias-only acceptance counted. All six new weights and 30 result rows verified. 108-condition frozen-model noise sweep completed. Twenty tests pass. Longer training did not solve noise failure.
+
+9 November: study 07 completed, three 28px models × 45 epochs with 50% Gaussian augmentation (SD .1). Same clean checkpoint selection/calibration policy. Primary noise accuracy improves 40.0% to 84.0%, but accepted clean error rate rises 11.2% to 13.0%. All 24 new model-condition rows, six arm weights and cutoffs verified; 24 tests pass. New research summary integrates evidence and limits. No external patient evaluation yet.

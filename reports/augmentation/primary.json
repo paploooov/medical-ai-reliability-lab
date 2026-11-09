@@ -1,0 +1,22 @@
+{
+  "estimands": [
+    "augmentation_minus_control_change_in_noise_minus_clean_retained_risk",
+    "secondary_clean_accuracy_difference"
+  ],
+  "point": [
+    -0.46330619722513244,
+    -0.0005367686527106841
+  ],
+  "ci_low": [
+    -0.5195930895770108,
+    -0.013419216317767066
+  ],
+  "ci_high": [
+    -0.40784267172878447,
+    0.011808910359635015
+  ],
+  "replicates": 2000,
+  "bootstrap_seed": 20261110,
+  "discarded": 0,
+  "scope": "Conditional on fitted models and cutoffs; exact-group resampling, not patients. Secondary interval exploratory without multiplicity correction."
+}
