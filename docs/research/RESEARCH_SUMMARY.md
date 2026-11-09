@@ -28,9 +28,11 @@ Die Modelle sind kleine selbst trainierte CNNs. Es handelt sich um Standardarchi
 
 **5. Eine gezielte Intervention hilft, aber nicht überall.** Frisches Gaußrauschen auf der Hälfte der Trainingsbilder erhöht beim gleichen 45-Epochen-Budget die mittlere Genauigkeit unter der entsprechenden Rauschbedingung von 40,0 auf 84,0%. Die mittlere Accuracy auf Originalbildern bleibt bei etwa 84,1%. Trotzdem steigt dort die Fehlerrate unter den von der jeweiligen Regel akzeptierten Fällen von 11,2 auf 13,0%; unter Kontrastverlust steigt sie ebenfalls leicht. Störungsspezifisches Training ist daher kein allgemeiner Sicherheitsnachweis.
 
+**6. Die Annahmeschwelle trifft ihr Ziel nicht zwingend.** Versuch 08 zieht die Kalibrierungsstichprobe erneut. Bei fünf Modellen liegen viele Fälle exakt auf derselben Konfidenz; die inklusive Annahmeregel akzeptiert deshalb auf dem Kalibrierungssatz 90–94% statt ungefähr 80%. In 54 von 2.000 gemeinsamen Wiederziehungen bleiben bei einem Kontrollmodell unter Rauschen keine akzeptierten Fälle: Die Fehlerrate ist dann undefiniert, nicht null. Der Augmentationsvorteil bleibt unter den auswertbaren Ziehungen bestehen; die Regel liefert dennoch keine Sicherheitsgarantie.
+
 ## Statistische Aussagekraft
 
-Die Berichte enthalten gepaarte Bootstrap-Intervalle: dieselben Fallindizes werden über verglichene Bedingungen und Modelle hinweg gemeinsam gezogen. Die aktuell verwendeten Einheiten sind eindeutige Pixelgruppen, keine nachgewiesenen unabhängigen Patienten. Die Intervalle halten Gewichte und Kalibrierungsschwellen fest. Sie enthalten weder die gesamte Trainingsvariabilität noch die Unsicherheit durch eine andere kleine Kalibrierungsstichprobe.
+Die Berichte enthalten gepaarte Bootstrap-Intervalle: dieselben Fallindizes werden über verglichene Bedingungen und Modelle hinweg gemeinsam gezogen. Die aktuell verwendeten Einheiten sind eindeutige Pixelgruppen, keine nachgewiesenen unabhängigen Patienten. Die früheren Intervalle halten Gewichte und Kalibrierungsschwellen fest; Versuch 08 variiert zusätzlich die Kalibrierungsfälle. Sie enthalten weder die gesamte Trainingsvariabilität noch die Unsicherheit durch eine andere kleine Kalibrierungsstichprobe.
 
 Minima und Maxima über drei Seeds sind als solche beschriftet und keine Konfidenzintervalle. Zusätzliche Rauschfolgen sind keine neuen Patienten. Die primären Endpunkte einzelner Folgeversuche wurden vor deren Berechnung festgelegt, die Themenwahl entstand aber nach Sichtung früherer Ergebnisse. Daher bleiben die Aussagen explorativ.
 

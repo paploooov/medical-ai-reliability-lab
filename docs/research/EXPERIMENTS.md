@@ -1,6 +1,6 @@
 # Verzeichnis der Untersuchungen
 
-Stand: 9. November 2026. **Der aktuelle Stand ist Versuch 07.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
+Stand: 9. November 2026. **Der aktuelle Stand ist Nachanalyse 08.** Die Nummern kennzeichnen die Reihenfolge der Untersuchungen, nicht unabhängige klinische Studien. Die englischen Detailberichte enthalten Methoden, Ergebnisse und Grenzen.
 
 ## 01 – Erste Modelle und Bildstörungen
 
@@ -72,7 +72,7 @@ Sechs erneute Trainingsläufe, je 45 Epochen; die ersten 15 stimmen mit Versuch 
 
 **Grenze:** Bekannter Benchmark, feste kleine Architektur, keine klinische oder externe Validierung. Die interne Nullvektor-Diagnose erklärt nicht alle Fehler und ist kein medizinischer Befund.
 
-## 07 – Aktuell: Gezielte Rauschaugmentation
+## 07 – Gezielte Rauschaugmentation
 
 **Frage:** Hilft eine vorab festgelegte Gegenmaßnahme, und welche Nachteile hat sie?
 
@@ -82,9 +82,19 @@ Drei neue 28px-Modelle, identisches 45-Epochen-Budget und identische Daten wie d
 
 **Grenze:** Absichtlich passende synthetische Störungsfamilie, keine externe Validierung und keine allgemeine Sicherheitsgarantie. [Zusammenhängender Forschungsüberblick](RESEARCH_SUMMARY.md).
 
+## 08 – Aktuell: Unsicherheit der Annahmeschwelle
+
+**Frage:** Was ändert sich, wenn auch die Kalibrierungsstichprobe variiert?
+
+Keine neuen Modelle. Je 2.000 gepaarte Wiederziehungen mit festen bzw. neu berechneten Schwellen sowie 500 Teilmengen pro Kalibrierungsgröße. Große Konfidenz-Gleichstände führen bei fünf Modellen zu 90–94% tatsächlicher statt ungefähr 80% angestrebter Akzeptanz im Kalibrierungssatz. Bei 54 gemeinsamen Ziehungen ist der Hauptvergleich wegen einer leeren akzeptierten Teilmenge undefiniert.
+
+[Bericht](CALIBRATION_STUDY.md) · [Protokoll](CALIBRATION_PROTOCOL.md) · [Ergebnisse](../../reports/calibration/summary.json) · [Nachprüfung](../../reports/calibration/verification.json)
+
+**Grenze:** Empirische Sensitivitätsbereiche auf einem vorhandenen Pool, keine nominal garantierten klinischen Intervalle. Die übrigen 1.946 Ziehungen dürfen die 54 nicht auswertbaren Fälle nicht verdecken.
+
 ## Softwaretests sind etwas anderes als Forschungsergebnisse
 
-Die 24 automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
+Die 29 automatisierten Tests prüfen Rechenregeln und technische Eigenschaften: unter anderem Fehlerraten, leere Teilmengen, Konfidenzgleichstände, Temperaturtransformation, Modellformen und Trennung der Pixelgruppen. Zusätzlich werden die gespeicherten Modelle, Vorhersagen und Schwellen nachgerechnet.
 
 [Tests](../../tests) · [Nachprüfung von Versuch 04](../../experiments/verify_resolution.py)
 

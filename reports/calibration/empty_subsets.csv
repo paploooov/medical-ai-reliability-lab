@@ -1,0 +1,13 @@
+arm,seed,condition,empty_replicates,replicates
+control,17,clean,0,2000
+control,17,noise,0,2000
+control,42,clean,0,2000
+control,42,noise,0,2000
+control,83,clean,0,2000
+control,83,noise,54,2000
+augmentation,17,clean,0,2000
+augmentation,17,noise,0,2000
+augmentation,42,clean,0,2000
+augmentation,42,noise,0,2000
+augmentation,83,clean,0,2000
+augmentation,83,noise,0,2000

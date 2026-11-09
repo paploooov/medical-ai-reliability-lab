@@ -1,0 +1,50 @@
+{
+  "models": [
+    {
+      "arm": "control",
+      "seed": 17,
+      "weights_sha256": "9ec791e5f96ff50b9d94db5bcf96dfc850ce25641006faf28222206fc2a7ee03"
+    },
+    {
+      "arm": "control",
+      "seed": 42,
+      "weights_sha256": "4cfdb12424bbb95bc379a18a54b7e7d72a9218127ccf5a273fc63b6df290a21e"
+    },
+    {
+      "arm": "control",
+      "seed": 83,
+      "weights_sha256": "ad6b27e41526a9f54690f8f6060b49ff6b2f8603b6d0414df50e548f49d0c738"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 17,
+      "weights_sha256": "d6a7889990dd40262f61854e7d57332712cc5eb41cf4ee78cef87f1d33bee3c4"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 42,
+      "weights_sha256": "48456cd90f75a2fe5d85f6c88a35950e2399c7f43090e5404ab3cbdb6e0e2fc1"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 83,
+      "weights_sha256": "e2350d1afd71b6611f3798af90cfb9a0ffb88327b6886112a8ac85043b4461cb"
+    }
+  ],
+  "metric_order": [
+    "control_clean_risk",
+    "control_noise_risk",
+    "augmentation_clean_risk",
+    "augmentation_noise_risk",
+    "control_clean_coverage",
+    "control_noise_coverage",
+    "augmentation_clean_coverage",
+    "augmentation_noise_coverage",
+    "primary_risk_change_difference",
+    "clean_risk_difference"
+  ],
+  "source_predictions_sha256": "add7605ce948db9446eb4eb2d86fbb41e0a3a2db46f8d3b379bb74b90321f52c",
+  "manifest_sha256": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0",
+  "analysis_sha256": "de61abd9e5af1b7152be08dab68b2217eb7257d7969fa45df30dcbf91db124de",
+  "commit": "c8e70a3e10bb4bf53cbde4410b10dc79427e2607"
+}

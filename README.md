@@ -5,13 +5,26 @@
 
 **Thorax-Röntgenbilder · Fehlererkennung · Kontrollierte Experimente · Reproduzierbare Forschung**
 
-[Aktuelle Ergebnisse](docs/research/AUGMENTATION_STUDY.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Forschungsüberblick](docs/research/RESEARCH_SUMMARY.md) · [Modelle](models/README.md)
+[Aktuelle Ergebnisse](docs/research/CALIBRATION_STUDY.md) · [Alle Untersuchungen](docs/research/EXPERIMENTS.md) · [Forschungsüberblick](docs/research/RESEARCH_SUMMARY.md) · [Modelle](models/README.md)
 
 </div>
 
-## Aktuell: Gezieltes Training gegen Rauschen
+## Aktuell: Versuch 08 – Wie stabil ist die Annahmeschwelle?
 
-**Stand: 9. November 2026 · Versuch 07.** Nach der Diagnose eines Rauschfehlers vergleichen wir drei 28×28-Modelle mit und ohne Rauschaugmentation. Architektur, Datenaufteilung, Trainingsbudget und Seeds bleiben gleich. Modellwahl und Kalibrierung verwenden getrennte Originaldaten.
+**9. November 2026 · Nachanalyse ohne neues Training.** Wir variieren jetzt auch die 262 Fälle, anhand derer die Modelle unsichere Vorhersagen zurückhalten sollen.
+
+- Ziel: ungefähr **80 % Akzeptanz** auf den Kalibrierungsfällen.
+- Beobachtung: Fünf der sechs Modelle akzeptieren dort tatsächlich **90–94 %**, weil viele Konfidenzwerte genau gleich sind.
+- In **54 von 2.000 Wiederziehungen** ist der Hauptvergleich undefiniert: Bei einem Modell bleiben unter Rauschen keine akzeptierten Vorhersagen übrig.
+- Unter den auswertbaren Ziehungen bleibt der Vorteil der Rauschaugmentation bestehen. Daraus folgt keine garantiert sichere Fehlerrate.
+
+![Kalibrierungsstichprobe und Schwellenunsicherheit](reports/calibration/bootstrap_sensitivity.png)
+
+[**Vollständige Auswertung und Grenzen →**](docs/research/CALIBRATION_STUDY.md) · [Prüfnachweis](reports/calibration/verification.json) · [PDF](reports/calibration/bootstrap_sensitivity.pdf)
+
+## Versuch 07 – Gezieltes Training gegen Rauschen
+
+**Trainingsvergleich aus Versuch 07.** Nach der Diagnose eines Rauschfehlers vergleichen wir drei 28×28-Modelle mit und ohne Rauschaugmentation. Architektur, Datenaufteilung, Trainingsbudget und Seeds bleiben gleich. Modellwahl und Kalibrierung verwenden getrennte Originaldaten.
 
 | Ergebnis, Mittel über drei Seeds | Ohne Rauschaugmentation | Mit Rauschaugmentation |
 |---|---:|---:|
@@ -42,7 +55,8 @@ Punkte: Mittelwerte der drei Trainingsläufe. Fehlerbalken: Minimum bis Maximum,
 | 04 – Auflösung | Wie unterscheiden sich 28×28 und 64×64? | Unterschied bei Unschärfe, aber auch andere Akzeptanzraten. [Bericht](docs/research/RESOLUTION_STUDY.md) |
 | 05 – Gleiche Akzeptanz | Bleibt der Unterschied bei gleich vielen akzeptierten Fällen? | Er fällt deutlich kleiner aus. [Nachanalyse](docs/research/SELECTIVE_REVIEW.md) |
 | 06 – Trainingsbudget | Behebt längeres Training den Rauschfehler? | Nein; der letzte Merkmalsvektor wird bei vielen Fällen null. [Bericht](docs/research/BUDGET_STUDY.md) |
-| **07 – Rauschaugmentation** | Hilft gezieltes Training gegen diese Störung? | **Deutliche Verbesserung unter Rauschen, mit Grenzen und Nebenwirkungen.** [Aktueller Bericht](docs/research/AUGMENTATION_STUDY.md) |
+| **07 – Rauschaugmentation** | Hilft gezieltes Training gegen diese Störung? | **Deutliche Verbesserung unter Rauschen, mit Grenzen und Nebenwirkungen.** [Bericht](docs/research/AUGMENTATION_STUDY.md) |
+| **08 – Kalibrierungsstichprobe** | Wie stabil sind Annahmeschwellen aus 262 Fällen? | **Aktuell:** Gleichstände und leere Teilmengen begrenzen die Interpretation. [Bericht](docs/research/CALIBRATION_STUDY.md) |
 
 Die Folgeversuche verwenden denselben bereits untersuchten Benchmark. Sie sind keine unabhängigen klinischen Replikationen. Frühere Ergebnisse bleiben nachvollziehbar; verschiedene Architekturen und Datenaufteilungen dürfen nicht als einfache Bestenliste verglichen werden.
 
@@ -56,7 +70,7 @@ Die kleinen CNNs haben in den aktuellen Versuchen jeweils **21.249 Parameter**. 
 
 ## Reproduzieren
 
-Python 3.12, CPU, keine kostenpflichtigen Dienste. Der aktuelle Versuch nutzt die bereits versionierten Kontrollmodelle aus Versuch 06.
+Python 3.12, CPU, keine kostenpflichtigen Dienste. Die aktuelle Nachanalyse nutzt die bereits versionierten Modelle aus Versuch 06 und 07. Für ihre Reproduktion ist kein neues Training erforderlich.
 
 ```bash
 python3 -m venv .venv
@@ -64,22 +78,21 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.5.1
 python scripts/inspect_data.py
-OPENBLAS_NUM_THREADS=2 OMP_NUM_THREADS=2 python experiments/resolution_study.py --config configs/augmentation_study.json --output reports/augmentation --models models/augmentation
-python experiments/noise_diagnostics.py --reports reports/augmentation --models models/augmentation --tag augmented --output reports/augmentation
-python experiments/augmentation_analysis.py
+python experiments/calibration_study.py
+python experiments/verify_calibration.py
 python -m unittest discover -s tests -v
 ```
 
-Erneutes Training ersetzt die Ausgaben von Versuch 07. Gewichte und Ergebnisse früherer Versuche bleiben erhalten. Rohdaten werden heruntergeladen und geprüft; sie sind nicht in Git enthalten. Die Berichte enthalten die Befehle für frühere Versuche. Das [Colab-Notebook](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) zeigt bisher nur den Dateneinstieg.
+Die Nachanalyse ersetzt nur ihre eigenen Ausgabedateien. Gewichte und Ergebnisse früherer Versuche bleiben erhalten. Rohdaten werden heruntergeladen und geprüft; sie sind nicht in Git enthalten. Die Berichte enthalten die Befehle für frühere Versuche. Das [Colab-Notebook](https://colab.research.google.com/github/paploooov/medical-ai-reliability-lab/blob/main/notebooks/01_data_exploration.ipynb) zeigt bisher nur den Dateneinstieg.
 
-**Prüfstand:** 24 Softwaretests bestanden. Für Versuch 07 wurden alle 24 neuen Ergebniszeilen, sechs Modelle und Annahmeschwellen beider Vergleichsarme nachgeprüft. Softwaretests sichern Berechnungen ab; sie belegen keine medizinische Sicherheit.
+**Prüfstand:** 29 Softwaretests bestanden. Für Versuch 08 wurden 2.000 gepaarte Bootstrap-Ziehungen in beiden Varianten und 2.000 Teilmengen-Auswertungen separat nachgerechnet. Softwaretests sichern Berechnungen ab; sie belegen keine medizinische Sicherheit.
 
 ## Orientierung
 
 - `docs/research/`: Berichte, Protokolle, Literatur und Versuchsverzeichnis.
 - `configs/`: festgelegte Einstellungen und Datenindizes.
 - `experiments/`: Training, Diagnose und Auswertung; `tests/`: Softwareprüfungen.
-- `reports/augmentation/`, `models/augmentation/`: aktuelle Ergebnisse und Modelle.
+- `reports/calibration/`: aktuelle Nachanalyse; `reports/augmentation/`, `models/augmentation/`: zugrunde liegende Trainingsstudie.
 - Weitere Unterordner in `reports/` und `models/`: erhaltene frühere Versuche.
 
 ## Quellen und Nutzung

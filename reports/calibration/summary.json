@@ -1,0 +1,190 @@
+{
+  "point": {
+    "control_clean_risk": 0.11161331572676592,
+    "control_noise_risk": 0.570375014031065,
+    "augmentation_clean_risk": 0.13038565690888615,
+    "augmentation_noise_risk": 0.12584115798805284,
+    "control_clean_coverage": 0.7852925389157273,
+    "control_noise_coverage": 0.8808373590982287,
+    "augmentation_clean_coverage": 0.8223295759527643,
+    "augmentation_noise_coverage": 0.8217928073000538,
+    "primary_risk_change_difference": -0.46330619722513244,
+    "clean_risk_difference": 0.018772341182120234
+  },
+  "fixed_threshold": {
+    "control_clean_risk": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.08691168311957219,
+      "high": 0.13664363647439343,
+      "median": 0.1113391651295394
+    },
+    "control_noise_risk": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.5315138070303846,
+      "high": 0.6107045590884342,
+      "median": 0.5710905986546293
+    },
+    "augmentation_clean_risk": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.1035453044060831,
+      "high": 0.1583167030656549,
+      "median": 0.1303816835819775
+    },
+    "augmentation_noise_risk": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.09984348832860128,
+      "high": 0.15342468231149636,
+      "median": 0.1259211807893952
+    },
+    "control_clean_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.7573805689747718,
+      "high": 0.8132045088566827,
+      "median": 0.7858293075684379
+    },
+    "control_noise_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.8663446054750402,
+      "high": 0.8948067632850241,
+      "median": 0.8808373590982286
+    },
+    "augmentation_clean_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.7944176060118089,
+      "high": 0.848094471282877,
+      "median": 0.8228663446054751
+    },
+    "augmentation_noise_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.7949543746645196,
+      "high": 0.848094471282877,
+      "median": 0.8223295759527643
+    },
+    "primary_risk_change_difference": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": -0.5195930895770108,
+      "high": -0.40784267172878447,
+      "median": -0.4641908000460522
+    },
+    "clean_risk_difference": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.008412880481060448,
+      "high": 0.029173751114192886,
+      "median": 0.018799052918342336
+    }
+  },
+  "reestimated_threshold": {
+    "control_clean_risk": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.0858936832366367,
+      "high": 0.13716885524372574,
+      "median": 0.1112677823507529
+    },
+    "control_noise_risk": {
+      "finite": 1946,
+      "undefined": 54,
+      "low": 0.5289093706023777,
+      "high": 0.6130572396476169,
+      "median": 0.5715709783813748
+    },
+    "augmentation_clean_risk": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.10361440159298163,
+      "high": 0.15835919634077922,
+      "median": 0.13049826800478734
+    },
+    "augmentation_noise_risk": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.09984731099809736,
+      "high": 0.1538018505297515,
+      "median": 0.1264747421750337
+    },
+    "control_clean_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.7434245840042942,
+      "high": 0.8196457326892109,
+      "median": 0.785829307568438
+    },
+    "control_noise_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.5577026301663982,
+      "high": 0.9076757917337628,
+      "median": 0.8813741277509393
+    },
+    "augmentation_clean_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.7825684380032205,
+      "high": 0.848094471282877,
+      "median": 0.8217928073000538
+    },
+    "augmentation_noise_coverage": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.7788513150831992,
+      "high": 0.847571121846484,
+      "median": 0.8212560386473431
+    },
+    "primary_risk_change_difference": {
+      "finite": 1946,
+      "undefined": 54,
+      "low": -0.5246808857009682,
+      "high": -0.4083515950999236,
+      "median": -0.4657304989548513
+    },
+    "clean_risk_difference": {
+      "finite": 2000,
+      "undefined": 0,
+      "low": 0.008253941060773286,
+      "high": 0.03155727506970722,
+      "median": 0.019449975923713878
+    }
+  },
+  "scope": "empirical percentile sensitivity ranges conditional on six fitted models and observed exact-image groups; threshold atoms limit regular bootstrap interpretation",
+  "config": {
+    "study": "08: empirical calibration-sample sensitivity, frozen study07/control models",
+    "seeds": [
+      17,
+      42,
+      83
+    ],
+    "arms": [
+      "control",
+      "augmentation"
+    ],
+    "conditions": [
+      "clean",
+      "noise"
+    ],
+    "coverage_target": 0.8,
+    "bootstrap_replicates": 2000,
+    "test_bootstrap_seed": 20261110,
+    "calibration_bootstrap_seed": 20261111,
+    "subset_sizes": [
+      32,
+      64,
+      128,
+      262
+    ],
+    "subset_replicates": 500,
+    "subset_seed": 20261112,
+    "primary": "augmentation-minus-control difference in noise-minus-clean retained risk",
+    "ties": "inclusive confidence >= NumPy linear 20th quantile",
+    "interval_scope": "empirical percentile sensitivity ranges conditional on six fitted models and observed exact-image groups; threshold atoms limit regular bootstrap interpretation"
+  }
+}
