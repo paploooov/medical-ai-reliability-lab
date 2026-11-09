@@ -57,3 +57,12 @@ Vor einer weiteren Modellvergrößerung sollte die Annahmeregel Gleichstände au
 Mit Kalibrierung ist in diesem Versuch die Festlegung der Annahmeschwelle gemeint, nicht eine nachträgliche Korrektur der Modellwahrscheinlichkeiten durch Temperature Scaling.
 
 Zusätzliche Nachprüfung: `python experiments/verify_calibration.py` rechnet beide Varianten aller 2.000 Bootstrap-Ziehungen und sämtliche 2.000 Teilmengen-Auswertungen mit einer separaten skalaren Implementierung nach. [Prüfdatei](../../reports/calibration/verification.json).
+
+
+## Ergänzung durch Versuch 09: Ursache und Gegenproben
+
+Die historische Auswertung oben bleibt unverändert. [Versuch 09](MECHANISTIC_TIES.md) weist nach, dass sämtliche 250 Modell-Fall-Paare auf den fünf betroffenen Schwellen einen Nullvektor in der letzten Merkmalschicht haben. Damit ist ihr Logit exakt der Bias; eine diskrete Kalibrierungsmethode oder Sättigung bei 1,0 erklärt diese Punktmassen nicht.
+
+Deterministisches Tie-Breaking nimmt jeweils 209/262 Kalibrierungsfälle an (79,77 %). Die Grenze wird ohne Testlabels auf Testfälle übertragen, nicht dort neu auf 80 % angepasst. Die 54 leeren Bootstrap-Ziehungen von Kontrolle/Seed 83 bleiben bestehen: In jeder liegt die Schwelle über der maximalen Konfidenz des gesamten Rauschtestsatzes. Nullvektoren direkt zurückzuhalten macht bei diesem Modell alle 2.000 Rauschziehungen leer. Undefinierte Fehlerraten sind keine Nullfehler-Ergebnisse.
+
+Zusätzlich gilt: Pixelgruppen ersetzen keine Patienten-IDs; das Bootstrap bildet unbekannte Patientenabhängigkeiten nicht ab. [Datensatzherkunft und Leakage-Grenzen](AUDIT.md).

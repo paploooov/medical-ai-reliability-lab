@@ -1,33 +1,47 @@
-# Methodological audit — 8 November 2026
+# Methodischer Audit
 
-## What survives verification
+Erster Audit: 8. November 2026; Präzisierung zu Datenherkunft und Versuch 09: 9. November 2026.
 
-Recomputed accuracy, disease AUC, Brier score and high-confidence error proportion match all 20 pilot and 60 CNN CSV rows against stored predictions. Labels match the checksum-verified archive. All 30 CNN seed/condition combinations preserve class decisions under temperature scaling. These checks verify arithmetic consistency, not clinical validity. Reproduce with `python experiments/audit.py`.
+## Rechnerisch bestätigte Befunde
 
-## Material findings
+Accuracy, Krankheits-AUROC, Brier Score und Anteil hochkonfidenter Fehler stimmen für alle 20 Pilot- und 60 CNN-Ergebniszeilen mit den gespeicherten Vorhersagen überein. Die Labels entsprechen dem prüfsummengesicherten Archiv. In allen 30 Seed-/Bedingungskombinationen des frühen CNN-Versuchs erhält Temperature Scaling die Klassenentscheidung. Diese Prüfungen belegen rechnerische Konsistenz, keine klinische Gültigkeit. Prüfprogramm: `python experiments/audit.py`; wegen seiner Berichtsausgabe in einer isolierten Kopie ausführen, wenn historische Artefakte erhalten bleiben sollen.
 
-**Eight unique 28×28 pixel arrays occur in both training and validation.** The archive also contains 18 excess repeated training arrays and three excess repeated test arrays; validation has no internal exact duplicates. No exact array overlaps were found between training/test or validation/test. Counts refer to pixel hashes, not patients. Resizing may collapse distinct source images to identical arrays. Similar but nonidentical images and shared patients remain undetected.
+## Pixelüberschneidungen und Datenaufteilung
 
-Validation is used both to choose checkpoints and fit temperatures. Combined with the observed overlap, it cannot be described as independently clean calibration evidence. Test repeats also undermine naive independent-image uncertainty assumptions. Existing results remain historical official-split baselines; do not silently delete cases or replace their reported numbers.
+Acht unterschiedliche 28×28-Pixelarrays kommen sowohl in Training als auch in Validation vor. Zusätzlich gibt es 18 überschüssige Wiederholungen innerhalb des Trainingssatzes und drei im Testsatz; in Validation keine internen exakten Duplikate. Zwischen Training/Test sowie Validation/Test wurden keine exakt identischen Arrays gefunden. Diese Zahlen betreffen Pixelhashes, nicht Patienten. Verkleinerung kann unterschiedliche Ausgangsbilder auf dasselbe Array abbilden; umgekehrt bleiben ähnliche, aber nicht identische Aufnahmen unerkannt.
 
-The benchmark test set has been inspected repeatedly. Later experiments are exploratory follow-ups. No blind external test or registered prospective study has occurred.
+Die frühen Versuche verwendeten Validation zugleich für Modellwahl und Temperature Scaling. Zusammen mit der beobachteten Überschneidung ist das keine unabhängig saubere Kalibrierung. Diese Ergebnisse bleiben historische Baselines auf den offiziellen Splits. Seit Versuch 04 werden Pixelgruppen getrennt behandelt, mit separaten Auswahl- und Kalibrierungsteilmengen. Die Patientenunabhängigkeit folgt daraus nicht.
 
-The fixed dense CNN head has 32×7×7 spatial inputs. Simply increasing resolution changes or breaks that architecture; a fair comparison needs a resolution-compatible model and explicit parameter/compute controls. Equal blur sigma in pixels has different relative strength at different resolutions. Contrast reduction towards 0.5 is a synthetic intensity manipulation, not an established X-ray acquisition degradation model.
+## PneumoniaMNIST: Patientenbezug und Grenzen der Quellenlage
 
-Three seeds expose limited training variability, not patient-level uncertainty. A high error-detection AUROC can coexist with a clinically unusable classifier, as when every image receives the positive label. Binary temperature scaling cannot improve confidence ranking; neither more parameters nor a lower validation loss establishes better error detection.
+PneumoniaMNIST basiert auf den pädiatrischen Thoraxaufnahmen aus **Kermany et al. (2018)**, [doi:10.1016/j.cell.2018.02.010](https://doi.org/10.1016/j.cell.2018.02.010). Die [MedMNIST-v2-Publikation](https://doi.org/10.1038/s41597-022-01721-8) nennt 5.856 Aufnahmen und beschreibt das Aufteilen des Quell-Trainingssatzes im Verhältnis 9:1, zentrales Zuschneiden und Verkleinern. Die hier verwendeten MedMNIST-NPZ-Dateien enthalten Bilder und Klassenlabels, **keine Patienten-IDs, Originaldateinamen oder Aufnahmezeitpunkte**. Ein patientenbezogener Split ist daraus nicht rekonstruierbar; etwaige Zuordnungen der Originaldateien stehen in diesem Export nicht mehr zur Verfügung.
 
-Training loss is averaged across changing model states during each epoch; validation loss is measured at the final state. The learning curves should not be interpreted as a perfectly matched train/validation generalization gap. Corruption plot lines connect separate categorical conditions and do not represent one continuous physical severity scale.
+**Die konkrete Behauptung longitudinaler Thoraxaufnahmen derselben Kinder ist mit den hier geprüften Quellen nicht gesichert.** Die Kermany-Sammlung enthält sowohl OCT- als auch Thoraxdaten. Auf der [Originaldatenseite, Version 2](https://data.mendeley.com/datasets/rscbjbr9sj/2) bezieht sich die Formulierung „(disease)-(randomized patient ID)-(image number by this patient)“ ausdrücklich auf **OCT Images**. Sie darf nicht als Beleg für wiederholte oder longitudinal datierte pädiatrische Thoraxaufnahmen übernommen werden. Mehrere Aufnahmen pro Person und eine zeitlich belegte longitudinale Serie sind zudem unterschiedliche Aussagen. Eine belastbare Bestätigung für den Thoraxanteil erfordert Originalmetadaten beziehungsweise eine darauf bezogene Primärquelle. Sie liegt diesem Repository bislang nicht vor.
 
-## Evidence status
+**Warum Pixel-Deduplizierung patientenbezogenes Leakage nicht verhindern kann:** Werden mehrere Aufnahmen derselben Person verwendet, unterscheiden sie sich schon durch Zeitpunkt, Projektion, Positionierung, Belichtung oder Verarbeitung in den Pixeln. Solche Arrays erhalten verschiedene Hashes und können über Training, Modellwahl/Validation, Kalibrierung und Test verteilt sein. Dennoch teilen sie patientenspezifische Anatomie und gegebenenfalls denselben Krankheitsverlauf oder Aufnahmebedingungen. Ein Modell kann dadurch patientenbezogene Information wiedererkennen; außerdem sind Fehler und Beobachtungen statistisch abhängig. Auch ohne exakte Bildduplikate können Leistungsmaße und bildbasierte Unsicherheitsintervalle deshalb zu optimistisch sein.
 
-Supported: small fitted models, reproducible saved outputs, exploratory corruption sensitivity, limited confidence-based error ranking. Unsupported: clinical safety, new medical discovery, independent patient separation, reliable automatic error recognition, superiority over established clinical models.
+Ohne Patienten-IDs kann dieser Audit solche Überschneidungen weder ausschließen noch ihre Häufigkeit beziffern. Ein Nachweis tatsächlichen patientenbezogenen Leaks zwischen allen vier Teilmengen wird nicht behauptet. Benötigt werden patientenweise Gruppierung **vor** der Aufteilung und ein unabhängiger Testsatz mit dokumentierter Herkunft. Pixelgruppen sind nur eine begrenzte Schadensbegrenzung, kein Ersatz dafür.
 
-The focused literature map documents established precedents. Its scope is not a complete review. Further training should follow the revised study plan and overlap assessment rather than seeking a more impressive score on this known test set.
+## Auflösung und Störungen
 
-## Higher-resolution cross-check
+Beim offiziellen 64×64-Archiv wurden MD5 `8f4eceb4ccffa70c672198ea285246c6` und identische Splitlabels gegenüber 28×28 geprüft. Die Duplikatzahlen sind ebenfalls acht Training/Validation-Überschneidungen, 18 überschüssige Trainings- und drei Testwiederholungen, ohne exakte Training/Test- oder Validation/Test-Überschneidung. Höhere Auflösung beseitigt dieses Problem nicht. [Auditdaten](../../reports/audit/resolution_64.json).
 
-The official 64×64 archive was downloaded (~20 MB), verified against MedMNIST's MD5 `8f4eceb4ccffa70c672198ea285246c6`, and all split labels were checked against the 28×28 archive. At 64×64 the overlap counts are again eight distinct train/validation arrays, no train/test or validation/test overlap, 18 excess training repetitions and three excess test repetitions. This demonstrates that the overlap issue persists at higher resolution; it does not establish original patient identities. Raw audit outputs: `reports/audit/resolution_64.json`.
+![Dieselben vier Trainingsfälle bei zwei Auflösungen](../../reports/audit/resolution_comparison.png)
 
-![Resolution comparison](../../reports/audit/resolution_comparison.png)
+Die vier Bildfälle wurden nach Index gewählt. Prüfprogramm: `python scripts/compare_resolutions.py`. Der frühe feste CNN-Kopf kann nicht ohne Architekturänderung auf größere Bilder übertragen werden. Seit Versuch 04 ermöglicht ein adaptiver Kopf einen kontrollierteren Vergleich. Gleiche Unschärfe in Pixeln bedeutet bei verschiedenen Auflösungen unterschiedliche relative Stärke.
 
-Run `python scripts/compare_resolutions.py` to reproduce this check and figure. These are the first four training cases, chosen by index rather than appearance. No higher-resolution model has been trained in this audit.
+28×28 Pixel eliminieren radiologische Feinstrukturen. Synthetisches Pixelrauschen auf dieser Auflösung dient als kontrolliertes ML-Testbed für niedriges Signal-Rausch-Verhältnis (SNR), **nicht als physikalisches Modell klinischer Röntgendegradation**. Quantenrauschen, Dosis, Detektorantwort, Rekonstruktion und Bildnachverarbeitung werden nicht nachgebildet. Auch Kontrastverschiebung zu 0,5 ist eine synthetische Intensitätsmanipulation.
+
+## Weitere methodische Grenzen
+
+- Der bekannte Testsatz wurde wiederholt untersucht; Folgeversuche sind explorativ. Eine verblindete externe Prüfung oder prospektive Registrierung fehlt.
+- Drei Trainingsseeds zeigen begrenzt die Trainingsstreuung, nicht Patientenunsicherheit. Seed-Minimum und -Maximum sind deskriptiv. Eine hohe Fehlererkennungs-AUROC kann mit einem unbrauchbaren Klassifikator zusammenfallen.
+- Binäres Temperature Scaling verändert die Konfidenzrangfolge nicht. Mehr Parameter oder geringerer Validierungsverlust belegen keine bessere Fehlererkennung.
+- Trainingsverlust wird innerhalb jeder Epoche über wechselnde Modellzustände gemittelt, Validierungsverlust am Endzustand berechnet. Ihr Abstand ist kein direkt vergleichbarer Generalisierungsfehler.
+- Linien zwischen unterschiedlichen Störbedingungen bilden keine kontinuierliche physikalische Schweregradskala ab.
+
+## Mechanistische Ergänzung aus Versuch 09
+
+Alle 250 Modell-Fall-Paare exakt auf den fünf betroffenen Kalibrierungsschwellen haben einen Nullvektor in der letzten ReLU-Merkmalsschicht; ihr Logit entspricht exakt dem Bias. Die Punktmasse entsteht damit vor der Quantilregel. Sättigung bei Konfidenz 1,0 erklärt diese Gleichstände nicht. Tie-Breaking und Nullvektor-Ausschluss beheben die Modellschwäche nicht allgemein; unter Rauschen können akzeptierte Mengen leer werden. [Bericht und Gegenproben](MECHANISTIC_TIES.md).
+
+Belegt sind trainierte kleine Modelle, reproduzierbare Vorhersagen und eng begrenzte Störungsdiagnosen. Nicht belegt sind klinische Sicherheit, unabhängige Patiententrennung, zuverlässige automatische Fehlererkennung oder Überlegenheit gegenüber etablierten klinischen Modellen. Der Literaturüberblick ist keine systematische Vollerhebung.

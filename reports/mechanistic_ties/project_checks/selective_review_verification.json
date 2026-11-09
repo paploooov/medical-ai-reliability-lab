@@ -1,0 +1,6 @@
+{
+  "result_rows_recomputed_independently": 180,
+  "class_breakdown_rows": 60,
+  "source_hash_verified": true,
+  "method": "Iterate unique confidence groups, allocate remaining acceptance budget, average group errors."
+}

@@ -6,7 +6,7 @@
 
 Wie verändert sich die Fehlererkennung eines Bildklassifikators, wenn sich die Qualität medizinischer Bilder verschlechtert? Dabei reicht es nicht, die Genauigkeit zu messen. Ein System kann falsche Vorhersagen mit hoher Sicherheit ausgeben; umgekehrt kann ein Warnsystem so viele richtige Fälle zurückhalten, dass sein Nutzen gering wird.
 
-Wir untersuchen deshalb drei getrennte Eigenschaften: die Richtigkeit der Klassifikation, die Aussagekraft ihrer Wahrscheinlichkeiten und die Möglichkeit, anhand dieser Wahrscheinlichkeiten fehleranfällige Fälle zur Prüfung zurückzuhalten. Der Versuch ist auf einen öffentlichen pädiatrischen Röntgenbenchmark beschränkt. Er bewertet keine tatsächliche Versorgungssituation.
+Wir untersuchen deshalb drei getrennte Eigenschaften: die Richtigkeit der Klassifikation, die Aussagekraft ihrer Wahrscheinlichkeiten und die Möglichkeit, anhand dieser Wahrscheinlichkeiten fehleranfällige Fälle zur Prüfung zurückzuhalten. Der Versuch ist auf einen öffentlichen pädiatrischen Röntgenbenchmark beschränkt. Bei 28×28 Pixeln gehen radiologische Feinstrukturen verloren. Synthetisches Pixelrauschen dient als kontrolliertes ML-Testbed für niedriges Signal-Rausch-Verhältnis (SNR), nicht als physikalisches Modell klinischer Röntgendegradation. Die Untersuchung bewertet keine tatsächliche Versorgungssituation.
 
 ## Daten und methodische Entwicklung
 
@@ -32,7 +32,7 @@ Die Modelle sind kleine selbst trainierte CNNs. Es handelt sich um Standardarchi
 
 ## Statistische Aussagekraft
 
-Die Berichte enthalten gepaarte Bootstrap-Intervalle: dieselben Fallindizes werden über verglichene Bedingungen und Modelle hinweg gemeinsam gezogen. Die aktuell verwendeten Einheiten sind eindeutige Pixelgruppen, keine nachgewiesenen unabhängigen Patienten. Die früheren Intervalle halten Gewichte und Kalibrierungsschwellen fest; Versuch 08 variiert zusätzlich die Kalibrierungsfälle. Sie enthalten weder die gesamte Trainingsvariabilität noch die Unsicherheit durch eine andere kleine Kalibrierungsstichprobe.
+Die Berichte enthalten gepaarte Bootstrap-Intervalle: dieselben Fallindizes werden über verglichene Bedingungen und Modelle hinweg gemeinsam gezogen. Die aktuell verwendeten Einheiten sind eindeutige Pixelgruppen, keine nachgewiesenen unabhängigen Patienten. Die früheren Intervalle halten Gewichte und Kalibrierungsschwellen fest; Versuch 08 variiert zusätzlich die Kalibrierungsfälle. Auch Versuch 08 erfasst nur empirische Kalibrierungsvariation innerhalb des vorhandenen Pools, weder die gesamte Trainingsvariabilität noch einen Wechsel der Patientenpopulation.
 
 Minima und Maxima über drei Seeds sind als solche beschriftet und keine Konfidenzintervalle. Zusätzliche Rauschfolgen sind keine neuen Patienten. Die primären Endpunkte einzelner Folgeversuche wurden vor deren Berechnung festgelegt, die Themenwahl entstand aber nach Sichtung früherer Ergebnisse. Daher bleiben die Aussagen explorativ.
 
@@ -49,3 +49,12 @@ Konfidenzbasierte Fehlererkennung, Temperature Scaling und selektive Vorhersagen
 Zu jedem Versuch gibt es Code, Konfiguration, Modellgewichte oder einen Verweis auf verwendete Gewichte, Vorhersagen, Diagramme und Grenzen. Softwaretests prüfen Berechnungen; zusätzliche Nachprüfungen laden Gewichte erneut und rechnen Ergebniszeilen nach. Die Trennung zwischen mathematisch korrekter Auswertung und medizinischer Aussagekraft bleibt wesentlich.
 
 [Versuchsverzeichnis](EXPERIMENTS.md) · [Budgetvergleich](BUDGET_STUDY.md) · [Augmentationsversuch](AUGMENTATION_STUDY.md)
+
+
+## Präzisierung und mechanistische Nachanalyse (Versuch 09)
+
+Die Reduktion auf 28×28 Pixel eliminiert radiologische Feinstrukturen. Das synthetische Pixelrauschen dient als kontrolliertes ML-Testbed für niedriges Signal-Rausch-Verhältnis (SNR), nicht als physikalisches Modell klinischer Röntgendegradation. Eine Übertragung auf Dosisänderungen, reale Detektoren oder klinische Bildqualität ist damit nicht belegt. Die fehlenden Patienten-IDs erlauben außerdem keine Absicherung patientenunabhängiger Teilmengen; siehe [Audit und Quellenabgrenzung](AUDIT.md).
+
+[Versuch 09](MECHANISTIC_TIES.md) erklärt alle 250 Modell-Fall-Paare auf den fünf betroffenen Kalibrierungsschwellen durch einen vollständig leeren letzten Merkmalsvektor und den daraus folgenden Bias-Logit. Weder Sättigung bei Konfidenz 1,0 noch eine diskrete Wahrscheinlichkeitskalibrierung verursacht diese Gleichstände. Die 54 leeren Ziehungen entstehen, weil die gezogene Schwelle über sämtliche Konfidenzen der Rauschfälle steigt.
+
+Eine feste Hash-Reihenfolge löst Gleichstände auf: Alle Modelle akzeptieren dann 209 von 262 Kalibrierungsfällen (79,77 %; exakt 80 % ist hier binär nicht möglich). Auf Testdaten garantiert das weder dieselbe Quote noch weniger Fehler. Nullvektoren pauschal zurückzuhalten senkt die Verfügbarkeit teilweise bis auf null und kann die verbleibende Fehlerrate erhöhen. Die Gegenproben begrenzen damit die Interpretation; sie liefern keine neue validierte Sicherheitsregel. Frühere Gewichte und Ergebnisse bleiben erhalten.

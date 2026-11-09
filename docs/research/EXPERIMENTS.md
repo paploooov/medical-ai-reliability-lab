@@ -103,3 +103,8 @@ Bestandene Softwaretests zeigen nicht, dass ein Modell medizinisch richtig oder 
 ## Noch offen
 
 Patientenbezogene externe Daten, klinisch begründete Störungen, größere Prüfung verschiedener Trainingsbudgets und die Bewertung eines tatsächlichen Einsatzszenarios. [Literaturüberblick](LITERATURE.md) und [Projektumfang](PROJECT_SCOPE.md) ordnen den bisherigen Stand ein.
+
+
+## Versuch 09 – Mechanistische Gleichstandsdiagnose
+
+Sechs unveränderte Modelle aus Versuch 06/07; Nachweis von Null-Merkmalsvektoren an den Kalibrierungsschwellen, deterministisches Tie-Breaking und Nullvektor-Ausschluss. [Bericht](MECHANISTIC_TIES.md) · [Prüfartefakt](../../reports/mechanistic_ties/verification.json). Kein neues Training; frühere Artefakte bleiben erhalten.
