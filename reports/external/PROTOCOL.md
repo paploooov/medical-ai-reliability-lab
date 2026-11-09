@@ -19,3 +19,5 @@ Festgelegt vor der ersten Auswertung externer Bilder (Branch `external-test`). K
 **Unsicherheit.** 2.000 Bootstrap-Wiederziehungen der Bilder (Seed 2026), gepaart über Arme und Seeds, bedingt auf feste Modelle und Schwellen; Perzentil-95%-Intervalle für Mittelwerte über drei Seeds und für die Differenz Augmentation minus Kontrolle.
 
 **Primärer externer Vergleich.** Fehler unter akzeptierten Fällen, extern `clean`, Augmentation minus Kontrolle. Alles andere ist deskriptiv/explorativ, ohne Multiplizitätskorrektur.
+
+**Nachtrag (nach dem Ziehen der Stichprobe, vor jeder Modellauswertung).** Die DICOM-Metadaten zeigen 131 Bilder mit Alter < 18 Jahren und gemischte Aufnahmerichtungen (AP/PA). Zusätzlich, rein explorativ: Kennzahlen für Alter ≥ 18 sowie getrennt nach AP und PA (AP ist in RSNA mit Verschattung assoziiert). Die Primärauswertung bleibt unverändert.
