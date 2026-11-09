@@ -3,7 +3,7 @@
 [**Paper Summary**](PAPER_SUMMARY.md) führt durch Setup, mechanistischen Befund und Grenzen der Intervention.
 
 - [Code- und Datenlizenz](LICENSING.md)
-- [Abschlussprüfung v1.0.0](releases/v1.0.0/README.md)
+- [Prüfprotokolle zum Versionsstand v1.0.0](releases/v1.0.0/README.md)
 - [Archiv: Berichte und Versuchsverzeichnis](archive/EXPERIMENTS.md)
 - [Archiv: Daten-Audit](archive/AUDIT.md) und [Literatur](archive/LITERATURE.md)
 

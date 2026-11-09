@@ -2,7 +2,7 @@
 
 ## Fragestellung
 
-Ein Klassifikator kann unter Bildstörungen sicher wirken und trotzdem häufig falsch liegen. Diese Studie untersucht, wann eine Konfidenzschwelle solche Fehler zurückhält, wie ein konkreter interner Fehlmechanismus entsteht und ob Rauschaugmentation auf andere Störungen überträgt. Die abgeschlossene Versuchsreihe verbindet Baselines, Daten-Audit, kontrollierte Trainingsvergleiche und Nachanalysen eingefrorener Modelle.
+Ein Klassifikator kann unter Bildstörungen sicher wirken und trotzdem häufig falsch liegen. Diese Studie untersucht, wann eine Konfidenzschwelle solche Fehler zurückhält, wie ein konkreter interner Fehlmechanismus entsteht und ob Rauschaugmentation auf andere Störungen überträgt. Die explorative Studie (Stand 9. November 2026) verbindet Baselines, Daten-Audit, kontrollierte Trainingsvergleiche und Nachanalysen eingefrorener Modelle.
 
 ![Overview](../reports/figures/overview_figure.png)
 
@@ -42,7 +42,7 @@ Auch korrekte Vorhersagen können aus einem konstanten Bias-Output entstehen. Da
 
 Die Befunde identifizieren einen konkreten Mechanismus, kein allgemeines Verfahren zur Absicherung medizinischer KI. Drei Seeds beschreiben begrenzt die Trainingsstreuung; die Abbildung zeigt deshalb Minimum–Maximum statt angenommener Konfidenzintervalle. Ohne Patienten-IDs kann Pixel-Deduplizierung patientenbezogene Überschneidungen nicht ausschließen. Der bekannte Testsatz wurde wiederholt untersucht. 28×28 Pixel eliminieren radiologische Feinstrukturen; die synthetischen Störungen bilden keine physikalische Röntgenaufnahme ab.
 
-Die Hauptgrafik wird ausschließlich aus gespeicherten Vorhersagen und dem geprüften Datenarchiv erzeugt. Neue numerische Zusammenfassungen werden separat gegengerechnet, beide Abbildungsformate deterministisch reproduziert und die Artefakte der abgeschlossenen Version per SHA-256 geprüft. [Grafikprüfung](../reports/figures/verification.json) · [Einzelergebnisse aller Modelle und Annahmeregeln](../reports/transfer/results.csv) · [Archiv](archive/EXPERIMENTS.md).
+Die Hauptgrafik wird ausschließlich aus gespeicherten Vorhersagen und dem geprüften Datenarchiv erzeugt. Neue numerische Zusammenfassungen werden separat gegengerechnet, beide Abbildungsformate deterministisch reproduziert und die Artefakte des Versionsstands v1.0.0 per SHA-256 geprüft. [Grafikprüfung](../reports/figures/verification.json) · [Einzelergebnisse aller Modelle und Annahmeregeln](../reports/transfer/results.csv) · [Archiv](archive/EXPERIMENTS.md).
 
 ## Quellen
 
