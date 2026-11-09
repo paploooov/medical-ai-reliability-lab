@@ -1,0 +1,8 @@
+{
+  "reports/transfer/results.csv": "88aef97f367c74e4d39dc98ff3a9d96f2c8161c4b6beb0afaa927bcd2f90c2d0",
+  "reports/transfer/predictions.npz": "2736ccb95419af2b379afedbef97a20a5c36c005bc4d96fc2d24a6370289f901",
+  "reports/calibration/predictions.npz": "0e19afeb356ca50e5cef403bbc5a3be0d64e5a6be6f2861bf7b42fa5e1ced8f5",
+  "data/pneumoniamnist.npz": "e1792d3f03751cb101e99f19a63b3c1941436c988665f47853417b05be250cd8",
+  "scripts/make_overview.py": "4adb48c17e39f3bf8e14ac656c81c23e28442a5f21f429391f5734e6507f882a",
+  "experiments/transfer_study.py": "9443a4714bbda0e7732067d84bc1fb910493eee900513009195dd4a4c9898237"
+}
