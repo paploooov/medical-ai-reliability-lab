@@ -1,0 +1,19 @@
+{
+  "study": "Exploratory noise augmentation of a frozen 224px ResNet-18 linear probe after observing robustness failures",
+  "date": "2026-11-10",
+  "encoder": "Unchanged ImageNet ResNet-18 from reports/high_resolution; no backbone finetuning",
+  "control": "Original native_224 clean-trained probe, scaler, C and calibration cutoff remain fixed",
+  "augmentation": "Each training image contributes its original feature vector and one noisy feature vector, each weighted 0.5; total sample weight remains N, preserving the regularization scale. Gaussian SD=0.1 at 224px, clipped and rounded to uint8.",
+  "training_noise": "default_rng(SeedSequence([20261116, original_train_index])); one fixed realization per retained training image. No seed selection.",
+  "scaler": "Reuse original clean-training StandardScaler in both arms, not refit on noise, validation or test",
+  "selection": "Same C grid [0.01,0.1,1,10], lbfgs logistic regression max_iter=3000; choose lowest clean-selection NLL only. No noisy validation used for model choice.",
+  "calibration": "For the new augmented probe only, inclusive 20th quantile of clean calibration confidence. No test-dependent cutoff. Original control cutoff unchanged.",
+  "conditions": ["clean", "noise_42", "noise_7", "noise_99", "relative_blur", "contrast"],
+  "test_noise": "Same 224px input-noise algorithm with seeds 42 (primary, exactly reproduce prior noise_input), 7 and 99 (secondary). All distinct from training seed. Repeated noises share patients and are not independent patient cohorts.",
+  "other_corruptions": "Exactly prior 224px-source Gaussian blur sigma=8 reflect, and contrast 0.5+0.5*(x-0.5), clipped and rounded to uint8",
+  "primary": "Augmented-minus-control error at exactly 80% fractional-tie coverage under noise_42; negative values favor augmentation",
+  "secondary": "Clean tradeoff, two alternate noise seeds, blur and contrast; risk-coverage, fixed-cutoff coverage and accepted error, accuracy, AUROC, NLL, Brier and ECE. No noninferiority or clinical claim based on nonsignificance.",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261117,
+  "scope": "Known benchmark, one frozen encoder, one training-noise realization, two selected heads. Paired test-image bootstrap conditional on models/cutoffs; no training, head-selection or patient-cluster uncertainty. No external transfer claim."
+}
