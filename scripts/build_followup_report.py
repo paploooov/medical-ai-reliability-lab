@@ -112,6 +112,27 @@ def main():
        ('p','Die neuen Auswertungsskripte, Tests, Dokumentation und dieser Bericht wurden in dieser Sitzung mit Codex-Unterstützung erstellt und ausgeführt. Der Auftrag zur Fortführung und zur Forschungsausrichtung kam vom Projektverantwortlichen. Welche früheren methodischen Entscheidungen und Prüfungen er persönlich vorgenommen hat, lässt sich aus dem Repository nicht verlässlich ableiten und wird hier nicht erfunden. Eine fachliche Prüfung durch den Projektverantwortlichen oder eine externe Betreuung wird nicht als erfolgt behauptet.'),
        ('h','Quellen'),
        ('p','Yang et al. (2023), MedMNIST v2. DOI: 10.1038/s41597-022-01721-8. Kermany et al. (2018), Cell. DOI: 10.1016/j.cell.2018.02.010. Shih et al. (2019), Radiology: Artificial Intelligence. DOI: 10.1148/ryai.2019180041. Wang et al. (2017), ChestX-ray8, CVPR. Guo et al. (2017), On Calibration of Modern Neural Networks, ICML, PMLR 70:1321–1330. Numerische Quellen: reports/external/, reports/temperature_scaling/, reports/five_seed/analysis/ und reports/figures/overview_summary.json.')])]
+    high_path=ROOT/'reports/high_resolution/summary.json'
+    if high_path.exists():
+        high=json.loads(high_path.read_text())
+        hi=high['results']['native_224'];lo=high['results']['downsample28_upsample224']
+        delta=high['native_minus_low_information']['auroc']
+        pages[0][1].insert(5,('p',f"Ergänzender Auflösungsvergleich: Ein eingefrorenes ImageNet-ResNet-18 mit trainierter linearer Klassifikationsschicht erhält dieselben Fälle mit 224×224-Information oder auf 28×28 reduzierter Information. Die Test-AUROC beträgt {hi['auroc']:.3f} gegenüber {lo['auroc']:.3f}; gepaarte Differenz {delta['point']:+.3f} [{delta['ci'][0]:+.3f}; {delta['ci'][1]:+.3f}]. Dies prüft Bildinformation unter einem gemeinsamen Encoder, keine klinische Vollauflösung."))
+        for i,(kind,text) in enumerate(pages[0][1]):
+            pages[0][1][i]=(kind,text.replace('fünf Seeds (S. 5)','Auflösung und fünf Seeds (S. 5)'))
+        for i,(kind,text) in enumerate(pages[1][1]):
+            pages[1][1][i]=(kind,text.replace('ResNet-18 wurde in dieser Arbeit nicht untersucht.','Ein ergänzender eingefrorener ResNet-18-Encoder wird auf S. 5 untersucht; kein medizinisches End-to-End-Training.'))
+        pages[4]=('224px-Information und Trainingsstreuung',[
+            ('p','Die 28px-Analysen allein belegen keine diagnostische Aussagekraft. Deshalb wird ein eigener kontrollierter Vergleich auf dem offiziellen 224px-Archiv durchgeführt. Dieselben 4.682/262/262/621 Fälle und ein gemeinsamer eingefrorener ImageNet-ResNet-18-Encoder werden verwendet. Ein Zweig erhält 224px-Information, der andere dieselben Bilder nach Bicubic 224→28→224. Die Eingabegröße ist damit identisch; nur die erhaltene Bildinformation unterscheidet sich.'),
+            ('p','Eine standardisierte logistische Klassifikationsschicht wird ausschließlich auf Trainingsmerkmalen gelernt. C ∈ {0,01; 0,1; 1; 10} wird anhand der getrennten Modellwahl-NLL gewählt. Die Konfidenzschwelle folgt dem bisherigen Kalibrierungsquantil. Labelreihenfolge, Prüfsummen und exakte 224px-Duplikate über die behaltenen Splits wurden geprüft. Primärer Endpunkt, vor der Auswertung festgelegt: gepaarte AUROC-Differenz.'),
+            ('p',f"224px versus 28px-Information: AUROC {hi['auroc']:.3f} vs. {lo['auroc']:.3f}; Differenz {delta['point']:+.3f} [{delta['ci'][0]:+.3f}; {delta['ci'][1]:+.3f}]. Accuracy {pct(hi['accuracy'])} vs. {pct(lo['accuracy'])}; akzeptierte Fehler {pct(hi['retained_error'])} vs. {pct(lo['retained_error'])} bei Abdeckung {pct(hi['coverage'])} vs. {pct(lo['coverage'])}. Intervalle: 2.000 gepaarte Testwiederziehungen bei festem Encoder und ausgewählten Köpfen."),
+            ('img','../high_resolution/risk_coverage.png'),
+            ('p',f"Abbildung 2. Auflösungsvergleich, jeweils ein deterministischer linearer Kopf. 224px ist weiterhin eine verkleinerte Darstellung, keine Original-Röntgenauflösung. Separat bestätigt der historische kleine CNN-Vergleich mit fünf Seed-Paaren den Rauschaugmentationseffekt: {pp(p['mean'])} pp; Seed-t-Intervall [{pp(p['ci'][0])}; {pp(p['ci'][1])}], Bild-Bootstrap [{pp(ib['ci'][0])}; {pp(ib['ci'][1])}]. Diese unterschiedlichen Vergleiche dürfen nicht vermischt werden.")])
+        for i,(kind,text) in enumerate(pages[5][1]):
+            text=text.replace('Eine zweite Architektur, neue unabhängige Kliniken und prospektive Annahmeregeln fehlen.','Der zweite Encoder ist auf ImageNet vortrainiert und bleibt eingefroren; End-to-End-Training bei höherer Auflösung, neue unabhängige Kliniken und prospektive Annahmeregeln fehlen.')
+            text=text.replace('experiments/five_seed_analysis.py.','experiments/five_seed_analysis.py und experiments/high_resolution_probe.py.')
+            text=text.replace('reports/figures/overview_summary.json.','reports/figures/overview_summary.json; Auflösungsvergleich: reports/high_resolution/.')
+            pages[5][1][i]=(kind,text)
     pdfmetrics.registerFont(TTFont('DejaVu','/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
     pdfmetrics.registerFont(TTFont('DejaVuBold','/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
     styles=getSampleStyleSheet()

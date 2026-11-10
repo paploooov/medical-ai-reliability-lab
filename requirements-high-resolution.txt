@@ -1,0 +1,3 @@
+-r requirements-cnn.txt
+# Install from https://download.pytorch.org/whl/cpu with matching torch==2.5.1.
+torchvision==0.20.1

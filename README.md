@@ -6,19 +6,22 @@
 
 Links: derselbe Testfall und Nullvektor-Anteile. Mitte: der Bias-bedingte Konfidenz-Spike. Rechts: Fehler unter akzeptierten Vorhersagen; Spannweiten zeigen Minimum–Maximum über drei Seeds, keine Konfidenzintervalle. [PDF](reports/figures/overview_figure.pdf)
 
-Wir vergleichen kleine CNNs auf PneumoniaMNIST mit und ohne Rauschaugmentation, jeweils mit drei Seeds und gleichem Trainingsbudget. Nach Pixel-Deduplizierung sind Training, Modellwahl und Kalibrierung getrennt; die abschließenden Vergleiche verwenden 262 Kalibrierungsfälle und 621 Testrepräsentanten. Code, Gewichte und Vorhersagen sind versioniert; Tests und Prüfsummen sichern die Nachrechnung ab.
+Wir vergleichen kleine CNNs auf PneumoniaMNIST mit und ohne Rauschaugmentation, inzwischen mit fünf gepaarten Seeds und gleichem Trainingsbudget. Nach Pixel-Deduplizierung sind Training, Modellwahl und Kalibrierung getrennt; die abschließenden Vergleiche verwenden 262 Kalibrierungsfälle und 621 Testrepräsentanten. Code, Gewichte und Vorhersagen sind versioniert; Tests und Prüfsummen sichern die Nachrechnung ab.
 
-| Versuch 07: Kennzahl | Ohne Augmentation | Mit Rauschaugmentation | Differenz mit vorhandenem 95%-Bootstrap-Intervall |
-|---|---:|---:|---:|
-| Accuracy, Original | 84,11 % | 84,06 % | −0,05 pp [−1,34; +1,18] |
-| Accuracy, Rauschen | 39,99 % | 84,00 % | — |
-| Fehler unter akzeptierten Rauschfällen | 57,04 % | 12,58 % | — |
-| Akzeptanz unter Rauschen | 88,08 % | 82,18 % | — |
-| Primärer Kontrast: Unterschied des Fehleranstiegs Rauschen minus Original unter akzeptierten Fällen | — | — | −46,33 pp [−51,96; −40,78] |
+| Interner Vergleich, fünf Seeds | Ohne Augmentation | Mit Rauschaugmentation |
+|---|---:|---:|
+| Accuracy, Original | 83.9% | 84.0% |
+| Accuracy, Rauschen | 41.0% | 83.4% |
+| Fehler unter akzeptierten Rauschfällen | 54.2% | 11.5% |
+| Akzeptanz unter Rauschen | 84.3% | 76.9% |
 
-Mittel über drei Seeds; Differenzen: Augmentation minus Kontrolle. Die vorhandenen Intervalle beruhen auf 2.000 gepaarten Wiederziehungen von Pixelgruppen bei festen Modellen und Schwellen, nicht auf unabhängigen Patienten oder Trainingswiederholungen; der Original-Accuracy-Vergleich ist sekundär. „—“ bedeutet: kein entsprechendes Intervall berechnet. [Originalauswertung](reports/augmentation/primary.json) · [Methoden und Hauptabbildung](docs/PAPER_SUMMARY.md)
+Primärer Kontrast (Unterschied des Rauschen-minus-Original-Fehleranstiegs unter akzeptierten Fällen, Augmentation minus Kontrolle): **-43.7 pp**. Approximatives 95%-Intervall über fünf Seed-Paare: [-56.7; -30.6] pp. Separater Bild-Bootstrap bei festen Modellen: [-49.0; -38.0] pp. Das sind verschiedene Unsicherheitsquellen; Patientenunabhängigkeit ist nicht belegt. [Alle Seed-Ergebnisse und Risk-Coverage-Kurven](reports/five_seed/README.md) · [Historischer Drei-Seed-Vergleich](reports/augmentation/primary.json).
 
-**Neue Nachanalysen (10. November):** Der Augmentationsvergleich mit **fünf gepaarten Seeds** bestätigt die Richtung des Effekts: −43,7 pp, approximatives 95%-Intervall über Seed-Paare [−56,7; −30,6]. Dieses Intervall beschreibt Trainingsvariation und ist nicht mit dem Bild-Bootstrap der historischen Tabelle gleichzusetzen. [Fünf Seeds und alle Risk-Coverage-Kurven](reports/five_seed/README.md). Temperature Scaling auf internen Kalibrierungsdaten verschlechtert die Test-NLL in allen vier Bedingungen; [Kalibrierungsanalyse](reports/temperature_scaling/README.md). [**Forschungsbericht, 6 Seiten (PDF)**](reports/followup/research_report.pdf) · [Textfassung](reports/followup/research_report.md).
+**Wahrscheinlichkeitskalibrierung:** Temperature Scaling auf internen Kalibrierungsdaten verschlechtert die Test-NLL bei den angepassten Temperaturen in allen vier Bedingungen. Bei zusätzlicher Variation des Temperatur-Fits umfasst der NLL-Differenzbereich der Kontrolle auch null. [Kalibrierungsanalyse](reports/temperature_scaling/README.md). [**Forschungsbericht, 6 Seiten (PDF)**](reports/followup/research_report.pdf) · [Textfassung](reports/followup/research_report.md).
+
+## Auflösungsprüfung: 224×224
+
+Die bisherigen 28px-Befunde betreffen einen Niedrigauflösungs-Benchmark; sie belegen keine diagnostische Eignung. Ein neuer kontrollierter Vergleich nutzt jetzt das **offizielle 224px-Archiv** und denselben eingefrorenen ResNet-18-Encoder für 224px-Information versus auf 28px reduzierte Information. AUROC: **0.980 vs. 0.960**, gepaarte Differenz **+0.019 [+0.009; +0.032]**. Kein End-to-End-Training und noch kein externer Test dieser neuen Modelle. [Methoden, Bildvergleich und Ergebnisse](reports/high_resolution/README.md).
 
 ## Externer Test: RSNA
 
@@ -28,7 +31,7 @@ Die eingefrorenen Modelle wurden auf 2.000 externen Thoraxaufnahmen geprüft (1.
 
 Mittel und Minimum–Maximum über drei Seeds, keine Konfidenzbänder. [Protokoll, ECE, Reliability Diagrams und Ergebnisse](reports/external/README.md) · [AP/PA-Auswertung](reports/external/README.md#aufnahmeart-appa)
 
-**Grenzen:** 28×28 Pixel (64px als ergänzende Kontrolle), fünf Seeds intern und drei extern, künstliche Störungen und ein wiederholt untersuchter interner Benchmark. Der externe Datensatz- und Populationswechsel umfasst Alter, Aufnahmeart und Labeldefinition; sein Effekt lässt sich nicht allein dem Alter zuordnen. Aufnahmeart und Label sind stark verknüpft. Unabhängige Patienten über verschiedene RSNA-IDs sind nicht nachgewiesen; die Weitergaberechte des verwendeten Datenspiegels sind ungeklärt. Kein klinischer Anspruch.
+**Grenzen:** Historische Hauptversuche mit 28×28 Pixeln, externe Kontrolle mit 64px; ergänzender eingefrorener Encoder bei 224px, weiterhin unter Originalauflösung; fünf Seeds intern und drei extern, künstliche Störungen und ein wiederholt untersuchter interner Benchmark. Der externe Datensatz- und Populationswechsel umfasst Alter, Aufnahmeart und Labeldefinition; sein Effekt lässt sich nicht allein dem Alter zuordnen. Aufnahmeart und Label sind stark verknüpft. Unabhängige Patienten über verschiedene RSNA-IDs sind nicht nachgewiesen; die Weitergaberechte des verwendeten Datenspiegels sind ungeklärt. Kein klinischer Anspruch.
 
 ## Eigenleistung & Werkzeuge
 

@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-10",
+  "unit_tests_passed": 70,
+  "test_log": "tests.log",
+  "historical_artifacts_verified_unchanged": 206,
+  "independent_checks": [
+    "120 probability-calibration and standardized subgroup point metrics",
+    "Six temperature-fit first-order optimality checks",
+    "96 calibration-refit bootstrap entries",
+    "224px archive, encoder and feature checksums",
+    "Saved high-resolution linear-probe reconstruction",
+    "Independent sklearn AUROC, accuracy, Brier, sensitivity, specificity and accepted error",
+    "25 paired AUROC bootstrap draws plus stored full interval"
+  ],
+  "report_pages": 6,
+  "report_visual_check": "Pages 1, 3, 5 and 6 inspected; updated 224px pages 1 and 5 inspected",
+  "pinned_versions": "requirements.txt, torch 2.5.1+cpu, torchvision 0.20.1+cpu; per-study environment files",
+  "pinned_rerun": "Additional four CNN runs and temperature logits matched preliminary runs exactly after installing pinned numerical dependencies",
+  "summary_sha256": {
+    "reports/temperature_scaling/summary.json": "cf4ed0f4b05a458f0cb7beaf01f6927cac63719b8f315b8391c6850f5ca7061c",
+    "reports/temperature_scaling/sensitivity/summary.json": "87977b168457aa4893026921104f19ba10fe200c6f776c6829ac1009ec045493",
+    "reports/external/view_analysis/summary.json": "f5c3bd70803ba9d6d4fc124fb04f699fe5c7c068840de2d15b0274f130358c4e",
+    "reports/five_seed/analysis/summary.json": "7b3724cdaa1de57b2de88afc8b94336124913ed71c8db0da3f7f208007998e06",
+    "reports/high_resolution/summary.json": "47f15721789b57563dec4c75f103c97310d48a8692b82da18eee5c0d415db98b"
+  },
+  "limits": "Checks establish internal numerical consistency, not patient independence, clinical validity or original RSNA mirror redistribution rights."
+}

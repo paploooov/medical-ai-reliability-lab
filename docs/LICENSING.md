@@ -10,6 +10,10 @@ Attribution für die hier verwendeten Bilder: **PneumoniaMNIST, MedMNIST v2, Yan
 
 Offizielle Lizenzangabe: [MedMNIST-Datensatzmetadaten, Eintrag pneumoniamnist](https://github.com/MedMNIST/MedMNIST/blob/main/medmnist/info.py). Wer stattdessen Originalarchive oder weitere Datensätze verwendet, muss deren eigene Bedingungen prüfen; die MedMNIST-Angabe lizenziert nicht pauschal alle Quellen neu.
 
+Die ergänzende 224×224-Auswertung verwendet das offizielle `pneumoniamnist_224.npz` aus demselben [MedMNIST-Zenodo-Datensatz](https://zenodo.org/records/10519652), MD5 `d6a3c71de1b945ea11211b03746c1fe1`. Die Auflösungsabbildung zeigt einen fest gewählten Trainingsfall; rechts wurde zusätzlich mit Bicubic auf 28×28 reduziert und wieder auf 224×224 skaliert. Attribution und CC-BY-4.0-Hinweis stehen direkt in der Abbildung. Dies ist keine Freigabe für andere Originalarchive.
+
+Der ergänzende ResNet-18-Encoder verwendet die öffentlichen `IMAGENET1K_V1`-Gewichte von Torchvision. Sie werden nur im ignorierten lokalen Daten-Cache bezogen, mit Herkunft und Prüfsumme dokumentiert und nicht durch dieses Repository unter MIT neu lizenziert oder mitverteilt. Die Projekt-MIT-Lizenz betrifft den eigenen Code, nicht pauschal diese fremden Gewichte oder ImageNet-Daten.
+
 ## RSNA Pneumonia Detection Challenge
 
 Prüfstand 10. November 2026: Die RSNA-Daten sind **nicht** von der MIT-Code-Lizenz oder der PneumoniaMNIST-Lizenz CC BY 4.0 erfasst. Quellen: [Originalwettbewerb und Regeln](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge/rules), Shih et al. (2019), [doi:10.1148/ryai.2019180041](https://doi.org/10.1148/ryai.2019180041), Ausgangsbilder NIH ChestX-ray14, Wang et al. (2017).

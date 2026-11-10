@@ -1,0 +1,207 @@
+{
+  "config": {
+    "study": "Exploratory controlled information-resolution comparison, specified before high-resolution evaluation",
+    "date": "2026-11-10",
+    "source_url": "https://zenodo.org/records/10519652/files/pneumoniamnist_224.npz?download=1",
+    "source_md5": "d6a3c71de1b945ea11211b03746c1fe1",
+    "source_metadata": "Official MedMNIST medmnist/info.py, retrieved 2026-11-10",
+    "source_license": "CC BY 4.0, PneumoniaMNIST / MedMNIST attribution",
+    "splits": "Reuse existing resolution_manifest indices. Verify original label ordering and audit exact pixel duplicates at 224 before fitting; stop on cross-split duplicates among retained cases.",
+    "views": [
+      "native_224",
+      "downsample28_upsample224"
+    ],
+    "comparison": "Both branches start from the same official 224 image. Low-information branch: PIL bicubic 224->28->224. Same frozen ImageNet ResNet-18 encoder, same train/selection/calibration/test cases and same linear-probe selection rule. This isolates retained spatial detail conditional on this preprocessing and encoder; it is not the historical small-CNN comparison.",
+    "encoder": "torchvision resnet18 IMAGENET1K_V1; frozen, eval mode, final 512D average-pool features; grayscale repeated over RGB and normalized with ImageNet means/stds; no additional crop",
+    "encoder_version": "torchvision 0.20.1, torch 2.5.1 CPU",
+    "probe": "StandardScaler fitted on training features only, logistic regression with L2, lbfgs, max_iter=3000. C in [0.01,0.1,1,10], choose smallest selection NLL separately per view. No fit on selection/calibration/test labels.",
+    "threshold": "Inclusive 20th quantile of clean calibration confidence, unchanged rule, not tuned on test",
+    "primary": "Test AUROC difference native224 minus downsample28-upsample224, paired test-representative bootstrap",
+    "secondary": "Accuracy, NLL, Brier, ECE, sensitivity, specificity, coverage and accepted error; paired differences. Risk-coverage curves. No post-hoc choice of primary.",
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20261114,
+    "limitations": "224 is reduced from original radiographs, not native clinical resolution. Frozen ImageNet representation and deterministic linear probe, not end-to-end medical training. Known internal benchmark remains exploratory; no claim about full diagnostic sufficiency or external transport. Patient independence unknown."
+  },
+  "provenance": {
+    "feature_script_sha256": "d9acb2de2b2b9897a3dbded2342b9512cb08afdddda1209d8673ec54143a7925",
+    "archive_sha256": "2a6faaca43872b4bcf4154a79625631ab29683b41e265ab7936d0513351fe591",
+    "manifest_sha256": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0",
+    "protocol_sha256": "570da50174a753fa74abe1ff32688d379cb086e2453302974789718a942a1a8c",
+    "encoder_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "torch": "2.5.1+cpu",
+    "torchvision": "0.20.1+cpu",
+    "feature_sha256": {
+      "native_224_selection.npz": "8abbecc72c418a50452946d1f41fb7a760f313013b30d9f13509245763a02f23",
+      "downsample28_upsample224_selection.npz": "f5d327e63dd65544ea48627d8691d88191f484e766fb50753c1908d792f5c3d9",
+      "downsample28_upsample224_test.npz": "131736836b52de8130a0fae3ab9faf1eaab00ecfdbd5f59420f3828ff3e6e9ff",
+      "downsample28_upsample224_calibration.npz": "526cb33f0161287332908ad3bc93f74b50065edccd16b2017d1e290eebfe1e18",
+      "native_224_train.npz": "e5e0d444c3152129429ff02e05deba91dc8fb147f59fa6601293175335881e74",
+      "downsample28_upsample224_train.npz": "248606d9d46c5e6991d90245c24a38b4b430a0a26202a2e183f1b9eeef903aea",
+      "native_224_calibration.npz": "21c67ce98e2a0b0f60d2e8a90db9c69cfd09fa99dd773ea4846bde782f824a98",
+      "native_224_test.npz": "d2505cbbdd0d9689474ff83f7b849965e81e91edeb108f5d4841c22273c00bc8"
+    },
+    "audit": {
+      "retained_counts": {
+        "train": 4682,
+        "test": 621,
+        "selection": 262,
+        "calibration": 262
+      },
+      "labels_match_28px": true,
+      "exact_duplicates_in_retained_cases": 0,
+      "scope": "Exact pixel audit only; no patient identity assurance"
+    },
+    "script_sha256": "d9acb2de2b2b9897a3dbded2342b9512cb08afdddda1209d8673ec54143a7925"
+  },
+  "selection_candidates": [
+    {
+      "view": "native_224",
+      "C": 0.01,
+      "selection_nll": 0.05637022480578757,
+      "iterations": 30
+    },
+    {
+      "view": "native_224",
+      "C": 0.1,
+      "selection_nll": 0.05760617617462871,
+      "iterations": 54
+    },
+    {
+      "view": "native_224",
+      "C": 1.0,
+      "selection_nll": 0.099544424550392,
+      "iterations": 57
+    },
+    {
+      "view": "native_224",
+      "C": 10.0,
+      "selection_nll": 0.1883327997675348,
+      "iterations": 56
+    },
+    {
+      "view": "downsample28_upsample224",
+      "C": 0.01,
+      "selection_nll": 0.0676802385235316,
+      "iterations": 31
+    },
+    {
+      "view": "downsample28_upsample224",
+      "C": 0.1,
+      "selection_nll": 0.07130915650238923,
+      "iterations": 53
+    },
+    {
+      "view": "downsample28_upsample224",
+      "C": 1.0,
+      "selection_nll": 0.11711173949387299,
+      "iterations": 79
+    },
+    {
+      "view": "downsample28_upsample224",
+      "C": 10.0,
+      "selection_nll": 0.21885634555625064,
+      "iterations": 71
+    }
+  ],
+  "results": {
+    "native_224": {
+      "C": 0.01,
+      "selection_nll": 0.05637022480578757,
+      "threshold": 0.9510594957446259,
+      "n": 621,
+      "prevalence": 0.6231884057971014,
+      "accuracy": 0.8776167471819646,
+      "auroc": 0.9795490183087082,
+      "sensitivity": 0.9948320413436692,
+      "specificity": 0.6837606837606838,
+      "ece": 0.056789696987100256,
+      "mean_confidence": 0.9344064441690645,
+      "coverage": 0.7326892109500805,
+      "retained_error": 0.041758241758241756,
+      "predicted_positive": 0.7391304347826086,
+      "aurc": 0.027402402763786818,
+      "risk_at_80": 0.042270531400966184,
+      "nll": 0.2983597009625465,
+      "brier": 0.08459161446691574
+    },
+    "downsample28_upsample224": {
+      "C": 0.01,
+      "selection_nll": 0.0676802385235316,
+      "threshold": 0.9414083966115556,
+      "n": 621,
+      "prevalence": 0.6231884057971014,
+      "accuracy": 0.8486312399355878,
+      "auroc": 0.9602795998144835,
+      "sensitivity": 0.9896640826873385,
+      "specificity": 0.6153846153846154,
+      "ece": 0.08447730462459299,
+      "mean_confidence": 0.9274585178765179,
+      "coverage": 0.714975845410628,
+      "retained_error": 0.060810810810810814,
+      "predicted_positive": 0.7616747181964574,
+      "aurc": 0.047279067285872445,
+      "risk_at_80": 0.08212560386473432,
+      "nll": 0.40929264564216383,
+      "brier": 0.11248446680989936
+    }
+  },
+  "native_minus_low_information": {
+    "auroc": {
+      "point": 0.0192694184942247,
+      "ci": [
+        0.008701348178092292,
+        0.031773482250379056
+      ],
+      "undefined_replicates": 0
+    },
+    "accuracy": {
+      "point": 0.02898550724637683,
+      "ci": [
+        0.00805152979066015,
+        0.05314009661835739
+      ],
+      "undefined_replicates": 0
+    },
+    "nll": {
+      "point": -0.11093294467961734,
+      "ci": [
+        -0.16306233449464455,
+        -0.06530124944118558
+      ],
+      "undefined_replicates": 0
+    },
+    "brier": {
+      "point": -0.027892852342983623,
+      "ci": [
+        -0.04033433309339371,
+        -0.01605395710275572
+      ],
+      "undefined_replicates": 0
+    },
+    "ece": {
+      "point": -0.027687607637492735,
+      "ci": [
+        -0.049327681452201975,
+        -0.010450483889855387
+      ],
+      "undefined_replicates": 0
+    },
+    "coverage": {
+      "point": 0.017713365539452575,
+      "ci": [
+        -0.01449275362318847,
+        0.048309178743961345
+      ],
+      "undefined_replicates": 0
+    },
+    "retained_error": {
+      "point": -0.01905256905256906,
+      "ci": [
+        -0.03741967826133213,
+        -0.0014749348870018236
+      ],
+      "undefined_replicates": 0
+    }
+  },
+  "interval_scope": "Paired test-representative bootstrap conditional on encoder, selected probes and cutoffs; no patient clusters or model-selection uncertainty"
+}
