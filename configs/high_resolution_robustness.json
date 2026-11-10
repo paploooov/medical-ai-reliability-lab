@@ -1,0 +1,18 @@
+{
+  "study": "Exploratory robustness of frozen 224px-information and 28px-information ResNet-18 probes",
+  "date": "2026-11-10",
+  "models": "Exactly the encoder, scaler, logistic coefficients and calibration cutoffs saved in reports/high_resolution; no refit, new selection or new threshold",
+  "cases": "Same 621 internal test representatives; clean results already inspected, corrupted probe results not yet evaluated when this plan was committed",
+  "conditions": ["clean", "noise_input", "noise_source", "relative_blur", "contrast"],
+  "noise": "Gaussian SD 0.1 in [0,1], clipped and rounded to uint8. Per original test index use default_rng(SeedSequence([42,index])); identical 224px noise field across branches.",
+  "noise_input": "Primary perturbation: first form each clean branch at 224px, then add the same noise field at network input. This avoids suppressing noise by downsampling only the low-information branch.",
+  "noise_source": "Secondary: perturb the shared 224px source before branch formation. Downsampling can suppress this noise in the low-information branch; this is intentionally a different pipeline, not equal effective noise severity.",
+  "relative_blur": "Shared 224px source Gaussian filter sigma=8 pixels (1/28 of image width), reflect boundaries, then branch formation",
+  "contrast": "Shared source 0.5 + 0.5*(x-0.5), then branch formation",
+  "quantization": "Corrupted values clipped to [0,1], rounded to uint8 before encoder input or bicubic branch formation. Clean uint8 unchanged.",
+  "primary": "Difference-in-differences at exactly 80% fractional-tie coverage: (native224 noise_input risk minus native224 clean risk) minus (low-information noise_input risk minus low-information clean risk)",
+  "secondary": "All-condition risk-coverage, AUROC, NLL, Brier, ECE, original-cutoff coverage and accepted error. Paired high-minus-low differences are descriptive; no multiplicity correction.",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261115,
+  "scope": "Paired image bootstrap conditional on encoder, two selected heads and cutoffs; no model-selection, patient-cluster or training uncertainty. Test already known, exploratory, not clinical validation."
+}
