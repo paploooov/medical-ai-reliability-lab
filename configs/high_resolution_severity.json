@@ -1,0 +1,14 @@
+{
+  "study": "Exploratory severity sweep of frozen clean-trained and noise-augmented 224px probes",
+  "noise_sigma": [0,0.025,0.05,0.1,0.15,0.2],
+  "blur_sigma_pixels": [0,2,4,8,16],
+  "models": "Unchanged selected heads, shared original scaler and frozen ImageNet encoder from high_resolution/augmentation; original calibration cutoffs preserved",
+  "perturbations": "224px input Gaussian noise, seed 42 per original test index; same underlying random field scaled across strengths. Reflect Gaussian blur on source images. Clip to [0,1] and round uint8. Zero severity reproduces clean exactly.",
+  "primary": "Augmented-minus-control error at 80% fractional-tie coverage under noise SD=0.2, specified before evaluation of the new severity points",
+  "secondary": "Full noise/blur curves: risk at 80%, original-cutoff coverage and accepted error, AUROC, accuracy, NLL, Brier, ECE. Reproduce previously observed noise 0.1 and blur 8 exactly. No selection of favorable severity or head.",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261119,
+  "simultaneous_band": "Exploratory joint sensitivity band for augmented-minus-control risk at 80% over all 10 distinct grid points: radius is 95th percentile of maximum absolute centered paired-bootstrap deviation across the grid. No extrapolation between grid points, no clinical coverage guarantee.",
+  "numerics": "Primary uses historical top-label probability confidence with fractional ties. Report saturated probabilities and compare ranking by absolute logits as a separate numerical sensitivity, without silently changing endpoints.",
+  "scope": "Known internal benchmark, fixed models/thresholds, same 621 test representatives at all severities, no new training or external validation. Image bootstrap omits training/model selection and unknown patient correlation."
+}
