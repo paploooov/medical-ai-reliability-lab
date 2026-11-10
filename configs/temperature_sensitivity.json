@@ -1,0 +1,10 @@
+{
+  "study": "Exploratory calibration-fit sensitivity after observing the initial temperature-scaling results",
+  "replicates": 2000,
+  "seed": 20261113,
+  "condition": "clean internal test only",
+  "resampling": "Draw calibration and test representatives independently with replacement. Same calibration and test draws across all six models. Refit each temperature on the drawn calibration cases only; evaluate after-minus-before NLL on the drawn test cases.",
+  "temperature_bounds": [0.05, 20.0],
+  "scope": "Empirical percentile sensitivity ranges conditional on frozen models and observed calibration/test pools; no training or patient-cluster uncertainty. No new decision threshold, model selection or external evaluation.",
+  "reporting": "Per-model temperature distribution and boundary frequency; mean after-minus-before NLL over three seeds per arm, fraction of replicates above zero. Fractions are not posterior probabilities or p-values."
+}
