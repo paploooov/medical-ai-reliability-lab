@@ -21,6 +21,23 @@ Primärer externer Vergleich (Fehler unter akzeptierten Fällen, clean, augmenti
 
 **Grenzen.** Kinder (Training) → Erwachsene (Test) und anderes Gerät, andere Aufnahmerichtung (AP/PA gemischt) und ein anderer Bildausschnitt: Der Effekt lässt sich nicht einer einzelnen Ursache zuordnen. `Lung Opacity` ist nur ein Stellvertreter für Pneumonie, und die Labels sind verrauscht. Die Auflösung beträgt 28×28. Die MedMNIST-Interpolation ist nicht dokumentiert (Bicubic angenommen). 131 Bilder stammen von Personen unter 18 Jahren; die Auswertung nur mit Erwachsenen ändert wenig (`external_adult` in `results.csv`). Die Aufnahmerichtung ist mit dem Label verknüpft: AP-Aufnahmen haben 79 % Prävalenz, PA-Aufnahmen 23 %. Die Accuracy liegt bei AP bei ≈81 %, bei PA bei ≈66 %. Das Modell könnte also teils Aufnahmemerkmale statt Befunde nutzen (`external_AP`/`external_PA`). Die Patient-IDs sind nicht mit NIH-Patienten verknüpft. Die Intervalle gelten bedingt auf feste Modelle und Schwellen. Die Bilder stammen aus einem inoffiziellen Hugging-Face-Spiegel (Revision fixiert, Prüfsummen geprüft). Es gibt keinen klinischen Anspruch.
 
-**Daten und Lizenz.** RSNA Pneumonia Detection Challenge (2018), Shih et al., *Radiology: AI* 2019, [doi:10.1148/ryai.2019180041](https://doi.org/10.1148/ryai.2019180041). Die Nutzung ist laut RSNA für nicht-kommerzielle Forschung und Lehre mit Quellenangabe vorgesehen. Die Bilder stammen aus NIH ChestX-ray14, Wang et al., CVPR 2017. Die Rohbilder werden nicht im Repository verteilt; nur die Patient-IDs und Prüfsummen liegen hier.
+## Aufnahmeart AP/PA
+
+Deskriptive Nachanalyse vom 10. November 2026 aus gespeicherten Vorhersagen/Kennzahlen, ohne neue Modelle oder Schwellen. AP: **964 Fälle, 766 positiv / 198 negativ (79,5 % positiv)**. PA: **1.036 Fälle, 234 positiv / 802 negativ (22,6 % positiv)**. Positiv bezeichnet `Lung Opacity`, keine gesicherte Pneumoniediagnose.
+
+| Modell, clean | Ansicht | Sensitivität | Spezifität | Balanced Accuracy | Akzeptanz | Fehler unter akzeptierten Fällen |
+|---|---|---:|---:|---:|---:|---:|
+| Kontrolle 28px | AP | 87,8 % | 58,2 % | 73,0 % | 75,7 % | 11,9 % |
+| Kontrolle 28px | PA | 67,7 % | 65,3 % | 66,5 % | 64,3 % | 30,1 % |
+| Augmentiert 28px | AP | 86,8 % | 58,2 % | 72,5 % | 79,8 % | 12,7 % |
+| Augmentiert 28px | PA | 66,7 % | 65,1 % | 65,9 % | 70,8 % | 31,3 % |
+| Kontrolle 64px | AP | 87,4 % | 60,4 % | 73,9 % | 70,4 % | 11,8 % |
+| Kontrolle 64px | PA | 60,1 % | 66,3 % | 63,2 % | 68,2 % | 30,9 % |
+
+Mittel über drei feste Seeds; keine neuen Konfidenzintervalle. Balanced Accuracy = (Sensitivität + Spezifität) / 2, also gleiche Gewichtung beider Klassen innerhalb einer Aufnahmeart. Für die 28px-Kontrolle beträgt der AP/PA-Abstand der Accuracy 15,9 Prozentpunkte, bei gleicher Klassengewichtung 6,6 Prozentpunkte. Die unterschiedliche Klassenverteilung erklärt somit einen Teil des deskriptiven Abstands. Verbleibende Unterschiede können unter anderem mit Fallmix, Aufnahmebedingungen oder Erkrankungsschwere zusammenhängen; diese Analyse identifiziert keine kausale Wirkung und beweist keinen Aufnahmeart-Shortcut. Akzeptierte Fehlerraten hängen weiterhin von der Klassenverteilung und der Auswahl durch die Schwelle ab.
+
+Alle vier Bildbedingungen: [view_summary.csv](view_summary.csv). Reproduzieren ohne Rohbilder: `python scripts/summarize_external_views.py`. Das Skript aggregiert `results.csv`, prüft die drei Seeds und gleicht die Gruppengrößen mit der fixierten Stichprobe ab. Das vorab festgelegte Protokoll und die Primärauswertung bleiben unverändert.
+
+**Daten und Lizenz.** RSNA Pneumonia Detection Challenge (2018), Shih et al., *Radiology: AI* 2019, [doi:10.1148/ryai.2019180041](https://doi.org/10.1148/ryai.2019180041); Ausgangsbilder NIH ChestX-ray14, Wang et al., CVPR 2017. Die zuvor genannte nicht-kommerzielle Forschungsfreigabe konnte bei der Prüfung am 10. November 2026 nicht anhand eines abrufbaren Original-Lizenztexts bestätigt werden. Auch die Weitergabeberechtigung des inoffiziellen Hugging-Face-Spiegels bleibt ungeklärt. Öffentlicher Download und Prüfsummen belegen keine Nutzungsrechte. Rohbilder werden hier nicht verteilt. [Lizenzstatus und Quellen](../../docs/LICENSING.md#rsna-pneumonia-detection-challenge).
 
 **Reproduzieren.** `python experiments/external_data.py` lädt etwa 340 MB, ohne Login. Danach `python experiments/external_eval.py` (etwa 1 Minute auf der CPU) und die Tests mit `python -m unittest tests.test_external`.

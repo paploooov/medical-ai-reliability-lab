@@ -1,6 +1,6 @@
 # Medical AI Reliability Lab
 
-**Explorative Studie, Stand 9. November 2026.** Wie gut erkennt ein medizinischer Bildklassifikator seine eigenen Fehler unter Bildstörungen? Ein beobachteter Mechanismus ist der Kollaps des letzten Merkmalsvektors: Bei `h = 0` bleibt nur der Bias-Logit übrig. Nichtleere Merkmalsvektoren garantieren umgekehrt keine zuverlässigen Vorhersagen.
+**Explorative Studie, Stand 10. November 2026.** Wie gut erkennt ein medizinischer Bildklassifikator seine eigenen Fehler unter Bildstörungen? Ein beobachteter Mechanismus ist der Kollaps des letzten Merkmalsvektors: Bei `h = 0` bleibt nur der Bias-Logit übrig. Nichtleere Merkmalsvektoren garantieren umgekehrt keine zuverlässigen Vorhersagen.
 
 ![Übersicht: Testbilder, Repräsentations-Kollaps und Fehler unter Bildstörungen](reports/figures/overview_figure.png)
 
@@ -18,7 +18,15 @@ Wir vergleichen kleine CNNs auf PneumoniaMNIST mit und ohne Rauschaugmentation, 
 
 Mittel über drei Seeds; Differenzen: Augmentation minus Kontrolle. Die vorhandenen Intervalle beruhen auf 2.000 gepaarten Wiederziehungen von Pixelgruppen bei festen Modellen und Schwellen, nicht auf unabhängigen Patienten oder Trainingswiederholungen; der Original-Accuracy-Vergleich ist sekundär. „—“ bedeutet: kein entsprechendes Intervall berechnet. [Originalauswertung](reports/augmentation/primary.json) · [Methoden und Hauptabbildung](docs/PAPER_SUMMARY.md)
 
-**Grenzen:** 28×28 Pixel, synthetisches Rauschen und weitere künstliche Störungen, drei Seeds und ein wiederholt untersuchter Benchmark. Patientenunabhängigkeit ist nicht nachgewiesen; ein externer Test sowie ECE und Reliability Diagrams fehlen. Daraus folgt kein klinischer Anspruch.
+## Externer Test: RSNA
+
+Die eingefrorenen Modelle wurden auf 2.000 externen Thoraxaufnahmen geprüft (1.000 `Lung Opacity`, 1.000 `Normal`; überwiegend Erwachsene). Training und Annahmeschwellen bleiben unverändert. Bei der 28px-Kontrolle sinkt die Accuracy von **84,1 % auf 73,5 %**, während der Fehler unter akzeptierten Fällen von **11,2 % auf 20,6 % [18,7; 22,5]** steigt. Rauschaugmentation hilft extern gegen Rauschen, verbessert den primären Vergleich auf unveränderten Bildern aber nicht: **+1,2 Prozentpunkte akzeptierte Fehler [+0,4; +1,9]** gegenüber der Kontrolle. Intervalle: gepaarter Bild-Bootstrap, bedingt auf feste Modelle und Schwellen.
+
+![Risk-Coverage: interner und externer Test](reports/external/risk_coverage.png)
+
+Mittel und Minimum–Maximum über drei Seeds, keine Konfidenzbänder. [Protokoll, ECE, Reliability Diagrams und Ergebnisse](reports/external/README.md) · [AP/PA-Auswertung](reports/external/README.md#aufnahmeart-appa)
+
+**Grenzen:** 28×28 Pixel (64px als ergänzende Kontrolle), drei Seeds, künstliche Störungen und ein wiederholt untersuchter interner Benchmark. Der externe Datensatz- und Populationswechsel umfasst Alter, Aufnahmeart und Labeldefinition; sein Effekt lässt sich nicht allein dem Alter zuordnen. Aufnahmeart und Label sind stark verknüpft. Unabhängige Patienten über verschiedene RSNA-IDs sind nicht nachgewiesen; die Weitergaberechte des verwendeten Datenspiegels sind ungeklärt. Kein klinischer Anspruch.
 
 ## Reproduzieren
 
@@ -30,4 +38,4 @@ python scripts/make_overview.py --output /tmp/medical-ai-overview
 python -m unittest discover -s tests -v
 ```
 
-[Dokumentation und archivierte Berichte](docs/README.md) · [Roadmap](ROADMAP.md) · [Code: MIT / Daten: CC BY 4.0](docs/LICENSING.md)
+[Dokumentation und archivierte Berichte](docs/README.md) · [Roadmap](ROADMAP.md) · [Code- und Datenlizenzen](docs/LICENSING.md)
