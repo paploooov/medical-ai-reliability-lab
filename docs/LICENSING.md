@@ -15,3 +15,7 @@ Offizielle Lizenzangabe: [MedMNIST-Datensatzmetadaten, Eintrag pneumoniamnist](h
 Bildtafeln mit Datensatzbildern behalten deren Herkunft und CC-BY-Attribution; sie werden nicht durch die Code-Lizenz zu MIT-Daten. Rein numerische Ergebnisdateien und trainierte Modellgewichte sind keine pauschal unter MIT neu lizenzierten Ausgangsdaten. Für Modellgewichte wird hier keine gesonderte Lizenz erteilt; ihre Veröffentlichung ist keine automatische allgemeine Nutzungserlaubnis. Diese Abgrenzung lässt die MIT-Freigabe des eigenen Codes unberührt.
 
 Die Software wird ohne Gewährleistung bereitgestellt. Das Repository dokumentiert Forschung und ist keine freigegebene Anwendung zur Diagnose oder Behandlung.
+
+## Externe RSNA-Testdaten
+
+Die Rohbilder der RSNA Pneumonia Detection Challenge werden nicht im Repository verteilt. Die recherchierten Originaltexte, Zitate und ungeprüften Punkte stehen in [DATA_LICENSE_EXTERNAL.md](DATA_LICENSE_EXTERNAL.md). Das ist keine rechtliche Feststellung.
