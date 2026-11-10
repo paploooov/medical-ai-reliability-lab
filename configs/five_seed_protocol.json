@@ -1,0 +1,17 @@
+{
+  "study": "Exploratory extension of study 07 from three to five paired seeds",
+  "historical_seeds": [
+    17,
+    42,
+    83
+  ],
+  "additional_seeds": [
+    123,
+    2026
+  ],
+  "design": "Same 28px ResolutionCNN, 45 epochs, Adam 0.001, batch 128; model selection only on existing selection split; thresholds on existing calibration split.",
+  "primary": "Mean over all five seeds of augmentation-minus-control difference in noise-minus-clean retained error.",
+  "reporting": "Report every paired seed, five-seed mean, range and paired-seed t interval (df=4). Small-seed interval is exploratory, not patient or clinical uncertainty. Compare additional seeds separately; no seed selection.",
+  "external": "No new external evaluation: original external models and thresholds remain frozen; raw RSNA images not fetched.",
+  "limitations": "Known benchmark, same split and architecture; more seeds address initialization/training variation, not external validity. Second architecture remains separate future work."
+}

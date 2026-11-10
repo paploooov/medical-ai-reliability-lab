@@ -1,0 +1,40 @@
+{
+  "resolutions": [
+    28
+  ],
+  "seeds": [
+    123,
+    2026
+  ],
+  "epochs": 45,
+  "batch_size": 128,
+  "learning_rate": 0.001,
+  "primary_blur_sigma_fraction": 0.03571428571428571,
+  "target_calibration_coverage": 0.8,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 2026,
+  "primary_endpoint": "augmentation-minus-control mean noise-minus-clean retained-risk change at 28px",
+  "study": "Exploratory five-seed extension: two additional paired seeds fixed before training",
+  "noise_seed": 42,
+  "augmentation": {
+    "probability": 0.5,
+    "sigma": 0.1
+  },
+  "extra_noise": [
+    {
+      "name": "noise_7",
+      "seed": 7,
+      "sigma": 0.1
+    },
+    {
+      "name": "noise_99",
+      "seed": 99,
+      "sigma": 0.1
+    },
+    {
+      "name": "noise_high",
+      "seed": 42,
+      "sigma": 0.2
+    }
+  ]
+}
