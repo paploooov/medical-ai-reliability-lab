@@ -8,12 +8,23 @@
   "seed": 20261121,
   "splits": "Keep official test. Deduplicate decoded grayscale pixels globally with test priority; remove training groups also in test. StratifiedGroupKFold(10,shuffle=True,random_state=seed) on remaining official train: fold0 selection, fold1 calibration, others training. Filename-derived groups are not verified clinical identities.",
   "preprocessing": "Full grayscale image, preserve aspect ratio, resize longest edge to input size using Pillow LANCZOS, center on black square. Report original dimensions and upsampling counts. Repeat RGB and ImageNet normalize. Same retained images and preprocessing rule at 224 and 512.",
-  "arms": ["resnet18_224_probe", "resnet18_512_probe", "resnet18_512_layer4", "resnet50_224_probe"],
-  "larger_encoder": "Secondary capacity comparison: frozen ResNet50 IMAGENET1K_V1 at224, identical splits/scaler-selection rules. Architecture and pretrained representation change together; not a parameter-count-only causal comparison.",
-  "probe": "Frozen ImageNet ResNet18; train-only StandardScaler; C=[0.01,0.1,1,10] selected by selection NLL. Calibration threshold from clean confidence 20th quantile.",
-  "fine_tune": "Initialize from 512 probe including folded scaler. Freeze stem through layer3 and all batch-normalization statistics. Train layer4 convolution weights and classifier for 3 epochs, AdamW layer4 lr=1e-5, classifier lr=1e-4, weight_decay=1e-4, batch16. Select among epoch0,1,2,3 by selection NLL. No test-based selection. Cached layer3 features float32, no augmentation.",
+  "arms": [
+    "mobile_224_probe",
+    "mobile_512_probe",
+    "mobile_512_finetuned",
+    "resnet18_224_probe"
+  ],
+  "larger_encoder": "Secondary frozen ResNet18 ImageNet V1 at224 versus MobileNetV3-Small ImageNet V1 at224, same splits and selection. Architecture and representation change together.",
+  "probe": "Frozen ImageNet MobileNetV3-Small or ResNet18; train-only StandardScaler; C=[0.01,0.1,1,10] selected by selection NLL. Calibration threshold from clean confidence 20th quantile.",
+  "fine_tune": "Initialize from mobile512 probe including folded scaler. Freeze features[:10] and all batch normalization statistics/parameters. Train features[10:] and linear classifier for3 epochs, AdamW encoder lr=1e-5, classifier lr=1e-4, weight_decay=1e-4, batch16. Select epoch0,1,2,3 by selection NLL. Cache float32 features[:10]; no augmentation.",
   "primary": "Paired test AUROC difference, frozen 512 minus frozen 224; dimension and image information change together, not an isolated information-only contrast.",
   "secondary": "Fine-tuned minus frozen512 AUROC, NLL, accuracy, Brier, calibration, risk at80, acceptance/error at each clean-calibration threshold; original longer-edge>=512 subgroup. All candidates reported, no improvement assumed.",
-  "bootstrap": {"replicates": 2000, "seed": 20261122, "unit": "filename-derived test patient groups", "scope": "Conditional on fitted models; filename groups imperfect; no training uncertainty"},
-  "limits": "Same source family as repeatedly studied MedMNIST; new preprocessing and splits mean absolute scores are not directly comparable. Exploratory, no independent clinical validation. 512 may still downsample originals; native smaller images are flagged. Partial fine-tuning is not full end-to-end training. SwiftUI/Core ML export is an engineering research path, not a diagnostic release."
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20261122,
+    "unit": "filename-derived test patient groups",
+    "scope": "Conditional on fitted models; filename groups imperfect; no training uncertainty"
+  },
+  "limits": "Same source family as repeatedly studied MedMNIST; new preprocessing and splits mean absolute scores are not directly comparable. Exploratory, no independent clinical validation. 512 may still downsample originals; native smaller images are flagged. Partial fine-tuning is not full end-to-end training. SwiftUI/Core ML export is an engineering research path, not a diagnostic release.",
+  "resource_amendment": "Before any model fitting or test evaluation: measured ResNet18 CPU cost ~0.52s/image at512 and ~0.48s/image for layer4 training. Use MobileNetV3-Small for full-cohort resolution and partial fine-tuning; ResNet18 at224 as larger capacity reference. No subsampling to manufacture faster results."
 }
