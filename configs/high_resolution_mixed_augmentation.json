@@ -1,0 +1,15 @@
+{
+  "study": "Exploratory repair of blur negative transfer after the severity sweep",
+  "trigger": "Observed noise-head worsening at blur sigma=4 on the known internal test; this is a targeted exploratory intervention, not independent confirmation",
+  "encoder_scaler": "Original frozen 224px ImageNet ResNet-18 and clean-training scaler, unchanged",
+  "training_features": "Reuse clean and seed-20261116 noise SD=0.1 training features; add Gaussian blur sigma=4 reflect, clipped and rounded uint8, on the same 4682 training cases",
+  "arms": {"mixed": {"clean":0.5,"noise":0.25,"blur":0.25}, "reduced_noise": {"clean":0.75,"noise":0.25,"blur":0.0}},
+  "controls": "Original clean-trained control and original half-clean/half-noise augmented head, unchanged",
+  "weighting": "Each arm has total training weight N; no patient multiplication. The reduced-noise arm holds noise weight equal to mixed, distinguishing addition of blur examples from merely reducing noise weight. These are pipeline comparisons, not biological causal estimates.",
+  "selection": "For each new arm, C grid [0.01,0.1,1,10], lbfgs max_iter=3000, lowest clean-selection NLL only; new cutoffs only from clean calibration 20th confidence quantile",
+  "primary": "Mixed minus original noise-augmented risk at exactly 80% coverage under blur sigma=4; negative favors mixed",
+  "secondary": "Same contrast against reduced-noise arm; clean and noise retention; full existing severity grid plus contrast and alternate noise seeds. Report every condition and all arms; no winner selection on tests.",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261120,
+  "scope": "Known images and known corruptions, chosen intervention after observed failure; one encoder and fixed noise realization, conditional image bootstrap, no clinical/external-transfer or noninferiority claim. Historical heads and outputs remain unchanged."
+}
