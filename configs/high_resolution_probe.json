@@ -1,0 +1,20 @@
+{
+  "study": "Exploratory controlled information-resolution comparison, specified before high-resolution evaluation",
+  "date": "2026-11-10",
+  "source_url": "https://zenodo.org/records/10519652/files/pneumoniamnist_224.npz?download=1",
+  "source_md5": "d6a3c71de1b945ea11211b03746c1fe1",
+  "source_metadata": "Official MedMNIST medmnist/info.py, retrieved 2026-11-10",
+  "source_license": "CC BY 4.0, PneumoniaMNIST / MedMNIST attribution",
+  "splits": "Reuse existing resolution_manifest indices. Verify original label ordering and audit exact pixel duplicates at 224 before fitting; stop on cross-split duplicates among retained cases.",
+  "views": ["native_224", "downsample28_upsample224"],
+  "comparison": "Both branches start from the same official 224 image. Low-information branch: PIL bicubic 224->28->224. Same frozen ImageNet ResNet-18 encoder, same train/selection/calibration/test cases and same linear-probe selection rule. This isolates retained spatial detail conditional on this preprocessing and encoder; it is not the historical small-CNN comparison.",
+  "encoder": "torchvision resnet18 IMAGENET1K_V1; frozen, eval mode, final 512D average-pool features; grayscale repeated over RGB and normalized with ImageNet means/stds; no additional crop",
+  "encoder_version": "torchvision 0.20.1, torch 2.5.1 CPU",
+  "probe": "StandardScaler fitted on training features only, logistic regression with L2, lbfgs, max_iter=3000. C in [0.01,0.1,1,10], choose smallest selection NLL separately per view. No fit on selection/calibration/test labels.",
+  "threshold": "Inclusive 20th quantile of clean calibration confidence, unchanged rule, not tuned on test",
+  "primary": "Test AUROC difference native224 minus downsample28-upsample224, paired test-representative bootstrap",
+  "secondary": "Accuracy, NLL, Brier, ECE, sensitivity, specificity, coverage and accepted error; paired differences. Risk-coverage curves. No post-hoc choice of primary.",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261114,
+  "limitations": "224 is reduced from original radiographs, not native clinical resolution. Frozen ImageNet representation and deterministic linear probe, not end-to-end medical training. Known internal benchmark remains exploratory; no claim about full diagnostic sufficiency or external transport. Patient independence unknown."
+}

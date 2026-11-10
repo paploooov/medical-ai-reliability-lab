@@ -1,0 +1,2 @@
+# Python csv writers use RFC 4180 CRLF records; retain whitespace checks otherwise.
+*.csv whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
