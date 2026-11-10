@@ -1,0 +1,13 @@
+{
+  "study": "Exploratory AP/PA case-mix standardization after prior subgroup inspection",
+  "conditions": ["clean", "noise", "relative_blur", "contrast"],
+  "arms": ["control_28", "augmented_28", "control_64"],
+  "seeds": [17, 42, 83],
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261111,
+  "resampling": "Independently within each AP/PA x label cell; same sampled IDs across models, seeds and conditions. Fixed observed cell sizes.",
+  "standardization": "Within each view, assign positive and negative labels weight 0.5. Standardized selective risk = weighted accepted errors / weighted acceptance, separately per seed, then average seeds.",
+  "contrast": "PA minus AP standardized selective risk; descriptive and conditional on fixed models, cutoffs and empirical strata. Not a causal adjustment or prospective clinical risk estimate.",
+  "baseline": "Descriptive view-only rule: AP predicts positive, PA predicts negative. Direction chosen after viewing label association; not independently validated.",
+  "data": "Saved primary external predictions only; no raw-image download, training or new acceptance threshold. Secondary Not Normal sample excluded."
+}
