@@ -49,3 +49,7 @@ python scripts/verify_high_resolution.py
 Voraussetzungen: festgeschriebene Pakete aus `requirements.txt`, CPU-PyTorch 2.5.1 und Torchvision 0.20.1. Erster Lauf lädt zusätzlich die öffentlichen ImageNet-Gewichte. Merkmale werden unter `data/high_resolution_features/` gecacht; Cache-Herkunft wird gegen Daten, Manifest, Protokoll, Skript und Encoder geprüft. Roharchiv und Encoder werden nicht im Repository mitverteilt. Der Ausgabeordner der Auswertung muss neu sein. Der separate Prüfer prüft die versionierten Ergebnisse im Repository.
 
 [Vorab festgelegter Plan](../../configs/high_resolution_probe.json) · [Kennzahlen, Modellwahl und Prüfsummen](summary.json) · [Logits und gelernte Köpfe](predictions_and_probes.npz) · [Bootstrap](bootstrap.npz) · [Lizenzen und Attribution](../../docs/LICENSING.md).
+
+## Folgetest: Robustheit bei eingefrorenen Modellen
+
+Die anschließende [Störungsauswertung](robustness/README.md) prüft Eingangsrauschen, Rauschen vor Verkleinerung, Unschärfe und Kontrast bei unveränderten Modellen und Schwellen. Der clean-Auflösungsvorteil ist damit von der Robustheit gegen Störungen zu unterscheiden. Die Filterwirkung des Herunterskalierens wird über zwei Rauschpositionen und den tatsächlich verbleibenden RMSE kontrolliert.

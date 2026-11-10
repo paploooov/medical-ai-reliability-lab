@@ -23,6 +23,8 @@ Primärer Kontrast (Unterschied des Rauschen-minus-Original-Fehleranstiegs unter
 
 Die bisherigen 28px-Befunde betreffen einen Niedrigauflösungs-Benchmark; sie belegen keine diagnostische Eignung. Ein neuer kontrollierter Vergleich nutzt jetzt das **offizielle 224px-Archiv** und denselben eingefrorenen ResNet-18-Encoder für 224px-Information versus auf 28px reduzierte Information. AUROC: **0.980 vs. 0.960**, gepaarte Differenz **+0.019 [+0.009; +0.032]**. Kein End-to-End-Training und noch kein externer Test dieser neuen Modelle. [Methoden, Bildvergleich und Ergebnisse](reports/high_resolution/README.md).
 
+**Robustheit bei 224px:** Eingangsrauschen erhöht die akzeptierte Fehlerrate des eingefrorenen 224px-Modells von 4,2 % auf 35,6 %, während die Akzeptanz von 73,3 % auf 96,8 % steigt. Der primäre Vergleich des Risikoanstiegs bei gleicher 80%-Abdeckung zeigt keinen eindeutigen Unterschied zwischen den Auflösungen: −0,28 pp [−4,07; +2,21]. [Störungsanalyse mit Kontrolle der Rauschposition](reports/high_resolution/robustness/README.md).
+
 ## Externer Test: RSNA
 
 Die eingefrorenen Modelle wurden auf 2.000 externen Thoraxaufnahmen geprüft (1.000 `Lung Opacity`, 1.000 `Normal`; überwiegend Erwachsene). Training und Annahmeschwellen bleiben unverändert. Bei der 28px-Kontrolle sinkt die Accuracy von **84,1 % auf 73,5 %**, während der Fehler unter akzeptierten Fällen von **11,2 % auf 20,6 % [18,7; 22,5]** steigt. Rauschaugmentation hilft extern gegen Rauschen, verbessert den primären Vergleich auf unveränderten Bildern aber nicht: **+1,2 Prozentpunkte akzeptierte Fehler [+0,4; +1,9]** gegenüber der Kontrolle. Intervalle: gepaarter Bild-Bootstrap, bedingt auf feste Modelle und Schwellen.

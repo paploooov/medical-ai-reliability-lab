@@ -133,6 +133,23 @@ def main():
             text=text.replace('experiments/five_seed_analysis.py.','experiments/five_seed_analysis.py und experiments/high_resolution_probe.py.')
             text=text.replace('reports/figures/overview_summary.json.','reports/figures/overview_summary.json; Auflösungsvergleich: reports/high_resolution/.')
             pages[5][1][i]=(kind,text)
+    robustness_path=ROOT/'reports/high_resolution/robustness/summary.json'
+    if robustness_path.exists():
+        robustness=json.loads(robustness_path.read_text())
+        primary=robustness['primary'];rn=robustness['results']['native_224|noise_input']
+        for i,(kind,text) in enumerate(pages[0][1]):
+            if text.startswith('Ergänzender Auflösungsvergleich:'):
+                pages[0][1][i]=(kind,text+' Unter Eingangsrauschen steigt die akzeptierte Fehlerrate des 224px-Modells jedoch auf 35,6 % bei 96,8 % Akzeptanz; der clean-Vorteil bedeutet keine allgemein höhere Rauschresistenz.')
+        items=pages[4][1]
+        items.insert(3,('p',f"Folgetest ohne Refit: gleicher Gaußrausch-Input (SD 0,1), Quellrauschen vor Verkleinerung, Unschärfe und Kontrast. Primärer Kontrast des Rauschen-minus-clean-Risikoanstiegs bei 80 % Abdeckung, 224 minus 28: {primary['point']*100:+.2f} pp [{primary['ci'][0]*100:+.2f}; {primary['ci'][1]*100:+.2f}]. Das Intervall umfasst null. Bei den ursprünglichen Schwellen akzeptiert 224px unter Eingangsrauschen {rn['coverage']['point']:.1%} bei {rn['retained_error']['point']:.1%} Fehlern. Fast alle Fälle werden positiv klassifiziert, mit hoher Konfidenz."))
+        for i,(kind,text) in enumerate(items):
+            if kind=='img':items[i]=('img','../high_resolution/robustness/summary_figure.png')
+            if text.startswith('Abbildung 2.'):
+                items[i]=('p',f"Abbildung 2. Links clean, rechts die Kontrolle der Rauschposition. Der gestrichelte 28px-Verlauf enthält Rauschfilterung durch Verkleinerung (RMSE 0,0095 statt 0,0993); er belegt keine allgemeine Überlegenheit von 28px. 224px bleibt unter Originalauflösung. Separat: fünf gepaarte kleine CNNs bestätigen den Augmentationseffekt ({pp(p['mean'])} pp); dies ist eine andere Modellfamilie und kein Robustheitsnachweis für ResNet-18.")
+        pages[4]=('Auflösung und Robustheit',items)
+        for i,(kind,text) in enumerate(pages[5][1]):
+            if text.startswith('Reproduktion:'):
+                pages[5][1][i]=(kind,text+' Hochauflösende Robustheit: experiments/high_resolution_robustness.py; scripts/verify_high_resolution_robustness.py prüft alle 2.000 primären Bootstrap-Ziehungen unabhängig nach.')
     pdfmetrics.registerFont(TTFont('DejaVu','/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
     pdfmetrics.registerFont(TTFont('DejaVuBold','/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
     styles=getSampleStyleSheet()

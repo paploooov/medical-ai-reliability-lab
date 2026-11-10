@@ -2,6 +2,7 @@
 
 Aktueller Stand: [**Forschungsbericht, 6 Seiten (PDF)**](../reports/followup/research_report.pdf) · [Textfassung](../reports/followup/research_report.md).
 
+- [224px-Robustheit und Filterwirkung der Verkleinerung](../reports/high_resolution/robustness/README.md)
 - [224px versus 28px-Information: kontrollierter Auflösungsvergleich](../reports/high_resolution/README.md)
 - [Temperature Scaling: negative Übertragung auf den Test](../reports/temperature_scaling/README.md)
 - [Augmentationsvergleich mit fünf Seeds](../reports/five_seed/README.md)

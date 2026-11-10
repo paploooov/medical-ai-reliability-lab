@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "conditions": 5,
+  "views": 2,
+  "primary_bootstrap_replicates_verified": 2000,
+  "clean_logits_byte_values_unchanged": true,
+  "native_noise_placement_identity": true,
+  "summary_sha256": "377c9fefd6e34084e601c42b923d9a8fb140518072c180550fe24b28f982dca3",
+  "verifier_sha256": "c698f9b3fd399c15a6cca535dc6a5cf982a4faf76fd21b6fc64c216a91f7f122"
+}

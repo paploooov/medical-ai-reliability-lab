@@ -1,0 +1,15 @@
+{
+  "unit_tests": 75,
+  "prior_numeric_model_artifacts_unchanged": 173,
+  "report_pages": 6,
+  "report_visual_check": "Updated pages 5 and 6 inspected",
+  "protocol_commit": "3017c8f",
+  "sources_sha256": {
+    "experiments/high_resolution_robustness.py": "5fa6b6f20a356bd296c2b331298a596ad44e773ddef638b3f9b8ffa3fbe8a1c0",
+    "experiments/high_resolution_probe.py": "d9acb2de2b2b9897a3dbded2342b9512cb08afdddda1209d8673ec54143a7925",
+    "experiments/external_eval.py": "85732d8c15263bcdd75d27370d0af69811cf11a46d08cb4e70c4b6ac1c0773b1",
+    "experiments/temperature_scaling.py": "ba1a9f0b315d584a534a70d599ee65f56b2c801dbe52f4701a5ba6dacd17530b",
+    "scripts/verify_high_resolution_robustness.py": "c698f9b3fd399c15a6cca535dc6a5cf982a4faf76fd21b6fc64c216a91f7f122"
+  },
+  "findings_scope": "Exploratory internal frozen-probe evaluation; no refit or clinical-validation claim"
+}
