@@ -27,6 +27,10 @@ Die bisherigen 28px-Befunde betreffen einen Niedrigauflösungs-Benchmark; sie be
 
 **Gezielte Gegenmaßnahme:** Ein neuer, mit Rauschen trainierter linearer Kopf bei eingefrorenem 224px-Encoder verändert das Risiko bei 80 % Abdeckung unter Testrauschen um **-15.5 pp [-19.3; -11.8]**. Auf clean-Bildern beträgt die Änderung **+0.2 pp [-1.0; +1.0]**. [Rauschaugmentation: Gewinn, Nebenwirkungen und zwei weitere Testrausch-Seeds](reports/high_resolution/augmentation/README.md).
 
+**Störstärke:** Bei doppelter Trainingsrauschstärke (SD 0,2) beträgt die Risikodifferenz bei 80 % Abdeckung **-4.4 pp [-5.8; -2.6]**, Augmentation minus Kontrolle. Das vollständige vorab festgelegte Raster umfasst auch zunehmende Unschärfe und ein gemeinsames Unsicherheitsband. [Grenzen über die Störstärke](reports/high_resolution/severity/README.md).
+
+**Gezielte Blur-Intervention:** Eine Mischung mit 25 % Unschärfetraining verändert das Risiko bei Sigma 4 und 80 % Abdeckung um **-19.0 pp [-22.3; -15.9]** gegenüber dem Rauschkopf. Die Maßnahme wurde nach dem beobachteten Blur-Problem gewählt; clean- und Rauschnachteile sowie eine Kontrolle mit weniger Rauschtraining werden mitberichtet. [Vierarmige Interventionsstudie](reports/high_resolution/mixed_augmentation/README.md).
+
 ## Externer Test: RSNA
 
 Die eingefrorenen Modelle wurden auf 2.000 externen Thoraxaufnahmen geprüft (1.000 `Lung Opacity`, 1.000 `Normal`; überwiegend Erwachsene). Training und Annahmeschwellen bleiben unverändert. Bei der 28px-Kontrolle sinkt die Accuracy von **84,1 % auf 73,5 %**, während der Fehler unter akzeptierten Fällen von **11,2 % auf 20,6 % [18,7; 22,5]** steigt. Rauschaugmentation hilft extern gegen Rauschen, verbessert den primären Vergleich auf unveränderten Bildern aber nicht: **+1,2 Prozentpunkte akzeptierte Fehler [+0,4; +1,9]** gegenüber der Kontrolle. Intervalle: gepaarter Bild-Bootstrap, bedingt auf feste Modelle und Schwellen.

@@ -90,21 +90,19 @@ Eine nach Sichtung gewählte Regel AP → positiv, PA → negativ erreicht 78,4 
 
 ---
 
-# 224px: Verbesserung und Grenzen
+# 224px: Störstärken und gezielte Reparatur
 
-Auflösungsvergleich: Das offizielle 224px-Archiv wird mit derselben auf 28px reduzierten Bildinformation verglichen, jeweils als 224px-Eingabe desselben eingefrorenen ImageNet-ResNet-18. Trainiert wird eine standardisierte logistische Klassifikationsschicht, C-Auswahl nur auf clean-Modellwahlfällen. Alle Fälle und Splits bleiben gleich. AUROC: 0,980 vs. 0,960; gepaarte Differenz +0,019 [0,009; 0,032]. Dies ist keine klinische Vollauflösung.
+Auflösungsvergleich: Das offizielle 224px-Archiv und dieselben auf 28px reduzierten Bilder werden mit einem gemeinsamen eingefrorenen ImageNet-ResNet-18 untersucht. Die AUROC steigt von 0,960 auf 0,980; gepaarte Differenz +0,019 [0,009; 0,032]. 224px ist weiterhin keine klinische Originalauflösung. Alle folgenden Köpfe verwenden die 224px-Information.
 
-Der clean-Vorteil schützt nicht vor Störungen: Das ursprüngliche 224px-Modell akzeptiert unter Eingangsrauschen 96,8 % bei 35,6 % Fehlern. Ein scheinbarer Vorteil des 28px-Zweigs bei Quellrauschen enthält Filterung durch Verkleinerung (RMSE 0,0095 statt 0,0993). Beide Rauschpositionen wurden separat geprüft; Encoder, Köpfe und Schwellen blieben dabei fest.
+Der ursprüngliche Rauschkopf senkt bei Rauschen SD 0,1 das Risiko bei 80 % Abdeckung von 22,7 auf 7,2 %. Das anschließende Stärkenraster zeigt jedoch negativen Transfer: Bei Unschärfe Sigma 4 steigt es von 15,9 auf 27,0 %. Dieser Nachteil bleibt im gemeinsamen empirischen Bootstrap-Band über zehn Rasterpunkte bestehen. Bei starkem Rauschen SD 0,2 schrumpft der Gewinn auf 4,4 Prozentpunkte.
 
-Intervention: Jede der 4.682 Trainingsaufnahmen liefert clean- und Rauschmerkmale, jeweils mit Gewicht 0,5; Gesamtgewicht und ursprünglicher StandardScaler bleiben erhalten. Nur ein neuer linearer Kopf wird gelernt. Auswahl aus C ∈ {0,01; 0,1; 1; 10} nach clean-Modellwahl-NLL, Schwelle nur aus clean-Kalibrierung. Trainingsseed 20261116 unterscheidet sich von den Testseeds 42, 7 und 99. Es sind dieselben Testfälle, keine drei unabhängigen Kohorten.
+Gezielte explorative Reparatur nach Sichtung dieses Fehlers: Ein neuer Kopf erhält 50 % clean-, 25 % Rausch- und 25 % Blur-Trainingsgewicht. Eine zusätzliche Kontrolle erhält 75 % clean und 25 % Rauschen. Gesamtgewicht je Arm: 4.682; Encoder und ursprünglicher Scaler bleiben fest. C wird je Kopf nur anhand clean-Modellwahl-NLL gewählt; Schwellen stammen aus clean-Kalibrierung. Kein neuer unabhängiger Bestätigungstest.
 
-Primär unter Testrauschen Seed 42 bei 80 % Abdeckung: -15.46 pp [-19.28; -11.84], Augmentation minus Kontrolle. Clean: +0.20 pp [-1.05; +1.01], kein Nichtunterlegenheitsnachweis. Beide alternativen Rausch-Seeds zeigen ebenfalls geringere Risiken; alle Intervalle sind auf ausgewählte Modelle bedingt.
+Primär bei Sigma 4 und 80 % Abdeckung: Mischung 8,0 % vs. Rauschkopf 27,0 % Fehler; Differenz -18.96 pp [-22.30; -15.94]. Gegen die Kontrolle mit weniger Rauschen: −13,12 pp [−16,55; −10,63]. Intervalle: 2.000 gepaarte Bild-Wiederziehungen, bedingt auf feste ausgewählte Köpfe; keine Trainings- oder externe Patientenunsicherheit.
 
-Post-hoc-Kontrolle der Regularisierung: Der primäre Vergleich verwendete clean-gewählte C-Werte 0,01 und 0,1. Bei gleichem C bleibt der Rauschgewinn bestehen: -14.7 pp bei C=0,01 und -22.1 pp bei C=0,1; beide bedingten Intervalle liegen unter null. Dies ist eine Sensitivitätsanalyse, kein unabhängiger Bestätigungstest.
+![Abbildung](../high_resolution/mixed_augmentation/severity.png)
 
-![Abbildung](../high_resolution/augmentation/summary_figure.png)
-
-Abbildung 2. Neue Intervention, beide Modelle mit 224px-Information. Die Verbesserung gilt nicht allgemein: Unter Unschärfe akzeptiert der augmentierte Kopf 99,5 % der Fälle, davon 37,4 % falsch. Bei gleicher 80%-Abdeckung betragen die Blur-Risiken 24,7 % vs. 26,0 %; die unterschiedliche feste Annahmemenge erklärt den scheinbaren Gegensatz. Die Analyse betrifft einen eingefrorenen Encoder und eine Trainingsrausch-Realisierung, kein End-to-End-Training oder externen Transfer.
+Abbildung 2. Vier Köpfe über Rausch- und Unschärfestärken, jeweils gleiche 80%-Abdeckung. Der Gewinn ist begrenzt: clean steigt der Fehler von 4,4 auf 5,4 %, bei SD 0,1 von 7,2 auf 8,1 %. Keine Nichtunterlegenheit belegt. Bei Sigma 16 bleiben 26,7 % Fehler. Unterschiedliche C-Werte und dieselben bekannten Testfälle begrenzen die Interpretation; die Mischung ist keine allgemeine Zuverlässigkeitsgarantie.
 
 
 ---
@@ -121,7 +119,7 @@ Die externen Bilder wurden früher über einen inoffiziellen Hugging-Face-Spiege
 
 Konfigurationen für Temperature Scaling, stratifizierte Standardisierung und zusätzliche Seeds wurden vor den jeweiligen neuen Berechnungen versioniert. Modelle und numerische Ausgaben früherer Studien bleiben erhalten. Neue Gewichte, Vorhersagen, Logits, Bootstrap-Ausgaben, Quellen-Prüfsummen und Softwareversionen sind gespeichert. scripts/verify_followup.py prüft 120 Kennzahlen separat und die sechs Temperatur-Optima; die Unit-Tests prüfen zusätzlich Randfälle.
 
-Reproduktion: Anforderungen aus requirements.txt und CPU-PyTorch 2.5.1; Datenprüfung mit scripts/fetch_data.py. Neue Analysen: experiments/temperature_scaling.py, experiments/external_view_analysis.py, experiments/five_seed_analysis.py und experiments/high_resolution_probe.py. Die zusätzlichen Trainingskonfigurationen stehen unter configs/five_seed_*.json. Der Bericht wird mit scripts/build_followup_report.py und optional requirements-report.txt erzeugt. Hochauflösende Folgestudien: experiments/high_resolution_robustness.py und experiments/high_resolution_augmentation.py. Separate Prüfer rechnen die primären Bootstrap-Ziehungen unabhängig nach.
+Reproduktion: Anforderungen aus requirements.txt und CPU-PyTorch 2.5.1; Datenprüfung mit scripts/fetch_data.py. Neue Analysen: experiments/temperature_scaling.py, experiments/external_view_analysis.py, experiments/five_seed_analysis.py und experiments/high_resolution_probe.py. Die zusätzlichen Trainingskonfigurationen stehen unter configs/five_seed_*.json. Der Bericht wird mit scripts/build_followup_report.py und optional requirements-report.txt erzeugt. Hochauflösende Folgestudien: experiments/high_resolution_robustness.py und experiments/high_resolution_augmentation.py. Separate Prüfer rechnen die primären Bootstrap-Ziehungen unabhängig nach. Stärkenraster und Mischintervention: reports/high_resolution/severity/ und mixed_augmentation/, jeweils mit unabhängigen Prüfern.
 
 ## Eigenleistung und KI-Assistenz
 

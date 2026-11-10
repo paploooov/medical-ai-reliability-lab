@@ -1,0 +1,12 @@
+{
+  "tests_passed": 81,
+  "historical_numerical_artifacts_preserved": 191,
+  "local_document_links_valid": true,
+  "report_pages": 6,
+  "report_page_5_visually_checked": true,
+  "severity_protocol_commit": "b555ece",
+  "mixed_protocol_commit": "0072276",
+  "severity_independent_verification": true,
+  "mixed_independent_verification": true,
+  "scope": "Exploratory targeted intervention on known test cases; conditional image bootstrap, no independent clinical confirmation"
+}

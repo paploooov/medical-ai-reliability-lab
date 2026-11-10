@@ -81,3 +81,7 @@ python scripts/verify_high_resolution_augmentation.py
 Voraussetzungen wie beim [ursprünglichen 224px-Vergleich](../README.md). Merkmale werden lokal unter `data/high_resolution_augmentation/` gecacht; Quellen-, Skript- und Helfer-Prüfsummen verhindern unbemerktes Wiederverwenden eines anderen Stands. Der Ausgabeordner muss neu sein. Der separate Prüfer rekonstruiert den neuen Kopf aus gespeicherten Parametern, bestätigt die ursprünglichen Kontrollvorhersagen und rechnet alle 2.000 Bootstrap-Ziehungen für Rauschgewinn und clean-Nachteil unabhängig nach.
 
 [Zusammenfassung](summary.json) · [Alle Kennzahlen](results.csv) · [Vorhersagen](predictions.npz) · [Gelernter Kopf und Kalibrierungslogits](augmented_head.npz) · [Bootstrap](bootstrap.npz) · [Prüfung](verification.json).
+
+## Fortsetzung über die Störstärke
+
+Die [eingefrorene Störstärkenanalyse](../severity/README.md) erweitert die Prüfung auf Rauschen bis SD 0,2 und Unschärfe bis Sigma 16. Modelle und Schwellen bleiben unverändert; bekannte Stärken dienen als Kontrollpunkte.

@@ -174,6 +174,19 @@ def main():
         regularization=json.loads(regularization_path.read_text())
         a=regularization['contrasts']['C0.01|noise_42'];b=regularization['contrasts']['C0.1|noise_42']
         pages[4][1].insert(4,('p',f"Post-hoc-Kontrolle der Regularisierung: Der primäre Vergleich verwendete clean-gewählte C-Werte 0,01 und 0,1. Bei gleichem C bleibt der Rauschgewinn bestehen: {a['point']*100:+.1f} pp bei C=0,01 und {b['point']*100:+.1f} pp bei C=0,1; beide bedingten Intervalle liegen unter null. Dies ist eine Sensitivitätsanalyse, kein unabhängiger Bestätigungstest."))
+    mixed_path=ROOT/'reports/high_resolution/mixed_augmentation/summary.json'
+    if mixed_path.exists():
+        mixed=json.loads(mixed_path.read_text());effect=mixed['primary']
+        pages[4]=('224px: Störstärken und gezielte Reparatur',[
+            ('p','Auflösungsvergleich: Das offizielle 224px-Archiv und dieselben auf 28px reduzierten Bilder werden mit einem gemeinsamen eingefrorenen ImageNet-ResNet-18 untersucht. Die AUROC steigt von 0,960 auf 0,980; gepaarte Differenz +0,019 [0,009; 0,032]. 224px ist weiterhin keine klinische Originalauflösung. Alle folgenden Köpfe verwenden die 224px-Information.'),
+            ('p','Der ursprüngliche Rauschkopf senkt bei Rauschen SD 0,1 das Risiko bei 80 % Abdeckung von 22,7 auf 7,2 %. Das anschließende Stärkenraster zeigt jedoch negativen Transfer: Bei Unschärfe Sigma 4 steigt es von 15,9 auf 27,0 %. Dieser Nachteil bleibt im gemeinsamen empirischen Bootstrap-Band über zehn Rasterpunkte bestehen. Bei starkem Rauschen SD 0,2 schrumpft der Gewinn auf 4,4 Prozentpunkte.'),
+            ('p','Gezielte explorative Reparatur nach Sichtung dieses Fehlers: Ein neuer Kopf erhält 50 % clean-, 25 % Rausch- und 25 % Blur-Trainingsgewicht. Eine zusätzliche Kontrolle erhält 75 % clean und 25 % Rauschen. Gesamtgewicht je Arm: 4.682; Encoder und ursprünglicher Scaler bleiben fest. C wird je Kopf nur anhand clean-Modellwahl-NLL gewählt; Schwellen stammen aus clean-Kalibrierung. Kein neuer unabhängiger Bestätigungstest.'),
+            ('p',f"Primär bei Sigma 4 und 80 % Abdeckung: Mischung 8,0 % vs. Rauschkopf 27,0 % Fehler; Differenz {effect['point']*100:+.2f} pp [{effect['ci'][0]*100:+.2f}; {effect['ci'][1]*100:+.2f}]. Gegen die Kontrolle mit weniger Rauschen: −13,12 pp [−16,55; −10,63]. Intervalle: 2.000 gepaarte Bild-Wiederziehungen, bedingt auf feste ausgewählte Köpfe; keine Trainings- oder externe Patientenunsicherheit."),
+            ('img','../high_resolution/mixed_augmentation/severity.png'),
+            ('p','Abbildung 2. Vier Köpfe über Rausch- und Unschärfestärken, jeweils gleiche 80%-Abdeckung. Der Gewinn ist begrenzt: clean steigt der Fehler von 4,4 auf 5,4 %, bei SD 0,1 von 7,2 auf 8,1 %. Keine Nichtunterlegenheit belegt. Bei Sigma 16 bleiben 26,7 % Fehler. Unterschiedliche C-Werte und dieselben bekannten Testfälle begrenzen die Interpretation; die Mischung ist keine allgemeine Zuverlässigkeitsgarantie.')])
+        for i,(kind,text) in enumerate(pages[5][1]):
+            if text.startswith('Reproduktion:'):
+                pages[5][1][i]=(kind,text+' Stärkenraster und Mischintervention: reports/high_resolution/severity/ und mixed_augmentation/, jeweils mit unabhängigen Prüfern.')
     pdfmetrics.registerFont(TTFont('DejaVu','/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
     pdfmetrics.registerFont(TTFont('DejaVuBold','/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
     styles=getSampleStyleSheet()

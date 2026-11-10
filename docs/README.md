@@ -2,6 +2,8 @@
 
 Aktueller Stand: [**Forschungsbericht, 6 Seiten (PDF)**](../reports/followup/research_report.pdf) · [Textfassung](../reports/followup/research_report.md).
 
+- [224px-Mischaugmentation: gezielte Blur-Intervention mit zusätzlicher Kontrolle](../reports/high_resolution/mixed_augmentation/README.md)
+- [224px-Störstärken: Rauschen, Unschärfe und gemeinsame Unsicherheit](../reports/high_resolution/severity/README.md)
 - [224px-Intervention: Rauschaugmentation des linearen Kopfes](../reports/high_resolution/augmentation/README.md)
 - [224px-Robustheit und Filterwirkung der Verkleinerung](../reports/high_resolution/robustness/README.md)
 - [224px versus 28px-Information: kontrollierter Auflösungsvergleich](../reports/high_resolution/README.md)

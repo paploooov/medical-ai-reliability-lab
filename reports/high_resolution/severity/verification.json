@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "grid_points": 10,
+  "fixed_head_reconstructions": 20,
+  "primary_bootstrap_draws": 2000,
+  "full_grid_bootstrap_draws": 25,
+  "joint_band_checked": true,
+  "feature_sha256": {
+    "data/high_resolution_features/native_224_test.npz": "d2505cbbdd0d9689474ff83f7b849965e81e91edeb108f5d4841c22273c00bc8",
+    "data/high_resolution_severity/noise_0.025.npz": "ade63a7455691aecce98b889060decb64cf980303b7d63f75fdf22f51bc420b0",
+    "data/high_resolution_severity/noise_0.05.npz": "b7bc7e810e410abc45ee3323c23f9e62fc294882832cfac793195f7a1f3d86a1",
+    "data/high_resolution_augmentation/test_noise_42.npz": "2edb907d0e618c329356317066535a527ce39b6bf374b666ae89ac608bcd6d58",
+    "data/high_resolution_severity/noise_0.15.npz": "05f0f5b277d654f2c9152bde71d504972c81e3fe73262a8dbca17efab704b2ba",
+    "data/high_resolution_severity/noise_0.2.npz": "6de3c45eeb1f3aae38164ee839c3a5c5ce0defeaf7f6f00354bdbdd39ccf1759",
+    "data/high_resolution_severity/blur_2.npz": "9bb10dcbb91714f0335254542eb5aca1fcd4c53e8d843456f11e4ceb17a20298",
+    "data/high_resolution_severity/blur_4.npz": "1fd596ce91e21808645daa344adf31a33fcfe31143c951df40e50119622f6324",
+    "data/high_resolution_augmentation/test_relative_blur.npz": "b1ba203b0bae83250851c99427ca1c846babc7ae2afe323ddf104ef052c13d74",
+    "data/high_resolution_severity/blur_16.npz": "782293fe900ef3e9c9a727ac3efbe96c1c45a0a59c1a272555f715594a927820"
+  },
+  "summary_sha256": "cb1415f05743e06447fecd5b21684d98d1b361f62c3d60ba16d5e340e8c591ec",
+  "verifier_sha256": "346a0d70eece46ee1bc559b997def63d98a75900db46ad87a941468b42c23706"
+}

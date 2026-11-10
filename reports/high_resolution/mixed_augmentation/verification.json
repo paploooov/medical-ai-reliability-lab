@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "conditions": 13,
+  "arms": 4,
+  "mixture_max_abs_gradients": {
+    "mixed": 8.433805830041044e-05,
+    "reduced_noise": 8.781832168558533e-05
+  },
+  "primary_bootstrap_draws_verified": 2000,
+  "reduced_noise_blur_bootstrap_draws_verified": 2000,
+  "previous_heads_unchanged": true,
+  "feature_sha256": {
+    "data/high_resolution_features/native_224_test.npz": "d2505cbbdd0d9689474ff83f7b849965e81e91edeb108f5d4841c22273c00bc8",
+    "data/high_resolution_severity/noise_0.025.npz": "ade63a7455691aecce98b889060decb64cf980303b7d63f75fdf22f51bc420b0",
+    "data/high_resolution_severity/noise_0.05.npz": "b7bc7e810e410abc45ee3323c23f9e62fc294882832cfac793195f7a1f3d86a1",
+    "data/high_resolution_augmentation/test_noise_42.npz": "2edb907d0e618c329356317066535a527ce39b6bf374b666ae89ac608bcd6d58",
+    "data/high_resolution_severity/noise_0.15.npz": "05f0f5b277d654f2c9152bde71d504972c81e3fe73262a8dbca17efab704b2ba",
+    "data/high_resolution_severity/noise_0.2.npz": "6de3c45eeb1f3aae38164ee839c3a5c5ce0defeaf7f6f00354bdbdd39ccf1759",
+    "data/high_resolution_severity/blur_2.npz": "9bb10dcbb91714f0335254542eb5aca1fcd4c53e8d843456f11e4ceb17a20298",
+    "data/high_resolution_severity/blur_4.npz": "1fd596ce91e21808645daa344adf31a33fcfe31143c951df40e50119622f6324",
+    "data/high_resolution_augmentation/test_relative_blur.npz": "b1ba203b0bae83250851c99427ca1c846babc7ae2afe323ddf104ef052c13d74",
+    "data/high_resolution_severity/blur_16.npz": "782293fe900ef3e9c9a727ac3efbe96c1c45a0a59c1a272555f715594a927820",
+    "data/high_resolution_augmentation/test_noise_7.npz": "6d8fa05f7111412919f2ae647fecfab4c4b645ed9b92f96350eda37c7de80f8e",
+    "data/high_resolution_augmentation/test_noise_99.npz": "b248bca64ae6ffc3f8b7e5a0e1cda2019ab852d571468557262400c0371176dd",
+    "data/high_resolution_augmentation/test_contrast.npz": "390b9ac635fc597ff5cfa472e59ecb43c77342213c2307ea937814c76e8ec27c"
+  },
+  "summary_sha256": "25d048ebf565357fc28eab512022c315998011c0b5454d91fdca6021111c1c9a"
+}
