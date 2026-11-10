@@ -1,0 +1,47 @@
+{
+  "config": {
+    "resolutions": [
+      28
+    ],
+    "seeds": [
+      123,
+      2026
+    ],
+    "epochs": 45,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "primary_blur_sigma_fraction": 0.03571428571428571,
+    "target_calibration_coverage": 0.8,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 2026,
+    "primary_endpoint": "noise-minus-clean retained risk change at 45 versus 15 epochs, 28px mean across three matched seeds",
+    "study": "Exploratory five-seed extension: two additional paired seeds fixed before training",
+    "noise_seed": 42
+  },
+  "choices": [
+    {
+      "resolution": 28,
+      "seed": 123,
+      "epoch": 45,
+      "selection_bce": 0.12267597764730453,
+      "threshold": 0.7913957238197327,
+      "training_seconds": 65.0839625000001,
+      "parameters": 21249,
+      "weights_sha256": "f115564670feb54422d718d51cab7a0120dc0d20ded0832b7e7bd1729bdb01b3"
+    },
+    {
+      "resolution": 28,
+      "seed": 2026,
+      "epoch": 41,
+      "selection_bce": 0.08088021725416183,
+      "threshold": 0.9325928688049316,
+      "training_seconds": 42.8610407409999,
+      "parameters": 21249,
+      "weights_sha256": "0322bf78cd15e5ea6ebd1f9c7a77b60858ce3b699e7005e855b005edf49d0b24"
+    }
+  ],
+  "torch": "2.5.1+cpu",
+  "elapsed_seconds": 111.73649735499998,
+  "commit": "8a3fd75e60cbb57163f115ca4a4d128eb2a5271a",
+  "manifest_sha256": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0"
+}

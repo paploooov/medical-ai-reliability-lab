@@ -38,6 +38,22 @@ Mittel über drei feste Seeds; keine neuen Konfidenzintervalle. Balanced Accurac
 
 Alle vier Bildbedingungen: [view_summary.csv](view_summary.csv). Reproduzieren ohne Rohbilder: `python scripts/summarize_external_views.py`. Das Skript aggregiert `results.csv`, prüft die drei Seeds und gleicht die Gruppengrößen mit der fixierten Stichprobe ab. Das vorab festgelegte Protokoll und die Primärauswertung bleiben unverändert.
 
+### Gleiche Klassengewichtung und Unsicherheit
+
+Eine ergänzende, vor ihrer Berechnung spezifizierte Nachanalyse gewichtet innerhalb von AP und PA beide Klassen gleich. Die akzeptierte Fehlerrate wird als Verhältnis der gewichteten akzeptierten Fehler zur gewichteten Akzeptanz berechnet, nicht als Mittel der klassenweisen Fehlerraten.
+
+| Modell, clean | Standardisiertes Risiko AP | Standardisiertes Risiko PA | PA − AP [95%-Bootstrap] |
+|---|---:|---:|---:|
+| control_28 | 23.6% | 27.7% | +4.1 pp [-1.0; +9.7] |
+| augmented_28 | 24.2% | 27.9% | +3.7 pp [-1.2; +8.9] |
+| control_64 | 23.6% | 30.5% | +6.9 pp [+1.5; +12.7] |
+
+2.000 Wiederziehungen innerhalb der vier Aufnahmeart×Label-Zellen, gekoppelt über Modelle und Seeds; feste Zellgrößen, Modelle und Schwellen. Keine Multiplikitätskorrektur. Mittel über drei Seeds. Die Standardisierung beschreibt eine hypothetische gleiche Klassenverteilung, keine klinische Prävalenz und keine kausale Bereinigung. Bei beiden 28px-Armen umfasst das Intervall des standardisierten Risikoabstands null; das belegt keine Gleichwertigkeit.
+
+**Metadaten-Baseline:** Die nach Sichtung der Klassenverteilung gewählte Regel „AP → positiv, PA → negativ“ erzielt auf dieser Stichprobe **78,4 % Accuracy und 0,784 AUROC**, obwohl sie keine Bildpixel verwendet. Innerhalb jeder Aufnahmeart hat sie nur 50 % Balanced Accuracy. Das zeigt, wie stark die Zusammensetzung dieser Stichprobe die Gesamtkennzahlen beeinflussen kann; es beweist nicht, dass die CNNs diese Regel verwenden. Diese Baseline ist post hoc und nicht unabhängig validiert.
+
+[Vollständige Ergebnisse und Herkunft](view_analysis/summary.json) · [Pro Seed einschließlich AUROC innerhalb AP/PA](view_analysis/per_seed.csv) · [Plan](../../configs/external_view_analysis.json). Reproduktion: `python experiments/external_view_analysis.py --output /tmp/view-analysis-reproduction`.
+
 **Daten und Lizenz.** RSNA Pneumonia Detection Challenge (2018), Shih et al., *Radiology: AI* 2019, [doi:10.1148/ryai.2019180041](https://doi.org/10.1148/ryai.2019180041); Ausgangsbilder NIH ChestX-ray14, Wang et al., CVPR 2017. Die zuvor genannte nicht-kommerzielle Forschungsfreigabe konnte bei der Prüfung am 10. November 2026 nicht anhand eines abrufbaren Original-Lizenztexts bestätigt werden. Auch die Weitergabeberechtigung des inoffiziellen Hugging-Face-Spiegels bleibt ungeklärt. Öffentlicher Download und Prüfsummen belegen keine Nutzungsrechte. Rohbilder werden hier nicht verteilt. [Lizenzstatus und Quellen](../../docs/LICENSING.md#rsna-pneumonia-detection-challenge).
 
 **Reproduzieren.** `python experiments/external_data.py` lädt etwa 340 MB, ohne Login. Danach `python experiments/external_eval.py` (etwa 1 Minute auf der CPU) und die Tests mit `python -m unittest tests.test_external`.

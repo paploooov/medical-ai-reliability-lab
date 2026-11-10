@@ -1,0 +1,68 @@
+{
+  "config": {
+    "resolutions": [
+      28
+    ],
+    "seeds": [
+      123,
+      2026
+    ],
+    "epochs": 45,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "primary_blur_sigma_fraction": 0.03571428571428571,
+    "target_calibration_coverage": 0.8,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 2026,
+    "primary_endpoint": "augmentation-minus-control mean noise-minus-clean retained-risk change at 28px",
+    "study": "Exploratory five-seed extension: two additional paired seeds fixed before training",
+    "noise_seed": 42,
+    "augmentation": {
+      "probability": 0.5,
+      "sigma": 0.1
+    },
+    "extra_noise": [
+      {
+        "name": "noise_7",
+        "seed": 7,
+        "sigma": 0.1
+      },
+      {
+        "name": "noise_99",
+        "seed": 99,
+        "sigma": 0.1
+      },
+      {
+        "name": "noise_high",
+        "seed": 42,
+        "sigma": 0.2
+      }
+    ]
+  },
+  "choices": [
+    {
+      "resolution": 28,
+      "seed": 123,
+      "epoch": 45,
+      "selection_bce": 0.09416991472244263,
+      "threshold": 0.9309787750244141,
+      "training_seconds": 42.44721583499995,
+      "parameters": 21249,
+      "weights_sha256": "fbbf0df55502e9530cf4cc36180e799c5e2fc38bba4af17d77e37b8d82deaa5c"
+    },
+    {
+      "resolution": 28,
+      "seed": 2026,
+      "epoch": 45,
+      "selection_bce": 0.09135862439870834,
+      "threshold": 0.9478492140769958,
+      "training_seconds": 43.19314155799998,
+      "parameters": 21249,
+      "weights_sha256": "010805b21b5df761d6dad72aabfa143f01d0a3ac1a01d57bb2435b84764b8964"
+    }
+  ],
+  "torch": "2.5.1+cpu",
+  "elapsed_seconds": 88.50362886799985,
+  "commit": "8a3fd75e60cbb57163f115ca4a4d128eb2a5271a",
+  "manifest_sha256": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0"
+}

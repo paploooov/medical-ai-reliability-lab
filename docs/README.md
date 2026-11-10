@@ -1,6 +1,12 @@
 # Dokumentation
 
-[**Paper Summary**](PAPER_SUMMARY.md) führt durch Setup, mechanistischen Befund und Grenzen der Intervention.
+Aktueller Stand: [**Forschungsbericht, 6 Seiten (PDF)**](../reports/followup/research_report.pdf) · [Textfassung](../reports/followup/research_report.md).
+
+- [Temperature Scaling: negative Übertragung auf den Test](../reports/temperature_scaling/README.md)
+- [Augmentationsvergleich mit fünf Seeds](../reports/five_seed/README.md)
+- [Externer Test und AP/PA-Standardisierung](../reports/external/README.md)
+
+Die [historische Paper Summary](PAPER_SUMMARY.md) beschreibt den Stand vor diesen Erweiterungen.
 
 - [Code- und Datenlizenz](LICENSING.md)
 - [Prüfprotokolle zum Versionsstand v1.0.0](releases/v1.0.0/README.md)

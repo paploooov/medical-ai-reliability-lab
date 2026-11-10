@@ -1,0 +1,1095 @@
+{
+  "config": {
+    "study": "Exploratory AP/PA case-mix standardization after prior subgroup inspection",
+    "conditions": [
+      "clean",
+      "noise",
+      "relative_blur",
+      "contrast"
+    ],
+    "arms": [
+      "control_28",
+      "augmented_28",
+      "control_64"
+    ],
+    "seeds": [
+      17,
+      42,
+      83
+    ],
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20261111,
+    "resampling": "Independently within each AP/PA x label cell; same sampled IDs across models, seeds and conditions. Fixed observed cell sizes.",
+    "standardization": "Within each view, assign positive and negative labels weight 0.5. Standardized selective risk = weighted accepted errors / weighted acceptance, separately per seed, then average seeds.",
+    "contrast": "PA minus AP standardized selective risk; descriptive and conditional on fixed models, cutoffs and empirical strata. Not a causal adjustment or prospective clinical risk estimate.",
+    "baseline": "Descriptive view-only rule: AP predicts positive, PA predicts negative. Direction chosen after viewing label association; not independently validated.",
+    "data": "Saved primary external predictions only; no raw-image download, training or new acceptance threshold. Secondary Not Normal sample excluded."
+  },
+  "counts": {
+    "AP_0": 198,
+    "AP_1": 766,
+    "PA_0": 802,
+    "PA_1": 234
+  },
+  "results": {
+    "control_28|clean|AP": {
+      "balanced_accuracy": {
+        "point": 0.7303232499054954,
+        "ci": [
+          0.6965382172464417,
+          0.7627189541190846
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6947433429156668,
+        "ci": [
+          0.6678075907024994,
+          0.7209994857188068
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.23570764767723262,
+        "ci": [
+          0.19853674201405797,
+          0.2738887191428771
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|clean|PA": {
+      "balanced_accuracy": {
+        "point": 0.6645867524919894,
+        "ci": [
+          0.632941373418306,
+          0.6951893325802304
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.648558447186876,
+        "ci": [
+          0.6179567995964504,
+          0.6774077537637386
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.2767081664860486,
+        "ci": [
+          0.2391010137434824,
+          0.3146650584334717
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|noise|AP": {
+      "balanced_accuracy": {
+        "point": 0.5148064632398837,
+        "ci": [
+          0.506909554641278,
+          0.5220613445156526
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.8490650631642799,
+        "ci": [
+          0.8313654385455953,
+          0.8647510241668205
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.44766438826723426,
+        "ci": [
+          0.4373155573021362,
+          0.4590030765219461
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|noise|PA": {
+      "balanced_accuracy": {
+        "point": 0.5139466149441212,
+        "ci": [
+          0.5068233529424303,
+          0.5214855045434846
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.8716598816349439,
+        "ci": [
+          0.8560182964952292,
+          0.8873618127047055
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.4735732557869709,
+        "ci": [
+          0.46176750087024204,
+          0.4847502158298853
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|relative_blur|AP": {
+      "balanced_accuracy": {
+        "point": 0.6282911798577594,
+        "ci": [
+          0.6017313034610685,
+          0.6540957332243232
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7495054988527574,
+        "ci": [
+          0.7243841262933952,
+          0.7749646156956862
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3462789393734174,
+        "ci": [
+          0.31712175335877596,
+          0.37398197527984506
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|relative_blur|PA": {
+      "balanced_accuracy": {
+        "point": 0.623221149405688,
+        "ci": [
+          0.6021442121192744,
+          0.6439084358192837
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7463197419556522,
+        "ci": [
+          0.7262839162776819,
+          0.7666571196652244
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3410339409662018,
+        "ci": [
+          0.3192965784953851,
+          0.3633560661248643
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|contrast|AP": {
+      "balanced_accuracy": {
+        "point": 0.5806542360067164,
+        "ci": [
+          0.5614715475028792,
+          0.5993053357772679
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7281474448576276,
+        "ci": [
+          0.7067968083797065,
+          0.7505266986663853
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3669335935173616,
+        "ci": [
+          0.34294948297099215,
+          0.3899091358914013
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|contrast|PA": {
+      "balanced_accuracy": {
+        "point": 0.6068003069249953,
+        "ci": [
+          0.5884511921762545,
+          0.6246187860121775
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6413275926991638,
+        "ci": [
+          0.6201310292644457,
+          0.662494493822424
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3433291981061897,
+        "ci": [
+          0.32361453592814476,
+          0.3651458441764635
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|clean|AP": {
+      "balanced_accuracy": {
+        "point": 0.7253188982953996,
+        "ci": [
+          0.6912082641031726,
+          0.7584690464259655
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7320880695554326,
+        "ci": [
+          0.7036402427231411,
+          0.7589338225598016
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.242043335802219,
+        "ci": [
+          0.2036365648178656,
+          0.2793821371207124
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|clean|PA": {
+      "balanced_accuracy": {
+        "point": 0.6587697423108895,
+        "ci": [
+          0.625798573367152,
+          0.6907983779866572
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7189043061861017,
+        "ci": [
+          0.691152993584415,
+          0.7458871961833309
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.2792640475218907,
+        "ci": [
+          0.24410056297950827,
+          0.31541484811413084
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|noise|AP": {
+      "balanced_accuracy": {
+        "point": 0.7376990092394792,
+        "ci": [
+          0.7038685374194513,
+          0.771266461393746
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7407978830955332,
+        "ci": [
+          0.7134655409622772,
+          0.7663439771958048
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.237692750511868,
+        "ci": [
+          0.19963093101901094,
+          0.2750816866012912
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|noise|PA": {
+      "balanced_accuracy": {
+        "point": 0.6553878835674346,
+        "ci": [
+          0.6222339450519001,
+          0.6876238001861443
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.719943375180283,
+        "ci": [
+          0.6920418416210187,
+          0.7460387048759866
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.29124929025739044,
+        "ci": [
+          0.25679915025268946,
+          0.3277274997186644
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|relative_blur|AP": {
+      "balanced_accuracy": {
+        "point": 0.7030883244982462,
+        "ci": [
+          0.669244281368955,
+          0.7360056175330327
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7252727448549904,
+        "ci": [
+          0.6957821799368796,
+          0.7533090917882042
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.28021677002781603,
+        "ci": [
+          0.24323268228987371,
+          0.31644135177509886
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|relative_blur|PA": {
+      "balanced_accuracy": {
+        "point": 0.6509154464266683,
+        "ci": [
+          0.6202235685714488,
+          0.6807754030166748
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7198527896782262,
+        "ci": [
+          0.6915378487541829,
+          0.7482246573736598
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.2964371575366472,
+        "ci": [
+          0.26598826404811393,
+          0.3284062566714938
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|contrast|AP": {
+      "balanced_accuracy": {
+        "point": 0.5981024342643141,
+        "ci": [
+          0.5758360366062716,
+          0.6206725655159075
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7305452259760354,
+        "ci": [
+          0.7027627229650729,
+          0.7590621730797971
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3552574871680529,
+        "ci": [
+          0.3270141763322654,
+          0.38249726524290584
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|contrast|PA": {
+      "balanced_accuracy": {
+        "point": 0.6300861095125434,
+        "ci": [
+          0.606806923219018,
+          0.6524110841130791
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6801603541005038,
+        "ci": [
+          0.6540986387308082,
+          0.706607235472572
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3386106594647547,
+        "ci": [
+          0.3143504275962474,
+          0.36448996790019317
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|clean|AP": {
+      "balanced_accuracy": {
+        "point": 0.7393077863051754,
+        "ci": [
+          0.7046684204974022,
+          0.7726613941855457
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6371108825416919,
+        "ci": [
+          0.605359348489244,
+          0.6668197422440242
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.23613342838910692,
+        "ci": [
+          0.19531507232039996,
+          0.27810237478919747
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|clean|PA": {
+      "balanced_accuracy": {
+        "point": 0.6320328097136078,
+        "ci": [
+          0.5978683988035609,
+          0.6654236026742261
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6788672904633004,
+        "ci": [
+          0.6516960803120404,
+          0.708131736186599
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.30521726463777954,
+        "ci": [
+          0.2661935946784688,
+          0.34419177201356166
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|noise|AP": {
+      "balanced_accuracy": {
+        "point": 0.5845794762243849,
+        "ci": [
+          0.5663780977749646,
+          0.6021079485015516
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6281768951481744,
+        "ci": [
+          0.600869168183137,
+          0.6554019305324787
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3120823700873853,
+        "ci": [
+          0.28703099323121584,
+          0.33810323905878154
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|noise|PA": {
+      "balanced_accuracy": {
+        "point": 0.5670599143167722,
+        "ci": [
+          0.5456597111210577,
+          0.5888448394682809
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7442433801536046,
+        "ci": [
+          0.7160157831915938,
+          0.7719362562255331
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.390231517248786,
+        "ci": [
+          0.3607399755476681,
+          0.4198376052640118
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|relative_blur|AP": {
+      "balanced_accuracy": {
+        "point": 0.6703677330309183,
+        "ci": [
+          0.6393998184631344,
+          0.7002391737215496
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.662262309781892,
+        "ci": [
+          0.6319266973477157,
+          0.6915195800476479
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.2834962550553406,
+        "ci": [
+          0.24659442294387096,
+          0.31901759573596133
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|relative_blur|PA": {
+      "balanced_accuracy": {
+        "point": 0.6451197504813465,
+        "ci": [
+          0.616300994309099,
+          0.6732318509282351
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6848530383443102,
+        "ci": [
+          0.6556147913691555,
+          0.7125745554205655
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3103755361811919,
+        "ci": [
+          0.28084303581017034,
+          0.34151601178310104
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|contrast|AP": {
+      "balanced_accuracy": {
+        "point": 0.5394765760301008,
+        "ci": [
+          0.5251335153097555,
+          0.5544676530316217
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.7690020307513779,
+        "ci": [
+          0.7438045050153406,
+          0.7932545098504629
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3815231023803916,
+        "ci": [
+          0.35895109280154563,
+          0.4030900011555081
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|contrast|PA": {
+      "balanced_accuracy": {
+        "point": 0.6044859361567592,
+        "ci": [
+          0.5833816011964391,
+          0.6246108375784186
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.6161856754126082,
+        "ci": [
+          0.5893271628620755,
+          0.6436831709899041
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.3659075736956334,
+        "ci": [
+          0.34236670351361037,
+          0.39092635128421527
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    }
+  },
+  "contrasts": {
+    "control_28|clean|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.06573649741350596,
+        "ci": [
+          -0.11187535966718878,
+          -0.01900036449636652
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.0461848957287907,
+        "ci": [
+          -0.0883686042977355,
+          -0.006878757613213991
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.041000518808816,
+        "ci": [
+          -0.009934939016450157,
+          0.09661527850646182
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|noise|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.0008598482957624665,
+        "ci": [
+          -0.010967219477316572,
+          0.009626084061568422
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.022594818470664024,
+        "ci": [
+          0.0009660525064654925,
+          0.045700895139553714
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.025908867519736645,
+        "ci": [
+          0.009492664454069913,
+          0.041052888279019574
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|relative_blur|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.005070030452071439,
+        "ci": [
+          -0.038432041647810944,
+          0.028311081871534523
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.0031857568971052075,
+        "ci": [
+          -0.03544440113298647,
+          0.028269401180668858
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": -0.005244998407215595,
+        "ci": [
+          -0.041035711398364455,
+          0.030916399807810732
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_28|contrast|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": 0.02614607091827892,
+        "ci": [
+          -0.00029711313626202814,
+          0.053259239280641274
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.08681985215846377,
+        "ci": [
+          -0.11745188596272371,
+          -0.05554726078022099
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": -0.023604395411171875,
+        "ci": [
+          -0.05392259455686715,
+          0.008714020326519623
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|clean|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.06654915598451017,
+        "ci": [
+          -0.11358326600520578,
+          -0.02018034992794566
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.013183763369330914,
+        "ci": [
+          -0.05234341462915759,
+          0.026310473804499832
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.0372207117196717,
+        "ci": [
+          -0.01194811347214182,
+          0.08887867836864018
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|noise|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.08231112567204457,
+        "ci": [
+          -0.13073025350307832,
+          -0.03640126466834989
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.02085450791525023,
+        "ci": [
+          -0.0586523373546108,
+          0.019798083076489385
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.053556539745522436,
+        "ci": [
+          0.001757232185820796,
+          0.10558648504455226
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|relative_blur|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.05217287807157789,
+        "ci": [
+          -0.09756470255292549,
+          -0.008437983581269437
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.005419955176764191,
+        "ci": [
+          -0.0460986911525463,
+          0.03600568075143716
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.016220387508831147,
+        "ci": [
+          -0.030494558128545686,
+          0.06433077958350097
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "augmented_28|contrast|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": 0.031983675248229315,
+        "ci": [
+          -0.00023901258734384477,
+          0.06482229539232913
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.050384871875531645,
+        "ci": [
+          -0.08732433176907009,
+          -0.013802870848043497
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": -0.016646827703298173,
+        "ci": [
+          -0.051908284385780414,
+          0.019701543055815895
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|clean|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.1072749765915676,
+        "ci": [
+          -0.15549789696631314,
+          -0.05946021700210808
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.04175640792160851,
+        "ci": [
+          -0.00019197872683449348,
+          0.08437390610975096
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.06908383624867262,
+        "ci": [
+          0.014742631933237006,
+          0.12676853234814806
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|noise|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.017519561907612724,
+        "ci": [
+          -0.04496227125412165,
+          0.01009830033126876
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.11606648500543015,
+        "ci": [
+          0.07728893186357548,
+          0.15421377511814766
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.0781491471614007,
+        "ci": [
+          0.03895820336124945,
+          0.11559924008136231
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|relative_blur|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": -0.025247982549571835,
+        "ci": [
+          -0.06673623933232742,
+          0.017590468072658415
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": 0.022590728562418172,
+        "ci": [
+          -0.018171118208638686,
+          0.06443489368446889
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": 0.026879281125851306,
+        "ci": [
+          -0.01880335046834707,
+          0.07551986234222771
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "control_64|contrast|PA_minus_AP": {
+      "balanced_accuracy": {
+        "point": 0.06500936012665837,
+        "ci": [
+          0.04063790305236301,
+          0.09049875953390656
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_coverage": {
+        "point": -0.1528163553387697,
+        "ci": [
+          -0.18939949331732608,
+          -0.11649513221110488
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "standardized_retained_error": {
+        "point": -0.015615528684758184,
+        "ci": [
+          -0.047171615485519534,
+          0.01739547818317279
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    }
+  },
+  "baseline": {
+    "accuracy": 0.784,
+    "auroc": 0.784,
+    "within_view_balanced_accuracy": 0.5,
+    "scope": "Post-hoc rule, no independent validation; does not establish what CNNs use"
+  },
+  "provenance": {
+    "sample_sha256": "366db5cee58fd38a32223c41802e3f08dac8600c653be1739150e18f4e748d0d",
+    "predictions_sha256": "2946ac3831ec83599ce09c552a37664155d61cc79409cfe537eac1f9906c1532",
+    "script_sha256": "1a3adddf0272527ef1c073622ee75b61900df55c6acfaa403a141c46c35e1b3d",
+    "config_sha256": "4ed279d063028c45193750d7c26c7a2408e8fb132f410e5e4cc34b45d3ba77d9",
+    "commit": "8a3fd75e60cbb57163f115ca4a4d128eb2a5271a"
+  }
+}

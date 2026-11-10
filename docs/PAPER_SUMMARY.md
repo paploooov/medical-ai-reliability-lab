@@ -1,5 +1,7 @@
 # Selective classification under representation collapse
 
+> Historischer Überblick zum Stand 9. November 2026. Die [Forschungsnotiz vom 10. November](../reports/followup/research_report.pdf) ergänzt externe Validierung, Temperature Scaling und fünf Seeds; die unten genannten Drei-Seed-Ergebnisse bleiben als ursprünglicher Stand erhalten.
+
 ## Fragestellung
 
 Ein Klassifikator kann unter Bildstörungen sicher wirken und trotzdem häufig falsch liegen. Diese Studie untersucht, wann eine Konfidenzschwelle solche Fehler zurückhält, wie ein konkreter interner Fehlmechanismus entsteht und ob Rauschaugmentation auf andere Störungen überträgt. Die explorative Studie (Stand 9. November 2026) verbindet Baselines, Daten-Audit, kontrollierte Trainingsvergleiche und Nachanalysen eingefrorener Modelle.

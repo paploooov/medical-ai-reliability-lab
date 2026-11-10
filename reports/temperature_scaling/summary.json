@@ -1,0 +1,342 @@
+{
+  "config": {
+    "study": "Exploratory probability calibration after inspection of historical tests",
+    "seeds": [
+      17,
+      42,
+      83
+    ],
+    "arms": [
+      "control",
+      "augmentation"
+    ],
+    "resolution": 28,
+    "fit_split": "resolution_manifest calibration indices, clean images only",
+    "objective": "binary negative log likelihood",
+    "temperature_bounds": [
+      0.05,
+      20.0
+    ],
+    "conditions": [
+      "clean",
+      "noise",
+      "relative_blur",
+      "contrast"
+    ],
+    "ece_bins": 15,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20261110,
+    "scope": "Internal test only; fixed models and fitted temperatures; paired image bootstrap over mean seed metrics. No external raw images fetched or external thresholds changed.",
+    "rank_check": "Positive temperature preserves theoretical confidence ordering and class predictions. Thresholds are transformed with the same temperature, not kept numerically fixed. Use original scores for rank metrics to avoid saturation artifacts.",
+    "claims": "Exploratory follow-up; already inspected internal/external tests do not become held-out confirmatory tests. Calibration fit loss is not an unbiased performance estimate."
+  },
+  "models": [
+    {
+      "arm": "control",
+      "seed": 17,
+      "temperature": 0.9860825875308226,
+      "boundary_fit": false,
+      "calibration_nll_before": 0.13101953267675237,
+      "calibration_nll_after": 0.13100311680127696,
+      "original_cutoff": 0.9403024315834045,
+      "transformed_cutoff": 0.9424495731178899,
+      "weights_sha256": "9ec791e5f96ff50b9d94db5bcf96dfc850ce25641006faf28222206fc2a7ee03"
+    },
+    {
+      "arm": "control",
+      "seed": 42,
+      "temperature": 0.635820259964587,
+      "boundary_fit": false,
+      "calibration_nll_before": 0.15794653383216475,
+      "calibration_nll_after": 0.14515898344129272,
+      "original_cutoff": 0.7681560516357422,
+      "transformed_cutoff": 0.8680776491727921,
+      "weights_sha256": "4cfdb12424bbb95bc379a18a54b7e7d72a9218127ccf5a273fc63b6df290a21e"
+    },
+    {
+      "arm": "control",
+      "seed": 83,
+      "temperature": 0.8001545067743886,
+      "boundary_fit": false,
+      "calibration_nll_before": 0.17507702834761155,
+      "calibration_nll_after": 0.17172893910867026,
+      "original_cutoff": 0.7463995218276978,
+      "transformed_cutoff": 0.7939849965516489,
+      "weights_sha256": "ad6b27e41526a9f54690f8f6060b49ff6b2f8603b6d0414df50e548f49d0c738"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 17,
+      "temperature": 0.5787756837671983,
+      "boundary_fit": false,
+      "calibration_nll_before": 0.16942227656195377,
+      "calibration_nll_after": 0.1520483593847802,
+      "original_cutoff": 0.7370129823684692,
+      "transformed_cutoff": 0.8557566186016705,
+      "weights_sha256": "d6a7889990dd40262f61854e7d57332712cc5eb41cf4ee78cef87f1d33bee3c4"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 42,
+      "temperature": 0.5808443344802199,
+      "boundary_fit": false,
+      "calibration_nll_before": 0.15674826215116677,
+      "calibration_nll_after": 0.13874458468211368,
+      "original_cutoff": 0.7679675817489624,
+      "transformed_cutoff": 0.8870113117907279,
+      "weights_sha256": "48456cd90f75a2fe5d85f6c88a35950e2399c7f43090e5404ab3cbdb6e0e2fc1"
+    },
+    {
+      "arm": "augmentation",
+      "seed": 83,
+      "temperature": 0.798116638538814,
+      "boundary_fit": false,
+      "calibration_nll_before": 0.15883295555347246,
+      "calibration_nll_after": 0.15586053747423922,
+      "original_cutoff": 0.7534900903701782,
+      "transformed_cutoff": 0.8021740224277706,
+      "weights_sha256": "e2350d1afd71b6611f3798af90cfb9a0ffb88327b6886112a8ac85043b4461cb"
+    }
+  ],
+  "results": {
+    "control|clean": {
+      "nll": {
+        "before": 0.5048234369034251,
+        "after": 0.5851681189737061,
+        "difference": 0.080344682070281,
+        "ci": [
+          0.05554606072835981,
+          0.1083585006000383
+        ]
+      },
+      "brier": {
+        "before": 0.1292268444216892,
+        "after": 0.13161397043803355,
+        "difference": 0.0023871260163443597,
+        "ci": [
+          0.0006664551192705335,
+          0.004254511787872479
+        ]
+      },
+      "ece": {
+        "before": 0.10872213866968483,
+        "after": 0.1033944460582789,
+        "difference": -0.005327692611405935,
+        "ci": [
+          -0.015094462320322863,
+          0.004770714456956443
+        ]
+      }
+    },
+    "control|noise": {
+      "nll": {
+        "before": 1.2719377935302234,
+        "after": 1.4156676776075576,
+        "difference": 0.14372988407733422,
+        "ci": [
+          0.13132628034707558,
+          0.15622971175731878
+        ]
+      },
+      "brier": {
+        "before": 0.4092108245602543,
+        "after": 0.4513376997744685,
+        "difference": 0.04212687521421421,
+        "ci": [
+          0.03838899005337567,
+          0.0458913554178172
+        ]
+      },
+      "ece": {
+        "before": 0.4108645154970236,
+        "after": 0.4602455567774895,
+        "difference": 0.04938104128046594,
+        "ci": [
+          0.048505992478901576,
+          0.05060970992214914
+        ]
+      }
+    },
+    "control|relative_blur": {
+      "nll": {
+        "before": 1.1108489962195474,
+        "after": 1.3975335748829816,
+        "difference": 0.2866845786634342,
+        "ci": [
+          0.24313830202254894,
+          0.3324373255529658
+        ]
+      },
+      "brier": {
+        "before": 0.2618146634851685,
+        "after": 0.2753813527123643,
+        "difference": 0.013566689227195783,
+        "ci": [
+          0.011498789761495367,
+          0.015618028508877741
+        ]
+      },
+      "ece": {
+        "before": 0.26595160449155925,
+        "after": 0.27636965454078505,
+        "difference": 0.010418050049225802,
+        "ci": [
+          0.0075574009105892495,
+          0.012710685541089345
+        ]
+      }
+    },
+    "control|contrast": {
+      "nll": {
+        "before": 0.7675078205953274,
+        "after": 0.948974088713657,
+        "difference": 0.18146626811832955,
+        "ci": [
+          0.15396380320166178,
+          0.21083753770967611
+        ]
+      },
+      "brier": {
+        "before": 0.23220689658862606,
+        "after": 0.25005545025570064,
+        "difference": 0.01784855366707458,
+        "ci": [
+          0.015423182059360194,
+          0.02004607851109048
+        ]
+      },
+      "ece": {
+        "before": 0.23507659437348752,
+        "after": 0.2518012247370853,
+        "difference": 0.01672463036359781,
+        "ci": [
+          0.01447342351085406,
+          0.01940001094802
+        ]
+      }
+    },
+    "augmentation|clean": {
+      "nll": {
+        "before": 0.5987161279003238,
+        "after": 0.8081107316697574,
+        "difference": 0.20939460376943364,
+        "ci": [
+          0.14150244644872048,
+          0.2867351027094914
+        ]
+      },
+      "brier": {
+        "before": 0.13603035385896067,
+        "after": 0.13765563224566743,
+        "difference": 0.0016252783867067577,
+        "ci": [
+          -0.0015316941124578832,
+          0.005014080879843397
+        ]
+      },
+      "ece": {
+        "before": 0.12244020324637654,
+        "after": 0.1116278638440769,
+        "difference": -0.010812339402299642,
+        "ci": [
+          -0.021517225000394526,
+          0.002463451397667566
+        ]
+      }
+    },
+    "augmentation|noise": {
+      "nll": {
+        "before": 0.5951479141866918,
+        "after": 0.7988397513337179,
+        "difference": 0.2036918371470261,
+        "ci": [
+          0.13975814782670756,
+          0.2781044549410903
+        ]
+      },
+      "brier": {
+        "before": 0.13635106942340772,
+        "after": 0.13780129715326564,
+        "difference": 0.0014502277298579225,
+        "ci": [
+          -0.0014854869550956114,
+          0.004530368775900458
+        ]
+      },
+      "ece": {
+        "before": 0.1298900254576858,
+        "after": 0.12680534452564207,
+        "difference": -0.0030846809320437263,
+        "ci": [
+          -0.013077121936313715,
+          0.007965334934628478
+        ]
+      }
+    },
+    "augmentation|relative_blur": {
+      "nll": {
+        "before": 0.6983890385850401,
+        "after": 0.964029702442713,
+        "difference": 0.26564066385767293,
+        "ci": [
+          0.19457867031082185,
+          0.34657377076948215
+        ]
+      },
+      "brier": {
+        "before": 0.1635195393541439,
+        "after": 0.17024384869457151,
+        "difference": 0.006724309340427614,
+        "ci": [
+          0.0035895865982255074,
+          0.010048224336224211
+        ]
+      },
+      "ece": {
+        "before": 0.13581077165326338,
+        "after": 0.14285296470685196,
+        "difference": 0.00704219305358858,
+        "ci": [
+          -0.005949164136885812,
+          0.021021523725559314
+        ]
+      }
+    },
+    "augmentation|contrast": {
+      "nll": {
+        "before": 0.799316536775405,
+        "after": 1.1130978283662405,
+        "difference": 0.31378129159083545,
+        "ci": [
+          0.2549356448538329,
+          0.3779488813630576
+        ]
+      },
+      "brier": {
+        "before": 0.22090761862250222,
+        "after": 0.24202766045915777,
+        "difference": 0.021120041836655556,
+        "ci": [
+          0.017442713419054512,
+          0.025040474664264675
+        ]
+      },
+      "ece": {
+        "before": 0.20551178195336028,
+        "after": 0.23239566768703068,
+        "difference": 0.0268838857336704,
+        "ci": [
+          0.02157914037337764,
+          0.033373273306476686
+        ]
+      }
+    }
+  },
+  "provenance": {
+    "archive_sha256": "e1792d3f03751cb101e99f19a63b3c1941436c988665f47853417b05be250cd8",
+    "manifest_sha256": "69d3a0ab3169367a49354409319920b84a6398b7be171a4735710d43fbe4f8f0",
+    "script_sha256": "ba1a9f0b315d584a534a70d599ee65f56b2c801dbe52f4701a5ba6dacd17530b",
+    "config_sha256": "62834f17dc62a5c76c9f05e4da8e2cdf24ed6b61bc3d60d95c824080065bc75e",
+    "commit": "8a3fd75e60cbb57163f115ca4a4d128eb2a5271a"
+  }
+}

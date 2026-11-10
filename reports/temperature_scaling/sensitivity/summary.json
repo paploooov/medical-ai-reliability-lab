@@ -1,0 +1,108 @@
+{
+  "config": {
+    "study": "Exploratory calibration-fit sensitivity after observing the initial temperature-scaling results",
+    "replicates": 2000,
+    "seed": 20261113,
+    "condition": "clean internal test only",
+    "resampling": "Draw calibration and test representatives independently with replacement. Same calibration and test draws across all six models. Refit each temperature on the drawn calibration cases only; evaluate after-minus-before NLL on the drawn test cases.",
+    "temperature_bounds": [
+      0.05,
+      20.0
+    ],
+    "scope": "Empirical percentile sensitivity ranges conditional on frozen models and observed calibration/test pools; no training or patient-cluster uncertainty. No new decision threshold, model selection or external evaluation.",
+    "reporting": "Per-model temperature distribution and boundary frequency; mean after-minus-before NLL over three seeds per arm, fraction of replicates above zero. Fractions are not posterior probabilities or p-values."
+  },
+  "temperatures": [
+    {
+      "arm": "control",
+      "seed": 17,
+      "point": 0.9860825875308226,
+      "median": 0.9758501829331176,
+      "range_95": [
+        0.6599495964354138,
+        1.2465861369158264
+      ],
+      "boundary_replicates": 0
+    },
+    {
+      "arm": "control",
+      "seed": 42,
+      "point": 0.635820259964587,
+      "median": 0.6198534255454338,
+      "range_95": [
+        0.3752022986624362,
+        0.9530098120967728
+      ],
+      "boundary_replicates": 0
+    },
+    {
+      "arm": "control",
+      "seed": 83,
+      "point": 0.8001545067743886,
+      "median": 0.7817160770110467,
+      "range_95": [
+        0.4870457773134155,
+        1.1413062806106018
+      ],
+      "boundary_replicates": 0
+    },
+    {
+      "arm": "augmentation",
+      "seed": 17,
+      "point": 0.5787756837671983,
+      "median": 0.5646336785618002,
+      "range_95": [
+        0.32816469213638266,
+        0.8781910088427843
+      ],
+      "boundary_replicates": 0
+    },
+    {
+      "arm": "augmentation",
+      "seed": 42,
+      "point": 0.5808443344802199,
+      "median": 0.5683463512755613,
+      "range_95": [
+        0.32052687599558627,
+        0.878180745420094
+      ],
+      "boundary_replicates": 0
+    },
+    {
+      "arm": "augmentation",
+      "seed": 83,
+      "point": 0.798116638538814,
+      "median": 0.7759950792530099,
+      "range_95": [
+        0.4552764828749106,
+        1.181710149203571
+      ],
+      "boundary_replicates": 0
+    }
+  ],
+  "results": {
+    "control": {
+      "point": 0.080344682070281,
+      "range_95": [
+        -0.021832209003180385,
+        0.34584252911767976
+      ],
+      "median": 0.08980942216563512,
+      "fraction_positive": 0.927
+    },
+    "augmentation": {
+      "point": 0.20939460376943364,
+      "range_95": [
+        0.00868400330210503,
+        0.7651058145939017
+      ],
+      "median": 0.22381564351034727,
+      "fraction_positive": 0.9805
+    }
+  },
+  "provenance": {
+    "source_logits_sha256": "34a59324af1f48056325354af8f9fcabcc15a4ea1ac3f55fd3253b9da1a8b685",
+    "script_sha256": "0125ceb0d3f59c201a01a5246da2c00b9a489d1c562e10cac722c33dac95aeae",
+    "config_sha256": "e6b729daaded91d13a700204b5dd66c88257079789d2858e7a157a9dc9502ef8"
+  }
+}

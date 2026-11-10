@@ -1,0 +1,2 @@
+# Optional PDF report generation; core numerical analyses use requirements.txt.
+reportlab==4.4.9
