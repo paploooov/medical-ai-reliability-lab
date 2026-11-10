@@ -1,0 +1,16 @@
+{
+  "study": "Exploratory probability calibration after inspection of historical tests",
+  "seeds": [17, 42, 83],
+  "arms": ["control", "augmentation"],
+  "resolution": 28,
+  "fit_split": "resolution_manifest calibration indices, clean images only",
+  "objective": "binary negative log likelihood",
+  "temperature_bounds": [0.05, 20.0],
+  "conditions": ["clean", "noise", "relative_blur", "contrast"],
+  "ece_bins": 15,
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261110,
+  "scope": "Internal test only; fixed models and fitted temperatures; paired image bootstrap over mean seed metrics. No external raw images fetched or external thresholds changed.",
+  "rank_check": "Positive temperature preserves theoretical confidence ordering and class predictions. Thresholds are transformed with the same temperature, not kept numerically fixed. Use original scores for rank metrics to avoid saturation artifacts.",
+  "claims": "Exploratory follow-up; already inspected internal/external tests do not become held-out confirmatory tests. Calibration fit loss is not an unbiased performance estimate."
+}
