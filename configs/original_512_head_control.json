@@ -1,0 +1,9 @@
+{
+  "study": "Optimizer-matched head-only control for partial fine-tuning",
+  "timing": "Added before partial fine-tuning and before new-cohort test results are inspected",
+  "initialization": "Same selected mobile512 probe folded into float32 linear head",
+  "training": "Frozen original512 pooled features; train only linear head. Same AdamW lr1e-4, weight_decay1e-4, batch16, seed20261121, three epochs and per-epoch sample order as the partial-fine-tuning arm",
+  "selection": "Best selection NLL among epochs0,1,2,3, then clean-calibration20th-confidence-percentile cutoff",
+  "contrast": "Partial fine-tuning minus head-only control AUROC and risk at80, secondary diagnostic. Controls head optimizer changes; architecture, source and selection uncertainty remain conditional.",
+  "bootstrap": "2000 paired filename-group draws, seed20261122; report either direction"
+}
