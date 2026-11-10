@@ -1,0 +1,10 @@
+{
+  "study": "Additional larger-encoder comparison on the original-source cohort",
+  "timing": "Added while the original512 feature extraction is running, before any new-cohort test results have been inspected. No change to the existing four-arm primary endpoint.",
+  "encoder": "torchvision ResNet50 IMAGENET1K_V1, frozen, 224px, identity fc; ImageNet normalization",
+  "data": "Exactly original_512 manifest and full-image 224 letterbox cache; no new split or subsampling",
+  "head": "StandardScaler fit on training only; logistic regression C=[0.01,0.1,1,10], lbfgs max_iter3000; choose lowest selection NLL; threshold calibration20th confidence quantile",
+  "contrast": "ResNet50_224 minus ResNet18_224 AUROC, secondary capacity experiment. Architecture and pretrained representation change together; not isolated model-size causality.",
+  "bootstrap": "2000 paired filename-group test resamples, seed20261122, conditional on fitted encoders and heads",
+  "scope": "Larger frozen encoder plus newly trained head, not full ResNet50 fine-tuning; same known source family, no clinical generalization claim. Report result even if larger performs worse."
+}
