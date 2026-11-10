@@ -1,0 +1,29 @@
+{
+  "chosen_C": 0.1,
+  "selection_nll": 0.05226870140272748,
+  "augmented_cutoff": 0.9812110223526986,
+  "total_training_weight": 4682,
+  "actual_training_rows": 9364,
+  "candidates": [
+    {
+      "C": 0.01,
+      "selection_nll": 0.06569637362134885,
+      "iterations": 71
+    },
+    {
+      "C": 0.1,
+      "selection_nll": 0.05226870140272748,
+      "iterations": 123
+    },
+    {
+      "C": 1.0,
+      "selection_nll": 0.06682226647914277,
+      "iterations": 209
+    },
+    {
+      "C": 10.0,
+      "selection_nll": 0.10674934436075571,
+      "iterations": 248
+    }
+  ]
+}

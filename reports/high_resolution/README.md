@@ -53,3 +53,7 @@ Voraussetzungen: festgeschriebene Pakete aus `requirements.txt`, CPU-PyTorch 2.5
 ## Folgetest: Robustheit bei eingefrorenen Modellen
 
 Die anschließende [Störungsauswertung](robustness/README.md) prüft Eingangsrauschen, Rauschen vor Verkleinerung, Unschärfe und Kontrast bei unveränderten Modellen und Schwellen. Der clean-Auflösungsvorteil ist damit von der Robustheit gegen Störungen zu unterscheiden. Die Filterwirkung des Herunterskalierens wird über zwei Rauschpositionen und den tatsächlich verbleibenden RMSE kontrolliert.
+
+## Intervention: Rauschaugmentation des Kopfes
+
+Die [anschließende Interventionsstudie](augmentation/README.md) trainiert bei eingefrorenem Encoder einen neuen linearen Kopf mit gleich gewichtetem clean-/Rauschtraining. Sie prüft den Rauschgewinn, den clean-Nachteil und zwei weitere Rausch-Seeds; Kontrollmodell und Kontrollschwellen bleiben erhalten.

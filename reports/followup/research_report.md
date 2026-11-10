@@ -12,13 +12,15 @@ Extern steigt die akzeptierte Fehlerrate der ursprünglichen 28px-Kontrolle von 
 
 Ergänzender Auflösungsvergleich: Ein eingefrorenes ImageNet-ResNet-18 mit trainierter linearer Klassifikationsschicht erhält dieselben Fälle mit 224×224-Information oder auf 28×28 reduzierter Information. Die Test-AUROC beträgt 0.980 gegenüber 0.960; gepaarte Differenz +0.019 [+0.009; +0.032]. Dies prüft Bildinformation unter einem gemeinsamen Encoder, keine klinische Vollauflösung. Unter Eingangsrauschen steigt die akzeptierte Fehlerrate des 224px-Modells jedoch auf 35,6 % bei 96,8 % Akzeptanz; der clean-Vorteil bedeutet keine allgemein höhere Rauschresistenz.
 
+Gezielte Intervention: Ein neuer linearer Kopf mit gleich gewichtetem clean-/Rauschtraining senkt bei unverändertem 224px-Encoder das Risiko unter Testrauschen bei 80 % Abdeckung von 22.7% auf 7.2%. Differenz -15.5 pp [-19.3; -11.8]. Zwei weitere Testrausch-Seeds bestätigen die Richtung; Unschärfe bleibt ein Gegenbeispiel für allgemeine Zuverlässigkeit.
+
 Temperature Scaling, ausschließlich intern auf clean-Kalibrierungsbildern angepasst, erhöht die Test-NLL der Kontrolle von 0.505 auf 0.585. Die Konfidenz-Rangfolge bleibt bei positiver Temperatur unverändert. Bessere Fit-Kalibrierung garantiert weder Test-Kalibrierung noch bessere Fehlererkennung.
 
 ## Beitrag und Reichweite
 
 Der Beitrag ist eine nachvollziehbare Verbindung aus konkretem Bias-only-Mechanismus, dokumentierten Grenzen einer Ablehnungsregel und getrennt ausgewiesenen Unsicherheitsquellen. Das Ergebnis ist kein klinischer Sicherheitsnachweis. Niedrige Auflösung, bekannte Testdaten, unklare Patientenunabhängigkeit und offene Rechte des externen Datenspiegels begrenzen die Aussagekraft.
 
-Aufbau: Methoden (S. 2), Mechanismus und externe Übertragung (S. 3), Kalibrierung und Fallmix (S. 4), Auflösung und fünf Seeds (S. 5), Grenzen, Nachprüfbarkeit und Quellen (S. 6).
+Aufbau: Methoden (S. 2), Mechanismus und externe Übertragung (S. 3), Kalibrierung und Fallmix (S. 4), Auflösung und Intervention (S. 5), Grenzen, Nachprüfbarkeit und Quellen (S. 6).
 
 
 ---
@@ -88,19 +90,21 @@ Eine nach Sichtung gewählte Regel AP → positiv, PA → negativ erreicht 78,4 
 
 ---
 
-# Auflösung und Robustheit
+# 224px: Verbesserung und Grenzen
 
-Die 28px-Analysen allein belegen keine diagnostische Aussagekraft. Deshalb wird ein eigener kontrollierter Vergleich auf dem offiziellen 224px-Archiv durchgeführt. Dieselben 4.682/262/262/621 Fälle und ein gemeinsamer eingefrorener ImageNet-ResNet-18-Encoder werden verwendet. Ein Zweig erhält 224px-Information, der andere dieselben Bilder nach Bicubic 224→28→224. Die Eingabegröße ist damit identisch; nur die erhaltene Bildinformation unterscheidet sich.
+Auflösungsvergleich: Das offizielle 224px-Archiv wird mit derselben auf 28px reduzierten Bildinformation verglichen, jeweils als 224px-Eingabe desselben eingefrorenen ImageNet-ResNet-18. Trainiert wird eine standardisierte logistische Klassifikationsschicht, C-Auswahl nur auf clean-Modellwahlfällen. Alle Fälle und Splits bleiben gleich. AUROC: 0,980 vs. 0,960; gepaarte Differenz +0,019 [0,009; 0,032]. Dies ist keine klinische Vollauflösung.
 
-Eine standardisierte logistische Klassifikationsschicht wird ausschließlich auf Trainingsmerkmalen gelernt. C ∈ {0,01; 0,1; 1; 10} wird anhand der getrennten Modellwahl-NLL gewählt. Die Konfidenzschwelle folgt dem bisherigen Kalibrierungsquantil. Labelreihenfolge, Prüfsummen und exakte 224px-Duplikate über die behaltenen Splits wurden geprüft. Primärer Endpunkt, vor der Auswertung festgelegt: gepaarte AUROC-Differenz.
+Der clean-Vorteil schützt nicht vor Störungen: Das ursprüngliche 224px-Modell akzeptiert unter Eingangsrauschen 96,8 % bei 35,6 % Fehlern. Ein scheinbarer Vorteil des 28px-Zweigs bei Quellrauschen enthält Filterung durch Verkleinerung (RMSE 0,0095 statt 0,0993). Beide Rauschpositionen wurden separat geprüft; Encoder, Köpfe und Schwellen blieben dabei fest.
 
-224px versus 28px-Information: AUROC 0.980 vs. 0.960; Differenz +0.019 [+0.009; +0.032]. Accuracy 87.8 % vs. 84.9 %; akzeptierte Fehler 4.2 % vs. 6.1 % bei Abdeckung 73.3 % vs. 71.5 %. Intervalle: 2.000 gepaarte Testwiederziehungen bei festem Encoder und ausgewählten Köpfen.
+Intervention: Jede der 4.682 Trainingsaufnahmen liefert clean- und Rauschmerkmale, jeweils mit Gewicht 0,5; Gesamtgewicht und ursprünglicher StandardScaler bleiben erhalten. Nur ein neuer linearer Kopf wird gelernt. Auswahl aus C ∈ {0,01; 0,1; 1; 10} nach clean-Modellwahl-NLL, Schwelle nur aus clean-Kalibrierung. Trainingsseed 20261116 unterscheidet sich von den Testseeds 42, 7 und 99. Es sind dieselben Testfälle, keine drei unabhängigen Kohorten.
 
-Folgetest ohne Refit: gleicher Gaußrausch-Input (SD 0,1), Quellrauschen vor Verkleinerung, Unschärfe und Kontrast. Primärer Kontrast des Rauschen-minus-clean-Risikoanstiegs bei 80 % Abdeckung, 224 minus 28: -0.28 pp [-4.07; +2.21]. Das Intervall umfasst null. Bei den ursprünglichen Schwellen akzeptiert 224px unter Eingangsrauschen 96.8% bei 35.6% Fehlern. Fast alle Fälle werden positiv klassifiziert, mit hoher Konfidenz.
+Primär unter Testrauschen Seed 42 bei 80 % Abdeckung: -15.46 pp [-19.28; -11.84], Augmentation minus Kontrolle. Clean: +0.20 pp [-1.05; +1.01], kein Nichtunterlegenheitsnachweis. Beide alternativen Rausch-Seeds zeigen ebenfalls geringere Risiken; alle Intervalle sind auf ausgewählte Modelle bedingt.
 
-![Abbildung](../high_resolution/robustness/summary_figure.png)
+Post-hoc-Kontrolle der Regularisierung: Der primäre Vergleich verwendete clean-gewählte C-Werte 0,01 und 0,1. Bei gleichem C bleibt der Rauschgewinn bestehen: -14.7 pp bei C=0,01 und -22.1 pp bei C=0,1; beide bedingten Intervalle liegen unter null. Dies ist eine Sensitivitätsanalyse, kein unabhängiger Bestätigungstest.
 
-Abbildung 2. Links clean, rechts die Kontrolle der Rauschposition. Der gestrichelte 28px-Verlauf enthält Rauschfilterung durch Verkleinerung (RMSE 0,0095 statt 0,0993); er belegt keine allgemeine Überlegenheit von 28px. 224px bleibt unter Originalauflösung. Separat: fünf gepaarte kleine CNNs bestätigen den Augmentationseffekt (-43.7 pp); dies ist eine andere Modellfamilie und kein Robustheitsnachweis für ResNet-18.
+![Abbildung](../high_resolution/augmentation/summary_figure.png)
+
+Abbildung 2. Neue Intervention, beide Modelle mit 224px-Information. Die Verbesserung gilt nicht allgemein: Unter Unschärfe akzeptiert der augmentierte Kopf 99,5 % der Fälle, davon 37,4 % falsch. Bei gleicher 80%-Abdeckung betragen die Blur-Risiken 24,7 % vs. 26,0 %; die unterschiedliche feste Annahmemenge erklärt den scheinbaren Gegensatz. Die Analyse betrifft einen eingefrorenen Encoder und eine Trainingsrausch-Realisierung, kein End-to-End-Training oder externen Transfer.
 
 
 ---
@@ -117,7 +121,7 @@ Die externen Bilder wurden früher über einen inoffiziellen Hugging-Face-Spiege
 
 Konfigurationen für Temperature Scaling, stratifizierte Standardisierung und zusätzliche Seeds wurden vor den jeweiligen neuen Berechnungen versioniert. Modelle und numerische Ausgaben früherer Studien bleiben erhalten. Neue Gewichte, Vorhersagen, Logits, Bootstrap-Ausgaben, Quellen-Prüfsummen und Softwareversionen sind gespeichert. scripts/verify_followup.py prüft 120 Kennzahlen separat und die sechs Temperatur-Optima; die Unit-Tests prüfen zusätzlich Randfälle.
 
-Reproduktion: Anforderungen aus requirements.txt und CPU-PyTorch 2.5.1; Datenprüfung mit scripts/fetch_data.py. Neue Analysen: experiments/temperature_scaling.py, experiments/external_view_analysis.py, experiments/five_seed_analysis.py und experiments/high_resolution_probe.py. Die zusätzlichen Trainingskonfigurationen stehen unter configs/five_seed_*.json. Der Bericht wird mit scripts/build_followup_report.py und optional requirements-report.txt erzeugt. Hochauflösende Robustheit: experiments/high_resolution_robustness.py; scripts/verify_high_resolution_robustness.py prüft alle 2.000 primären Bootstrap-Ziehungen unabhängig nach.
+Reproduktion: Anforderungen aus requirements.txt und CPU-PyTorch 2.5.1; Datenprüfung mit scripts/fetch_data.py. Neue Analysen: experiments/temperature_scaling.py, experiments/external_view_analysis.py, experiments/five_seed_analysis.py und experiments/high_resolution_probe.py. Die zusätzlichen Trainingskonfigurationen stehen unter configs/five_seed_*.json. Der Bericht wird mit scripts/build_followup_report.py und optional requirements-report.txt erzeugt. Hochauflösende Folgestudien: experiments/high_resolution_robustness.py und experiments/high_resolution_augmentation.py. Separate Prüfer rechnen die primären Bootstrap-Ziehungen unabhängig nach.
 
 ## Eigenleistung und KI-Assistenz
 

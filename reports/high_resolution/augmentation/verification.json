@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "conditions": 6,
+  "arms": 2,
+  "primary_and_clean_bootstrap_draws_verified": 2000,
+  "matched_C_cells_verified": 8,
+  "matched_C_bootstrap_entries_verified": 100,
+  "weighted_training_max_abs_gradient": 9.587987962976575e-05,
+  "weighted_training_intercept_gradient": -5.817877732183818e-05,
+  "prior_control_predictions_unchanged": true,
+  "scaler_unchanged": true,
+  "summary_sha256": "6d4a564eeb82647cbbf35a80c0236db3211dbf32e93898d839a19f49c066f8bc",
+  "verifier_sha256": "da355bd4e2eea26261ea53c7d4c30a80a750f942fa24f4110c4d9da200db85bb"
+}

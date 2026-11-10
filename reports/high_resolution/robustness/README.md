@@ -78,3 +78,7 @@ python scripts/verify_high_resolution_robustness.py
 Die Auswertung benötigt die gespeicherten Köpfe, den offiziellen 224px-Datensatz und den bereits geprüften Encoder. Ergebnisse werden nur in einem neuen Ausgabeordner angelegt; lokale Inferenz-Zwischenergebnisse unter `data/high_resolution_robustness/` sind an Quellen- und Skript-Prüfsummen gebunden. Audit und separater Prüfer beziehen sich auf die versionierten Ergebnisse im Repository. Der Prüfer rechnet sämtliche 2.000 primären Bootstrap-Ziehungen mit einer unabhängigen gruppierten Gleichstandsbehandlung nach.
 
 [Kennzahlen](results.csv) · [Vorhersagen](predictions.npz) · [Bootstrap](bootstrap.npz) · [Prüfergebnis](verification.json) · [Realisierte Störstärke](corruption_strength.csv).
+
+## Gezielte Intervention
+
+Als separate Folgestudie untersucht [Rauschaugmentation der Klassifikationsschicht](../augmentation/README.md) eine mögliche Gegenmaßnahme. Die hier berichteten eingefrorenen Vorhersagen und Ergebnisse bleiben unverändert.

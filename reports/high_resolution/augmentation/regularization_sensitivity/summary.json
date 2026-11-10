@@ -1,0 +1,115 @@
+{
+  "config": {
+    "study": "Post-hoc matched-regularization sensitivity after the primary augmentation comparison",
+    "reason": "Clean selection chose C=0.01 for the original control and C=0.1 for the augmented probe; assess whether the noise benefit also appears at equal C",
+    "C_values": [
+      0.01,
+      0.1
+    ],
+    "training": [
+      "clean",
+      "half_weight_clean_plus_noise"
+    ],
+    "features": "Reuse verified fixed encoder features, scaler and the same training-noise realization; no additional images or feature extraction",
+    "conditions": [
+      "clean",
+      "noise_42"
+    ],
+    "endpoint": "Error at 80% fractional-tie coverage, augmented minus clean within each C; all four combinations reported",
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 20261118,
+    "scope": "Exploratory diagnostic after observing results; not a new confirmatory test, not another hyperparameter search. No new deployed winner or calibration cutoff; original selected probes remain unchanged."
+  },
+  "results": [
+    {
+      "arm": "control",
+      "C": 0.01,
+      "condition": "clean",
+      "risk_at_80": 0.042270531400966184
+    },
+    {
+      "arm": "control",
+      "C": 0.01,
+      "condition": "noise_42",
+      "risk_at_80": 0.22705314009661837
+    },
+    {
+      "arm": "augmentation",
+      "C": 0.01,
+      "condition": "clean",
+      "risk_at_80": 0.05233494363929146
+    },
+    {
+      "arm": "augmentation",
+      "C": 0.01,
+      "condition": "noise_42",
+      "risk_at_80": 0.08011272141706927
+    },
+    {
+      "arm": "control",
+      "C": 0.1,
+      "condition": "clean",
+      "risk_at_80": 0.04830917874396135
+    },
+    {
+      "arm": "control",
+      "C": 0.1,
+      "condition": "noise_42",
+      "risk_at_80": 0.29347826086956524
+    },
+    {
+      "arm": "augmentation",
+      "C": 0.1,
+      "condition": "clean",
+      "risk_at_80": 0.04428341384863124
+    },
+    {
+      "arm": "augmentation",
+      "C": 0.1,
+      "condition": "noise_42",
+      "risk_at_80": 0.07246376811594203
+    }
+  ],
+  "contrasts": {
+    "C0.01|clean": {
+      "point": 0.010064412238325278,
+      "ci": [
+        -0.004025764895330117,
+        0.019726247987117577
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "C0.01|noise_42": {
+      "point": -0.1469404186795491,
+      "ci": [
+        -0.1888083735909823,
+        -0.11311392914653787
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "C0.1|clean": {
+      "point": -0.00402576489533011,
+      "ci": [
+        -0.01570048309178746,
+        0.0096618357487923
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "C0.1|noise_42": {
+      "point": -0.22101449275362323,
+      "ci": [
+        -0.2552435587761675,
+        -0.18719806763285024
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    }
+  },
+  "provenance": {
+    "parent_summary_sha256": "6d4a564eeb82647cbbf35a80c0236db3211dbf32e93898d839a19f49c066f8bc",
+    "script_sha256": "9e0ffba66be88c8fff93436b61aec7af90440ab9a1064f79b4197ebce3b128b0"
+  }
+}

@@ -1,0 +1,85 @@
+test_deterministic_bounded_nonmutating (test_augmentation.AugmentationTests.test_deterministic_bounded_nonmutating) ... ok
+test_does_not_advance_global_rng (test_augmentation.AugmentationTests.test_does_not_advance_global_rng) ... ok
+test_invalid (test_augmentation.AugmentationTests.test_invalid) ... ok
+test_noop (test_augmentation.AugmentationTests.test_noop) ... ok
+test_empty_acceptance_explicit (test_calibration.CalibrationTests.test_empty_acceptance_explicit) ... ok
+test_identical_arms_zero_contrast (test_calibration.CalibrationTests.test_identical_arms_zero_contrast) ... ok
+test_same_pool_permuted_same_cutoff (test_calibration.CalibrationTests.test_same_pool_permuted_same_cutoff) ... ok
+test_tied_quantile_can_accept_everything (test_calibration.CalibrationTests.test_tied_quantile_can_accept_everything) ... ok
+test_undefined_replicates_counted (test_calibration.CalibrationTests.test_undefined_replicates_counted) ... ok
+test_shape_and_gradient (test_cnn.CNNTests.test_shape_and_gradient) ... ok
+test_temperature_preserves_decisions (test_cnn.CNNTests.test_temperature_preserves_decisions) ... ok
+test_confident_mistakes_reverse_ranking (test_error_detection.DetectionTests.test_confident_mistakes_reverse_ranking) ... ok
+test_errors_rank_above_correct (test_error_detection.DetectionTests.test_errors_rank_above_correct) ... ok
+test_no_errors (test_error_detection.DetectionTests.test_no_errors) ... ok
+test_ties_are_retained_together (test_error_detection.DetectionTests.test_ties_are_retained_together) ... ok
+test_centre_crop_uses_short_edge (test_external.ExternalDataTests.test_centre_crop_uses_short_edge) ... ok
+test_committed_sample_has_one_image_per_patient (test_external.ExternalDataTests.test_committed_sample_has_one_image_per_patient) ... /workspace/medical-ai-reliability-lab/tests/test_external.py:33: ResourceWarning: unclosed file <_io.TextIOWrapper name='/workspace/medical-ai-reliability-lab/configs/external_rsna_sample.csv' mode='r' encoding='UTF-8'>
+  rows=list(csv.DictReader((ROOT/'configs/external_rsna_sample.csv').open()))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_git_blob_hash_matches_git (test_external.ExternalDataTests.test_git_blob_hash_matches_git) ... ok
+test_preprocess_shape_dtype_and_constant_image (test_external.ExternalDataTests.test_preprocess_shape_dtype_and_constant_image) ... ok
+test_sample_is_deterministic_unique_and_stratified (test_external.ExternalDataTests.test_sample_is_deterministic_unique_and_stratified) ... ok
+test_uint8_passthrough_inversion_and_scaling (test_external.ExternalDataTests.test_uint8_passthrough_inversion_and_scaling) ... ok
+test_auroc_matches_sklearn_with_ties (test_external.ExternalMetricTests.test_auroc_matches_sklearn_with_ties) ... ok
+test_ece_perfect_and_known_value (test_external.ExternalMetricTests.test_ece_perfect_and_known_value) ... ok
+test_perturbations_match_repository_definitions (test_external.ExternalMetricTests.test_perturbations_match_repository_definitions) ... ok
+test_reliability_bins_count_all_cases (test_external.ExternalMetricTests.test_reliability_bins_count_all_cases) ... ok
+test_risk_matches_repository_selective_review (test_external.ExternalMetricTests.test_risk_matches_repository_selective_review) ... ok
+test_summary_fixed_cutoff (test_external.ExternalMetricTests.test_summary_fixed_cutoff) ... ok
+test_missing_seed_and_wrong_sample_rejected (test_external_views.ExternalViewTests.test_missing_seed_and_wrong_sample_rejected) ... ok
+test_strata_reconstruct_overall_accuracy (test_external_views.ExternalViewTests.test_strata_reconstruct_overall_accuracy) ... ok
+test_empty_retained_set_is_undefined (test_five_seed.FiveSeedTests.test_empty_retained_set_is_undefined) ... ok
+test_seed_interval_has_expected_mean_and_width (test_five_seed.FiveSeedTests.test_seed_interval_has_expected_mean_and_width) ... ok
+test_low_information_removes_fine_structure_without_changing_shape (test_high_resolution.HighResolutionTests.test_low_information_removes_fine_structure_without_changing_shape) ... ok
+test_pixel_audit_rejects_cross_split_duplicates_and_label_mismatch (test_high_resolution.HighResolutionTests.test_pixel_audit_rejects_cross_split_duplicates_and_label_mismatch) ... ok
+test_half_weights_preserve_loss_and_regularization_scale (test_high_resolution_augmentation.AugmentedProbeTests.test_half_weights_preserve_loss_and_regularization_scale) ... ok
+test_primary_noise_matches_prior_and_training_seed_differs (test_high_resolution_augmentation.AugmentedProbeTests.test_primary_noise_matches_prior_and_training_seed_differs) ... ok
+test_fractional_ties_and_permutation (test_high_resolution_robustness.IndependentRiskTests.test_fractional_ties_and_permutation) ... ok
+test_blur_does_not_mix_cases_and_quantization_is_explicit (test_high_resolution_robustness.RobustnessTests.test_blur_does_not_mix_cases_and_quantization_is_explicit) ... ok
+test_noise_is_index_keyed_and_independent_of_order (test_high_resolution_robustness.RobustnessTests.test_noise_is_index_keyed_and_independent_of_order) ... ok
+test_noise_source_is_filtered_only_by_low_information_branch (test_high_resolution_robustness.RobustnessTests.test_noise_source_is_filtered_only_by_low_information_branch) ... ok
+test_undefined_risk_is_not_reported_as_zero (test_high_resolution_robustness.RobustnessTests.test_undefined_risk_is_not_reported_as_zero) ... ok
+test_duplicate_identifiers_rejected (test_mechanistic_ties.MechanisticTiesTests.test_duplicate_identifiers_rejected) ... ok
+test_empty_risk_is_undefined (test_mechanistic_ties.MechanisticTiesTests.test_empty_risk_is_undefined) ... ok
+test_exact_integer_target_and_rounding (test_mechanistic_ties.MechanisticTiesTests.test_exact_integer_target_and_rounding) ... ok
+test_fixed_transfer_does_not_force_test_coverage (test_mechanistic_ties.MechanisticTiesTests.test_fixed_transfer_does_not_force_test_coverage) ... ok
+test_float_saturation_is_separate_from_bias_ties (test_mechanistic_ties.MechanisticTiesTests.test_float_saturation_is_separate_from_bias_ties) ... ok
+test_priority_and_permutation_invariance (test_mechanistic_ties.MechanisticTiesTests.test_priority_and_permutation_invariance) ... ok
+test_zero_hidden_implies_bias_logit_without_saturation (test_mechanistic_ties.MechanisticTiesTests.test_zero_hidden_implies_bias_logit_without_saturation) ... ok
+test_zero_rejection_is_not_error_detection_or_refill (test_mechanistic_ties.MechanisticTiesTests.test_zero_rejection_is_not_error_detection_or_refill) ... ok
+test_confident_errors_denominator (test_metrics.MetricsTests.test_confident_errors_denominator) ... ok
+test_empty_confident_subset (test_metrics.MetricsTests.test_empty_confident_subset) ... ok
+test_nonzero_hidden_not_marked_collapsed (test_noise_diagnostics.HiddenTests.test_nonzero_hidden_not_marked_collapsed) ... ok
+test_zero_hidden_reduces_to_output_bias (test_noise_diagnostics.HiddenTests.test_zero_hidden_reduces_to_output_bias) ... ok
+test_combined_policy_is_not_mixed_into_standard (test_overview.OverviewTests.test_combined_policy_is_not_mixed_into_standard) ... ok
+test_equal_seed_weighting_and_descriptive_range (test_overview.OverviewTests.test_equal_seed_weighting_and_descriptive_range) ... ok
+test_missing_seed_rejected (test_overview.OverviewTests.test_missing_seed_rejected) ... ok
+test_empty_retention (test_resolution.ResolutionTests.test_empty_retention) ... ok
+test_fixed_parameter_count_and_output (test_resolution.ResolutionTests.test_fixed_parameter_count_and_output) ... ok
+test_manifest_group_separation (test_resolution.ResolutionTests.test_manifest_group_separation) ... ok
+test_retained_ratio (test_resolution.ResolutionTests.test_retained_ratio) ... ok
+test_all_tied_does_not_use_labels (test_selective_review.CoverageTests.test_all_tied_does_not_use_labels) ... ok
+test_exact_fraction_and_boundary_tie (test_selective_review.CoverageTests.test_exact_fraction_and_boundary_tie) ... ok
+test_fractional_target (test_selective_review.CoverageTests.test_fractional_target) ... ok
+test_full_coverage_matches_error (test_selective_review.CoverageTests.test_full_coverage_matches_error) ... ok
+test_invalid_inputs (test_selective_review.CoverageTests.test_invalid_inputs) ... ok
+test_permutation_invariance (test_selective_review.CoverageTests.test_permutation_invariance) ... ok
+test_boundary_and_invalid_inputs (test_temperature_scaling.TemperatureTests.test_boundary_and_invalid_inputs) ... ok
+test_recovers_known_temperature_from_exact_frequencies (test_temperature_scaling.TemperatureTests.test_recovers_known_temperature_from_exact_frequencies) ... ok
+test_scaling_preserves_decisions_ranking_and_transformed_cutoff (test_temperature_scaling.TemperatureTests.test_scaling_preserves_decisions_ranking_and_transformed_cutoff) ... ok
+test_stable_nll_matches_independent_reference (test_temperature_scaling.TemperatureTests.test_stable_nll_matches_independent_reference) ... ok
+test_blur_preserves_constant_images_without_cross_case_mixing (test_transfer.TransferTests.test_blur_preserves_constant_images_without_cross_case_mixing) ... ok
+test_contrast_definition (test_transfer.TransferTests.test_contrast_definition) ... ok
+test_exact_ties_not_approximate_ties (test_transfer.TransferTests.test_exact_ties_not_approximate_ties) ... ok
+test_noise_deterministic_and_inputs_unchanged (test_transfer.TransferTests.test_noise_deterministic_and_inputs_unchanged) ... ok
+test_original_threshold_and_rank_threshold_are_distinct (test_transfer.TransferTests.test_original_threshold_and_rank_threshold_are_distinct) ... ok
+test_zero_rejection_leaves_undefined_risk (test_transfer.TransferTests.test_zero_rejection_leaves_undefined_risk) ... ok
+test_empty_acceptance_undefined_and_batched_inputs (test_view_standardization.StandardizationTests.test_empty_acceptance_undefined_and_batched_inputs) ... ok
+test_ratio_of_weighted_counts_not_average_of_risks (test_view_standardization.StandardizationTests.test_ratio_of_weighted_counts_not_average_of_risks) ... ok
+
+----------------------------------------------------------------------
+Ran 77 tests in 0.348s
+
+OK

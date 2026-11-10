@@ -150,6 +150,30 @@ def main():
         for i,(kind,text) in enumerate(pages[5][1]):
             if text.startswith('Reproduktion:'):
                 pages[5][1][i]=(kind,text+' Hochauflösende Robustheit: experiments/high_resolution_robustness.py; scripts/verify_high_resolution_robustness.py prüft alle 2.000 primären Bootstrap-Ziehungen unabhängig nach.')
+    augmentation_path=ROOT/'reports/high_resolution/augmentation/summary.json'
+    if augmentation_path.exists():
+        aug=json.loads(augmentation_path.read_text());effect=aug['primary']
+        clean_effect=aug['augmented_minus_control']['clean']['risk_at_80']
+        nc=aug['results']['control|noise_42'];na=aug['results']['augmentation|noise_42']
+        pages[0][1].insert(6,('p',f"Gezielte Intervention: Ein neuer linearer Kopf mit gleich gewichtetem clean-/Rauschtraining senkt bei unverändertem 224px-Encoder das Risiko unter Testrauschen bei 80 % Abdeckung von {nc['risk_at_80']['point']:.1%} auf {na['risk_at_80']['point']:.1%}. Differenz {effect['point']*100:+.1f} pp [{effect['ci'][0]*100:+.1f}; {effect['ci'][1]*100:+.1f}]. Zwei weitere Testrausch-Seeds bestätigen die Richtung; Unschärfe bleibt ein Gegenbeispiel für allgemeine Zuverlässigkeit."))
+        pages[4]=('224px: Verbesserung und Grenzen',[
+            ('p','Auflösungsvergleich: Das offizielle 224px-Archiv wird mit derselben auf 28px reduzierten Bildinformation verglichen, jeweils als 224px-Eingabe desselben eingefrorenen ImageNet-ResNet-18. Trainiert wird eine standardisierte logistische Klassifikationsschicht, C-Auswahl nur auf clean-Modellwahlfällen. Alle Fälle und Splits bleiben gleich. AUROC: 0,980 vs. 0,960; gepaarte Differenz +0,019 [0,009; 0,032]. Dies ist keine klinische Vollauflösung.'),
+            ('p','Der clean-Vorteil schützt nicht vor Störungen: Das ursprüngliche 224px-Modell akzeptiert unter Eingangsrauschen 96,8 % bei 35,6 % Fehlern. Ein scheinbarer Vorteil des 28px-Zweigs bei Quellrauschen enthält Filterung durch Verkleinerung (RMSE 0,0095 statt 0,0993). Beide Rauschpositionen wurden separat geprüft; Encoder, Köpfe und Schwellen blieben dabei fest.'),
+            ('p','Intervention: Jede der 4.682 Trainingsaufnahmen liefert clean- und Rauschmerkmale, jeweils mit Gewicht 0,5; Gesamtgewicht und ursprünglicher StandardScaler bleiben erhalten. Nur ein neuer linearer Kopf wird gelernt. Auswahl aus C ∈ {0,01; 0,1; 1; 10} nach clean-Modellwahl-NLL, Schwelle nur aus clean-Kalibrierung. Trainingsseed 20261116 unterscheidet sich von den Testseeds 42, 7 und 99. Es sind dieselben Testfälle, keine drei unabhängigen Kohorten.'),
+            ('p',f"Primär unter Testrauschen Seed 42 bei 80 % Abdeckung: {effect['point']*100:+.2f} pp [{effect['ci'][0]*100:+.2f}; {effect['ci'][1]*100:+.2f}], Augmentation minus Kontrolle. Clean: {clean_effect['point']*100:+.2f} pp [{clean_effect['ci'][0]*100:+.2f}; {clean_effect['ci'][1]*100:+.2f}], kein Nichtunterlegenheitsnachweis. Beide alternativen Rausch-Seeds zeigen ebenfalls geringere Risiken; alle Intervalle sind auf ausgewählte Modelle bedingt."),
+            ('img','../high_resolution/augmentation/summary_figure.png'),
+            ('p','Abbildung 2. Neue Intervention, beide Modelle mit 224px-Information. Die Verbesserung gilt nicht allgemein: Unter Unschärfe akzeptiert der augmentierte Kopf 99,5 % der Fälle, davon 37,4 % falsch. Bei gleicher 80%-Abdeckung betragen die Blur-Risiken 24,7 % vs. 26,0 %; die unterschiedliche feste Annahmemenge erklärt den scheinbaren Gegensatz. Die Analyse betrifft einen eingefrorenen Encoder und eine Trainingsrausch-Realisierung, kein End-to-End-Training oder externen Transfer.')])
+        for i,(kind,text) in enumerate(pages[0][1]):
+            pages[0][1][i]=(kind,text.replace('Auflösung und fünf Seeds (S. 5)','Auflösung und Intervention (S. 5)'))
+        for i,(kind,text) in enumerate(pages[5][1]):
+            if text.startswith('Reproduktion:'):
+                text=text.replace('Hochauflösende Robustheit: experiments/high_resolution_robustness.py; scripts/verify_high_resolution_robustness.py prüft alle 2.000 primären Bootstrap-Ziehungen unabhängig nach.','Hochauflösende Folgestudien: experiments/high_resolution_robustness.py und experiments/high_resolution_augmentation.py. Separate Prüfer rechnen die primären Bootstrap-Ziehungen unabhängig nach.')
+                pages[5][1][i]=(kind,text)
+    regularization_path=ROOT/'reports/high_resolution/augmentation/regularization_sensitivity/summary.json'
+    if regularization_path.exists():
+        regularization=json.loads(regularization_path.read_text())
+        a=regularization['contrasts']['C0.01|noise_42'];b=regularization['contrasts']['C0.1|noise_42']
+        pages[4][1].insert(4,('p',f"Post-hoc-Kontrolle der Regularisierung: Der primäre Vergleich verwendete clean-gewählte C-Werte 0,01 und 0,1. Bei gleichem C bleibt der Rauschgewinn bestehen: {a['point']*100:+.1f} pp bei C=0,01 und {b['point']*100:+.1f} pp bei C=0,1; beide bedingten Intervalle liegen unter null. Dies ist eine Sensitivitätsanalyse, kein unabhängiger Bestätigungstest."))
     pdfmetrics.registerFont(TTFont('DejaVu','/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
     pdfmetrics.registerFont(TTFont('DejaVuBold','/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'))
     styles=getSampleStyleSheet()

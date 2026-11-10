@@ -1,0 +1,16 @@
+{
+  "unit_tests": 77,
+  "prior_numerical_model_artifacts_unchanged": 180,
+  "primary_protocol_commit": "5f63448",
+  "posthoc_regularization_protocol_commit": "6edfe00",
+  "report_pages": 6,
+  "report_visual_check": "Updated page 5 inspected; plotted curves checked for clipping",
+  "checks": [
+    "Weighted training gradient independently verified",
+    "Saved head and scaler reconstructed",
+    "Original control predictions preserved",
+    "All 2000 primary and clean bootstrap draws verified",
+    "Eight matched-C cells and 100 bootstrap entries verified"
+  ],
+  "limitation": "Frozen encoder, one training-noise realization, known internal benchmark; no clinical or external-transfer claim"
+}

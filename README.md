@@ -25,6 +25,8 @@ Die bisherigen 28px-Befunde betreffen einen Niedrigauflösungs-Benchmark; sie be
 
 **Robustheit bei 224px:** Eingangsrauschen erhöht die akzeptierte Fehlerrate des eingefrorenen 224px-Modells von 4,2 % auf 35,6 %, während die Akzeptanz von 73,3 % auf 96,8 % steigt. Der primäre Vergleich des Risikoanstiegs bei gleicher 80%-Abdeckung zeigt keinen eindeutigen Unterschied zwischen den Auflösungen: −0,28 pp [−4,07; +2,21]. [Störungsanalyse mit Kontrolle der Rauschposition](reports/high_resolution/robustness/README.md).
 
+**Gezielte Gegenmaßnahme:** Ein neuer, mit Rauschen trainierter linearer Kopf bei eingefrorenem 224px-Encoder verändert das Risiko bei 80 % Abdeckung unter Testrauschen um **-15.5 pp [-19.3; -11.8]**. Auf clean-Bildern beträgt die Änderung **+0.2 pp [-1.0; +1.0]**. [Rauschaugmentation: Gewinn, Nebenwirkungen und zwei weitere Testrausch-Seeds](reports/high_resolution/augmentation/README.md).
+
 ## Externer Test: RSNA
 
 Die eingefrorenen Modelle wurden auf 2.000 externen Thoraxaufnahmen geprüft (1.000 `Lung Opacity`, 1.000 `Normal`; überwiegend Erwachsene). Training und Annahmeschwellen bleiben unverändert. Bei der 28px-Kontrolle sinkt die Accuracy von **84,1 % auf 73,5 %**, während der Fehler unter akzeptierten Fällen von **11,2 % auf 20,6 % [18,7; 22,5]** steigt. Rauschaugmentation hilft extern gegen Rauschen, verbessert den primären Vergleich auf unveränderten Bildern aber nicht: **+1,2 Prozentpunkte akzeptierte Fehler [+0,4; +1,9]** gegenüber der Kontrolle. Intervalle: gepaarter Bild-Bootstrap, bedingt auf feste Modelle und Schwellen.
