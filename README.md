@@ -1,6 +1,6 @@
 # Medical AI Reliability Lab
 
-**Explorative Studie, Stand 10. November 2026.** Wie gut erkennt ein medizinischer Bildklassifikator seine eigenen Fehler unter Bildstörungen? Ein beobachteter Mechanismus ist der Kollaps des letzten Merkmalsvektors: Bei `h = 0` bleibt nur der Bias-Logit übrig. Nichtleere Merkmalsvektoren garantieren umgekehrt keine zuverlässigen Vorhersagen.
+**Explorative Studie, Stand 11. November 2026.** Wie gut erkennt ein medizinischer Bildklassifikator seine eigenen Fehler unter Bildstörungen? Ein beobachteter Mechanismus ist der Kollaps des letzten Merkmalsvektors: Bei `h = 0` bleibt nur der Bias-Logit übrig. Nichtleere Merkmalsvektoren garantieren umgekehrt keine zuverlässigen Vorhersagen.
 
 ![Übersicht: Testbilder, Repräsentations-Kollaps und Fehler unter Bildstörungen](reports/figures/overview_figure.png)
 
@@ -17,7 +17,27 @@ Wir vergleichen kleine CNNs auf PneumoniaMNIST mit und ohne Rauschaugmentation, 
 
 Primärer Kontrast (Unterschied des Rauschen-minus-Original-Fehleranstiegs unter akzeptierten Fällen, Augmentation minus Kontrolle): **-43.7 pp**. Approximatives 95%-Intervall über fünf Seed-Paare: [-56.7; -30.6] pp. Separater Bild-Bootstrap bei festen Modellen: [-49.0; -38.0] pp. Das sind verschiedene Unsicherheitsquellen; Patientenunabhängigkeit ist nicht belegt. [Alle Seed-Ergebnisse und Risk-Coverage-Kurven](reports/five_seed/README.md) · [Historischer Drei-Seed-Vergleich](reports/augmentation/primary.json).
 
-**Wahrscheinlichkeitskalibrierung:** Temperature Scaling auf internen Kalibrierungsdaten verschlechtert die Test-NLL bei den angepassten Temperaturen in allen vier Bedingungen. Bei zusätzlicher Variation des Temperatur-Fits umfasst der NLL-Differenzbereich der Kontrolle auch null. [Kalibrierungsanalyse](reports/temperature_scaling/README.md). [**Forschungsbericht, 6 Seiten (PDF)**](reports/followup/research_report.pdf) · [Textfassung](reports/followup/research_report.md).
+**Wahrscheinlichkeitskalibrierung:** Temperature Scaling auf internen Kalibrierungsdaten verschlechtert die Test-NLL bei den angepassten Temperaturen in allen vier Bedingungen. Bei zusätzlicher Variation des Temperatur-Fits umfasst der NLL-Differenzbereich der Kontrolle auch null. [Kalibrierungsanalyse](reports/temperature_scaling/README.md). [**Vorheriger 224px-Forschungsbericht, 6 Seiten (PDF)**](reports/followup/research_report.pdf) · [Textfassung](reports/followup/research_report.md).
+
+## Originalbilder: 512px, Nachtraining und größere Modelle
+
+Der neue Ausgangsvergleich nutzt **Original-Thoraxbilder aus der offiziellen Mendeley-Quelle**, mit erhaltenem Seitenverhältnis bei 224 und 512 Pixeln. Nach Entfernen von 32 exakten Duplikaten und 453 Trainingsbildern mit auch im Test vorkommenden Dateinamen-Kennungen verbleiben 3.842 Trainings-, 442 Modellwahl-, 469 Kalibrierungs- und 618 Testbilder. Die Kennungen sind keine unabhängig bestätigten Patientenidentitäten. Diese neue Aufteilung ist nicht direkt mit den früheren MedMNIST-Zahlen vergleichbar.
+
+| Neuer Vergleich | AUROC | Accuracy | Fehler bei 80 % Abdeckung |
+|---|---:|---:|---:|
+| MobileNet 224, eingefrorener Encoder | 0.9570 | 81.6% | 10.8% |
+| MobileNet 512, eingefrorener Encoder | 0.9665 | 80.3% | 11.8% |
+| MobileNet 512, partiell nachtrainiert | 0.9669 | 82.7% | 9.2% |
+| ResNet-18 224, eingefrorener Encoder | 0.9528 | 79.1% | 12.5% |
+| ResNet-50 224, eingefrorener Encoder | 0.9487 | 80.9% | 12.7% |
+
+Der primäre 512-minus-224-AUROC-Unterschied beträgt **+0.0096 [-0.0042; +0.0251]** und ist nicht eindeutig. Partielles Nachtraining senkt dagegen den Fehler bei 80 % Abdeckung um **-2.63 pp [-4.10; -1.19]**; auch die Kontrolle mit gleichem Optimierer und ausschließlich trainiertem Kopf ist schwächer. ResNet-50 mit 23,51 Millionen Parametern liefert keinen eindeutigen AUROC-Gewinn gegenüber ResNet-18.
+
+**Zentrale Grenze:** Beim angepassten 512px-Modell stehen 99,5 % Sensitivität nur 54,5 % Spezifität gegenüber. Eine nachträgliche diagnostische Schwellenanalyse erreicht trotz eines ausschließlich auf Kalibrierungsdaten gesetzten 95%-Spezifitätsziels im Test nur 52,4 %. Mehr Pixel und Parameter lösen diese Übertragungslücke nicht nachweislich. Gruppierte Bootstrap-Intervalle sind auf die ausgewählten Modelle bedingt; neue unabhängige Kliniken und Robustheitsprüfungen fehlen.
+
+[**Neue Forschungsnotiz, 3 Seiten (PDF)**](reports/original_512/research_note.pdf) · [Vollständige Methoden, Kontrollen und Ergebnisse](reports/original_512/README.md).
+
+**SwiftUI-Pfad:** Das nachtrainierte Modell hat 0,93 Millionen Parameter und einen 3,84-MB-PyTorch-Checkpoint. Core ML ist konvertiert; ein synthetisches Referenzsignal und ein [SwiftUI-Tensorprüfer](ios/ResearchPrototype/README.md) sind vorhanden. Xcode-Build, numerische Apple-Laufzeitprüfung und iOS-Bildvorverarbeitung sind noch nicht validiert. Keine fertige Diagnose-App.
 
 ## Auflösungsprüfung: 224×224
 

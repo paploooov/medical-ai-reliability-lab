@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "patient_group_overlap": 0,
+  "pixel_duplicates": 0,
+  "primary_cluster_bootstrap_draws_verified": 2000,
+  "all_four_auroc_draws_verified": true,
+  "selection_rules_verified": true,
+  "numerical_sensitivity": {
+    "mobile_224_probe": {
+      "probability_saturation": 0,
+      "logit_minus_probability_auroc": 0.0
+    },
+    "mobile_512_probe": {
+      "probability_saturation": 0,
+      "logit_minus_probability_auroc": 0.0
+    },
+    "resnet18_224_probe": {
+      "probability_saturation": 0,
+      "logit_minus_probability_auroc": 0.0
+    },
+    "mobile_512_finetuned": {
+      "probability_saturation": 18,
+      "logit_minus_probability_auroc": 0.0
+    }
+  },
+  "prediction_sha256": "afb8651a198911bcf7b5d9ffeb798a1be91d789963d15e855f7471b5523028df",
+  "manifest_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568"
+}

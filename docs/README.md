@@ -21,3 +21,9 @@ Die [historische Paper Summary](PAPER_SUMMARY.md) beschreibt den Stand vor diese
 Die historischen Berichte und Protokolle liegen zusammen in `archive/`. Die gespeicherten Ergebnisse und Modelle behalten ihre ursprünglichen Pfade. `research/` enthält nur fünf kurze Verweise für die Links im unveränderten Modellverzeichnis; die Berichte selbst liegen im Archiv. Historische Auswerteprogramme können diesen Pfad weiterhin in isolierten Prüfkopien verwenden.
 
 Die separat reproduzierte Grafik lässt sich mit `python scripts/verify_overview.py --output /tmp/medical-ai-overview` prüfen. Der Prüfer schreibt nur in den gewählten neuen Ausgabeordner.
+
+## Originalbilder und App-Export
+
+- [512px, partielles Encodertraining und ResNet-50: Methoden und Ergebnisse](../reports/original_512/README.md)
+- [Neue Forschungsnotiz als PDF](../reports/original_512/research_note.pdf)
+- [SwiftUI-Tensorprüfer und Core-ML-Export](../ios/ResearchPrototype/README.md)

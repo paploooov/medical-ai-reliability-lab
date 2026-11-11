@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "draws_verified": 2000,
+  "reference_draws_identical": true,
+  "prediction_sha256": "0a170bdd09dce3c5979f3d3fe6d8fdb144f75cbd7d5a3dced729695a752a2126"
+}

@@ -1,0 +1,25 @@
+{
+  "scope": "Linux CPU, torch threads=1, batch=1, five warmups; normalized synthetic tensor, excludes image decoding/resize/model loading. Non-selected encoder weights randomly initialized for architecture-only timing. Not iPhone latency.",
+  "models": {
+    "mobile_224_probe": {
+      "median_ms": 12.775601499015465,
+      "p90_ms": 19.443918298929933,
+      "repeats": 30,
+      "parameters": 927585
+    },
+    "mobile_512_finetuned": {
+      "median_ms": 54.29059499874711,
+      "p90_ms": 69.05304330284707,
+      "repeats": 30,
+      "parameters": 927585
+    },
+    "resnet18_224_probe": {
+      "median_ms": 75.75577099851216,
+      "p90_ms": 114.00514440028932,
+      "repeats": 30,
+      "parameters": 11177025
+    }
+  },
+  "checkpoint_bytes": 3842464,
+  "torchscript_bytes": 4115864
+}

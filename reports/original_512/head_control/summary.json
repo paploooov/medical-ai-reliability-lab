@@ -1,0 +1,108 @@
+{
+  "config": {
+    "study": "Optimizer-matched head-only control for partial fine-tuning",
+    "timing": "Added before partial fine-tuning and before new-cohort test results are inspected",
+    "initialization": "Same selected mobile512 probe folded into float32 linear head",
+    "training": "Frozen original512 pooled features; train only linear head. Same AdamW lr1e-4, weight_decay1e-4, batch16, seed20261121, three epochs and per-epoch sample order as the partial-fine-tuning arm",
+    "selection": "Best selection NLL among epochs0,1,2,3, then clean-calibration20th-confidence-percentile cutoff",
+    "contrast": "Partial fine-tuning minus head-only control AUROC and risk at80, secondary diagnostic. Controls head optimizer changes; architecture, source and selection uncertainty remain conditional.",
+    "bootstrap": "2000 paired filename-group draws, seed20261122; report either direction"
+  },
+  "selected_epoch": 1,
+  "history": [
+    {
+      "epoch": 0,
+      "selection_nll": 0.08384943010072995
+    },
+    {
+      "epoch": 1,
+      "training_nll": 0.017352096599411317,
+      "selection_nll": 0.0834134540004921
+    },
+    {
+      "epoch": 2,
+      "training_nll": 0.01736623639143929,
+      "selection_nll": 0.08360633021156944
+    },
+    {
+      "epoch": 3,
+      "training_nll": 0.017319756572269085,
+      "selection_nll": 0.08403815046924204
+    }
+  ],
+  "metrics": {
+    "n": 618,
+    "prevalence": 0.6262135922330098,
+    "accuracy": 0.8025889967637541,
+    "auroc": 0.9665033502242805,
+    "sensitivity": 0.9974160206718347,
+    "specificity": 0.47619047619047616,
+    "ece": 0.15466475959348827,
+    "mean_confidence": 0.9572538733482361,
+    "coverage": 0.6844660194174758,
+    "retained_error": 0.06855791962174941,
+    "predicted_positive": 0.8203883495145631,
+    "aurc": 0.05239576971049965,
+    "risk_at_80": 0.11610032362459553,
+    "nll": 0.7175947941469519,
+    "brier": 0.16391402364528415
+  },
+  "fine_minus_head": {
+    "auroc": {
+      "point": 0.00043066322136087187,
+      "ci": [
+        -0.0007164489895709724,
+        0.0015112942179277829
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "nll": {
+      "point": -0.097012373802001,
+      "ci": [
+        -0.11823791608547939,
+        -0.07761860070655953
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "accuracy": {
+      "point": 0.024271844660194164,
+      "ci": [
+        0.012399771722071623,
+        0.03839732888146907
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "risk_at_80": {
+      "point": -0.024271844660194178,
+      "ci": [
+        -0.039652258134680186,
+        -0.010336748383177422
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "coverage": {
+      "point": -0.0016181229773463146,
+      "ci": [
+        -0.016530296177514687,
+        0.014377571884984041
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "retained_error": {
+      "point": -0.009316213460611969,
+      "ci": [
+        -0.020933402809342982,
+        0.0006927073422723345
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    }
+  },
+  "script_sha256": "994b3041ee102b47dad356bb0342501639207017f32b85793f5e96f6cee05030",
+  "initial_head_sha256": "2f34e40cc37739c0e6c5801f7ec0fd95670f721b5faa8dd40b822688b32a6c25"
+}

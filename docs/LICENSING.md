@@ -14,6 +14,14 @@ Die ergänzende 224×224-Auswertung verwendet das offizielle `pneumoniamnist_224
 
 Der ergänzende ResNet-18-Encoder verwendet die öffentlichen `IMAGENET1K_V1`-Gewichte von Torchvision. Sie werden nur im ignorierten lokalen Daten-Cache bezogen, mit Herkunft und Prüfsumme dokumentiert und nicht durch dieses Repository unter MIT neu lizenziert oder mitverteilt. Die Projekt-MIT-Lizenz betrifft den eigenen Code, nicht pauschal diese fremden Gewichte oder ImageNet-Daten.
 
+## Original-Thoraxbilder für den 512px-Vergleich
+
+Die neue Studie verwendet **ChestXRay2017.zip** direkt von [Mendeley Data, Kermany, Zhang & Goldbaum (2018), Version 2](https://data.mendeley.com/datasets/rscbjbr9sj/2), DOI **10.17632/rscbjbr9sj.2**. Die offizielle Metadaten-Seite weist **CC BY 4.0** aus. Dateigröße 1.235.512.464 Bytes; die veröffentlichte SHA-256-Prüfsumme `13efc055629733dbab07877f8b3c9f81097840dbcdaa326a8542322c2281ce36` stimmt mit dem geladenen Archiv überein. Die Lizenz wurde für diese konkrete Quelle geprüft und nicht aus MedMNIST abgeleitet.
+
+Änderungen: Grauwertkonvertierung, Duplikatbereinigung, konservative Gruppierung anhand der Dateinamen, Größenänderung mit erhaltenem Seitenverhältnis und schwarzem Padding auf 224/512 Pixel. Eine attributierte Abbildung verwendet einen fest gewählten Trainingsfall. Rohdaten und Feature-Caches bleiben im ignorierten lokalen Datenverzeichnis. Wie in den Quellenbedingungen beschrieben, können gesondert als fremd gekennzeichnete Inhalte zusätzliche Rechte erfordern.
+
+MobileNetV3-Small nutzt die offiziellen Torchvision-Gewichte `IMAGENET1K_V1`; die Referenzencoder verwenden ResNet-18 und ResNet-50 `IMAGENET1K_V1`. Auch diese fremden Gewichte werden nicht pauschal unter der Projekt-MIT-Lizenz neu lizenziert. Lokale PyTorch-/TorchScript-/Core-ML-Artefakte sind Forschungsartefakte, keine veröffentlichte oder klinisch freigegebene Anwendung.
+
 ## RSNA Pneumonia Detection Challenge
 
 Prüfstand 10. November 2026: Die RSNA-Daten sind **nicht** von der MIT-Code-Lizenz oder der PneumoniaMNIST-Lizenz CC BY 4.0 erfasst. Quellen: [Originalwettbewerb und Regeln](https://www.kaggle.com/c/rsna-pneumonia-detection-challenge/rules), Shih et al. (2019), [doi:10.1148/ryai.2019180041](https://doi.org/10.1148/ryai.2019180041), Ausgangsbilder NIH ChestX-ray14, Wang et al. (2017).

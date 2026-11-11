@@ -1,0 +1,646 @@
+{
+  "config": {
+    "study": "Original-source 224 versus 512 and partial encoder fine-tuning",
+    "source": "https://data.mendeley.com/datasets/rscbjbr9sj/2",
+    "doi": "10.17632/rscbjbr9sj.2",
+    "license": "CC BY 4.0, Kermany, Zhang and Goldbaum (2018)",
+    "archive_url": "https://data.mendeley.com/public-files/datasets/rscbjbr9sj/files/f12eaf6d-6023-432f-acc9-80c9d7393433/file_downloaded",
+    "archive_sha256": "13efc055629733dbab07877f8b3c9f81097840dbcdaa326a8542322c2281ce36",
+    "seed": 20261121,
+    "splits": "Keep official test. Deduplicate decoded grayscale pixels globally with test priority; remove training groups also in test. StratifiedGroupKFold(10,shuffle=True,random_state=seed) on remaining official train: fold0 selection, fold1 calibration, others training. Filename-derived groups are not verified clinical identities.",
+    "preprocessing": "Full grayscale image, preserve aspect ratio, resize longest edge to input size using Pillow LANCZOS, center on black square. Report original dimensions and upsampling counts. Repeat RGB and ImageNet normalize. Same retained images and preprocessing rule at 224 and 512.",
+    "arms": [
+      "mobile_224_probe",
+      "mobile_512_probe",
+      "mobile_512_finetuned",
+      "resnet18_224_probe"
+    ],
+    "larger_encoder": "Secondary frozen ResNet18 ImageNet V1 at224 versus MobileNetV3-Small ImageNet V1 at224, same splits and selection. Architecture and representation change together.",
+    "probe": "Frozen ImageNet MobileNetV3-Small or ResNet18; train-only StandardScaler; C=[0.01,0.1,1,10] selected by selection NLL. Calibration threshold from clean confidence 20th quantile.",
+    "fine_tune": "Initialize from mobile512 probe including folded scaler. Freeze features[:10] and all batch normalization statistics/parameters. Train features[10:] and linear classifier for3 epochs, AdamW encoder lr=1e-5, classifier lr=1e-4, weight_decay=1e-4, batch16. Select epoch0,1,2,3 by selection NLL. Cache float32 features[:10]; no augmentation.",
+    "primary": "Paired test AUROC difference, frozen 512 minus frozen 224; dimension and image information change together, not an isolated information-only contrast.",
+    "secondary": "Fine-tuned minus frozen512 AUROC, NLL, accuracy, Brier, calibration, risk at80, acceptance/error at each clean-calibration threshold; original longer-edge>=512 subgroup. All candidates reported, no improvement assumed.",
+    "bootstrap": {
+      "replicates": 2000,
+      "seed": 20261122,
+      "unit": "filename-derived test patient groups",
+      "scope": "Conditional on fitted models; filename groups imperfect; no training uncertainty"
+    },
+    "limits": "Same source family as repeatedly studied MedMNIST; new preprocessing and splits mean absolute scores are not directly comparable. Exploratory, no independent clinical validation. 512 may still downsample originals; native smaller images are flagged. Partial fine-tuning is not full end-to-end training. SwiftUI/Core ML export is an engineering research path, not a diagnostic release.",
+    "resource_amendment": "Before any model fitting or test evaluation: measured ResNet18 CPU cost ~0.52s/image at512 and ~0.48s/image for layer4 training. Use MobileNetV3-Small for full-cohort resolution and partial fine-tuning; ResNet18 at224 as larger capacity reference. No subsampling to manufacture faster results."
+  },
+  "provenance": {
+    "script_sha256": "bae90fd009402d049ea1a86fd8e1561a986eae2f786f6ce89352345567c625fa",
+    "protocol_sha256": "04e95237620cca2ec82015ff900e6290f2b763cd30affb80d63820439800da03",
+    "manifest_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+    "cache": {
+      "manifest_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+      "images": {
+        "224": "c94a209f15ac9f569ccfff754846d92201a8c95539622d85181499c6d61cbab3",
+        "512": "f3ab0b2dea1e50e8593dd9a44ac0c02f92a071947ba07b56802e2a74c4713376"
+      }
+    },
+    "torch": "2.5.1+cpu"
+  },
+  "selection": {
+    "mobile_224_probe": {
+      "C": 0.1,
+      "selection_nll": 0.07692365291055824,
+      "candidates": [
+        {
+          "C": 0.01,
+          "selection_nll": 0.09062668517338375
+        },
+        {
+          "C": 0.1,
+          "selection_nll": 0.07692365291055824
+        },
+        {
+          "C": 1.0,
+          "selection_nll": 0.09567393049592555
+        },
+        {
+          "C": 10.0,
+          "selection_nll": 0.15741423476370964
+        }
+      ]
+    },
+    "mobile_512_probe": {
+      "C": 0.1,
+      "selection_nll": 0.08384943956642571,
+      "candidates": [
+        {
+          "C": 0.01,
+          "selection_nll": 0.09015810182162261
+        },
+        {
+          "C": 0.1,
+          "selection_nll": 0.08384943956642571
+        },
+        {
+          "C": 1.0,
+          "selection_nll": 0.10508069451815932
+        },
+        {
+          "C": 10.0,
+          "selection_nll": 0.19134869904333354
+        }
+      ]
+    },
+    "resnet18_224_probe": {
+      "C": 0.01,
+      "selection_nll": 0.10075395376382891,
+      "candidates": [
+        {
+          "C": 0.01,
+          "selection_nll": 0.10075395376382891
+        },
+        {
+          "C": 0.1,
+          "selection_nll": 0.11104570558294052
+        },
+        {
+          "C": 1.0,
+          "selection_nll": 0.17844917812762123
+        },
+        {
+          "C": 10.0,
+          "selection_nll": 0.3130336467598842
+        }
+      ]
+    },
+    "mobile_512_finetuned": {
+      "selected_epoch": 1,
+      "selection_nll": 0.08204564202091116,
+      "history": [
+        {
+          "epoch": 0,
+          "selection_nll": 0.0838494306401385
+        },
+        {
+          "epoch": 1,
+          "training_nll": 0.017843047259649372,
+          "selection_nll": 0.08204564202091116
+        },
+        {
+          "epoch": 2,
+          "training_nll": 0.014646542100205367,
+          "selection_nll": 0.08349911798848642
+        },
+        {
+          "epoch": 3,
+          "training_nll": 0.011858802777036291,
+          "selection_nll": 0.08309710177149854
+        }
+      ]
+    }
+  },
+  "models": {
+    "mobile_224_probe": {
+      "parameters": 927585,
+      "feature_dimension": 576,
+      "input_size": 224
+    },
+    "mobile_512_probe": {
+      "parameters": 927585,
+      "feature_dimension": 576,
+      "input_size": 512
+    },
+    "resnet18_224_probe": {
+      "parameters": 11177025,
+      "feature_dimension": 512,
+      "input_size": 224
+    },
+    "mobile_512_finetuned": {
+      "parameters": 927585,
+      "feature_dimension": 576,
+      "input_size": 512,
+      "trainable_parameters": 639073
+    }
+  },
+  "results": {
+    "mobile_224_probe": {
+      "auroc": {
+        "point": 0.9569672360370035,
+        "ci": [
+          0.9377233197705457,
+          0.9721353978107015
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.647961698031162,
+        "ci": [
+          0.5166976743727872,
+          0.8061823104417652
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.8155339805825242,
+        "ci": [
+          0.7777730616864743,
+          0.8488654718442306
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.10800970873786414,
+        "ci": [
+          0.07569020076766052,
+          0.14822487903994477
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.6601941747572816,
+        "ci": [
+          0.615513925729443,
+          0.7046163723916533
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.058823529411764705,
+        "ci": [
+          0.036438921974915606,
+          0.08539341319218745
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "mobile_512_probe": {
+      "auroc": {
+        "point": 0.9665425014262223,
+        "ci": [
+          0.9532908423423553,
+          0.9776460398571963
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.7269752313337394,
+        "ci": [
+          0.585339260290653,
+          0.886524239357115
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.8025889967637541,
+        "ci": [
+          0.7657735660584205,
+          0.8368074193548387
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.11812297734627837,
+        "ci": [
+          0.08320160990383091,
+          0.15804657467439323
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.686084142394822,
+        "ci": [
+          0.6406740888445773,
+          0.7263222572560434
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.06839622641509434,
+        "ci": [
+          0.0442678152593819,
+          0.09582650832650831
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "resnet18_224_probe": {
+      "auroc": {
+        "point": 0.9527612783426737,
+        "ci": [
+          0.9346081790104163,
+          0.9685098976194461
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.5550430229384558,
+        "ci": [
+          0.450286954299563,
+          0.6768245578804949
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.7912621359223301,
+        "ci": [
+          0.7513398654232086,
+          0.8264496296395516
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.12540453074433655,
+        "ci": [
+          0.09287425373494207,
+          0.1669620527667627
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.6747572815533981,
+        "ci": [
+          0.6315567586757788,
+          0.7170118955725159
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.0815347721822542,
+        "ci": [
+          0.055415835527540626,
+          0.11274601946041574
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "mobile_512_finetuned": {
+      "auroc": {
+        "point": 0.9669340134456413,
+        "ci": [
+          0.9535940972664412,
+          0.9780768684878469
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.6205824203449509,
+        "ci": [
+          0.4891482907633525,
+          0.7687254956730036
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.8268608414239482,
+        "ci": [
+          0.7922077922077922,
+          0.8586839087291874
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.09182847896440136,
+        "ci": [
+          0.06375333626710172,
+          0.1248005319148936
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.6828478964401294,
+        "ci": [
+          0.6396690652607581,
+          0.7225771357342088
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.05924170616113744,
+        "ci": [
+          0.03711374386074609,
+          0.08531266114971882
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    }
+  },
+  "contrasts": {
+    "mobile_512_probe_minus_mobile_224_probe": {
+      "auroc": {
+        "point": 0.009575265389218823,
+        "ci": [
+          -0.004200446718140874,
+          0.025104360685430517
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.07901353330257743,
+        "ci": [
+          -0.011696178185075656,
+          0.17221936300080232
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": -0.012944983818770184,
+        "ci": [
+          -0.03834019169329068,
+          0.011006722626652851
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.01011326860841423,
+        "ci": [
+          -0.01413627457900048,
+          0.02907097666679564
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.025889967637540368,
+        "ci": [
+          -0.0049103867519128125,
+          0.05593576746396324
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.009572697003329633,
+        "ci": [
+          -0.013566871785006908,
+          0.031377126472759885
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "mobile_512_finetuned_minus_mobile_512_probe": {
+      "auroc": {
+        "point": 0.0003915120194190047,
+        "ci": [
+          -0.0008058703085592284,
+          0.0015296821429888858
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": -0.1063928109887885,
+        "ci": [
+          -0.12918544116345004,
+          -0.0856997118983056
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.024271844660194164,
+        "ci": [
+          0.012399771722071623,
+          0.03839732888146907
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": -0.026294498381877016,
+        "ci": [
+          -0.041039811949018505,
+          -0.01192321523203876
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": -0.003236245954692518,
+        "ci": [
+          -0.018489737111060688,
+          0.013311148086522454
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": -0.009154520253956897,
+        "ci": [
+          -0.020835674405680942,
+          0.0007234756905811644
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "resnet18_224_probe_minus_mobile_224_probe": {
+      "auroc": {
+        "point": -0.004205957694329854,
+        "ci": [
+          -0.018244206369085494,
+          0.011147614044890676
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": -0.09291867509270624,
+        "ci": [
+          -0.1806972789742601,
+          -0.017872366154623398
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": -0.024271844660194164,
+        "ci": [
+          -0.048818963917389074,
+          0.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.01739482200647241,
+        "ci": [
+          -0.004286691353442644,
+          0.037342853649235674
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.014563106796116498,
+        "ci": [
+          -0.017107708941392047,
+          0.04847410733593678
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.022711242770489498,
+        "ci": [
+          -0.002041335304832576,
+          0.04758804336298149
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    }
+  },
+  "deployment": {
+    "checkpoint": "data/original_xray/mobile512_research.pt",
+    "checkpoint_sha256": "ba497699914926742ee07592297f803925e835c0e2491e2c284eb008804f01ce",
+    "torchscript_sha256": "0cff331af8a660eab856dbeb8863b881034ca1164c39a87af7e945139578afa8",
+    "verified_selection_examples": 2,
+    "coreml_converted": false
+  },
+  "primary": {
+    "point": 0.009575265389218823,
+    "ci": [
+      -0.004200446718140874,
+      0.025104360685430517
+    ],
+    "defined_replicates": 2000,
+    "undefined_replicates": 0
+  },
+  "native_long_edge_subgroup": {
+    "n": 618,
+    "results": {
+      "mobile_224_probe": {
+        "n": 618,
+        "prevalence": 0.6262135922330098,
+        "accuracy": 0.8155339805825242,
+        "auroc": 0.9569672360370035,
+        "sensitivity": 0.9974160206718347,
+        "specificity": 0.5108225108225108,
+        "ece": 0.13750062066723542,
+        "mean_confidence": 0.9500092091398581,
+        "coverage": 0.6601941747572816,
+        "retained_error": 0.058823529411764705,
+        "predicted_positive": 0.8074433656957929,
+        "aurc": 0.057321819485733345,
+        "risk_at_80": 0.10800970873786414,
+        "nll": 0.647961698031162,
+        "brier": 0.15185379364386792
+      },
+      "mobile_512_probe": {
+        "n": 618,
+        "prevalence": 0.6262135922330098,
+        "accuracy": 0.8025889967637541,
+        "auroc": 0.9665425014262223,
+        "sensitivity": 0.9974160206718347,
+        "specificity": 0.47619047619047616,
+        "ece": 0.15488877834465928,
+        "mean_confidence": 0.9574777751084136,
+        "coverage": 0.686084142394822,
+        "retained_error": 0.06839622641509434,
+        "predicted_positive": 0.8203883495145631,
+        "aurc": 0.05259208610113358,
+        "risk_at_80": 0.11812297734627837,
+        "nll": 0.7269752313337394,
+        "brier": 0.16551668560340962
+      },
+      "resnet18_224_probe": {
+        "n": 618,
+        "prevalence": 0.6262135922330098,
+        "accuracy": 0.7912621359223301,
+        "auroc": 0.9527612783426737,
+        "sensitivity": 0.9922480620155039,
+        "specificity": 0.45454545454545453,
+        "ece": 0.13254830100349896,
+        "mean_confidence": 0.9238104369258291,
+        "coverage": 0.6747572815533981,
+        "retained_error": 0.0815347721822542,
+        "predicted_positive": 0.8252427184466019,
+        "aurc": 0.06502646893664057,
+        "risk_at_80": 0.12540453074433655,
+        "nll": 0.5550430229384558,
+        "brier": 0.15222617470238212
+      },
+      "mobile_512_finetuned": {
+        "n": 618,
+        "prevalence": 0.6262135922330098,
+        "accuracy": 0.8268608414239482,
+        "auroc": 0.9669340134456413,
+        "sensitivity": 0.9948320413436692,
+        "specificity": 0.5454545454545454,
+        "ece": 0.13282454052403525,
+        "mean_confidence": 0.9582288265228271,
+        "coverage": 0.6828478964401294,
+        "retained_error": 0.05924170616113744,
+        "predicted_positive": 0.7928802588996764,
+        "aurc": 0.043247818571505794,
+        "risk_at_80": 0.09182847896440136,
+        "nll": 0.6205824203449509,
+        "brier": 0.14091784709454547
+      }
+    }
+  }
+}

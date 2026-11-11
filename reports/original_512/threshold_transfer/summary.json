@@ -1,0 +1,269 @@
+{
+  "config": {
+    "study": "Post-hoc diagnostic of calibration-to-test threshold transfer",
+    "trigger": "After observing high sensitivity but low test specificity in the completed original512 study. This is explanatory follow-up, not independent confirmation or deployment threshold selection.",
+    "models": [
+      "mobile_512_probe",
+      "mobile_512_finetuned",
+      "resnet50_224_probe"
+    ],
+    "rule": "Set classification logit threshold using only calibration negatives: highest allowed false-positive count=floor((1-target)*n_negative). Threshold is nextafter the next descending negative logit toward +infinity, conservative for ties. Positive iff logit>=threshold, float64 comparisons.",
+    "specificity_targets": [
+      0.9,
+      0.95
+    ],
+    "bootstrap": "2000 independent calibration-group and test-group resamples, seed20261123; refit threshold in each calibration resample, evaluate its paired test resample",
+    "report": "All thresholds, achieved calibration specificity, test sensitivity/specificity and below-target fractions; model logits, weights and existing CoreML export remain fixed. Descriptive intervals, not clinical guarantees. Repeatedly studied source family, imperfect filename-derived groups."
+  },
+  "split_metrics": {
+    "train": {
+      "mobile_512_probe": {
+        "auroc": 0.9999759707804691,
+        "nll": 0.017249841286875643,
+        "sensitivity": 0.9989106753812637,
+        "specificity": 0.9981617647058824
+      },
+      "mobile_512_finetuned": {
+        "auroc": 0.9999863166944338,
+        "nll": 0.018837227865146005,
+        "sensitivity": 0.9920116194625999,
+        "specificity": 1.0
+      },
+      "resnet50_224_probe": {
+        "auroc": 1.0,
+        "nll": 0.010079635204625369,
+        "sensitivity": 0.9996368917937546,
+        "specificity": 1.0
+      }
+    },
+    "selection": {
+      "mobile_512_probe": {
+        "auroc": 0.992876526458616,
+        "nll": 0.08384943956642571,
+        "sensitivity": 0.987012987012987,
+        "specificity": 0.9402985074626866
+      },
+      "mobile_512_finetuned": {
+        "auroc": 0.9932157394843962,
+        "nll": 0.0820456535975498,
+        "sensitivity": 0.9837662337662337,
+        "specificity": 0.9552238805970149
+      },
+      "resnet50_224_probe": {
+        "auroc": 0.9973347547974414,
+        "nll": 0.0633895125964694,
+        "sensitivity": 0.9902597402597403,
+        "specificity": 0.9328358208955224
+      }
+    },
+    "calibration": {
+      "mobile_512_probe": {
+        "auroc": 0.9976630107825444,
+        "nll": 0.05696588605308712,
+        "sensitivity": 0.9883381924198251,
+        "specificity": 0.9206349206349206
+      },
+      "mobile_512_finetuned": {
+        "auroc": 0.9979869498819935,
+        "nll": 0.05603978629434914,
+        "sensitivity": 0.9795918367346939,
+        "specificity": 0.9841269841269841
+      },
+      "resnet50_224_probe": {
+        "auroc": 0.9985885510666852,
+        "nll": 0.0425496662106779,
+        "sensitivity": 0.9912536443148688,
+        "specificity": 0.9444444444444444
+      }
+    },
+    "test": {
+      "mobile_512_probe": {
+        "auroc": 0.9665425014262223,
+        "nll": 0.7269752313337394,
+        "sensitivity": 0.9974160206718347,
+        "specificity": 0.47619047619047616
+      },
+      "mobile_512_finetuned": {
+        "auroc": 0.9669340134456413,
+        "nll": 0.6205824372145318,
+        "sensitivity": 0.9948320413436692,
+        "specificity": 0.5454545454545454
+      },
+      "resnet50_224_probe": {
+        "auroc": 0.9486559951676231,
+        "nll": 0.9082641383866409,
+        "sensitivity": 0.9922480620155039,
+        "specificity": 0.5021645021645021
+      }
+    }
+  },
+  "results": {
+    "mobile_512_probe|0.9": {
+      "logit_threshold": -1.067725063533295,
+      "probability_threshold": 0.2558359548646326,
+      "calibration_sensitivity": 0.9941690962099126,
+      "calibration_specificity": 0.9047619047619048,
+      "test_sensitivity": 0.9974160206718347,
+      "test_specificity": 0.41125541125541126,
+      "test_sensitivity_interval": {
+        "point": 0.9974160206718347,
+        "ci": [
+          0.9912530049613831,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "test_specificity_interval": {
+        "point": 0.41125541125541126,
+        "ci": [
+          0.2974003232758621,
+          0.5447539970863222
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "bootstrap_fraction_below_specificity_target": 1.0
+    },
+    "mobile_512_probe|0.95": {
+      "logit_threshold": 0.5008075662157455,
+      "probability_threshold": 0.6226490934837358,
+      "calibration_sensitivity": 0.9854227405247813,
+      "calibration_specificity": 0.9523809523809523,
+      "test_sensitivity": 0.9974160206718347,
+      "test_specificity": 0.5194805194805194,
+      "test_sensitivity_interval": {
+        "point": 0.9974160206718347,
+        "ci": [
+          0.9898457683669363,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "test_specificity_interval": {
+        "point": 0.5194805194805194,
+        "ci": [
+          0.4051567398119122,
+          0.5925963261648745
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "bootstrap_fraction_below_specificity_target": 1.0
+    },
+    "mobile_512_finetuned|0.9": {
+      "logit_threshold": -2.251972913742065,
+      "probability_threshold": 0.09517942122308341,
+      "calibration_sensitivity": 0.9970845481049563,
+      "calibration_specificity": 0.9047619047619048,
+      "test_sensitivity": 0.9974160206718347,
+      "test_specificity": 0.39826839826839827,
+      "test_sensitivity_interval": {
+        "point": 0.9974160206718347,
+        "ci": [
+          0.9912015368381529,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "test_specificity_interval": {
+        "point": 0.39826839826839827,
+        "ci": [
+          0.29583333333333334,
+          0.5277867965367965
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "bootstrap_fraction_below_specificity_target": 1.0
+    },
+    "mobile_512_finetuned|0.95": {
+      "logit_threshold": -0.5507491827011107,
+      "probability_threshold": 0.3656906103498834,
+      "calibration_sensitivity": 0.9854227405247813,
+      "calibration_specificity": 0.9523809523809523,
+      "test_sensitivity": 0.9974160206718347,
+      "test_specificity": 0.5238095238095238,
+      "test_sensitivity_interval": {
+        "point": 0.9974160206718347,
+        "ci": [
+          0.987920501428118,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "test_specificity_interval": {
+        "point": 0.5238095238095238,
+        "ci": [
+          0.3926827468115257,
+          0.5897540983606557
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "bootstrap_fraction_below_specificity_target": 1.0
+    },
+    "resnet50_224_probe|0.9": {
+      "logit_threshold": -1.8609715872133792,
+      "probability_threshold": 0.1345898457416443,
+      "calibration_sensitivity": 0.9970845481049563,
+      "calibration_specificity": 0.9047619047619048,
+      "test_sensitivity": 0.9974160206718347,
+      "test_specificity": 0.36796536796536794,
+      "test_sensitivity_interval": {
+        "point": 0.9974160206718347,
+        "ci": [
+          0.987951079681043,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "test_specificity_interval": {
+        "point": 0.36796536796536794,
+        "ci": [
+          0.26665137614678897,
+          0.4938657407407405
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "bootstrap_fraction_below_specificity_target": 1.0
+    },
+    "resnet50_224_probe|0.95": {
+      "logit_threshold": 0.2867360202333025,
+      "probability_threshold": 0.5711968695309738,
+      "calibration_sensitivity": 0.9912536443148688,
+      "calibration_specificity": 0.9523809523809523,
+      "test_sensitivity": 0.9870801033591732,
+      "test_specificity": 0.5194805194805194,
+      "test_sensitivity_interval": {
+        "point": 0.9870801033591732,
+        "ci": [
+          0.976303317535545,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "test_specificity_interval": {
+        "point": 0.5194805194805194,
+        "ci": [
+          0.3403990565129489,
+          0.5965665236051502
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "bootstrap_fraction_below_specificity_target": 1.0
+    }
+  },
+  "provenance": {
+    "script_sha256": "681ddfe97955714043457862d5ef62ebd87330bc48e44baf742211f589f8cbeb",
+    "protocol_sha256": "93e66f5abd393ade2c1870c819619d683b5dfef86ea12a72f723ef5d294e663c",
+    "predictions_sha256": "afb8651a198911bcf7b5d9ffeb798a1be91d789963d15e855f7471b5523028df"
+  }
+}

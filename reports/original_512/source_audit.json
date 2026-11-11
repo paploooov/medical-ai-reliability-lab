@@ -1,0 +1,16 @@
+{
+  "source": "https://data.mendeley.com/datasets/rscbjbr9sj/2",
+  "source_metadata_api": "https://data.mendeley.com/public-api/datasets/rscbjbr9sj/files?folder_id=root&version=2",
+  "doi": "10.17632/rscbjbr9sj.2",
+  "license": "CC BY 4.0, Kermany, Zhang and Goldbaum (2018)",
+  "filename": "ChestXRay2017.zip",
+  "bytes": 1235512464,
+  "published_sha256": "13efc055629733dbab07877f8b3c9f81097840dbcdaa326a8542322c2281ce36",
+  "original_test_filename_groups": 427,
+  "retained_test_filename_groups": 426,
+  "non_test_overlap_with_all_original_test_groups": 0,
+  "exclusions": {
+    "exact_pixel_duplicate": 32,
+    "group_in_test": 453
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "config": {
+    "study": "Additional larger-encoder comparison on the original-source cohort",
+    "timing": "Added while the original512 feature extraction is running, before any new-cohort test results have been inspected. No change to the existing four-arm primary endpoint.",
+    "encoder": "torchvision ResNet50 IMAGENET1K_V1, frozen, 224px, identity fc; ImageNet normalization",
+    "data": "Exactly original_512 manifest and full-image 224 letterbox cache; no new split or subsampling",
+    "head": "StandardScaler fit on training only; logistic regression C=[0.01,0.1,1,10], lbfgs max_iter3000; choose lowest selection NLL; threshold calibration20th confidence quantile",
+    "contrast": "ResNet50_224 minus ResNet18_224 AUROC, secondary capacity experiment. Architecture and pretrained representation change together; not isolated model-size causality.",
+    "bootstrap": "2000 paired filename-group test resamples, seed20261122, conditional on fitted encoders and heads",
+    "scope": "Larger frozen encoder plus newly trained head, not full ResNet50 fine-tuning; same known source family, no clinical generalization claim. Report result even if larger performs worse."
+  },
+  "selection": {
+    "C": 0.1,
+    "selection_nll": 0.0633895125964694,
+    "candidates": [
+      {
+        "C": 0.01,
+        "selection_nll": 0.0646418062600604
+      },
+      {
+        "C": 0.1,
+        "selection_nll": 0.0633895125964694
+      },
+      {
+        "C": 1.0,
+        "selection_nll": 0.07370938555425413
+      },
+      {
+        "C": 10.0,
+        "selection_nll": 0.1323393552257075
+      }
+    ]
+  },
+  "metrics": {
+    "n": 618,
+    "prevalence": 0.6262135922330098,
+    "accuracy": 0.8090614886731391,
+    "auroc": 0.9486559951676231,
+    "sensitivity": 0.9922480620155039,
+    "specificity": 0.5021645021645021,
+    "ece": 0.15492393545097044,
+    "mean_confidence": 0.9625526117173769,
+    "coverage": 0.6812297734627831,
+    "retained_error": 0.08076009501187649,
+    "predicted_positive": 0.8074433656957929,
+    "aurc": 0.06549975754321391,
+    "risk_at_80": 0.12742718446601942,
+    "nll": 0.9082641383866409,
+    "brier": 0.16952038154042745
+  },
+  "parameters": 23510081,
+  "contrast": {
+    "auroc": {
+      "point": -0.004105283175050545,
+      "ci": [
+        -0.017343103175631144,
+        0.007708491858999766
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "nll": {
+      "point": 0.35322111544818513,
+      "ci": [
+        0.24373662282086114,
+        0.4831282177770765
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "accuracy": {
+      "point": 0.017799352750809128,
+      "ci": [
+        -0.004967507245099198,
+        0.039861495765127215
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "risk_at_80": {
+      "point": 0.0020226537216828655,
+      "ci": [
+        -0.018520205701328066,
+        0.022838758648991313
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "coverage": {
+      "point": 0.006472491909385036,
+      "ci": [
+        -0.02258155714211267,
+        0.03448275862068961
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    },
+    "retained_error": {
+      "point": -0.0007746771703777133,
+      "ci": [
+        -0.02487401768671373,
+        0.021545889309806936
+      ],
+      "defined_replicates": 2000,
+      "undefined_replicates": 0
+    }
+  },
+  "provenance": {
+    "script_sha256": "ac25bbc6928126ccd0fc625019e83e16d330d2c2c32e0a6b0a069409c718b67a",
+    "protocol_sha256": "ca3c53a1a8b5775ed70716e1acd9c216c683221c1f7c9671cffa45a55c99434e",
+    "manifest_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+    "feature_sha256": "cf2d46c01dd11dbabb340c742e2f69387b2e85e4ee8c08ecaf74b8603dee25c8",
+    "encoder_sha256": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a"
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "scope": "Secondary, conditional grouped bootstrap; no multiplicity adjustment",
+  "results": {
+    "mobile_224_probe": {
+      "confusion": {
+        "tn": 118,
+        "fp": 113,
+        "fn": 1,
+        "tp": 386
+      },
+      "metrics": {
+        "sensitivity": {
+          "point": 0.9974160206718347,
+          "ci": [
+            0.9918250547192567,
+            1.0
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "specificity": {
+          "point": 0.5108225108225108,
+          "ci": [
+            0.4462759277264625,
+            0.5737740555951532
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "positive_coverage": {
+          "point": 0.9095607235142119,
+          "ci": [
+            0.878166326059727,
+            0.938732962697274
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "negative_coverage": {
+          "point": 0.24242424242424243,
+          "ci": [
+            0.18851233011069077,
+            0.3008849557522124
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_positive_error": {
+          "point": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_negative_error": {
+          "point": 0.42857142857142855,
+          "ci": [
+            0.30231461167178586,
+            0.5660377358490566
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        }
+      }
+    },
+    "mobile_512_probe": {
+      "confusion": {
+        "tn": 110,
+        "fp": 121,
+        "fn": 1,
+        "tp": 386
+      },
+      "metrics": {
+        "sensitivity": {
+          "point": 0.9974160206718347,
+          "ci": [
+            0.9912621642284218,
+            1.0
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "specificity": {
+          "point": 0.47619047619047616,
+          "ci": [
+            0.40968189734658333,
+            0.5405516171909615
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "positive_coverage": {
+          "point": 0.9302325581395349,
+          "ci": [
+            0.9051480624295295,
+            0.9539333416293346
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "negative_coverage": {
+          "point": 0.27705627705627706,
+          "ci": [
+            0.21817994762439205,
+            0.3306084421101412
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_positive_error": {
+          "point": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_negative_error": {
+          "point": 0.453125,
+          "ci": [
+            0.3384558823529412,
+            0.5818181818181818
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        }
+      }
+    },
+    "resnet18_224_probe": {
+      "confusion": {
+        "tn": 105,
+        "fp": 126,
+        "fn": 3,
+        "tp": 384
+      },
+      "metrics": {
+        "sensitivity": {
+          "point": 0.9922480620155039,
+          "ci": [
+            0.9821405677655677,
+            1.0
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "specificity": {
+          "point": 0.45454545454545453,
+          "ci": [
+            0.39351467877830437,
+            0.5201885865225135
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "positive_coverage": {
+          "point": 0.9147286821705426,
+          "ci": [
+            0.8875253968800579,
+            0.9407411795681938
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "negative_coverage": {
+          "point": 0.2727272727272727,
+          "ci": [
+            0.2158567459374486,
+            0.3306788410560094
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_positive_error": {
+          "point": 0.0,
+          "ci": [
+            0.0,
+            0.0
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_negative_error": {
+          "point": 0.5396825396825397,
+          "ci": [
+            0.41427339901477833,
+            0.6666666666666666
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        }
+      }
+    },
+    "mobile_512_finetuned": {
+      "confusion": {
+        "tn": 126,
+        "fp": 105,
+        "fn": 2,
+        "tp": 385
+      },
+      "metrics": {
+        "sensitivity": {
+          "point": 0.9948320413436692,
+          "ci": [
+            0.9864102516378797,
+            1.0
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "specificity": {
+          "point": 0.5454545454545454,
+          "ci": [
+            0.4786719731032527,
+            0.6080027027027026
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "positive_coverage": {
+          "point": 0.9095607235142119,
+          "ci": [
+            0.8809456168831169,
+            0.9364332654859568
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "negative_coverage": {
+          "point": 0.30303030303030304,
+          "ci": [
+            0.24267782426778242,
+            0.3628327919047086
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_positive_error": {
+          "point": 0.002840909090909091,
+          "ci": [
+            0.0,
+            0.009677614621573068
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        },
+        "accepted_negative_error": {
+          "point": 0.34285714285714286,
+          "ci": [
+            0.234375,
+            0.4594594594594595
+          ],
+          "defined_replicates": 2000,
+          "undefined_replicates": 0
+        }
+      }
+    }
+  }
+}

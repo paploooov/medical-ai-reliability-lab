@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "resamples_verified": 2000,
+  "model_target_combinations": 6,
+  "thresholds_refit_and_verified": 12000
+}

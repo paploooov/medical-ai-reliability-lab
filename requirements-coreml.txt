@@ -1,0 +1,2 @@
+# Optional export only; model training retains its existing pinned environment.
+coremltools==9.0

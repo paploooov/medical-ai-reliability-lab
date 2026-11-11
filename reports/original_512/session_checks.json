@@ -1,0 +1,34 @@
+{
+  "tests_passed": 89,
+  "historical_numerical_artifacts_unchanged": 204,
+  "all_four_independent_verifiers_passed": true,
+  "local_document_links_valid": true,
+  "report_pages": 3,
+  "report_visually_inspected": true,
+  "coreml_package_hashes_verified": true,
+  "coreml_schema_verified": true,
+  "apple_runtime_parity": false,
+  "swiftui_compiled": false,
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.16.3",
+    "scikit-learn": "1.7.2",
+    "torch": "2.5.1+cpu",
+    "torchvision": "0.20.1+cpu",
+    "Pillow": "13.0.0",
+    "coremltools": "9.0",
+    "protobuf": "7.36.2"
+  },
+  "pretrained_checkpoint_sha256": {
+    "resnet18-f37072fd.pth": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "resnet50-0676ba61.pth": "0676ba61b6795bbe1773cffd859882e5e297624d384b6993f7c9e683e722fb8a",
+    "mobilenet_v3_small-047dcff4.pth": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f"
+  },
+  "feature_sha256": {
+    "resnet50_224_features.npz": "cf2d46c01dd11dbabb340c742e2f69387b2e85e4ee8c08ecaf74b8603dee25c8",
+    "mobile_224_features.npz": "630dab192cbb21ad358f8ba7fc3d90b76e73726d671b9f3e500c38074a972345",
+    "resnet18_224_features.npz": "cd5179f45a7157b99901d5d4480d04512abce9b85b8f8229d5f96afd38efd1de",
+    "mobile_512_features.npz": "1319e14b3f3b64f1d78686624c3cfb1b05f744ddd1412a6817db3f9d5a6655b6"
+  },
+  "bundle_contents_verified": true
+}

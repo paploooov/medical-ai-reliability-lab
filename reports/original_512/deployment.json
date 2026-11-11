@@ -1,0 +1,52 @@
+{
+  "converted": true,
+  "coremltools": "9.0",
+  "torch": "2.5.1+cpu",
+  "minimum_ios": 16,
+  "input_name": "pixels",
+  "input_shape": [
+    1,
+    1,
+    512,
+    512
+  ],
+  "input_range": [
+    0,
+    255
+  ],
+  "output_name": "logit",
+  "class_mapping": {
+    "0": "NORMAL",
+    "1": "PNEUMONIA"
+  },
+  "probability": "sigmoid(logit), not a validated clinical probability",
+  "calibration_cutoff": 0.9948420524597168,
+  "selected_epoch": 1,
+  "checkpoint_sha256": "ba497699914926742ee07592297f803925e835c0e2491e2c284eb008804f01ce",
+  "torchscript_wrapper_parity": true,
+  "apple_runtime_parity": false,
+  "device_latency_measured": false,
+  "preprocessing_parity_on_apple": false,
+  "files": {
+    "Mobile512Research.mlpackage/Manifest.json": "cfc382c3bda16b693792418f13755f2cbdc3485e9bc0a9584e314e08563c6d2e",
+    "Mobile512Research.mlpackage/Data/com.apple.CoreML/model.mlmodel": "80761dd4582ed7015011b4afcc4b21a62d4376207eb504752122862e4e58efe1",
+    "Mobile512Research.mlpackage/Data/com.apple.CoreML/weights/weight.bin": "a11c19553627c080f60d2903ea7ace5e63ca65f2fa595fee1cb5117ebb1fda4c"
+  },
+  "fixture": {
+    "shape": [
+      1,
+      1,
+      512,
+      512
+    ],
+    "dtype": "little-endian float32",
+    "input_file": "gradient512.f32",
+    "input_sha256": "e24ced29a4da243976a2511ae0f36d0b25ee42f53f9fb13c346fdd593a71db00",
+    "expected_logit": 22.942420959472656,
+    "tolerance": 0.001
+  },
+  "research_bundle": "data/original_xray/SwiftUIResearchBundle.zip",
+  "research_bundle_sha256": "d956f1b8fc2c5d3de800a8e56c560c108419cbbf0d2e9c272a1a4e1f42aa2f90",
+  "coreml_schema_verified": true,
+  "coreml_specification_version": 7
+}
