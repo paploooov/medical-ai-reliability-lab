@@ -1,0 +1,15 @@
+{
+  "study": "Frozen native224 model on an external NIH-derived weak-label benchmark",
+  "source": "https://zenodo.org/records/10519652/files/chestmnist_224.npz?download=1",
+  "source_metadata": "https://github.com/MedMNIST/MedMNIST/blob/main/medmnist/info.py",
+  "license": "CC BY 4.0 according to official ChestMNIST metadata; attribute Yang et al.2023 and NIH ChestXray14 Wang et al.2017",
+  "archive_md5": "45bd33e6f06c3e8cdb481c74a89152aa",
+  "archive_bytes": 3889293042,
+  "labels": "14 text-mined NIH labels, pneumonia column6. All-zero vector is no finding, not independently confirmed clinical health. Other-label controls have pneumonia0 and at least one other tag.",
+  "sampling": "Official test only, expected22433. Deduplicate exact224 pixels with earliest index representative; exclude every hash with conflicting14-label vectors. All remaining pneumonia-tag positives, RNG20261127 choose up to2000 all-zero negatives and up to1000 other-label negatives without replacement. No selection by model output.",
+  "model": "Unchanged original-source mobile_224_probe. Official frozen MobileNetV3-Small V1 encoder and existing folded head. No training, recalibration or test-based choice. Native224 archive used directly; no claim of native512 validation.",
+  "primary": "AUROC: pneumonia-tag positives versus sampled no-finding controls",
+  "secondary": "Same positives versus sampled other-abnormal controls; fixed0.5 sensitivity/specificity, NLL, risk_at80, original confidence cutoff coverage/error; report comorbidity counts and all sampling exclusions",
+  "uncertainty": "2000 label-stratified paired image bootstrap draws, seed20261128. Patient linkage absent in NPZ, so image intervals may be too narrow; not patient-valid or clinical intervals.",
+  "limits": "External to Kermany training source, but NIH source may overlap historical RSNA project tests. No claim of entirely unseen patients, independent new hospital, original512 images or clinical validation. Label quality, age/population, framing and source differ together. Case-control sampling does not estimate population precision or calibration."
+}
