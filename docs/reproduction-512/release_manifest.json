@@ -1,0 +1,15 @@
+{
+  "status": "prepared_locally_no_upload",
+  "weights_license_status": "unresolved",
+  "files": {
+    "TORCHVISION-LICENSE.txt": "6502f676851cfe25f8af75531dfb32375b7325b73c37e7b43741fa422893e71d",
+    "MODEL_CARD.md": "147412f6ba40e1636a56b3310b6e9e1c0bd26d8b65316d9a05abe72bc831288a",
+    "RELEASE_REVIEW.md": "e3ba399aa9a9419ca1b2413665a676e3ae081e8d075480676fa83dd45ed5ae5c",
+    "THORAXIS-512-R1.pt": "ba497699914926742ee07592297f803925e835c0e2491e2c284eb008804f01ce",
+    "CITATION.cff": "f98be263c8b0702624c1e621f0a4d90a8828d0d90228c7ac940050a2b0db8908",
+    "NOTICE.txt": "3730d4826d236c786637e8c6bc5f0607d628bd804c6105cf41d1a54a5279f42f"
+  },
+  "bundle": "data/release-staging/THORAXIS-512-R1.zip",
+  "bundle_sha256": "187b824fa573c658d4dc8d6aafc1380a9096f82560ceb41efe156bb914f46878",
+  "bundle_bytes": 3526210
+}

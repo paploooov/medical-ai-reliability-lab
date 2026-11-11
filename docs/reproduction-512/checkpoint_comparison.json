@@ -1,0 +1,12 @@
+{
+  "state_keys": 242,
+  "exactly_equal_tensors": 225,
+  "max_absolute_weight_difference": 4.410743713378906e-05,
+  "root_mean_square_weight_difference": 1.97383612329929e-07,
+  "original_selected_epoch": 1,
+  "reproduced_selected_epoch": 1,
+  "original_cutoff": 0.9948420524597168,
+  "reproduced_cutoff": 0.9948421120643616,
+  "test_inference_performed": false,
+  "interpretation": "Parameter comparison only; no test performance or generalization claim."
+}

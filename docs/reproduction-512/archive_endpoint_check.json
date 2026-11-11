@@ -1,0 +1,17 @@
+{
+  "error": "HTTP Error 403: Forbidden",
+  "scope": "HEAD only",
+  "get_check": {
+    "error": "HTTP Error 403: Forbidden"
+  },
+  "identified_get": {
+    "status": 200,
+    "content_range": null,
+    "content_length": "1235512464",
+    "prefix": "504b0304",
+    "scope": "Four bytes read; body closed"
+  },
+  "range_get": {
+    "error": "HTTP Error 403: Forbidden"
+  }
+}

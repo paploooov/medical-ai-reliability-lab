@@ -1,0 +1,17 @@
+{
+  "measured_training_process_seconds": 909.9938404329951,
+  "peak_process_rss_mib": 1185.68359375,
+  "run_disk_bytes": 481391735,
+  "environment_disk_bytes": 1196900646,
+  "shared_archive_bytes": 1235512464,
+  "ten_serial_runs_hours": 2.5277606678694307,
+  "ten_run_disk_bytes": 4813917350,
+  "previous_tracked_artifacts_unchanged": 382,
+  "test_evaluated": false,
+  "checkpoint_uploaded": false,
+  "citation_schema_validated": "cffconvert 2.0.0 / CFF 1.2.0",
+  "machine_cpu": "Intel Xeon Platinum 8573C",
+  "cpu_quota": "2 CPU equivalents",
+  "container_memory_bytes": 8589934592,
+  "scope": "One training seed, existing split, fresh Python environment, fresh derived features, locally supplied hash-verified raw archive. No test evaluation."
+}

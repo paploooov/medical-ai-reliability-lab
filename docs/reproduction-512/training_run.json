@@ -1,0 +1,54 @@
+{
+  "seed": 20261121,
+  "split": "existing published manifest; no resplit",
+  "counts": {
+    "train": 3842,
+    "selection": 442,
+    "calibration": 469
+  },
+  "selected_epoch": 1,
+  "history": [
+    {
+      "epoch": 0,
+      "selection_nll": 0.08384940695540517
+    },
+    {
+      "epoch": 1,
+      "training_nll": 0.017843030177018975,
+      "selection_nll": 0.0820457066435388,
+      "seconds": 103.72490393599583
+    },
+    {
+      "epoch": 2,
+      "training_nll": 0.01464638806438183,
+      "selection_nll": 0.08349966291592087,
+      "seconds": 108.01555185900361
+    },
+    {
+      "epoch": 3,
+      "training_nll": 0.011862218634833624,
+      "selection_nll": 0.08310713146940436,
+      "seconds": 118.53551914899435
+    }
+  ],
+  "selected_C": 0.1,
+  "stages": {
+    "source_verification_and_weights_seconds": 3.2191302529972745,
+    "decode_resize_features_seconds": 571.4264396490034,
+    "head_fit_seconds": 3.030437904999417,
+    "three_epoch_training_seconds": 330.28409524900053,
+    "calibration_export_seconds": 2.0290025389986113
+  },
+  "total_seconds": 909.9938404329951,
+  "peak_rss_mib": 1185.68359375,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "torch": "2.5.1+cpu",
+  "numpy": "2.2.6",
+  "cpu_threads": 1,
+  "checkpoint_sha256": "dede3324c7051170720a0cd007b7440a9b04b1cd9cbb7ba2964be96ffd48f479",
+  "manifest_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+  "archive_sha256": "13efc055629733dbab07877f8b3c9f81097840dbcdaa326a8542322c2281ce36",
+  "script_sha256": "ba7f9fa52b84813579f5b33cd1a76007e7391a5f9dc1c6188fc150968ef65492",
+  "test_evaluated": false
+}

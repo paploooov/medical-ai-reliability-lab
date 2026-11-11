@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use THORAXIS software or its research artifacts, please cite this repository and the underlying datasets and pretrained architectures described in the model card."
+type: software
+title: "THORAXIS: Medical AI Reliability Lab"
+authors:
+  - name: "Medical AI Reliability Lab contributors"
+repository-code: "https://github.com/paploooov/medical-ai-reliability-lab"
+url: "https://github.com/paploooov/medical-ai-reliability-lab"
+abstract: "Research software for investigating chest radiograph classification reliability, preprocessing sensitivity, and transfer. THORAXIS adapts pretrained MobileNetV3-Small models."
+keywords:
+  - medical imaging
+  - reliability
+  - chest radiographs
+  - reproducibility
+license: MIT

@@ -131,6 +131,9 @@ Die neuen Auswertungsskripte, Tests und der Forschungsbericht wurden mit Codex-U
 
 ## Reproduzieren
 
+**THORAXIS 512-R1:** `make reproduce-512` baut eine isolierte CPU-Umgebung auf und führt Training, Modellwahl, Kalibrierung und Export aus. [Anleitung, Ressourcenmessung und verbleibende Einschränkungen](docs/reproduction-512/README.md). Testauswertung ist optional und wurde in dieser Reproduzierbarkeits-Etappe nicht ausgeführt.
+
+
 Voraussetzung: Python 3.12, Abhängigkeiten aus `requirements.txt` und CPU-PyTorch 2.5.1. Die drei Befehle prüfen die Daten, reproduzieren die Übersicht aus gespeicherten Vorhersagen und führen die Tests aus; kein neues Training. Für Wiederholungen einen neuen Ausgabeordner wählen.
 
 ```bash
