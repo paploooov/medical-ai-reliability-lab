@@ -34,3 +34,5 @@ Die separat reproduzierte Grafik lässt sich mit `python scripts/verify_overview
 
 - [Externer 224px-Transfer: offizielles ChestMNIST, eingefrorenes Modell und schwache Labels](../reports/external_chest224/README.md)
 - [Bildpipeline und externer Transfer: neue Forschungsnotiz](../reports/external_chest224/research_note.pdf)
+
+- [THORAXIS-Modellkarte: Namen, trainierte Anteile, Herkunft und Grenzen](THORAXIS_MODEL_CARD.md)

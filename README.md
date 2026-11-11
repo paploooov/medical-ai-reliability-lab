@@ -1,4 +1,16 @@
-# Medical AI Reliability Lab
+# THORAXIS
+
+**Unser trainiertes Forschungsmodell für Pneumonie-Klassifikation und die Untersuchung von KI-Zuverlässigkeit auf Thorax-Röntgenbildern.** Entwickelt im Medical AI Reliability Lab.
+
+Der aktuelle Hauptstand **THORAXIS 512-R1** basiert auf MobileNetV3-Small mit vorhandenen ImageNet-Gewichten. Im Projekt haben wir eine eigene binäre Klassifikationsschicht trainiert und anschließend Teile des Bildencoders nachtrainiert. Architektur und ImageNet-Vortraining stammen aus Torchvision; unsere Arbeit umfasst Datenaufbereitung, Modellanpassung, Training und Zuverlässigkeitsprüfung.
+
+| THORAXIS-Modell | Trainierte Anteile | Bisherige technische ID |
+|---|---|---|
+| **THORAXIS 224-Linear** | Klassifikationsschicht auf eingefrorenem Encoder | `mobile_224_probe` |
+| **THORAXIS 512-Linear** | Klassifikationsschicht auf eingefrorenem Encoder | `mobile_512_probe` |
+| **THORAXIS 512-R1** | Klassifikationsschicht und Teil des Encoders | `mobile_512_finetuned` |
+
+**THORAXIS 512-R1 erreicht intern AUROC 0,967 bei 82,7 % Accuracy.** Seine Spezifität beträgt allerdings nur 54,5 %; eine unabhängige klinische 512px-Validierung steht aus. Der Name bezeichnet die bereits trainierten Forschungsstände. [Modellkarte: Herkunft, Training, Gewichte und Grenzen](docs/THORAXIS_MODEL_CARD.md).
 
 ## Aktuelle Ergebnisse: Originalbilder, 512px und externer Test
 
@@ -10,7 +22,7 @@
 
 Fest gewählter Trainingsfall, Original 2090 × 1858 Pixel. Beide Eingaben entstehen aus dem Original-JPEG mit erhaltenem Seitenverhältnis und schwarzem Padding. Quelle: Kermany, Zhang & Goldbaum (2018), [Mendeley Data](https://data.mendeley.com/datasets/rscbjbr9sj/2), CC BY 4.0; Graustufen und Größenänderung. Das Beispiel zeigt die Eingabeaufbereitung, keinen Leistungsnachweis. [Modellvergleich und Methoden](reports/original_512/README.md).
 
-### 512px-Modell: Die Bildvorverarbeitung verändert Entscheidungen
+### THORAXIS 512-R1: Die Bildvorverarbeitung verändert Entscheidungen
 
 ![512px: Entscheidungsänderungen sowie Sensitivität und Spezifität](reports/original_512/preprocessing/comparison.png)
 
@@ -25,7 +37,7 @@ Fest gewählter Trainingsfall, Original 2090 × 1858 Pixel. Beide Eingaben entst
 
 Unverändertes nachtrainiertes Modell und unveränderte Schwellen. Center Crop verändert **17,5 % [14,3; 20,7]** der Entscheidungen und verliert Sensitivität. Stretch wird trotz höherer Accuracy auf diesem bekannten Test nicht als neue Pipeline ausgewählt. Intervalle: 2.000 gepaarte Wiederziehungen von Dateinamen-Gruppen. [Vollständige Studie](reports/original_512/preprocessing/README.md).
 
-### Externer 224px-Test: deutliche Übertragungslücke
+### THORAXIS 224-Linear: deutliche externe Übertragungslücke
 
 ![Externe ROC-Kurven und Logit-Verteilungen](reports/external_chest224/transfer.png)
 
@@ -34,7 +46,7 @@ Unverändertes nachtrainiertes Modell und unveränderte Schwellen. Center Crop v
 | No finding | 0,673 [0,636; 0,710] | 78,9 % | 47,5 % |
 | Andere Krankheitslabels | 0,548 [0,510; 0,590] | 78,9 % | 29,5 % |
 
-Unverändertes MobileNet224 auf 242 Pneumonie-Label-positiven Bildern, 2.000 No-finding- und 1.000 anderen Kontrollen aus dem offiziellen ChestMNIST-Test. Textbasierte Labels; No finding bedeutet nicht bestätigte Gesundheit. Fehlende Patientenverknüpfung und mögliche NIH-/RSNA-Überlappung begrenzen die Aussage. **Dies validiert nicht das 512px-Modell.**
+Unverändertes THORAXIS 224-Linear (MobileNetV3-Small mit unserer trainierten Klassifikationsschicht) auf 242 Pneumonie-Label-positiven Bildern, 2.000 No-finding- und 1.000 anderen Kontrollen aus dem offiziellen ChestMNIST-Test. Textbasierte Labels; No finding bedeutet nicht bestätigte Gesundheit. Fehlende Patientenverknüpfung und mögliche NIH-/RSNA-Überlappung begrenzen die Aussage. **Dies validiert nicht das 512px-Modell.**
 
 ### Neue Darstellung: Hilft die Ablehnung unsicherer Fälle?
 
