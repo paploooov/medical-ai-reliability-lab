@@ -1,0 +1,169 @@
+{
+  "config": {
+    "study": "Exploratory audit of the original-image calibration/test transfer gap",
+    "trigger": "Observed specificity collapse in completed original512 study; descriptive follow-up, not independent confirmation",
+    "cohort": "Unchanged 5371 retained original512 records; official training origin (train/selection/calibration) versus official test origin, separately within NORMAL and PNEUMONIA",
+    "features": "No filenames, IDs or clinical predictions as classifier inputs. Dimensions: log original width and height. Appearance: mean, std, p05, p95, outer10%-rim mean, central50%-rectangle mean, mean absolute horizontal/vertical adjacent differences. Appearance computed inside known non-padding rectangle of the cached512 image; padding removed geometrically, not by deleting black anatomy pixels.",
+    "source_classifier": "Fixed C=1 logistic regression, class_weight=balanced, train-fold StandardScaler; 5-fold StratifiedGroupKFold(shuffle=True,random_state=20261124), filename-derived patient groups held out. Three feature sets: dimensions, appearance, combined. No hyperparameter selection.",
+    "primary": "OOF AUROC for predicting test-origin versus development-origin from dimensions only, within NORMAL images",
+    "secondary": "All other feature-set/class AUROCs, feature distributions, and Spearman associations between fixed fine-tuned model logits and these features among test NORMAL images. Source models intentionally use both origins with group-held-out predictions; they are not medical classifiers.",
+    "uncertainty": "2000 bootstrap resamples of patient groups stratified by source, on fixed OOF predictions; conditional descriptive intervals, not model-refit/CV-training uncertainty. Seed20261125. Secondary analyses not multiplicity corrected.",
+    "limits": "Source separability does not establish cause of errors, shortcuts or clinical content. Filename identities imperfect; no independent cohort. Do not change diagnostic weights, thresholds, existing outputs or exported app model based on this audit."
+  },
+  "features": [
+    "log_width",
+    "log_height",
+    "mean",
+    "std",
+    "p05",
+    "p95",
+    "rim_mean",
+    "center_mean",
+    "edge_energy"
+  ],
+  "sets": {
+    "dimensions": [
+      0,
+      1
+    ],
+    "appearance": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "combined": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "results": {
+    "0__dimensions": {
+      "auroc": 0.7941731858645805,
+      "n": 1579,
+      "groups": 1443,
+      "ci": [
+        0.7603696836648755,
+        0.825658059341031
+      ]
+    },
+    "0__appearance": {
+      "auroc": 0.6404614179094892,
+      "n": 1579,
+      "groups": 1443,
+      "ci": [
+        0.6034357197474002,
+        0.6790770970408769
+      ]
+    },
+    "0__combined": {
+      "auroc": 0.8489408711960642,
+      "n": 1579,
+      "groups": 1443,
+      "ci": [
+        0.8216690032671561,
+        0.8745911037181662
+      ]
+    },
+    "1__dimensions": {
+      "auroc": 0.5617400311898826,
+      "n": 3792,
+      "groups": 1674,
+      "ci": [
+        0.5207791062485784,
+        0.5981504540796805
+      ]
+    },
+    "1__appearance": {
+      "auroc": 0.5621631056320125,
+      "n": 3792,
+      "groups": 1674,
+      "ci": [
+        0.5248201582451937,
+        0.5973580766520945
+      ]
+    },
+    "1__combined": {
+      "auroc": 0.5825746451297112,
+      "n": 3792,
+      "groups": 1674,
+      "ci": [
+        0.5425703661018483,
+        0.6181470192965057
+      ]
+    }
+  },
+  "primary": {
+    "auroc": 0.7941731858645805,
+    "n": 1579,
+    "groups": 1443,
+    "ci": [
+      0.7603696836648755,
+      0.825658059341031
+    ]
+  },
+  "test_normal_associations": {
+    "log_width": {
+      "spearman_logit": -0.4174158547965625,
+      "false_positive_median": 7.367708572374371,
+      "true_negative_median": 7.528062009594859
+    },
+    "log_height": {
+      "spearman_logit": -0.47138242508511163,
+      "false_positive_median": 6.96979066990159,
+      "true_negative_median": 7.262961417642897
+    },
+    "mean": {
+      "spearman_logit": -0.013374481590373645,
+      "false_positive_median": 0.4796935414372967,
+      "true_negative_median": 0.49216380417584205
+    },
+    "std": {
+      "spearman_logit": -0.030332560992231156,
+      "false_positive_median": 0.23903063812412276,
+      "true_negative_median": 0.2375699035336548
+    },
+    "p05": {
+      "spearman_logit": -0.25209998833923153,
+      "false_positive_median": 0.0,
+      "true_negative_median": 0.013725490196078431
+    },
+    "p95": {
+      "spearman_logit": -0.18083860103461802,
+      "false_positive_median": 0.803921568627451,
+      "true_negative_median": 0.807843137254902
+    },
+    "rim_mean": {
+      "spearman_logit": -0.08215892053973015,
+      "false_positive_median": 0.3617973652806453,
+      "true_negative_median": 0.37930586521164744
+    },
+    "center_mean": {
+      "spearman_logit": 0.1259000369944898,
+      "false_positive_median": 0.5630172409118516,
+      "true_negative_median": 0.5512114077761153
+    },
+    "edge_energy": {
+      "spearman_logit": -0.04193325415214471,
+      "false_positive_median": 0.013327076031750724,
+      "true_negative_median": 0.014026855539607499
+    }
+  },
+  "provenance": {
+    "script_sha256": "6cdd2b3740efe7b0f121ea8823a1b9f8aaf307be11c2c650071d6b96cce3d61b",
+    "protocol_sha256": "c4aab29f01dc1bb67d1ed89de2cb880f637fb5685ede867826fccd510f462641",
+    "manifest_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+    "image_sha256": "f3ab0b2dea1e50e8593dd9a44ac0c02f92a071947ba07b56802e2a74c4713376",
+    "diagnostic_predictions_sha256": "afb8651a198911bcf7b5d9ffeb798a1be91d789963d15e855f7471b5523028df"
+  }
+}

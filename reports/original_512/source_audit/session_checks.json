@@ -1,0 +1,12 @@
+{
+  "tests_passed": 92,
+  "protected_numerical_artifacts_unchanged": 228,
+  "source_fold_models_verified": 30,
+  "primary_bootstrap_draws_verified": 2000,
+  "independent_appearance_checks": 24,
+  "links_valid": true,
+  "report_visually_checked": true,
+  "coreml_bundle_unchanged": true,
+  "protocol_commit": "81c94b1",
+  "scope": "Post-hoc source audit, not diagnostic performance or causal attribution"
+}

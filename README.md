@@ -39,6 +39,8 @@ Der primäre 512-minus-224-AUROC-Unterschied beträgt **+0.0096 [-0.0042; +0.025
 
 **SwiftUI-Pfad:** Das nachtrainierte Modell hat 0,93 Millionen Parameter und einen 3,84-MB-PyTorch-Checkpoint. Core ML ist konvertiert; ein synthetisches Referenzsignal und ein [SwiftUI-Tensorprüfer](ios/ResearchPrototype/README.md) sind vorhanden. Xcode-Build, numerische Apple-Laufzeitprüfung und iOS-Bildvorverarbeitung sind noch nicht validiert. Keine fertige Diagnose-App.
 
+**Herkunftsaudit:** Schon Originalbreite und -höhe unterscheiden bei NORMAL-Bildern Entwicklungs- und Testbestand mit AUROC **0,794 [0,760; 0,826]**; mit zusätzlichen Bildmerkmalen **0,849 [0,822; 0,875]**. Bei PNEUMONIA liegt der kombinierte Wert nur bei 0,583. Diese Werte messen Herkunft, keine Krankheitsdiagnose. Gruppierte Out-of-fold-Prüfung; keine kausale Erklärung der Fehler. [Neue Nachanalyse](reports/original_512/source_audit/README.md) · [Kurzbericht (PDF)](reports/original_512/source_audit/research_note.pdf).
+
 ## Auflösungsprüfung: 224×224
 
 Die bisherigen 28px-Befunde betreffen einen Niedrigauflösungs-Benchmark; sie belegen keine diagnostische Eignung. Ein neuer kontrollierter Vergleich nutzt jetzt das **offizielle 224px-Archiv** und denselben eingefrorenen ResNet-18-Encoder für 224px-Information versus auf 28px reduzierte Information. AUROC: **0.980 vs. 0.960**, gepaarte Differenz **+0.019 [+0.009; +0.032]**. Kein End-to-End-Training und noch kein externer Test dieser neuen Modelle. [Methoden, Bildvergleich und Ergebnisse](reports/high_resolution/README.md).

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "fold_models_verified": 30,
+  "appearance_cases_independently_verified": 24,
+  "max_weighted_gradient": 9.916897379532062e-05,
+  "primary_bootstrap_replicates_verified": 2000,
+  "source_auc_implementations": "sklearn versus independent rank statistic",
+  "group_overlap_between_training_and_scoring": 0
+}

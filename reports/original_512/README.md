@@ -156,3 +156,7 @@ Lokale Linux-CPU, ein Torch-Thread, Batch 1, 5 Aufwärmläufe und 30 Messungen. 
 | resnet18_224_probe | 75.8 | 114.0 |
 
 Vollständiger lokaler 512px-Checkpoint: 3.84 MB; TorchScript: 4.12 MB. [Messdaten](runtime.json).
+
+## Nachfolgendes Herkunftsaudit
+
+Eine [separate Analyse von Bildgrößen und Erscheinungsmerkmalen](source_audit/README.md) zeigt ausgeprägte Herkunftsunterschiede insbesondere bei Normalbildern. Sie verändert die hier gespeicherten Diagnosemodelle und numerischen Ergebnisse nicht und wird nicht als kausale Erklärung ausgegeben.
