@@ -29,3 +29,5 @@ Die separat reproduzierte Grafik lässt sich mit `python scripts/verify_overview
 - [SwiftUI-Tensorprüfer und Core-ML-Export](../ios/ResearchPrototype/README.md)
 
 - [Herkunftsaudit der Normalbilder: Bildgrößen, Erscheinungsmerkmale und gruppierte Kreuzvalidierung](../reports/original_512/source_audit/README.md)
+
+- [512px-Vorverarbeitung: gepaarte Stressanalyse und synthetische App-Referenzen](../reports/original_512/preprocessing/README.md)

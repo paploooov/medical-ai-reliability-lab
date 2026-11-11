@@ -33,13 +33,15 @@ Der neue Ausgangsvergleich nutzt **Original-Thoraxbilder aus der offiziellen Men
 
 Der primäre 512-minus-224-AUROC-Unterschied beträgt **+0.0096 [-0.0042; +0.0251]** und ist nicht eindeutig. Partielles Nachtraining senkt dagegen den Fehler bei 80 % Abdeckung um **-2.63 pp [-4.10; -1.19]**; auch die Kontrolle mit gleichem Optimierer und ausschließlich trainiertem Kopf ist schwächer. ResNet-50 mit 23,51 Millionen Parametern liefert keinen eindeutigen AUROC-Gewinn gegenüber ResNet-18.
 
-**Zentrale Grenze:** Beim angepassten 512px-Modell stehen 99,5 % Sensitivität nur 54,5 % Spezifität gegenüber. Eine nachträgliche diagnostische Schwellenanalyse erreicht trotz eines ausschließlich auf Kalibrierungsdaten gesetzten 95%-Spezifitätsziels im Test nur 52,4 %. Mehr Pixel und Parameter lösen diese Übertragungslücke nicht nachweislich. Gruppierte Bootstrap-Intervalle sind auf die ausgewählten Modelle bedingt; neue unabhängige Kliniken und Robustheitsprüfungen fehlen.
+**Zentrale Grenze:** Beim angepassten 512px-Modell stehen 99,5 % Sensitivität nur 54,5 % Spezifität gegenüber. Eine nachträgliche diagnostische Schwellenanalyse erreicht trotz eines ausschließlich auf Kalibrierungsdaten gesetzten 95%-Spezifitätsziels im Test nur 52,4 %. Mehr Pixel und Parameter lösen diese Übertragungslücke nicht nachweislich. Gruppierte Bootstrap-Intervalle sind auf die ausgewählten Modelle bedingt; neue unabhängige Kliniken fehlen; eine separate Vorverarbeitungsprüfung folgt unten.
 
 [**Neue Forschungsnotiz, 3 Seiten (PDF)**](reports/original_512/research_note.pdf) · [Vollständige Methoden, Kontrollen und Ergebnisse](reports/original_512/README.md).
 
 **SwiftUI-Pfad:** Das nachtrainierte Modell hat 0,93 Millionen Parameter und einen 3,84-MB-PyTorch-Checkpoint. Core ML ist konvertiert; ein synthetisches Referenzsignal und ein [SwiftUI-Tensorprüfer](ios/ResearchPrototype/README.md) sind vorhanden. Xcode-Build, numerische Apple-Laufzeitprüfung und iOS-Bildvorverarbeitung sind noch nicht validiert. Keine fertige Diagnose-App.
 
 **Herkunftsaudit:** Schon Originalbreite und -höhe unterscheiden bei NORMAL-Bildern Entwicklungs- und Testbestand mit AUROC **0,794 [0,760; 0,826]**; mit zusätzlichen Bildmerkmalen **0,849 [0,822; 0,875]**. Bei PNEUMONIA liegt der kombinierte Wert nur bei 0,583. Diese Werte messen Herkunft, keine Krankheitsdiagnose. Gruppierte Out-of-fold-Prüfung; keine kausale Erklärung der Fehler. [Neue Nachanalyse](reports/original_512/source_audit/README.md) · [Kurzbericht (PDF)](reports/original_512/source_audit/research_note.pdf).
+
+**512px-Vorverarbeitung:** Ein zentraler Bildausschnitt verändert **17,5 % [14,3; 20,7]** der Entscheidungen und senkt die Sensitivität von 99,5 % auf 89,4 %. Allein bilineare statt Lanczos-Interpolation verändert 24/618 Entscheidungen. Vier synthetische Bild-/Tensorreferenzen für die spätere App sind erstellt und unter Python geprüft. [Ergebnisse und Referenzen](reports/original_512/preprocessing/README.md).
 
 ## Auflösungsprüfung: 224×224
 

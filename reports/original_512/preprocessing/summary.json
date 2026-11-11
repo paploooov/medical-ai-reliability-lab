@@ -1,0 +1,710 @@
+{
+  "config": {
+    "study": "Frozen512 preprocessing stress test after source-shift audit",
+    "scope": "Exploratory sensitivity analysis on known images; no winner selection, refitting, threshold tuning or export change",
+    "model": "Unchanged selected mobile512 research checkpoint and original thresholds; assert checkpoint hash and reproduce baseline logits",
+    "cases": "All original512 calibration and test cases, fixed manifest, same paired cases across conditions",
+    "conditions": {
+      "baseline": "Existing original-image aspect-preserving LANCZOS letterbox512",
+      "bilinear": "Same full original image and letterbox geometry, Pillow BILINEAR instead of LANCZOS",
+      "center_crop": "Center crop original grayscale image to its shorter edge square, then LANCZOS resize512; may remove anatomy, not a lung ROI",
+      "stretch": "Original full grayscale image resized directly to512 square with LANCZOS; deliberate aspect distortion, not a clinical recommendation",
+      "gamma_0.8": "Apply gamma0.8 to cached baseline uint8/255, round and clip back to uint8; black padding remains0",
+      "gamma_1.25": "Same with gamma1.25"
+    },
+    "primary": "Test classification-flip fraction center_crop versus baseline at unchanged logit0 threshold",
+    "secondary": "All conditions in calibration and test: AUROC, sensitivity, specificity, NLL, risk_at80, fixed-confidence-threshold coverage/error, flips and mean absolute probability difference. Report all variants including harm.",
+    "bootstrap": "2000 paired test filename-group resamples, seed20261126, conditional on frozen model; no clinical/patient-identity guarantee",
+    "interpretation": "Changed outputs show pipeline sensitivity, not lesion localization, causal shortcut proof or improved generalization. Calibration and test are from a known source family."
+  },
+  "threshold": 0.9948420524597168,
+  "results": {
+    "baseline": {
+      "flip_fraction": {
+        "point": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.8268608414239482,
+        "ci": [
+          0.7915919884828876,
+          0.8576103610436893
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.9948320413436692,
+        "ci": [
+          0.9866666666666667,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.5454545454545454,
+        "ci": [
+          0.4838709677419355,
+          0.6094420600858369
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.6205824372145318,
+        "ci": [
+          0.4923199222645877,
+          0.7668054507440824
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.09182847896440136,
+        "ci": [
+          0.06362046945712535,
+          0.12459203626145463
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": 0.9669340134456413,
+        "ci": [
+          0.9542597275542684,
+          0.9776562584821177
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "bilinear": {
+      "flip_fraction": {
+        "point": 0.038834951456310676,
+        "ci": [
+          0.024279026769008647,
+          0.05509412286921903
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.7912621359223301,
+        "ci": [
+          0.7525329730047293,
+          0.8260903908235455
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.9974160206718347,
+        "ci": [
+          0.9916434540389972,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.4458874458874459,
+        "ci": [
+          0.38095238095238093,
+          0.5112132987034069
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.9049357385357608,
+        "ci": [
+          0.7343351937898683,
+          1.0928533897614257
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.1436084142394822,
+        "ci": [
+          0.10685810888317898,
+          0.18814432989690727
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": 0.9597413783460295,
+        "ci": [
+          0.9459834288279391,
+          0.9720259831091738
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "center_crop": {
+      "flip_fraction": {
+        "point": 0.17475728155339806,
+        "ci": [
+          0.14308107487367938,
+          0.20731202236241464
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.8656957928802589,
+        "ci": [
+          0.8386046043760059,
+          0.8924894340690707
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.8940568475452196,
+        "ci": [
+          0.8596965585296658,
+          0.9235220420393626
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.8181818181818182,
+        "ci": [
+          0.7695847525545982,
+          0.866953281883687
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.4518426511581193,
+        "ci": [
+          0.34853003458789406,
+          0.5723960176104249
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.08090614886731391,
+        "ci": [
+          0.05517676430089702,
+          0.10468006081309668
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": 0.921686410058503,
+        "ci": [
+          0.8967204947586502,
+          0.9436622732335618
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "stretch": {
+      "flip_fraction": {
+        "point": 0.13592233009708737,
+        "ci": [
+          0.10802360459050599,
+          0.16609054018324154
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.9110032362459547,
+        "ci": [
+          0.8883167512690355,
+          0.9319215152131857
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.9560723514211886,
+        "ci": [
+          0.9358506536255055,
+          0.9747899159663865
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.8354978354978355,
+        "ci": [
+          0.7877327183169144,
+          0.8801744313610765
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.2859964065532952,
+        "ci": [
+          0.20573792956002476,
+          0.37839900228861945
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.034385113268608415,
+        "ci": [
+          0.01919866444073465,
+          0.05319366934077431
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": 0.966978757676432,
+        "ci": [
+          0.951993247986739,
+          0.9795695639200627
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "gamma_0.8": {
+      "flip_fraction": {
+        "point": 0.011326860841423949,
+        "ci": [
+          0.004491017964071856,
+          0.02017062230297523
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.8284789644012945,
+        "ci": [
+          0.7936214410060243,
+          0.8595712410171364
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.9974160206718347,
+        "ci": [
+          0.9916434540389972,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.5454545454545454,
+        "ci": [
+          0.4824522589659991,
+          0.6087004830917875
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.6349533028107697,
+        "ci": [
+          0.5062163055081762,
+          0.7782710816458454
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.09587378640776706,
+        "ci": [
+          0.06485849056603774,
+          0.1327377355795904
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": 0.9663187802722687,
+        "ci": [
+          0.953391494786334,
+          0.9767991169486789
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "gamma_1.25": {
+      "flip_fraction": {
+        "point": 0.0048543689320388345,
+        "ci": [
+          0.0,
+          0.011457098011859084
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.8317152103559871,
+        "ci": [
+          0.7972699553119521,
+          0.863142790563371
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.9948320413436692,
+        "ci": [
+          0.9866666666666667,
+          1.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.5584415584415584,
+        "ci": [
+          0.49777777777777776,
+          0.6227292663476873
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.6277505712433802,
+        "ci": [
+          0.49685386817655547,
+          0.7785684069813112
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.093042071197411,
+        "ci": [
+          0.06338394316767236,
+          0.12401819121014128
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": 0.9645961273868251,
+        "ci": [
+          0.9513649757302124,
+          0.9764094100170717
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    }
+  },
+  "contrasts": {
+    "bilinear": {
+      "accuracy": {
+        "point": -0.035598705501618144,
+        "ci": [
+          -0.05188733256517349,
+          -0.02073344571981052
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.0025839793281654533,
+        "ci": [
+          0.0,
+          0.008356545961002881
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": -0.09956709956709953,
+        "ci": [
+          -0.14043762088974854,
+          -0.06221625344352616
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.28435330132122905,
+        "ci": [
+          0.23126987922734213,
+          0.3443577213427449
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.051779935275080846,
+        "ci": [
+          0.03382797930846072,
+          0.0715545319350965
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": -0.007192635099611877,
+        "ci": [
+          -0.011482550834875805,
+          -0.003390964778191864
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "center_crop": {
+      "accuracy": {
+        "point": 0.03883495145631066,
+        "ci": [
+          0.006511027199734329,
+          0.0744551519317541
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": -0.10077519379844957,
+        "ci": [
+          -0.13351773541564124,
+          -0.07195943417408868
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.2727272727272728,
+        "ci": [
+          0.2128426204819277,
+          0.3333333333333333
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": -0.1687397860564125,
+        "ci": [
+          -0.29038111014990736,
+          -0.06486145748597516
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": -0.010922330097087443,
+        "ci": [
+          -0.0430345534200113,
+          0.0139325240077881
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": -0.04524760338713829,
+        "ci": [
+          -0.06428187252617067,
+          -0.0285096247197821
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "stretch": {
+      "accuracy": {
+        "point": 0.08414239482200647,
+        "ci": [
+          0.055547263681591956,
+          0.11602066109157717
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": -0.03875968992248058,
+        "ci": [
+          -0.05835683209796966,
+          -0.02122015915119368
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.2900432900432901,
+        "ci": [
+          0.23110256410256413,
+          0.35043290043290043
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": -0.33458603066123654,
+        "ci": [
+          -0.4443657755011304,
+          -0.23351237871043928
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": -0.05744336569579294,
+        "ci": [
+          -0.08489369103670383,
+          -0.033481703458942635
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": 4.474423079070533e-05,
+        "ci": [
+          -0.01065604355240483,
+          0.009958979119276219
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "gamma_0.8": {
+      "accuracy": {
+        "point": 0.0016181229773463146,
+        "ci": [
+          -0.006779661016949048,
+          0.01006881461998904
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.0025839793281654533,
+        "ci": [
+          0.0,
+          0.008356545961002881
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.0,
+        "ci": [
+          -0.02155172413793105,
+          0.021932239740320016
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.014370865596237903,
+        "ci": [
+          -0.001969902225153239,
+          0.03140160266350345
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.004045307443365703,
+        "ci": [
+          -0.005915529528513656,
+          0.016049340671316498
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": -0.0006152331733726424,
+        "ci": [
+          -0.0027047912922587487,
+          0.001524634624536297
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "gamma_1.25": {
+      "accuracy": {
+        "point": 0.004854368932038833,
+        "ci": [
+          0.0,
+          0.011457098011859082
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "sensitivity": {
+        "point": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "specificity": {
+        "point": 0.012987012987012991,
+        "ci": [
+          0.0,
+          0.030306324110672
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 0.007168134028848416,
+        "ci": [
+          -0.010455757850450198,
+          0.0253963800611966
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.0012135922330096388,
+        "ci": [
+          -0.00836155414754935,
+          0.008224362732325859
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "auroc": {
+        "point": -0.002337886058816241,
+        "ci": [
+          -0.004809361304826951,
+          -3.276239605711608e-05
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    }
+  },
+  "provenance": {
+    "script_sha256": "4d71115d1cedbc261fe0b859cfc7920d4cbeeb779cdfcacb909dc23375c59f52",
+    "protocol_sha256": "0282ffcdd4bafc01e41f8e7de7b94a487050453fe25a6a13f7fe16084e869361",
+    "checkpoint_sha256": "ba497699914926742ee07592297f803925e835c0e2491e2c284eb008804f01ce",
+    "prior_predictions_sha256": "afb8651a198911bcf7b5d9ffeb798a1be91d789963d15e855f7471b5523028df"
+  },
+  "primary": {
+    "point": 0.17475728155339806,
+    "ci": [
+      0.14308107487367938,
+      0.20731202236241464
+    ],
+    "defined_replicates": 2000,
+    "undefined_replicates": 0
+  }
+}

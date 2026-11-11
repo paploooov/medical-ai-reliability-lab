@@ -1,0 +1,103 @@
+{
+  "pillow": "13.0.0",
+  "checkpoint_sha256": "ba497699914926742ee07592297f803925e835c0e2491e2c284eb008804f01ce",
+  "cases": [
+    {
+      "name": "gray_tie_down",
+      "source_size": [
+        1024,
+        641
+      ],
+      "source_mode": "L",
+      "resized_size": [
+        512,
+        320
+      ],
+      "padding_left_top": [
+        0,
+        96
+      ],
+      "files": {
+        "expected512.png": "fe0f1a296abd9a5b5ed6d9ca452444aac40190230bf21d583a238b058368db00",
+        "source.png": "07eeee812642ee4a9cd92ce0eb45f2f2c600d2b331130359e3c525e74cc5a49a",
+        "fixture.json": "dee08f4e28987bcc75e1e2064ca3a30515a355e8c1f84c0dbd00d17852d2f0a8",
+        "gradient512.f32": "0a8e2dc4ee05adcdff2625221dfb863f047f16c414629ceab198aabad413fbc5"
+      },
+      "expected_logit": 19.739614486694336
+    },
+    {
+      "name": "gray_tie_up",
+      "source_size": [
+        1024,
+        643
+      ],
+      "source_mode": "L",
+      "resized_size": [
+        512,
+        322
+      ],
+      "padding_left_top": [
+        0,
+        95
+      ],
+      "files": {
+        "expected512.png": "bb69d700c81cc2c0090b1fbee99c7bab65ceabcb5f4bd5ff98f95f9c8bd8900d",
+        "source.png": "e0973a21d127a203ad5e1ab17e12dc55cfd7c18eaf49f044bffe6e1c54f06695",
+        "fixture.json": "383a1dd4171575202f17a6b26737b9ca66584744e724511ed65d3562466bbf8f",
+        "gradient512.f32": "d32a381fd67d984d33f714e1c80d574fa9964bd881b20ae270883fbb67bb437a"
+      },
+      "expected_logit": 19.234756469726562
+    },
+    {
+      "name": "rgb_tall",
+      "source_size": [
+        319,
+        701
+      ],
+      "source_mode": "RGB",
+      "resized_size": [
+        233,
+        512
+      ],
+      "padding_left_top": [
+        139,
+        0
+      ],
+      "files": {
+        "expected512.png": "5ba51dd6a52f7eeb5624e5aa1bbe94f037bfaec180ede570a7e729f292d0232f",
+        "source.png": "b5dba4eb595119a3c539a8cb65d9a1de8fa3c5caffdf3d4e52fad98a3ffa9cfd",
+        "fixture.json": "98348be63b592e3a578fb851d04faa2d2fc3a197ae412e5f57bdf6f5394181ef",
+        "gradient512.f32": "5971c14d89de88e188cf8e5e6c394f14650ad57bd1e863e6ca468fff90057bd3"
+      },
+      "expected_logit": 10.39999008178711
+    },
+    {
+      "name": "small_gray",
+      "source_size": [
+        173,
+        91
+      ],
+      "source_mode": "L",
+      "resized_size": [
+        512,
+        269
+      ],
+      "padding_left_top": [
+        0,
+        121
+      ],
+      "files": {
+        "expected512.png": "ed4f33fb445b63e127c592c1d55b1bda745b2ecaa952c9438eb8f7ccc1ae9219",
+        "source.png": "7c36fbeb2c73a803e070e6805c3b2daac8d5314381abf62b73e65726d27f46ab",
+        "fixture.json": "842e5a8d94f288f0bf0535bc9e699c1e2654eb63053e373fc1a4697429df9b98",
+        "gradient512.f32": "b66e98359e554fe72d4d819ffe7419559315714cd3e820b5eeed03b757816138"
+      },
+      "expected_logit": 21.10464859008789
+    }
+  ],
+  "pixel_tensor_roundtrip_verified": true,
+  "synthetic_only": true,
+  "apple_image_pipeline_verified": false,
+  "bundle": "data/original_xray/PreprocessingParityFixtures.zip",
+  "bundle_sha256": "c47b0958cf034be413668a658e5f7524b96d0df05c7d5bad62dd9d0781c92e70"
+}

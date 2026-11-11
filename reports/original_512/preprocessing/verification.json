@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "conditions": 6,
+  "all_metric_bootstrap_draws_verified": 12000,
+  "paired_contrast_intervals_verified": true,
+  "baseline_unchanged": true
+}
