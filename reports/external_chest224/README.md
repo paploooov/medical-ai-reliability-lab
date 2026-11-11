@@ -46,3 +46,9 @@ python scripts/report_pipeline_transfer.py
 Der Erzeuger überschreibt keine vorhandene Ergebnisstudie; für Wiederholungen eine separate Arbeitskopie verwenden. [Zweiseitige Forschungsnotiz](research_note.pdf) verbindet diese Auswertung mit der [512px-Vorverarbeitungsanalyse](../original_512/preprocessing/README.md).
 
 Quelle: [offizielles Zenodo-Archiv](https://zenodo.org/records/10519652), MD5 `45bd33e6f06c3e8cdb481c74a89152aa`. Attribution: Yang et al., MedMNIST v2, Scientific Data (2023), doi:10.1038/s41597-022-01721-8; Wang et al., ChestX-ray8, CVPR (2017), NIH ChestX-ray14. Laut offizieller ChestMNIST-Metadatei CC BY 4.0; [Lizenz- und Zugangsprüfung](../../docs/LICENSING.md). Rohbilder bleiben lokal. Code und Analyse mit KI-Assistenz.
+
+## Beschreibende Abdeckungsanalyse
+
+![Fehlerrate nach akzeptiertem Anteil](selective_coverage.png)
+
+Zusätzliche Darstellung derselben gespeicherten Vorhersagen, kein neuer Modelltest oder Schwellen-Fit. 20 Abdeckungsstufen je Kontrollgruppe, mit anteiliger Gewichtung gleicher Konfidenzen an der Grenze. Orange: unveränderte interne Schwelle. Die Kurven haben keine Unsicherheitsbänder; Werte bei 80 %, vollständiger Abdeckung und fester Schwelle wurden gegen die bestehende Auswertung geprüft. [CSV](selective_coverage.csv) · [Prüfprotokoll](selective_coverage_verification.json). Erzeugung: `python scripts/plot_external_selective.py`.

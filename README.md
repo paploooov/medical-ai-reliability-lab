@@ -1,5 +1,51 @@
 # Medical AI Reliability Lab
 
+## Aktuelle Ergebnisse: Originalbilder, 512px und externer Test
+
+**Aktualisiert am 11. November 2026.** Die aktuellen Abbildungen und Tabellen stehen hier direkt auf der GitHub-Startseite. Die Studien untersuchen Auflösung, Vorverarbeitung und Übertragbarkeit; sie belegen noch keine klinische Eignung.
+
+### Originalaufnahmen statt hochskalierter 28px-Bilder
+
+![Dieselbe Originalaufnahme als 224px- und 512px-Eingabe](reports/original_512/resolution_example.png)
+
+Fest gewählter Trainingsfall, Original 2090 × 1858 Pixel. Beide Eingaben entstehen aus dem Original-JPEG mit erhaltenem Seitenverhältnis und schwarzem Padding. Quelle: Kermany, Zhang & Goldbaum (2018), [Mendeley Data](https://data.mendeley.com/datasets/rscbjbr9sj/2), CC BY 4.0; Graustufen und Größenänderung. Das Beispiel zeigt die Eingabeaufbereitung, keinen Leistungsnachweis. [Modellvergleich und Methoden](reports/original_512/README.md).
+
+### 512px-Modell: Die Bildvorverarbeitung verändert Entscheidungen
+
+![512px: Entscheidungsänderungen sowie Sensitivität und Spezifität](reports/original_512/preprocessing/comparison.png)
+
+| Bildvorverarbeitung | Geänderte Entscheidungen | Accuracy | Sensitivität | Spezifität |
+|---|---:|---:|---:|---:|
+| Lanczos + Letterbox | 0/618 | 82.7 % | 99.5 % | 54.5 % |
+| Bilinear + Letterbox | 24/618 | 79.1 % | 99.7 % | 44.6 % |
+| Center Crop | 108/618 | 86.6 % | 89.4 % | 81.8 % |
+| Stretch | 84/618 | 91.1 % | 95.6 % | 83.5 % |
+| Gamma 0,8 | 7/618 | 82.8 % | 99.7 % | 54.5 % |
+| Gamma 1,25 | 3/618 | 83.2 % | 99.5 % | 55.8 % |
+
+Unverändertes nachtrainiertes Modell und unveränderte Schwellen. Center Crop verändert **17,5 % [14,3; 20,7]** der Entscheidungen und verliert Sensitivität. Stretch wird trotz höherer Accuracy auf diesem bekannten Test nicht als neue Pipeline ausgewählt. Intervalle: 2.000 gepaarte Wiederziehungen von Dateinamen-Gruppen. [Vollständige Studie](reports/original_512/preprocessing/README.md).
+
+### Externer 224px-Test: deutliche Übertragungslücke
+
+![Externe ROC-Kurven und Logit-Verteilungen](reports/external_chest224/transfer.png)
+
+| Kontrollgruppe | AUROC [95%-Bild-Bootstrap] | Sensitivität | Spezifität |
+|---|---:|---:|---:|
+| No finding | 0,673 [0,636; 0,710] | 78,9 % | 47,5 % |
+| Andere Krankheitslabels | 0,548 [0,510; 0,590] | 78,9 % | 29,5 % |
+
+Unverändertes MobileNet224 auf 242 Pneumonie-Label-positiven Bildern, 2.000 No-finding- und 1.000 anderen Kontrollen aus dem offiziellen ChestMNIST-Test. Textbasierte Labels; No finding bedeutet nicht bestätigte Gesundheit. Fehlende Patientenverknüpfung und mögliche NIH-/RSNA-Überlappung begrenzen die Aussage. **Dies validiert nicht das 512px-Modell.**
+
+### Neue Darstellung: Hilft die Ablehnung unsicherer Fälle?
+
+![Externe Fehlerrate über den akzeptierten Anteil mit markierter interner Konfidenzschwelle](reports/external_chest224/selective_coverage.png)
+
+Die orange Markierung zeigt die unveränderte interne Konfidenzschwelle. Gegen No finding werden **38,8 %** akzeptiert, davon sind **52,1 % falsch**; ohne Ablehnung sind es **49,1 %**. Gegen andere Krankheitslabels sind **67,2 %** der akzeptierten Fälle falsch. Mehr Konfidenz ist hier kein verlässlicher Schutz. Die Kurven sind eine beschreibende Nachanalyse gespeicherter Vorhersagen ohne neue Schwellenwahl oder Konfidenzbänder. Gleiche Konfidenzen an der Abdeckungsgrenze werden anteilig gewichtet; die feste Schwelle akzeptiert ganze Fälle. Werte gelten für diese fallkontrollartige Stichprobe. [Kurvendaten (CSV)](reports/external_chest224/selective_coverage.csv).
+
+[**Aktueller Forschungsbericht (PDF)**](reports/external_chest224/research_note.pdf) · [Externe Methoden und Prüfungen](reports/external_chest224/README.md) · [SwiftUI-Referenztests](ios/ResearchPrototype/README.md) · [Offene Arbeitspunkte](ROADMAP.md)
+
+## Frühere Versuche und ausführlicher Projektverlauf
+
 **Explorative Studie, Stand 11. November 2026.** Wie gut erkennt ein medizinischer Bildklassifikator seine eigenen Fehler unter Bildstörungen? Ein beobachteter Mechanismus ist der Kollaps des letzten Merkmalsvektors: Bei `h = 0` bleibt nur der Bias-Logit übrig. Nichtleere Merkmalsvektoren garantieren umgekehrt keine zuverlässigen Vorhersagen.
 
 ![Übersicht: Testbilder, Repräsentations-Kollaps und Fehler unter Bildstörungen](reports/figures/overview_figure.png)

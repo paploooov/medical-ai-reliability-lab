@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "descriptive_only": true,
+  "new_training": false,
+  "new_threshold_selection": false,
+  "controls": 2,
+  "coverage_points_per_control": 20,
+  "existing_80_percent_and_full_coverage_values_verified": true,
+  "fixed_threshold_values_verified": true,
+  "ties": "Fractional weighting of the boundary confidence group"
+}
