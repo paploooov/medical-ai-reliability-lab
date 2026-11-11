@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "archive_md5": "45bd33e6f06c3e8cdb481c74a89152aa",
+  "all_test_images_checked": 22433,
+  "sample_indices_reconstructed": true,
+  "selected_count": 3242,
+  "conflicting_hash_groups": 1,
+  "duplicate_pairs": 2
+}

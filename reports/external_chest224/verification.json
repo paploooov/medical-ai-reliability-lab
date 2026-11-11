@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "comparisons": 2,
+  "bootstrap_draws_verified": 4000,
+  "sampling_label_consistency": true,
+  "summary_sha256": "f04f73f55dd2ecf28c1eb2dbe6256ebc1441c97759764a363f9af3572c6b0719"
+}

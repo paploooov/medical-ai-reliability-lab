@@ -43,6 +43,8 @@ Der primäre 512-minus-224-AUROC-Unterschied beträgt **+0.0096 [-0.0042; +0.025
 
 **512px-Vorverarbeitung:** Ein zentraler Bildausschnitt verändert **17,5 % [14,3; 20,7]** der Entscheidungen und senkt die Sensitivität von 99,5 % auf 89,4 %. Allein bilineare statt Lanczos-Interpolation verändert 24/618 Entscheidungen. Vier synthetische Bild-/Tensorreferenzen für die spätere App sind erstellt und unter Python geprüft. [Ergebnisse und Referenzen](reports/original_512/preprocessing/README.md).
 
+**Externer 224px-Transfer:** Das unveränderte MobileNet224 erreicht auf der vorab festgelegten NIH-/ChestMNIST-Stichprobe AUROC **0,673 [0,636; 0,710]** gegen No-finding-Kontrollen und **0,548** gegen Kontrollen mit anderen Krankheitslabels. Die Spezifität liegt bei unveränderter Schwelle nur bei 47,5 % beziehungsweise 29,5 %. Textbasierte Labels, fehlende Patientenverknüpfung und mögliche Überlappung mit früheren RSNA-Tests begrenzen die Aussage. Dies validiert nicht das 512px-Modell. [Auswertung und Nachrechnung](reports/external_chest224/README.md) · [Forschungsnotiz (PDF)](reports/external_chest224/research_note.pdf).
+
 ## Auflösungsprüfung: 224×224
 
 Die bisherigen 28px-Befunde betreffen einen Niedrigauflösungs-Benchmark; sie belegen keine diagnostische Eignung. Ein neuer kontrollierter Vergleich nutzt jetzt das **offizielle 224px-Archiv** und denselben eingefrorenen ResNet-18-Encoder für 224px-Information versus auf 28px reduzierte Information. AUROC: **0.980 vs. 0.960**, gepaarte Differenz **+0.019 [+0.009; +0.032]**. Kein End-to-End-Training und noch kein externer Test dieser neuen Modelle. [Methoden, Bildvergleich und Ergebnisse](reports/high_resolution/README.md).

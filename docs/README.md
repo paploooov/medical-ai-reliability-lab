@@ -31,3 +31,6 @@ Die separat reproduzierte Grafik lässt sich mit `python scripts/verify_overview
 - [Herkunftsaudit der Normalbilder: Bildgrößen, Erscheinungsmerkmale und gruppierte Kreuzvalidierung](../reports/original_512/source_audit/README.md)
 
 - [512px-Vorverarbeitung: gepaarte Stressanalyse und synthetische App-Referenzen](../reports/original_512/preprocessing/README.md)
+
+- [Externer 224px-Transfer: offizielles ChestMNIST, eingefrorenes Modell und schwache Labels](../reports/external_chest224/README.md)
+- [Bildpipeline und externer Transfer: neue Forschungsnotiz](../reports/external_chest224/research_note.pdf)

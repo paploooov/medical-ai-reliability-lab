@@ -1,0 +1,182 @@
+{
+  "software": {
+    "torch": "2.5.1+cpu",
+    "numpy": "2.2.6"
+  },
+  "config": {
+    "study": "Frozen native224 model on an external NIH-derived weak-label benchmark",
+    "source": "https://zenodo.org/records/10519652/files/chestmnist_224.npz?download=1",
+    "source_metadata": "https://github.com/MedMNIST/MedMNIST/blob/main/medmnist/info.py",
+    "license": "CC BY 4.0 according to official ChestMNIST metadata; attribute Yang et al.2023 and NIH ChestXray14 Wang et al.2017",
+    "archive_md5": "45bd33e6f06c3e8cdb481c74a89152aa",
+    "archive_bytes": 3889293042,
+    "labels": "14 text-mined NIH labels, pneumonia column6. All-zero vector is no finding, not independently confirmed clinical health. Other-label controls have pneumonia0 and at least one other tag.",
+    "sampling": "Official test only, expected22433. Deduplicate exact224 pixels with earliest index representative; exclude every hash with conflicting14-label vectors. All remaining pneumonia-tag positives, RNG20261127 choose up to2000 all-zero negatives and up to1000 other-label negatives without replacement. No selection by model output.",
+    "model": "Unchanged original-source mobile_224_probe. Official frozen MobileNetV3-Small V1 encoder and existing folded head. No training, recalibration or test-based choice. Native224 archive used directly; no claim of native512 validation.",
+    "primary": "AUROC: pneumonia-tag positives versus sampled no-finding controls",
+    "secondary": "Same positives versus sampled other-abnormal controls; fixed0.5 sensitivity/specificity, NLL, risk_at80, original confidence cutoff coverage/error; report comorbidity counts and all sampling exclusions",
+    "uncertainty": "2000 label-stratified paired image bootstrap draws, seed20261128. Patient linkage absent in NPZ, so image intervals may be too narrow; not patient-valid or clinical intervals.",
+    "limits": "External to Kermany training source, but NIH source may overlap historical RSNA project tests. No claim of entirely unseen patients, independent new hospital, original512 images or clinical validation. Label quality, age/population, framing and source differ together. Case-control sampling does not estimate population precision or calibration."
+  },
+  "sampling": {
+    "total_test": 22433,
+    "retained_after_dedup": 22430,
+    "duplicate_pairs": [
+      [
+        14567,
+        5411
+      ],
+      [
+        17956,
+        3242
+      ]
+    ],
+    "conflicting_pixel_hashes": [
+      "84333fce1dd808af2746314d8491aa1eb12cb6cf8d40de1be64ce3533de1aa04"
+    ],
+    "available": {
+      "pneumonia": 242,
+      "no_finding": 11928,
+      "other_abnormal": 10260
+    },
+    "selected": {
+      "pneumonia": 242,
+      "no_finding": 2000,
+      "other_abnormal": 1000
+    },
+    "positive_with_additional_tags": 183
+  },
+  "threshold": 0.992248656982018,
+  "results": {
+    "no_finding": {
+      "auroc": {
+        "point": 0.6728987603305785,
+        "ci": [
+          0.6355276342975207,
+          0.7102060950413224
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 2.2912662267268855,
+        "ci": [
+          2.166651570763263,
+          2.4155322296709647
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.5089206066012489,
+        "ci": [
+          0.48840321141837645,
+          0.5285459411239964
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.4926404995539697,
+        "ci": [
+          0.47056199821587863,
+          0.5151733942908118
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.38849241748438895,
+        "ci": [
+          0.3679750223015165,
+          0.40811775200713646
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.521239954075775,
+        "ci": [
+          0.48844539811649407,
+          0.5549352952604992
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    },
+    "other_abnormal": {
+      "auroc": {
+        "point": 0.5480413223140496,
+        "ci": [
+          0.5099574380165289,
+          0.5896929752066116
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "nll": {
+        "point": 3.3674091278962375,
+        "ci": [
+          3.1757809595567674,
+          3.5543690172061835
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "accuracy": {
+        "point": 0.391304347826087,
+        "ci": [
+          0.3671497584541063,
+          0.41626409017713367
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "risk_at_80": {
+        "point": 0.6286231884057971,
+        "ci": [
+          0.6008454106280193,
+          0.6547906602254429
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "coverage": {
+        "point": 0.464573268921095,
+        "ci": [
+          0.43637278582930755,
+          0.49114331723027377
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      },
+      "retained_error": {
+        "point": 0.6724436741767764,
+        "ci": [
+          0.6355928544246362,
+          0.7074485467946044
+        ],
+        "defined_replicates": 2000,
+        "undefined_replicates": 0
+      }
+    }
+  },
+  "primary": {
+    "point": 0.6728987603305785,
+    "ci": [
+      0.6355276342975207,
+      0.7102060950413224
+    ],
+    "defined_replicates": 2000,
+    "undefined_replicates": 0
+  },
+  "provenance": {
+    "script_sha256": "cd3a0cc0bb34f061e07af80ef77c74c0bcb90c492dba8338d239334a3af275d2",
+    "protocol_sha256": "6733277c7f872d8c6587bd2e10bd77264f27964ecdb7603e678a2fdfe2b96333",
+    "archive_md5": "45bd33e6f06c3e8cdb481c74a89152aa",
+    "encoder_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+    "original_heads_sha256": "2f34e40cc37739c0e6c5801f7ec0fd95670f721b5faa8dd40b822688b32a6c25",
+    "internal_reference_predictions_sha256": "afb8651a198911bcf7b5d9ffeb798a1be91d789963d15e855f7471b5523028df",
+    "internal_reference_examples_verified": 16
+  }
+}

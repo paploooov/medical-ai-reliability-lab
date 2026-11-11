@@ -1,0 +1,28 @@
+{
+  "total_test": 22433,
+  "retained_after_dedup": 22430,
+  "duplicate_pairs": [
+    [
+      14567,
+      5411
+    ],
+    [
+      17956,
+      3242
+    ]
+  ],
+  "conflicting_pixel_hashes": [
+    "84333fce1dd808af2746314d8491aa1eb12cb6cf8d40de1be64ce3533de1aa04"
+  ],
+  "available": {
+    "pneumonia": 242,
+    "no_finding": 11928,
+    "other_abnormal": 10260
+  },
+  "selected": {
+    "pneumonia": 242,
+    "no_finding": 2000,
+    "other_abnormal": 1000
+  },
+  "positive_with_additional_tags": 183
+}
