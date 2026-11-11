@@ -1,0 +1,18 @@
+{
+  "study": "Frozen512 preprocessing stress test after source-shift audit",
+  "scope": "Exploratory sensitivity analysis on known images; no winner selection, refitting, threshold tuning or export change",
+  "model": "Unchanged selected mobile512 research checkpoint and original thresholds; assert checkpoint hash and reproduce baseline logits",
+  "cases": "All original512 calibration and test cases, fixed manifest, same paired cases across conditions",
+  "conditions": {
+    "baseline": "Existing original-image aspect-preserving LANCZOS letterbox512",
+    "bilinear": "Same full original image and letterbox geometry, Pillow BILINEAR instead of LANCZOS",
+    "center_crop": "Center crop original grayscale image to its shorter edge square, then LANCZOS resize512; may remove anatomy, not a lung ROI",
+    "stretch": "Original full grayscale image resized directly to512 square with LANCZOS; deliberate aspect distortion, not a clinical recommendation",
+    "gamma_0.8": "Apply gamma0.8 to cached baseline uint8/255, round and clip back to uint8; black padding remains0",
+    "gamma_1.25": "Same with gamma1.25"
+  },
+  "primary": "Test classification-flip fraction center_crop versus baseline at unchanged logit0 threshold",
+  "secondary": "All conditions in calibration and test: AUROC, sensitivity, specificity, NLL, risk_at80, fixed-confidence-threshold coverage/error, flips and mean absolute probability difference. Report all variants including harm.",
+  "bootstrap": "2000 paired test filename-group resamples, seed20261126, conditional on frozen model; no clinical/patient-identity guarantee",
+  "interpretation": "Changed outputs show pipeline sensitivity, not lesion localization, causal shortcut proof or improved generalization. Calibration and test are from a known source family."
+}
