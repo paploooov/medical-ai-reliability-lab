@@ -40,3 +40,7 @@ Die Etappe endet hier. Keine zusätzlichen Seeds, Aufteilungen oder Testauswertu
 ## Vergleich mit dem bisherigen Checkpoint
 
 Gleiche Epoche gewählt (1); maximale absolute Gewichtsabweichung 4.4107437e-05, RMS-Abweichung 1.9738361e-07. 225 von 242 Tensoren sind bitgleich. Das ist eine numerisch nahe Wiederholung, keine bitidentische Reproduktion. Die Gewichtsdifferenz ersetzt keinen Leistungsnachweis; Testinferenz wurde nicht ausgeführt. [Parametervergleich](checkpoint_comparison.json).
+
+## Nachgelagerte Downloadkorrektur
+
+Der gemessene Trainingscode ist in Commit `4b117cc` erhalten; seine SHA-256 steht in `training_run.json`. Anschließend wurde ausschließlich der nicht verwendete Archiv-Downloadzweig korrigiert: benannter User-Agent, Streaming in eine neue Partial-Datei und Veröffentlichung erst nach Hashprüfung. HTTP 200, Dateigröße und ZIP-Anfang sind mit diesem Header geprüft. Der volle erneute Archivtransfer und der optionale Testpfad bleiben ungeprüft. Der Trainingsalgorithmus wurde danach nicht geändert und kein weiterer Trainingslauf gestartet.

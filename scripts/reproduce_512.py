@@ -1,5 +1,5 @@
 """Isolated full 512px training reproduction. Test evaluation requires opt-in."""
-import argparse,copy,hashlib,io,json,os,platform,resource,time,urllib.request,zipfile
+import argparse,copy,hashlib,io,json,os,platform,resource,shutil,time,urllib.request,zipfile
 from pathlib import Path
 import numpy as np
 import torch
@@ -17,6 +17,15 @@ def normalize(a):
 
 def nll(y,z):return float(np.mean(np.logaddexp(0,z)-y*z))
 
+def download_archive(url,path,expected_sha256):
+    partial=path.with_suffix('.partial')
+    request=urllib.request.Request(url,headers={'User-Agent':'THORAXIS-reproduction/1.0'})
+    with urllib.request.urlopen(request,timeout=120) as response,partial.open('xb') as target:
+        shutil.copyfileobj(response,target,length=1024*1024)
+    if digest(partial)!=expected_sha256:
+        raise ValueError('Archive SHA-256 mismatch; partial file preserved for inspection')
+    partial.rename(path)
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',type=int,default=20261121);parser.add_argument('--archive',type=Path);parser.add_argument('--evaluate-test',action='store_true');args=parser.parse_args()
     out=args.output;out.mkdir(parents=True,exist_ok=False);start=time.monotonic();stages={}
@@ -25,8 +34,7 @@ def main():
     assert manifest['archive_sha256']==cfg['archive_sha256']
     archive=args.archive or out/'ChestXRay2017.zip'
     if not archive.exists():
-        urllib.request.urlretrieve(cfg['archive_url'],archive.with_suffix('.partial'))
-        assert digest(archive.with_suffix('.partial'))==cfg['archive_sha256'];archive.with_suffix('.partial').rename(archive)
+        download_archive(cfg['archive_url'],archive,cfg['archive_sha256'])
     assert digest(archive)==cfg['archive_sha256']
     os.environ['TORCH_HOME']=str(out/'torch')
     model=mobilenet_v3_small(weights=MobileNet_V3_Small_Weights.IMAGENET1K_V1).eval()

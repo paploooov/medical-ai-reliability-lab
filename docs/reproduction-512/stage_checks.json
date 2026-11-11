@@ -13,5 +13,7 @@
   "machine_cpu": "Intel Xeon Platinum 8573C",
   "cpu_quota": "2 CPU equivalents",
   "container_memory_bytes": 8589934592,
-  "scope": "One training seed, existing split, fresh Python environment, fresh derived features, locally supplied hash-verified raw archive. No test evaluation."
+  "scope": "One training seed, existing split, fresh Python environment, fresh derived features, locally supplied hash-verified raw archive. No test evaluation.",
+  "download_unit_tests_passed": 2,
+  "published_source_commit_for_measured_run": "4b117cc"
 }
