@@ -1,0 +1,11 @@
+{
+  "study": "Exploratory audit of the original-image calibration/test transfer gap",
+  "trigger": "Observed specificity collapse in completed original512 study; descriptive follow-up, not independent confirmation",
+  "cohort": "Unchanged 5371 retained original512 records; official training origin (train/selection/calibration) versus official test origin, separately within NORMAL and PNEUMONIA",
+  "features": "No filenames, IDs or clinical predictions as classifier inputs. Dimensions: log original width and height. Appearance: mean, std, p05, p95, outer10%-rim mean, central50%-rectangle mean, mean absolute horizontal/vertical adjacent differences. Appearance computed inside known non-padding rectangle of the cached512 image; padding removed geometrically, not by deleting black anatomy pixels.",
+  "source_classifier": "Fixed C=1 logistic regression, class_weight=balanced, train-fold StandardScaler; 5-fold StratifiedGroupKFold(shuffle=True,random_state=20261124), filename-derived patient groups held out. Three feature sets: dimensions, appearance, combined. No hyperparameter selection.",
+  "primary": "OOF AUROC for predicting test-origin versus development-origin from dimensions only, within NORMAL images",
+  "secondary": "All other feature-set/class AUROCs, feature distributions, and Spearman associations between fixed fine-tuned model logits and these features among test NORMAL images. Source models intentionally use both origins with group-held-out predictions; they are not medical classifiers.",
+  "uncertainty": "2000 bootstrap resamples of patient groups stratified by source, on fixed OOF predictions; conditional descriptive intervals, not model-refit/CV-training uncertainty. Seed20261125. Secondary analyses not multiplicity corrected.",
+  "limits": "Source separability does not establish cause of errors, shortcuts or clinical content. Filename identities imperfect; no independent cohort. Do not change diagnostic weights, thresholds, existing outputs or exported app model based on this audit."
+}
