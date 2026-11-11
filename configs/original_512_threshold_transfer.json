@@ -1,0 +1,9 @@
+{
+  "study": "Post-hoc diagnostic of calibration-to-test threshold transfer",
+  "trigger": "After observing high sensitivity but low test specificity in the completed original512 study. This is explanatory follow-up, not independent confirmation or deployment threshold selection.",
+  "models": ["mobile_512_probe", "mobile_512_finetuned", "resnet50_224_probe"],
+  "rule": "Set classification logit threshold using only calibration negatives: highest allowed false-positive count=floor((1-target)*n_negative). Threshold is nextafter the next descending negative logit toward +infinity, conservative for ties. Positive iff logit>=threshold, float64 comparisons.",
+  "specificity_targets": [0.9, 0.95],
+  "bootstrap": "2000 independent calibration-group and test-group resamples, seed20261123; refit threshold in each calibration resample, evaluate its paired test resample",
+  "report": "All thresholds, achieved calibration specificity, test sensitivity/specificity and below-target fractions; model logits, weights and existing CoreML export remain fixed. Descriptive intervals, not clinical guarantees. Repeatedly studied source family, imperfect filename-derived groups."
+}
