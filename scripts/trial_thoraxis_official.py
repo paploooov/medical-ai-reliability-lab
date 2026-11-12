@@ -1,5 +1,5 @@
 """One official seed-17 technical fit on verified cache; no test inference path."""
-import argparse,copy,hashlib,io,json,os,platform,resource,shutil,time,urllib.request,zipfile
+import copy,hashlib,io,json,platform,resource,time,zipfile
 from pathlib import Path
 import numpy as np
 import torch
@@ -7,7 +7,6 @@ from PIL import Image
 from scipy.special import expit
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-from torchvision.models import mobilenet_v3_small,MobileNet_V3_Small_Weights
 from prepare_original_xray import digest,letterbox
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -18,11 +17,11 @@ def normalize(a):
 def nll(y,z):return float(np.mean(np.logaddexp(0,z)-y*z))
 
 def main():
-    from prepare_thoraxis_cache import verify, records as source_records, encoder, CACHE, ARCHIVE
+    from prepare_thoraxis_cache import verify, records as source_records, encoder, ARCHIVE
     start=time.monotonic(); stages={}; torch.set_num_threads(1); torch.manual_seed(17); np.random.seed(17)
     out=ROOT/'data/thoraxis_source_shift/official_seed17'
     out.mkdir(parents=True,exist_ok=False)
-    cache_manifest, arrays=verify()
+    _, arrays=verify()
     manifest_path=ROOT/'reports/original_512/manifest.json'; archive=ARCHIVE
     original=source_records(); ids=np.array([i for i,r in enumerate(original) if r['split']!='test'])
     records=[original[i] for i in ids]
