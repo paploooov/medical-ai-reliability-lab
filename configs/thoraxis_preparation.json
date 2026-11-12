@@ -1,0 +1,13 @@
+{
+  "protocol_commit": "c44117a",
+  "authorization": "Preparation requested by user: metadata splits, frozen Lanczos cache, exactly one official seed-17 technical fit; no medical test inference.",
+  "split_seeds": [20261112, 20261113, 20261114, 20261115, 20261116],
+  "partition_order": ["calibration", "selection", "test", "train"],
+  "random_objective": "PCG64(seed).random(group_count * 4), uniform [0,1), group-major sorted IDs and partition order above",
+  "solver_time_limit_seconds": 600,
+  "objective_tie_tolerance": 1e-8,
+  "tie_rule": "Exclude first assignment and solve again. If alternative gap <= tolerance, minimize partition index successively for each sorted group on original optimal face within tolerance. Any solver abort stops preparation.",
+  "cache_verification": "First two sorted image IDs in each official development partition; atol=2e-4, rtol=1e-4; original ImageNet encoder only.",
+  "training_seed": 17,
+  "medical_test_inference": false
+}
