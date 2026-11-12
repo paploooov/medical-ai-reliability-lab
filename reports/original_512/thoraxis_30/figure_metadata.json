@@ -1,0 +1,8 @@
+{
+  "matplotlib": "3.10.3",
+  "figures": [
+    "h1_contrasts.svg",
+    "h2_rejection.svg"
+  ],
+  "note": "No fit or inference; descriptive means and ranges"
+}

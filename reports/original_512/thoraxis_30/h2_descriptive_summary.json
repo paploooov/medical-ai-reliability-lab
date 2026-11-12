@@ -1,0 +1,1136 @@
+[
+  {
+    "arm": "official",
+    "origin": "all",
+    "cls": "all",
+    "metrics": {
+      "n": {
+        "mean": 618.0,
+        "min": 618.0,
+        "max": 618.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 426.0,
+        "min": 426.0,
+        "max": 426.0,
+        "defined_models": 5
+      },
+      "specificity": {
+        "mean": 0.49004329004329,
+        "min": 0.47186147186147187,
+        "max": 0.5194805194805194,
+        "defined_models": 5
+      },
+      "sensitivity": {
+        "mean": 0.9974160206718347,
+        "min": 0.9974160206718347,
+        "max": 0.9974160206718347,
+        "defined_models": 5
+      },
+      "acceptance": {
+        "mean": 0.6854368932038835,
+        "min": 0.6796116504854369,
+        "max": 0.6941747572815534,
+        "defined_models": 5
+      },
+      "accepted_error": {
+        "mean": 0.06750089269546995,
+        "min": 0.06382978723404255,
+        "max": 0.07226107226107226,
+        "defined_models": 5
+      },
+      "R80": {
+        "mean": 0.11294498381877024,
+        "min": 0.10720064724919093,
+        "max": 0.11812297734627837,
+        "defined_models": 5
+      },
+      "R80_coverage": {
+        "mean": 0.8,
+        "min": 0.8,
+        "max": 0.8,
+        "defined_models": 5
+      },
+      "fp_capture": {
+        "mean": 0.7606012746964979,
+        "min": 0.7459016393442623,
+        "max": 0.7768595041322314,
+        "defined_models": 5
+      },
+      "rejected_false_positives": {
+        "mean": 89.6,
+        "min": 84.0,
+        "max": 94.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 77.0,
+        "min": 73.0,
+        "max": 82.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "all",
+    "cls": "NORMAL",
+    "metrics": {
+      "n": {
+        "mean": 231.0,
+        "min": 231.0,
+        "max": 231.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 224.0,
+        "min": 224.0,
+        "max": 224.0,
+        "defined_models": 5
+      },
+      "specificity": {
+        "mean": 0.49004329004329,
+        "min": 0.47186147186147187,
+        "max": 0.5194805194805194,
+        "defined_models": 5
+      },
+      "sensitivity": null,
+      "acceptance": {
+        "mean": 0.2787878787878788,
+        "min": 0.2683982683982684,
+        "max": 0.29004329004329005,
+        "defined_models": 5
+      },
+      "accepted_error": {
+        "mean": 0.4377110107033073,
+        "min": 0.4153846153846154,
+        "max": 0.4626865671641791,
+        "defined_models": 5
+      },
+      "R80": {
+        "mean": 0.46131999481242786,
+        "min": 0.4318936877076411,
+        "max": 0.4847972972972974,
+        "defined_models": 5
+      },
+      "R80_coverage": {
+        "mean": 0.5148051948051948,
+        "min": 0.5082251082251084,
+        "max": 0.5212121212121213,
+        "defined_models": 5
+      },
+      "fp_capture": {
+        "mean": 0.7606012746964979,
+        "min": 0.7459016393442623,
+        "max": 0.7768595041322314,
+        "defined_models": 5
+      },
+      "rejected_false_positives": {
+        "mean": 89.6,
+        "min": 84.0,
+        "max": 94.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 77.0,
+        "min": 73.0,
+        "max": 82.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "all",
+    "cls": "PNEUMONIA",
+    "metrics": {
+      "n": {
+        "mean": 387.0,
+        "min": 387.0,
+        "max": 387.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 202.0,
+        "min": 202.0,
+        "max": 202.0,
+        "defined_models": 5
+      },
+      "specificity": null,
+      "sensitivity": {
+        "mean": 0.9974160206718347,
+        "min": 0.9974160206718347,
+        "max": 0.9974160206718347,
+        "defined_models": 5
+      },
+      "acceptance": {
+        "mean": 0.9281653746770026,
+        "min": 0.9198966408268734,
+        "max": 0.9354005167958657,
+        "defined_models": 5
+      },
+      "accepted_error": {
+        "mean": 0.0011220218424448432,
+        "min": 0.0,
+        "max": 0.0028089887640449437,
+        "defined_models": 5
+      },
+      "R80": {
+        "mean": 0.0026632811584906876,
+        "min": 0.002652519893899204,
+        "max": 0.00267379679144385,
+        "defined_models": 5
+      },
+      "R80_coverage": {
+        "mean": 0.9702325581395348,
+        "min": 0.9664082687338501,
+        "max": 0.9741602067183462,
+        "defined_models": 5
+      },
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "train",
+    "cls": "all",
+    "metrics": {
+      "n": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "specificity": null,
+      "sensitivity": null,
+      "acceptance": null,
+      "accepted_error": null,
+      "R80": null,
+      "R80_coverage": null,
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "train",
+    "cls": "NORMAL",
+    "metrics": {
+      "n": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "specificity": null,
+      "sensitivity": null,
+      "acceptance": null,
+      "accepted_error": null,
+      "R80": null,
+      "R80_coverage": null,
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "train",
+    "cls": "PNEUMONIA",
+    "metrics": {
+      "n": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "specificity": null,
+      "sensitivity": null,
+      "acceptance": null,
+      "accepted_error": null,
+      "R80": null,
+      "R80_coverage": null,
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "test",
+    "cls": "all",
+    "metrics": {
+      "n": {
+        "mean": 618.0,
+        "min": 618.0,
+        "max": 618.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 426.0,
+        "min": 426.0,
+        "max": 426.0,
+        "defined_models": 5
+      },
+      "specificity": {
+        "mean": 0.49004329004329,
+        "min": 0.47186147186147187,
+        "max": 0.5194805194805194,
+        "defined_models": 5
+      },
+      "sensitivity": {
+        "mean": 0.9974160206718347,
+        "min": 0.9974160206718347,
+        "max": 0.9974160206718347,
+        "defined_models": 5
+      },
+      "acceptance": {
+        "mean": 0.6854368932038835,
+        "min": 0.6796116504854369,
+        "max": 0.6941747572815534,
+        "defined_models": 5
+      },
+      "accepted_error": {
+        "mean": 0.06750089269546995,
+        "min": 0.06382978723404255,
+        "max": 0.07226107226107226,
+        "defined_models": 5
+      },
+      "R80": {
+        "mean": 0.11294498381877024,
+        "min": 0.10720064724919093,
+        "max": 0.11812297734627837,
+        "defined_models": 5
+      },
+      "R80_coverage": {
+        "mean": 0.8,
+        "min": 0.8,
+        "max": 0.8,
+        "defined_models": 5
+      },
+      "fp_capture": {
+        "mean": 0.7606012746964979,
+        "min": 0.7459016393442623,
+        "max": 0.7768595041322314,
+        "defined_models": 5
+      },
+      "rejected_false_positives": {
+        "mean": 89.6,
+        "min": 84.0,
+        "max": 94.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 77.0,
+        "min": 73.0,
+        "max": 82.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "test",
+    "cls": "NORMAL",
+    "metrics": {
+      "n": {
+        "mean": 231.0,
+        "min": 231.0,
+        "max": 231.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 224.0,
+        "min": 224.0,
+        "max": 224.0,
+        "defined_models": 5
+      },
+      "specificity": {
+        "mean": 0.49004329004329,
+        "min": 0.47186147186147187,
+        "max": 0.5194805194805194,
+        "defined_models": 5
+      },
+      "sensitivity": null,
+      "acceptance": {
+        "mean": 0.2787878787878788,
+        "min": 0.2683982683982684,
+        "max": 0.29004329004329005,
+        "defined_models": 5
+      },
+      "accepted_error": {
+        "mean": 0.4377110107033073,
+        "min": 0.4153846153846154,
+        "max": 0.4626865671641791,
+        "defined_models": 5
+      },
+      "R80": {
+        "mean": 0.46131999481242786,
+        "min": 0.4318936877076411,
+        "max": 0.4847972972972974,
+        "defined_models": 5
+      },
+      "R80_coverage": {
+        "mean": 0.5148051948051948,
+        "min": 0.5082251082251084,
+        "max": 0.5212121212121213,
+        "defined_models": 5
+      },
+      "fp_capture": {
+        "mean": 0.7606012746964979,
+        "min": 0.7459016393442623,
+        "max": 0.7768595041322314,
+        "defined_models": 5
+      },
+      "rejected_false_positives": {
+        "mean": 89.6,
+        "min": 84.0,
+        "max": 94.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 77.0,
+        "min": 73.0,
+        "max": 82.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "official",
+    "origin": "test",
+    "cls": "PNEUMONIA",
+    "metrics": {
+      "n": {
+        "mean": 387.0,
+        "min": 387.0,
+        "max": 387.0,
+        "defined_models": 5
+      },
+      "groups": {
+        "mean": 202.0,
+        "min": 202.0,
+        "max": 202.0,
+        "defined_models": 5
+      },
+      "specificity": null,
+      "sensitivity": {
+        "mean": 0.9974160206718347,
+        "min": 0.9974160206718347,
+        "max": 0.9974160206718347,
+        "defined_models": 5
+      },
+      "acceptance": {
+        "mean": 0.9281653746770026,
+        "min": 0.9198966408268734,
+        "max": 0.9354005167958657,
+        "defined_models": 5
+      },
+      "accepted_error": {
+        "mean": 0.0011220218424448432,
+        "min": 0.0,
+        "max": 0.0028089887640449437,
+        "defined_models": 5
+      },
+      "R80": {
+        "mean": 0.0026632811584906876,
+        "min": 0.002652519893899204,
+        "max": 0.00267379679144385,
+        "defined_models": 5
+      },
+      "R80_coverage": {
+        "mean": 0.9702325581395348,
+        "min": 0.9664082687338501,
+        "max": 0.9741602067183462,
+        "defined_models": 5
+      },
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 5
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "all",
+    "cls": "all",
+    "metrics": {
+      "n": {
+        "mean": 618.0,
+        "min": 618.0,
+        "max": 618.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 476.2,
+        "min": 467.0,
+        "max": 485.0,
+        "defined_models": 25
+      },
+      "specificity": {
+        "mean": 0.9232900432900434,
+        "min": 0.8961038961038961,
+        "max": 0.9523809523809523,
+        "defined_models": 25
+      },
+      "sensitivity": {
+        "mean": 0.9747803617571058,
+        "min": 0.9534883720930233,
+        "max": 0.9870801033591732,
+        "defined_models": 25
+      },
+      "acceptance": {
+        "mean": 0.7856957928802589,
+        "min": 0.7297734627831716,
+        "max": 0.8171521035598706,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.005539203845823038,
+        "min": 0.0,
+        "max": 0.014583333333333334,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.006310679611650486,
+        "min": 0.0020226537216828477,
+        "max": 0.014158576051779934,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.8000000000000002,
+        "min": 0.8,
+        "max": 0.8,
+        "defined_models": 25
+      },
+      "fp_capture": {
+        "mean": 0.8981554295452532,
+        "min": 0.75,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "rejected_false_positives": {
+        "mean": 15.92,
+        "min": 9.0,
+        "max": 21.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 57.76,
+        "min": 34.0,
+        "max": 82.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "all",
+    "cls": "NORMAL",
+    "metrics": {
+      "n": {
+        "mean": 231.0,
+        "min": 231.0,
+        "max": 231.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 230.2,
+        "min": 230.0,
+        "max": 231.0,
+        "defined_models": 25
+      },
+      "specificity": {
+        "mean": 0.9232900432900434,
+        "min": 0.8961038961038961,
+        "max": 0.9523809523809523,
+        "defined_models": 25
+      },
+      "sensitivity": null,
+      "acceptance": {
+        "mean": 0.681038961038961,
+        "min": 0.5584415584415584,
+        "max": 0.8008658008658008,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.011167403461046232,
+        "min": 0.0,
+        "max": 0.026490066225165563,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.012763390687294844,
+        "min": 0.0,
+        "max": 0.027510316368638234,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.7031688311688312,
+        "min": 0.6294372294372296,
+        "max": 0.8051948051948052,
+        "defined_models": 25
+      },
+      "fp_capture": {
+        "mean": 0.8981554295452532,
+        "min": 0.75,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "rejected_false_positives": {
+        "mean": 15.92,
+        "min": 9.0,
+        "max": 21.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 57.76,
+        "min": 34.0,
+        "max": 82.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "all",
+    "cls": "PNEUMONIA",
+    "metrics": {
+      "n": {
+        "mean": 387.0,
+        "min": 387.0,
+        "max": 387.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 246.0,
+        "min": 236.0,
+        "max": 255.0,
+        "defined_models": 25
+      },
+      "specificity": null,
+      "sensitivity": {
+        "mean": 0.9747803617571058,
+        "min": 0.9534883720930233,
+        "max": 0.9870801033591732,
+        "defined_models": 25
+      },
+      "acceptance": {
+        "mean": 0.8481653746770026,
+        "min": 0.7958656330749354,
+        "max": 0.8914728682170543,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.002837508911635159,
+        "min": 0.0,
+        "max": 0.012987012987012988,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.0031901751251256156,
+        "min": 0.0,
+        "max": 0.012970168612191958,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.8577984496124033,
+        "min": 0.7968992248062017,
+        "max": 0.9018087855297158,
+        "defined_models": 25
+      },
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "train",
+    "cls": "all",
+    "metrics": {
+      "n": {
+        "mean": 540.8,
+        "min": 524.0,
+        "max": 552.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 409.8,
+        "min": 404.0,
+        "max": 413.0,
+        "defined_models": 25
+      },
+      "specificity": {
+        "mean": 0.9572262873598131,
+        "min": 0.9333333333333333,
+        "max": 0.9752475247524752,
+        "defined_models": 25
+      },
+      "sensitivity": {
+        "mean": 0.9723324933143662,
+        "min": 0.9482758620689655,
+        "max": 0.9857142857142858,
+        "defined_models": 25
+      },
+      "acceptance": {
+        "mean": 0.8036452105457659,
+        "min": 0.7453874538745388,
+        "max": 0.8360957642725598,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.002638834010556717,
+        "min": 0.0,
+        "max": 0.009216589861751152,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.0035257064123148025,
+        "min": 0.0,
+        "max": 0.009000900090009,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.8178773773144248,
+        "min": 0.8105072463768117,
+        "max": 0.8232824427480917,
+        "defined_models": 25
+      },
+      "fp_capture": {
+        "mean": 0.9506923076923076,
+        "min": 0.8,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "rejected_false_positives": {
+        "mean": 8.04,
+        "min": 4.0,
+        "max": 12.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 43.72,
+        "min": 23.0,
+        "max": 61.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "train",
+    "cls": "NORMAL",
+    "metrics": {
+      "n": {
+        "mean": 196.6,
+        "min": 194.0,
+        "max": 202.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 196.0,
+        "min": 193.0,
+        "max": 202.0,
+        "defined_models": 25
+      },
+      "specificity": {
+        "mean": 0.9572262873598131,
+        "min": 0.9333333333333333,
+        "max": 0.9752475247524752,
+        "defined_models": 25
+      },
+      "sensitivity": null,
+      "acceptance": {
+        "mean": 0.7368276993420692,
+        "min": 0.6256410256410256,
+        "max": 0.8505154639175257,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.002575570685211958,
+        "min": 0.0,
+        "max": 0.015037593984962405,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.004418794003541144,
+        "min": 0.0,
+        "max": 0.021834061135371174,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.757499083186154,
+        "min": 0.6974619289340104,
+        "max": 0.8556701030927835,
+        "defined_models": 25
+      },
+      "fp_capture": {
+        "mean": 0.9506923076923076,
+        "min": 0.8,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "rejected_false_positives": {
+        "mean": 8.04,
+        "min": 4.0,
+        "max": 12.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 43.72,
+        "min": 23.0,
+        "max": 61.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "train",
+    "cls": "PNEUMONIA",
+    "metrics": {
+      "n": {
+        "mean": 344.2,
+        "min": 327.0,
+        "max": 350.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 213.8,
+        "min": 210.0,
+        "max": 220.0,
+        "defined_models": 25
+      },
+      "specificity": null,
+      "sensitivity": {
+        "mean": 0.9723324933143662,
+        "min": 0.9482758620689655,
+        "max": 0.9857142857142858,
+        "defined_models": 25
+      },
+      "acceptance": {
+        "mean": 0.8422660497893815,
+        "min": 0.7838616714697406,
+        "max": 0.8828571428571429,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.0027227775172958355,
+        "min": 0.0,
+        "max": 0.010752688172043012,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.0031215012125774748,
+        "min": 0.0,
+        "max": 0.01073729420186113,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.8527983156871928,
+        "min": 0.8005730659025789,
+        "max": 0.8960244648318043,
+        "defined_models": 25
+      },
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "test",
+    "cls": "all",
+    "metrics": {
+      "n": {
+        "mean": 77.2,
+        "min": 66.0,
+        "max": 94.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 66.4,
+        "min": 54.0,
+        "max": 74.0,
+        "defined_models": 25
+      },
+      "specificity": {
+        "mean": 0.7239221777558492,
+        "min": 0.5862068965517241,
+        "max": 0.8611111111111112,
+        "defined_models": 25
+      },
+      "sensitivity": {
+        "mean": 0.9947368421052633,
+        "min": 0.9736842105263158,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "acceptance": {
+        "mean": 0.6605114391394347,
+        "min": 0.5921052631578947,
+        "max": 0.7121212121212122,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.03124788045819274,
+        "min": 0.0,
+        "max": 0.06521739130434782,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.030932010093655468,
+        "min": 0.0,
+        "max": 0.06198347107438012,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.6758212277308356,
+        "min": 0.6447368421052632,
+        "max": 0.7121212121212122,
+        "defined_models": 25
+      },
+      "fp_capture": {
+        "mean": 0.854963924963925,
+        "min": 0.7,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "rejected_false_positives": {
+        "mean": 7.88,
+        "min": 5.0,
+        "max": 11.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 14.04,
+        "min": 7.0,
+        "max": 21.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "test",
+    "cls": "NORMAL",
+    "metrics": {
+      "n": {
+        "mean": 34.4,
+        "min": 29.0,
+        "max": 37.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 34.2,
+        "min": 29.0,
+        "max": 37.0,
+        "defined_models": 25
+      },
+      "specificity": {
+        "mean": 0.7239221777558492,
+        "min": 0.5862068965517241,
+        "max": 0.8611111111111112,
+        "defined_models": 25
+      },
+      "sensitivity": null,
+      "acceptance": {
+        "mean": 0.36142469041049163,
+        "min": 0.19444444444444445,
+        "max": 0.5405405405405406,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.10671727446959645,
+        "min": 0.0,
+        "max": 0.21428571428571427,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.10271779325478594,
+        "min": 0.0,
+        "max": 0.1875,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.39137341398193337,
+        "min": 0.23529411764705882,
+        "max": 0.5405405405405406,
+        "defined_models": 25
+      },
+      "fp_capture": {
+        "mean": 0.854963924963925,
+        "min": 0.7,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "rejected_false_positives": {
+        "mean": 7.88,
+        "min": 5.0,
+        "max": 11.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 14.04,
+        "min": 7.0,
+        "max": 21.0,
+        "defined_models": 25
+      }
+    }
+  },
+  {
+    "arm": "mixed",
+    "origin": "test",
+    "cls": "PNEUMONIA",
+    "metrics": {
+      "n": {
+        "mean": 42.8,
+        "min": 37.0,
+        "max": 60.0,
+        "defined_models": 25
+      },
+      "groups": {
+        "mean": 32.2,
+        "min": 25.0,
+        "max": 41.0,
+        "defined_models": 25
+      },
+      "specificity": null,
+      "sensitivity": {
+        "mean": 0.9947368421052633,
+        "min": 0.9736842105263158,
+        "max": 1.0,
+        "defined_models": 25
+      },
+      "acceptance": {
+        "mean": 0.8968752963489806,
+        "min": 0.7631578947368421,
+        "max": 0.972972972972973,
+        "defined_models": 25
+      },
+      "accepted_error": {
+        "mean": 0.004002966258806081,
+        "min": 0.0,
+        "max": 0.034482758620689655,
+        "defined_models": 25
+      },
+      "R80": {
+        "mean": 0.004002966258806081,
+        "min": 0.0,
+        "max": 0.034482758620689655,
+        "defined_models": 25
+      },
+      "R80_coverage": {
+        "mean": 0.8989778604515447,
+        "min": 0.7631578947368421,
+        "max": 0.972972972972973,
+        "defined_models": 25
+      },
+      "fp_capture": null,
+      "rejected_false_positives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 25
+      },
+      "rejected_true_negatives": {
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "defined_models": 25
+      }
+    }
+  }
+]

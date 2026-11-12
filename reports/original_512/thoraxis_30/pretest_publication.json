@@ -29,5 +29,6 @@
     }
   ],
   "time_evidence": "Commit times and successful-push times from local Git reflog; not independent GitHub server timestamps. Remote SHA verified by live git ls-remote.",
-  "training_started_utc": "2026-11-12T16:00:17.228585+00:00"
+  "training_started_utc": "2026-11-12T16:01:58.446676+00:00",
+  "batch_prepared_utc": "2026-11-12T16:00:17.228585+00:00"
 }

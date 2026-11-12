@@ -7,12 +7,18 @@ ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'reports/original_512/thoraxis
 
 def main():
     manifest=json.loads((OUT/'prediction_manifest.json').read_text());risks={}
+    plan={r['run_id']:r for r in json.loads((ROOT/'configs/thoraxis_training_batch.json').read_text())['runs']}
     assert manifest['completed'] and len(manifest['models'])==30
     for item in manifest['models']:
         path=OUT/item['file'];assert hashlib.sha256(path.read_bytes()).hexdigest()==item['sha256']
         with np.load(path,allow_pickle=False) as z:
             m=z['partition']=='test';labels=z['label'][m];p=expit(z['logit'][m]);c=np.maximum(p,1-p);errors=(p>=.5)!=labels
             assert len(labels)==618 and int(sum(labels==0))==231
+            expected_rows={r['name']:r for r in json.loads((ROOT/plan[item['run_id']]['manifest']).read_text())['records'] if r['split']=='test'}
+            assert set(z['image_id'][m])==set(expected_rows)
+            for name,label,group,origin in zip(z['image_id'][m],labels,z['group'][m],z['origin'][m]):
+                expected=expected_rows[str(name)]
+                assert (int(label),str(group),str(origin))==(expected['label'],expected['group'],expected['original_split'])
             assert len(set(z['image_id'][m]))==618
             assert not set(z['group'][m])&set(z['group'][~m])
         # Independent implementation: walk tied blocks in descending confidence.

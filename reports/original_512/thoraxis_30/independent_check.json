@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "independent_primary_mean": 0.10663430420711978,
+  "absolute_difference": 0.0,
+  "models_checked": 30,
+  "contrasts_checked": 25,
+  "method": "Separate sorted-block implementation; frozen predictions only; all saved file hashes verified"
+}
