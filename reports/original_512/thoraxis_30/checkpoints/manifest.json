@@ -1,0 +1,97 @@
+{
+  "snapshot_utc": "2026-11-12T17:28:52.049777+00:00",
+  "completed_count": 11,
+  "planned_count": 30,
+  "protocol": "c44117a",
+  "test_inference": false,
+  "checkpoints": [
+    {
+      "run_id": "official_seed17",
+      "file": "official_seed17.pt",
+      "sha256": "f0d80f3edcdb89afb364b704bae729aafb43445250626eed4b86c41197a7167a",
+      "bytes": 3840624,
+      "selected_epoch": 3,
+      "selection_nll": 0.08130167119351858
+    },
+    {
+      "run_id": "official_seed42",
+      "file": "official_seed42.pt",
+      "sha256": "4cbf8ee093e3acb82ce9b3efbeded23400dd0adc03ae96d1d936530892f75fed",
+      "bytes": 3840624,
+      "selected_epoch": 0,
+      "selection_nll": 0.0838494306401385
+    },
+    {
+      "run_id": "official_seed83",
+      "file": "official_seed83.pt",
+      "sha256": "321f8a91f27d4ea0169dc6a7118c79739b8d07a56a6b60bbbdc6799e628f62a4",
+      "bytes": 3840624,
+      "selected_epoch": 2,
+      "selection_nll": 0.0832425605437894
+    },
+    {
+      "run_id": "official_seed123",
+      "file": "official_seed123.pt",
+      "sha256": "4e3c7e6e0a7842af0c28700e9bc48f920316f296dd7e8dc42e7f85d31895b714",
+      "bytes": 3840624,
+      "selected_epoch": 1,
+      "selection_nll": 0.08304143048467655
+    },
+    {
+      "run_id": "official_seed2026",
+      "file": "official_seed2026.pt",
+      "sha256": "ac4acb8249aa4a688e6a8ef92229a51df271b8cd4862da94ab064af4e1ed08b1",
+      "bytes": 3840624,
+      "selected_epoch": 3,
+      "selection_nll": 0.08154673576348892
+    },
+    {
+      "run_id": "20261112_seed17",
+      "file": "20261112_seed17.pt",
+      "sha256": "bdfd88da153d7d0528c0822ff1e4428027dda02e6476c20be25b282a8d458bc2",
+      "bytes": 3840624,
+      "selected_epoch": 3,
+      "selection_nll": 0.0834072130013433
+    },
+    {
+      "run_id": "20261112_seed42",
+      "file": "20261112_seed42.pt",
+      "sha256": "5920d686cf1278269562a2aa15eb31dc7b044c65f28efd54862dc23d08cee39a",
+      "bytes": 3840624,
+      "selected_epoch": 3,
+      "selection_nll": 0.0852320815317534
+    },
+    {
+      "run_id": "20261112_seed83",
+      "file": "20261112_seed83.pt",
+      "sha256": "b49a6cae38d77db6ab936943c67c6ecc367515d4a3f915f2b26697bd246da857",
+      "bytes": 3840624,
+      "selected_epoch": 3,
+      "selection_nll": 0.084330644916359
+    },
+    {
+      "run_id": "20261112_seed123",
+      "file": "20261112_seed123.pt",
+      "sha256": "0ccb917f20773edf0b8538b9c0204111f38c002b407150154fb92c352fff387d",
+      "bytes": 3840624,
+      "selected_epoch": 3,
+      "selection_nll": 0.08455768695173231
+    },
+    {
+      "run_id": "20261112_seed2026",
+      "file": "20261112_seed2026.pt",
+      "sha256": "2a76e2ad008a363178bb8856d1bcbd68ba529e0d4f38d10ff7dbd460e44fc9d3",
+      "bytes": 3840624,
+      "selected_epoch": 2,
+      "selection_nll": 0.08569037157857198
+    },
+    {
+      "run_id": "20261113_seed17",
+      "file": "20261113_seed17.pt",
+      "sha256": "81239893a91ca287ea427e32d228975a43f4caa48d77298161fd4f0e0b61b549",
+      "bytes": 3840624,
+      "selected_epoch": 2,
+      "selection_nll": 0.0882047624166908
+    }
+  ]
+}
