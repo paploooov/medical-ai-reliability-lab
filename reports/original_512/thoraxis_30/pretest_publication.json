@@ -1,0 +1,33 @@
+{
+  "checkpoint_commit": "8592f3a0ebd696a3ac3ca5a1d751bab7b8f56867",
+  "verified_at_utc": "2026-11-12T20:25:22.686862+00:00",
+  "ls_remote_origin_main": "8592f3a0ebd696a3ac3ca5a1d751bab7b8f56867\trefs/heads/main\n",
+  "chronology": [
+    {
+      "item": "protocol",
+      "commit": "c44117a",
+      "local_commit_time_berlin": "2026-11-12T11:59:41+01:00",
+      "first_push_local_reflog_berlin": "2026-11-12T11:59:44+01:00"
+    },
+    {
+      "item": "split_implementation",
+      "commit": "d8aee4e",
+      "local_commit_time_berlin": "2026-11-12T12:13:17+01:00",
+      "first_push_local_reflog_berlin": "2026-11-12T18:29:13+01:00"
+    },
+    {
+      "item": "split_manifests",
+      "commit": "b154719",
+      "local_commit_time_berlin": "2026-11-12T12:14:36+01:00",
+      "first_push_local_reflog_berlin": "2026-11-12T18:29:13+01:00"
+    },
+    {
+      "item": "training_plan",
+      "commit": "dad8107",
+      "local_commit_time_berlin": "2026-11-12T17:01:44+01:00",
+      "first_push_local_reflog_berlin": "2026-11-12T18:29:13+01:00"
+    }
+  ],
+  "time_evidence": "Commit times and successful-push times from local Git reflog; not independent GitHub server timestamps. Remote SHA verified by live git ls-remote.",
+  "training_started_utc": "2026-11-12T16:00:17.228585+00:00"
+}
