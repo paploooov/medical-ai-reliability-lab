@@ -1,37 +1,31 @@
-# THORAXIS: Herkunft und Fehlerablehnung
+# THORAXIS: Aufteilung und Fehlerablehnung
 
-**Protokoll vom 12. November 2026 · Noch kein Lauf.** Verbindliche Details und geprüfte Quellen stehen in [der Konfiguration](../configs/thoraxis_source_shift_protocol.json).
+**Änderung A1 · 12. November 2026 · Basis: `598d26c`.** Grund: Gutachter-Review; keine Ergebnisse der geplanten Studie gesehen, keine neuen Läufe gestartet. Verbindliche Details und Quellen: [Konfiguration](../configs/thoraxis_source_shift_protocol.json).
 
-**Frage:** Hängt der Spezifitätseinbruch von etwa 98 % auf 54,5 % mit der offiziellen Datenaufteilung zusammen, und hält die Konfidenzregel die Fehler zurück?
+**Frage:** Hängt der Fehler unter angenommenen Fällen von der Aufteilung ab, und fängt die Konfidenzablehnung die falsch positiven Normalbilder ab?
 
 ## Versuchsplan
 
-**H1, primär:** Offizielle Aufteilung gegen eine feste gruppierte Zufallsneuaufteilung derselben 5.371 bereinigten Bilder aus offiziellem Train+Test. Jede Dateinamen-Gruppe bleibt zusammen; beide Tests haben 618 Bilder mit 231 Normal- und 387 Pneumoniebildern. Auch Trainings-, Modellwahl- und Kalibrierungsgrößen samt Klassenanzahlen bleiben gleich. Splitseed: **20261112**; Trainingsseeds: **17, 42, 83, 123, 2026**, insgesamt zehn Läufe. Unlösbare Gruppenzuordnungen führen zum Stopp, nicht zum Probieren günstigerer Splits.
+**H1, primär:** Offizielle Aufteilung gegen **fünf** gruppierte Neuaufteilungen derselben 5.371 bereinigten Bilder. Split-Seeds: **20261112 bis 20261116**; jeweils Trainingsseeds **17, 42, 83, 123, 2026**. Das ergibt **30 medizinische Modelle**: fünf offizielle Referenzen einmalig, dazu 25 gemischte Modelle. Jede Gruppe bleibt zusammen; jeder Test enthält 618 Bilder mit 231 Normal- und 387 Pneumoniebildern. Auch die anderen Teilmengen behalten ihre Größen und Klassenanzahlen. Unlösbare Zuordnungen führen zum Stopp, nicht zu Ersatzseeds.
 
-Alle Läufe beginnen beim gleichen ImageNet-Encoder und verwenden das bestehende 512-R1-Training mit drei Epochen. Modellwahl erfolgt nur auf Modellwahldaten. Primär vergleichen wir den Fehler bei genau **80 % Abdeckung**; gleiche Konfidenzen an der Grenze zählen anteilig. Wichtigste Nebenkennzahl ist die **Spezifität bei Schwelle 0,5**. Zusätzlich prüfen wir die auf Kalibrierungsdaten gesetzte Ablehnungsschwelle: Sie bleibt im Test fest und muss dort keine 80 % erreichen.
+Training und Modellwahl bleiben gleich: ursprünglicher ImageNet-Encoder, drei Nachtrainingsepochen, Auswahl nur auf Modellwahldaten. Eingefrorene Präfix- und ursprüngliche Kopfmerkmale werden einmal gecacht; Zuordnung, Gewichte, Vorverarbeitung und Dateien werden per Hash geprüft. Trainierbare Merkmale werden nicht gemeinsam gecacht; Scaler und Köpfe werden je Lauf neu angepasst.
 
-**H2:** Wir zeigen die Konfidenzverteilung falsch positiver Normalbilder neben richtig erkannten Normalbildern. Akzeptanz, Fehler, zurückgehaltene Fehlalarme und unnötig zurückgehaltene richtige Vorhersagen werden nach wahrer Klasse getrennt mit Zähler und Nenner berichtet.
+Primär mitteln wir den Fehlerunterschied bei **80 % Abdeckung**, offiziell minus gemischt, gleichgewichtet über alle 25 Split/Seed-Paare. Wichtigste Nebenkennzahl bleibt **Spezifität bei Schwelle 0,5**. Die feste interne Ablehnungsschwelle wird zusätzlich geprüft; gleiche Konfidenzen an der R80-Grenze zählen anteilig.
 
-**H3, explorativ:** Lanczos gegen bilinear bei denselben eingefrorenen Modellen und Bildern über alle fünf Seeds je Aufteilung. Der Effekt wurde bereits beobachtet; wir trainieren dafür keine neuen Modelle.
+**H2:** Konfidenz falsch positiver Normalbilder, Akzeptanz und Fehler nach wahrer Klasse berichten. Im gemischten Test zusätzlich nach ursprünglichem Train/Test getrennt ausweisen, mit Bild-, Gruppen- und Klassenanzahlen; die globale Ablehnungsregel beibehalten.
 
-**Shortcut-Prüfungen:** Ein getrenntes CNN lernt nur bei Normalbildern die ursprüngliche Herkunft, mit fünf gruppierten Außenfolds und innerer Modellwahl. Die medizinischen Modelle werden außerdem mit sichtbarer Lunge beziehungsweise sichtbarem Außenbereich geprüft; flächenidentische Kontrollmasken ergänzen den Vergleich. Dieser Teil beginnt erst nach festgelegter Maskenquelle, anatomischer Qualitätsprüfung und gesperrtem Maskenmanifest.
+**H3, explorativ:** Lanczos gegen bilinear bei allen eingefrorenen Modellen; bilineare Merkmale brauchen einen eigenen Cache. **Shortcut-Prüfung:** Herkunfts-CNN nur auf Normalbildern, fünf gruppierte Außenfolds mit innerer Modellwahl. Neu ist die explorative Spearman-Korrelation seines Out-of-fold-Herkunftsscores mit dem Pneumonie-Logit, ausschließlich auf Normalbildern des jeweiligen medizinischen Tests, zusätzlich innerhalb jeder Herkunft. Sie misst, ob beide Bewertungen ähnlich geordnet sind. **Lungenmaskierung ist eine spätere Studie und nicht Teil dieser Etappe.**
 
-## Statistik und Grenzen
+## Statistik, Aufwand und Grenzen
 
-Seed-Streuung und 2.000 Bootstrap-Wiederziehungen von Testgruppen werden getrennt berichtet; überlappende Gruppen erhalten gemeinsame Wiederziehungsgewichte. Null beobachtete Fehler bedeuten kein Nullrisiko; leere Annahmemengen bleiben undefiniert.
+Die vollständige 5×5-Kontrasttabelle, Streuung der fünf Splitmittel und Streuung der fünf Seedmittel werden getrennt berichtet. 2.000 Gruppen-Bootstraps verwenden gemeinsame Gewichte für überlappende Fälle; die wiederverwendete Referenz zählt nicht als 25 unabhängige Modelle. Null Fehler sind kein Nullrisiko; leere Mengen bleiben undefiniert.
 
-Die Testbilder sind bereits bekannt, Dateinamen sind keine bestätigten Patientenkennungen und die neue Aufteilung verändert Trainings- und Testzusammensetzung. Ein Vorteil nach Mischung stützt eine Herkunftshypothese, beweist aber weder eine Klinikursache noch einen Shortcut; Maskierungsartefakte und nur eine Neuaufteilung begrenzen die Aussage zusätzlich.
+Geschätztes Kerntraining: **3,0 Stunden**, mit 25 % Reserve **3,7 Stunden**, einschließlich einmaligem Lanczos-Cache. Grundlage ist der frühere CPU-Lauf; fünf Herkunfts-Fits, Testinferenz, Bootstrap, Download und Splitprüfung sind zusätzlich nötig und ungemessen. Ein bilinearer Cache kostet geschätzt weitere elf Minuten.
+
+Bekannte Testbilder, unbestätigte Patientenkennungen, überlappende Splits und gemeinsame Trainingsdaten begrenzen die Aussage. Unterschiede oder Korrelationen beweisen weder eine Klinikursache noch einen Shortcut; die Rechnung ist eine Planung, keine neue Messung.
 
 ## Geplanter Beitrag — fünf Sätze
 
-Wir prüfen eine konkrete Übertragungslücke des eigenen nachtrainierten Modells. Der Vergleich hält Gruppentrennung, Klassenzahlen und Training fest. Wir untersuchen, ob Konfidenzablehnung gerade die falsch positiven Normalbilder erkennt. Herkunfts-CNN und Maskierung liefern ergänzende Hinweise auf mögliche Abkürzungen. Der Beitrag ist eine nachvollziehbare Ursachenprüfung, deren Neuheit und klinische Bedeutung erst durch Ergebnisse und weiteren Literaturvergleich bewertet werden können.
+Wir prüfen die Fehlerablehnung unseres nachtrainierten Modells. Fünf Aufteilungen machen die Abhängigkeit von einer einzelnen Mischung sichtbar. Gleiche Trainingsbedingungen ermöglichen einen nachvollziehbaren Vergleich. Herkunftsgruppen und Score-Korrelationen liefern ergänzende Hinweise. Neuheit und klinische Bedeutung müssen weiterhin geprüft werden.
 
-## Geprüfte Literatur
-
-- [Geirhos 2020](https://doi.org/10.1038/s42256-020-00257-z): Begriff und Problem des Shortcut Learning.
-- [DeGrave 2021](https://doi.org/10.1038/s42256-021-00338-7): Shortcut-Befunde bei COVID-19-Röntgenmodellen.
-- [Zech 2018](https://doi.org/10.1371/journal.pmed.1002683): Herkunft und Übertragung von Pneumoniemodellen.
-- [Kermany 2018](https://doi.org/10.1016/j.cell.2018.02.010): Ausgangsarbeit und pädiatrische Röntgendaten.
-- [TRIPOD+AI 2024](https://doi.org/10.1136/bmj-2023-078378): transparente Berichterstattung, keine Gütegarantie.
-
-DOI-Metadaten und Abstracts geprüft; Prüfwege stehen in der Konfiguration. **Vor jedem neuen Lauf müssen Protokoll und nötige Manifeste committed sein; Änderungen werden vorher begründet. Diese Etappe endet ohne Testdatenzugriff oder Experiment.**
+**Geprüfte Literatur:** [Geirhos 2020](https://doi.org/10.1038/s42256-020-00257-z), [DeGrave 2021](https://doi.org/10.1038/s42256-021-00338-7), [Zech 2018](https://doi.org/10.1371/journal.pmed.1002683), [Kermany 2018](https://doi.org/10.1016/j.cell.2018.02.010), [TRIPOD+AI 2024](https://doi.org/10.1136/bmj-2023-078378); Prüfwege unverändert in der Konfiguration. **Protokoll und Manifeste vor Läufen committen; diese Etappe endet ohne Testdatenzugriff oder Experiment.**

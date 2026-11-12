@@ -3,7 +3,7 @@
   "date": "2026-11-12",
   "status": "protocol_only_no_runs",
   "model": "THORAXIS 512-R1 / mobile_512_finetuned",
-  "question": "Erklärt die Zugehörigkeit zum offiziellen Entwicklungs- oder Testbestand den beobachteten Spezifitätseinbruch, und hält Konfidenzablehnung falsch positive Normalbilder zurück?",
+  "question": "Hängt der Fehler unter angenommenen Fällen von der Aufteilung ab, und fängt die Konfidenzablehnung die falsch positiven Normalbilder ab?",
   "prior_observation": {
     "calibration_specificity_approx": 0.98,
     "test_specificity": 0.545,
@@ -34,10 +34,9 @@
       2026
     ],
     "paired_seeds": true,
-    "primary_training_runs": 10,
-    "split_random_seed": 20261112,
-    "split_randomizations": 1,
-    "official_arm": "Unveränderte train/selection/calibration/test-Zuordnung des bestehenden Manifests.",
+    "primary_training_runs": 30,
+    "split_randomizations": 5,
+    "official_arm": "Unveränderte train/selection/calibration/test-Zuordnung des bestehenden Manifests. Die fünf offiziellen Modelle werden einmal trainiert und für jeden Splitvergleich wiederverwendet; keine fünffache Wiederholung oder künstliche Vermehrung unabhängiger Kontrollen.",
     "mixed_arm": {
       "pool": "Offizielles Train+Test innerhalb derselben bereinigten Kohorte gemeinsam neu aufteilen.",
       "sizes": {
@@ -51,11 +50,20 @@
         "PNEUMONIA": 387
       },
       "other_class_counts": "Auch für train, selection und calibration exakt die Klassenanzahlen des offiziellen Arms aus dem vorhandenen Manifest übernehmen; vor Training dokumentieren.",
-      "algorithm": "Gruppen nach stabiler Gruppen-ID sortieren. Ganzzahlige Zuweisung mit einer binären Variable je Gruppe/Teilmenge, genau einer Teilmenge je Gruppe und harten Bild-/Klassenzahlen je Teilmenge. Zielfunktionsgewichte einmalig mit NumPy PCG64, Seed 20261112, erzeugen; Summe minimieren. Solver-Version und Zuordnungshash im Splitmanifest festhalten; bei gleichwertigen Optima lexikographische Gruppen-ID/Teilmenge als Tie-Breaker.",
-      "infeasibility": "Bei Unlösbarkeit oder Solver-Abbruch stoppen; weder Gruppen teilen noch Testgröße/Klassenverteilung still ändern oder andere Seeds probieren. Änderung braucht einen neuen Protokollcommit vor Training.",
+      "algorithm": "Gruppen nach stabiler Gruppen-ID sortieren. Ganzzahlige Zuweisung mit einer binären Variable je Gruppe/Teilmenge, genau einer Teilmenge je Gruppe und harten Bild-/Klassenzahlen je Teilmenge. Zielfunktionsgewichte einmalig mit NumPy PCG64, jeweiligem Splitseed aus 20261112 bis 20261116, erzeugen; Summe minimieren. Solver-Version und Zuordnungshash im Splitmanifest festhalten; bei gleichwertigen Optima lexikographische Gruppen-ID/Teilmenge als Tie-Breaker.",
+      "infeasibility": "Bei Unlösbarkeit oder Solver-Abbruch stoppen; weder Gruppen teilen noch Testgröße/Klassenverteilung still ändern oder andere Seeds probieren. Änderung braucht einen neuen Protokollcommit vor Training. Das gilt für jeden der fünf vorgeschriebenen Splits; kein Ersatzseed. Auch identische oder stark überlappende Lösungen offen berichten und nicht nach Ergebnis austauschen.",
       "forbidden_selection": "Keine Modellvorhersagen, Bildinhalte, Fehler oder nachträgliche Herkunftsbalance zur Splitwahl verwenden."
     },
-    "seed_scope": "Fünf Trainingsseeds auf denselben zwei festen Aufteilungen, nicht fünf neu gewählte Aufteilungen. Initialisierung und Minibatch-RNG je Seed gleich regeln; gleiche Seednummer bedeutet keine identischen Bilder."
+    "seed_scope": "Vollständig gekreuzt: dieselben fünf Trainingsseeds für jeden der fünf gemischten Splits; fünf offizielle Referenzmodelle mit denselben Trainingsseeds. Alle 25 Kontraste verwenden ihre jeweilige offizielle Seed-Referenz.",
+    "split_random_seeds": [
+      20261112,
+      20261113,
+      20261114,
+      20261115,
+      20261116
+    ],
+    "official_training_runs": 5,
+    "mixed_training_runs": 25
   },
   "training": {
     "reference": "configs/original_512.json, fine_tune und probe; scripts/reproduce_512.py als technische Grundlage",
@@ -73,7 +81,7 @@
     "role": "einziger primärer Vergleich",
     "direction": "Erwartung: offizieller Arm hat höheren Fehler bei 80% Abdeckung als gemischter Arm.",
     "primary_metric": "Fehleranteil bei exakt 80% Abdeckung insgesamt; nach Konfidenz sortieren, gesamte Grenzgruppe anteilig gleich gewichten, niemals anhand richtiger Labels auflösen.",
-    "contrast": "Pro Seed offizieller minus gemischter Fehler bei 80%; primärer Schätzer ist Mittel der fünf Seed-Kontraste.",
+    "contrast": "Für jede der 25 Split/Seed-Kombinationen offizielles R80 des jeweiligen Seeds minus gemischtes R80 berechnen. Primärer Schätzer: gleichgewichtetes Mittel über fünf Splitmittel und jeweils fünf Seeds. Die fünf offiziellen Werte werden dabei wiederverwendet, nicht als 25 unabhängige Modelle behandelt.",
     "important_secondary": "Spezifität bei unveränderter Klassifikationsschwelle 0.5 auf allen Test-Normalbildern; zusätzlich Sensitivität und Kalibrierung-minus-Test-Spezifitätslücke.",
     "operational_check": "Fehler und Abdeckung mit der fest kalibrierten Ablehnungsschwelle sowie Fehler ohne Ablehnung berichten. R80 ist eine Rangdiagnostik; die operative Testabdeckung darf von 80% abweichen.",
     "interpretation": "Geringerer Fehler im gemischten Arm stützt eine mit der Aufteilung verbundene Übertragungslücke. Unterschiedliche Trainings- und Testzusammensetzung verhindern die isolierte kausale Zuschreibung an Herkunft."
@@ -101,7 +109,7 @@
       "Lanczos",
       "bilinear"
     ],
-    "application": "Alle zehn eingefrorenen medizinischen Modelle auf jeweils denselben eigenen Testfällen; nur Resize-Kernel ändern, gleiche Ausgangsbilder, Geometrie und Schwellen. Kein bilineares Nachtraining oder Rekalibrieren.",
+    "application": "Alle 30 eingefrorenen medizinischen Modelle auf jeweils denselben eigenen Testfällen; nur Resize-Kernel ändern, gleiche Ausgangsbilder, Geometrie und Schwellen. Kein bilineares Nachtraining oder Rekalibrieren.",
     "endpoints": [
       "gepaarte Änderung R80",
       "Spezifitätsänderung bei 0.5",
@@ -125,7 +133,7 @@
       "interpretation": "Herkunftsvorhersagbarkeit belegt unterscheidbare Bilder, nicht die Nutzung dieses Merkmals durch das medizinische Modell."
     },
     "lung_masking": {
-      "role": "explorativ, eingefrorene medizinische Modelle, keine Masken-Nachtrainingsarme",
+      "role": "Spätere Studie, nicht Teil dieser Etappe oder des hier geplanten Laufpakets.",
       "prerequisite": "Anatomische Lungenmasken fehlen derzeit als geprüfte Eingabe. Vor diesem Teilversuch müssen manuelle beidseitige Masken nach einheitlicher Anleitung von qualifizierten Annotierenden erstellt oder eine konkrete lizenzierte Segmentierungsquelle per Protokollergänzung festgelegt werden; keine Rechteckmaske als Lunge ausgeben.",
       "manual_annotation": "Beide sichtbaren Lungenfelder einschließlich apikaler/basaler Anteile markieren; Herz, Mediastinum, Text und Padding ausschließen. Diagnose-, Herkunftslabels und Modellvorhersagen vor Annotierenden verbergen; visuelle Herkunftshinweise lassen sich nicht vollständig verbergen.",
       "quality_gate": "Eine zweite qualifizierte Person prüft zunächst 50 per Seed 20261115 gewählte Entwicklungsbilder; binär beide Felder erfasst, kein leerer/ganzer Bildbereich, keine groben anatomischen Auslassungen. Bei groben Fehlern Anleitung/Masken vor Testauswertung überarbeiten. Danach alle Masken vor Modellinferenz sichten; Fehlerliste und Korrekturen protokollieren, gültiges vollständiges Maskenmanifest samt Hashes vor Maskenlauf committen; unlösbare Fälle führen zum Aufschub, nicht zu leistungsabhängigen Ausschlüssen.",
@@ -138,35 +146,48 @@
       "implementation": "Masken auf Originalgeometrie definieren, mit Nearest Neighbor auf die bestehende 512px-Letterbox-Geometrie übertragen. Ersetzte Pixel im eigentlichen Bildrechteck auf Grauwert 127 setzen, vorhandenes Padding unverändert lassen; danach normale Modellnormalisierung.",
       "sham": "Je Fall und Maskierungsrichtung eine flächenidentische zyklische Verschiebung der binären Ersetzungsmaske innerhalb des nicht gepolsterten Bildrechtecks; Offset mit Seed 20261116 plus stabiler Bild-ID erzeugen, nicht anhand von Vorhersagen wählen. Auch Kontrollmasken können Teile der Lunge treffen.",
       "readouts": "Gepaarte Änderungen von R80, Spezifität, Sensitivität, Logit und operativer Akzeptanz; nach ursprünglicher Herkunft und Klasse aufschlüsseln. Maskierte Anteile und Kontrollmasken mitberichten.",
-      "interpretation": "Maskieren erzeugt neue Bildeingaben und Kanten. Leistung außerhalb der Lunge oder Einbruch nach Maskierung ist ein Shortcut-Hinweis, kein Beweis einer ausschließlich anatomischen Ursache."
+      "interpretation": "Maskieren erzeugt neue Bildeingaben und Kanten. Leistung außerhalb der Lunge oder Einbruch nach Maskierung ist ein Shortcut-Hinweis, kein Beweis einer ausschließlich anatomischen Ursache.",
+      "enabled": false,
+      "execution_gate": "Kein Maskenbezug, keine Annotation, keine Maskeninferenz und keine Masken-Budgetierung in dieser Studie. Die folgenden Details sind nur der frühere Entwurf; spätere Umsetzung braucht ein eigenes beschlossenes Protokoll."
+    },
+    "score_logit_correlation": {
+      "role": "explorativ, keine zusätzliche Modelloptimierung",
+      "population": "Je medizinischem Modell ausschließlich NORMAL-Bilder seines eigenen Tests. Keine medizinischen Trainings-, Selection- oder Kalibrierungsfälle in diese Korrelation aufnehmen.",
+      "scores": "Herkunftsscore = OOF-Wahrscheinlichkeit für ursprüngliches offizielles Test (Label 1); das zugehörige Herkunfts-CNN hat die gesamte Gruppe weder zum Training noch zur inneren Modellwahl verwendet. Medizinischer Score = roher Pneumonie-Logit des jeweiligen eingefrorenen Modells; positive Richtung bedeutet stärkere Pneumonievorhersage.",
+      "pairing": "Genau ein OOF-Score und ein medizinischer Logit pro Bild-ID je Modell; nur vollständige Paare, fehlende Zuordnungen zählen und vor Auswertung klären. Die äußere OOF-Zuordnung des Herkunfts-CNN bleibt über alle medizinischen Modelle gleich.",
+      "method": "Spearman-Rangkorrelation mit mittleren Rängen bei Gleichständen, je offiziellem Seed und je gemischter Split/Seed-Kombination. Alle Normalbilder verwenden, nicht nur falsch positive. Bei weniger als drei Paaren oder konstanter Rangvariable undefiniert ausgeben.",
+      "origin_check": "Zusätzlich innerhalb jeder ursprünglichen Herkunft getrennt berichten, jeweils Fall-/Gruppenzahlen; eine Gesamtkorrelation kann allein durch die Mischung verschiedener Herkünfte entstehen.",
+      "uncertainty": "Gruppen-Bootstrap auf festen OOF-Scores/medizinischen Logits; gemeinsame Gruppenmultiplizitäten erhalten Überlappungen. Keine erneuten Fits, keine Zusammenfassung aller wiederverwendeten Bilder zu einer vermeintlich unabhängigen Großstichprobe. Einzelkorrelationen sowie Split-/Seed-Zusammenfassungen beschreibend berichten, keine p-Wert-Suche.",
+      "limits": "OOF verhindert den direkten Fit auf der eigenen Gruppe. Herkunfts- und medizinisches CNN können dennoch Trainingsgruppen teilen; die Korrelation beweist weder eine kausale Nutzung der Herkunft noch eine bestimmte anatomische Abkürzung. Unterschiedliche OOF-Folds können unterschiedliche Score-Skalierungen haben; zusätzlich Korrelationen innerhalb der Herkunfts-Außenfolds mit Fallzahlen beschreibend prüfen, soweit definiert."
     }
   },
   "statistics": {
-    "seed_summary": "Fünf individuelle gepaarte H1-Kontraste, Mittel, Stichproben-SD und Spannweite; zusätzlich approximatives zweiseitiges 95%-t-Intervall mit 4 Freiheitsgraden, ausdrücklich nur Trainingsvariation bei zwei festen Aufteilungen. Keine besten Seeds auswählen.",
+    "seed_summary": "Für jeden Trainingsseed zuerst über die fünf Splitkontraste mitteln; diese fünf Seedmittel mit Mittel, Stichproben-SD und Spannweite berichten. Separates approximatives 95%-t-Intervall mit vier Freiheitsgraden nur als Trainingsvariation bei diesen fünf festen Splits kennzeichnen.",
     "group_bootstrap": {
       "replicates": 2000,
       "seed": 20261117,
       "unit": "Dateinamen-Gruppe, jeweils alle zugehörigen Fälle",
-      "joint_sampling": "Aus der Vereinigung der Testgruppen beider Arme mit Zurücklegen so viele Gruppen ziehen wie die Vereinigung enthält. Dieselbe Multiplizität einer Gruppen-ID in beiden Armen sowie allen Seeds/Varianten verwenden; nur die im jeweiligen Arm getesteten Fälle der Gruppe zählen. So bleibt vorhandene Überlappung erhalten; es wird keine vollständige Fallpaarung vorgetäuscht.",
-      "estimand": "Den Mittelwert über die fünf festgehaltenen Seed-Kontraste pro Ziehung neu berechnen, einschließlich Konfidenzränge und anteiliger Grenzgruppen. Für H2/H3 entsprechend gepaarte Varianten/Schwellenwerte benutzen; operative Schwellen im Bootstrap nicht erneut fitten.",
-      "report": "2.5-/97.5%-Perzentile separat vom Seed-Intervall; bedingt auf trainierte Modelle, gewählte Splits und Schwellen. Keine Multiplikation der Fallzahl mit fünf. Undefinierte Ziehungen samt Ursache zählen, auf definierte Ziehungen bedingte Bereiche kennzeichnen.",
+      "joint_sampling": "Aus der Vereinigung der Testgruppen der offiziellen und aller fünf gemischten Aufteilungen so viele Gruppen mit Zurücklegen ziehen wie diese Vereinigung enthält. Dieselbe Gruppenmultiplizität in sämtlichen Splits, Seeds und Varianten verwenden; pro Modell nur dessen eigene Testfälle zählen. Überlappung und Wiederverwendung der offiziellen Referenz so gemeinsam erhalten.",
+      "estimand": "Pro Ziehung den primären Mittelwert über alle 25 Split/Seed-Kontraste neu berechnen, inklusive R80-Grenzgewichten. Dieselben fünf offiziellen Referenzwerte wiederverwenden. H2/H3, Herkunftsuntergruppen und Korrelation entsprechend auf ihren festen Vorhersagen auswerten; operative Schwellen nicht neu fitten.",
+      "report": "Perzentile separat von Split- und Seed-Streuung berichten; bedingt auf alle festen Modelle, Splits und Schwellen. Kein gemeinsames Gesamtintervall aus diesen drei Verfahren ableiten. Fallzahlen nicht mit Seeds/Splits multiplizieren; undefinierte Ziehungen samt Ursache und Bedingung auf definierte Ziehungen offenlegen.",
       "source_classifier": "Für Herkunfts-AUROC Gruppenbootstrap auf gespeicherten Out-of-fold-Vorhersagen; keine erneuten Folds/Fits im Bootstrap."
     },
     "zero_errors": "Immer Fehleranzahl, Fallzahl und Zahl akzeptierter Gruppen ausgeben. Bei null Fehlern kein Bootstrap-[0,0] als Nullrisiko/garantierte Obergrenze interpretieren. Ergänzend nur für binär akzeptierte Fälle eine einseitige exakte 95%-Obergrenze für den Anteil von Gruppen mit mindestens einem Fehler berichten, unter angenommener Unabhängigkeit der Dateinamen-Gruppen; ausdrücklich keine Obergrenze des patientenbezogenen oder bildbezogenen Risikos. Für anteilige R80-Gewichte keine binomiale Fallgrenze angeben.",
     "multiplicity": "Nur H1 primär. H2, Spezifität, H3 und Shortcut-Analysen sekundär/explorativ; keine bestätigenden Signifikanzbehauptungen aus einzelnen Nebenintervallen. Keine Powerbehauptung ohne gesonderte Planung.",
-    "support_rule": "H1 wird als konsistent gestützt beschrieben, wenn der mittlere offizielle-minus-gemischte R80-Unterschied positiv ist und beide separat berichteten Unsicherheitsbereiche oberhalb null liegen; sonst gemischte/unklare Evidenz. Dies ersetzt keinen Kausalnachweis.",
-    "report_failures": "Alle zehn vorgesehenen Läufe berichten; bei technischem Abbruch denselben Seed wiederholen und Grund dokumentieren, keine Ersatzseeds auswählen."
+    "support_rule": "Wie bisher nur als konsistent gestützt beschreiben, wenn der mittlere offizielle-minus-gemischte R80-Kontrast positiv ist und nun alle drei separat berichteten Bereiche (Seed, Split, Gruppenbootstrap) oberhalb null liegen; sonst gemischte/unklare Evidenz. Einzelne Split-/Seed-Vorzeichen mitberichten. Dies ist eine beschreibende Konsistenzregel, kein gemeinsames Gesamtintervall oder Kausalnachweis.",
+    "report_failures": "Alle 30 vorgesehenen Läufe berichten; bei technischem Abbruch denselben Seed wiederholen und Grund dokumentieren, keine Ersatzseeds auswählen.",
+    "split_summary": "Für jeden gemischten Split über die fünf Trainingsseeds mitteln; diese fünf Splitmittel mit Mittel, Stichproben-SD und Spannweite berichten. Separates approximatives 95%-t-Intervall mit vier Freiheitsgraden nur als Splitvariation bei diesen fünf festen Seeds kennzeichnen; gemeinsamer offizieller Referenzarm und überlappende Testmengen bleiben abhängig. Vollständige 5x5-Kontrasttabelle zeigen; Wechselwirkung sichtbar machen, keine 25 unabhängigen Wiederholungen behaupten."
   },
   "limits": [
-    "Bekannte Testkohorte und nur eine Zufallsneuaufteilung; keine Aussage über die Streuung aller möglichen Aufteilungen.",
-    "Die beiden Testmengen unterscheiden sich; der Vergleich isoliert weder Klinik, Alter, Pathologie-Schwere noch Aufnahmegerät.",
+    "Bekannte Testkohorte; fünf festgelegte Neuaufteilungen erfassen begrenzte Splitvariation. Überlappende Fälle und gemeinsame offizielle Referenzen sind keine unabhängigen Stichproben.",
+    "Die Testmengen der sechs Aufteilungen unterscheiden sich; der Vergleich isoliert weder Klinik, Alter, Pathologie-Schwere noch Aufnahmegerät.",
     "Dateinamen-Gruppen sind keine bestätigten Patientenidentitäten; eine Mischung macht den offiziellen Test für diese neuen Modelle zu Trainingsmaterial.",
-    "Maskierungsartefakte, begrenzte Seedzahl und fehlende neue klinische Kohorte begrenzen kausale und klinische Aussagen.",
+    "Je fünf Split- und Trainingsseeds sowie fehlende neue klinische Kohorte begrenzen kausale und klinische Aussagen; Score-Korrelation kann durch Herkunftsmischung oder gemeinsame Trainingsdaten entstehen.",
     "Herkunftserkennung oder positive H1 allein beweisen keinen Shortcut des medizinischen Modells."
   ],
   "reporting": {
     "standard": "TRIPOD+AI 2024: Datenfluss/Ausschlüsse, Zielpopulation und Labeldefinition, vollständige Splits, Training/Modellwahl, Metriken samt Nennern, Unsicherheit, Fehlerfälle, Ressourcen, Code und Grenzen offenlegen; Checkliste beim späteren Bericht abgleichen.",
-    "artifacts": "Später alle Konfigurationen, Split-/Maskenhashes, Gewichte, Seedlogs und Vorhersagen sichern; keine bestehenden Ergebnisse überschreiben. Kein neuer Berichtsordner pro Analyse; höchstens ein einseitiger Etappenbericht, Detailtabellen maschinenlesbar.",
+    "artifacts": "Später alle Konfigurationen, Split-/Cache-Hashes, Gewichte, Seedlogs und Vorhersagen sichern; keine bestehenden Ergebnisse überschreiben. Kein neuer Berichtsordner pro Analyse; höchstens ein einseitiger Etappenbericht, Detailtabellen maschinenlesbar.",
     "stage_scope": "Diese Etappe schreibt ausschließlich dieses Protokoll und ein kurzes Dokument; keine Bilder, Testvorhersagen oder Testlabels öffnen, keine Splits erzeugen, keine Modelle laden oder trainieren."
   },
   "references": [
@@ -329,5 +350,66 @@
       "verification": "Crossref-Titel, Autoren, Jahr und DOI geprüft. Europe-PMC-Volltext abgerufen, Abstract gelesen; HTTP 200.",
       "use": "27 Punkte für transparente Berichterstattung; Berichtsstandard, keine Garantie methodischer Qualität."
     }
-  ]
+  ],
+  "revision": 2,
+  "amendments": [
+    {
+      "id": "A1",
+      "date": "2026-11-12",
+      "base_commit": "598d26c",
+      "reason": "Gutachter-Review, keine Ergebnisse der geplanten Studie gesehen. Historische Vorbefunde bleiben bekannt.",
+      "runs_started": false,
+      "changes": [
+        "Fünf feste gemischte Splits statt eines; 30 medizinische Trainingsläufe.",
+        "Gemeinsamer hash-geprüfter Cache ausschließlich eingefrorener Merkmale.",
+        "Herkunftsstratifizierte gemischte Testergebnisse vorab festgelegt.",
+        "Hauptfrage an Fehler unter angenommenen Fällen angepasst.",
+        "Lungenmaskierung in spätere Studie verschoben; explorative OOF-Score/Logit-Korrelation ergänzt.",
+        "Split-, Seed- und Fallunsicherheit getrennt; Laufzeit neu geschätzt."
+      ]
+    }
+  ],
+  "feature_cache": {
+    "status": "Nur geplant; in dieser Etappe keinen Cache lesen oder erzeugen.",
+    "scope": "Deterministische, labelunabhängige Merkmale des ursprünglichen ImageNet-Encoders für alle 5.371 bereinigten Bilder einmal erzeugen und über alle Splits/Seeds wiederverwenden.",
+    "contents": [
+      "float32-Ausgaben von features[:10] für das partielle Nachtraining",
+      "ungefilterte gepoolte Merkmale des vollständig eingefrorenen ursprünglichen Encoders zur Initialisierung des linearen Kopfes"
+    ],
+    "prohibited": "Keine nachtrainierten features[10:]-Ausgaben zwischen Läufen teilen. StandardScaler, Klassifikationskopf, Tail-Gewichte, Optimierer und Modellwahl in jedem Lauf ausschließlich mit der jeweiligen Trainings-/Selection-Menge neu bestimmen.",
+    "cache_key": "SHA-256 von ursprünglichen Encodergewichten, Roharchiv, vollständigem geordnetem Bild-ID-Manifest, Vorverarbeitungsdefinition/Code, Auflösung, Kernel, dtype und Softwareversionen. Für jede Cache-Datei zusätzlich Inhalts-SHA-256, Tensorform und Zeilen-ID-Zuordnung speichern.",
+    "verification": "Vor jeder Wiederverwendung Cache-Schlüssel und alle Datei-Hashes prüfen; bei Abweichung stoppen. Referenzvergleich cached versus direkte Encoderberechnung auf vorab festgelegten Entwicklungsbildern, ohne Labels oder Testleistungsvergleich.",
+    "test_handling": "Das spätere rein deterministische Kodieren aller Bilder ist kein Fit. Testlabels dürfen weder Merkmale noch Normalisierung beeinflussen; ein gemeinsamer Cache hebt die Splitgrenzen nicht auf.",
+    "kernels": "Lanczos einmal für H1/H2 und Herkunfts-CNN; für H3 bilinear einmal separat mit eigenem Schlüssel. Niemals Lanczos-Features als bilineare Eingabe ausgeben.",
+    "auxiliary_use": "Das Herkunfts-CNN darf denselben ursprünglichen eingefrorenen Präfix nutzen; seinen trainierbaren Tail und Kopf je Außenfold neu fitten."
+  },
+  "mixed_test_origin_reporting": {
+    "role": "vorab festgelegt, sekundär und beschreibend",
+    "strata": [
+      "ursprünglich offizielles Train",
+      "ursprünglich offizielles Test"
+    ],
+    "report": "Für jede gemischte Split/Seed-Kombination und Herkunft: Bild- und Gruppenzahl, Klassenanzahlen, Konfusionsmatrix bei 0.5, Spezifität, Sensitivität, Akzeptanz und Fehler unter akzeptierten Fällen insgesamt und je wahrer Klasse. Auch falsch positive Normalbilder und zurückgehaltene Fehlalarme mit Zähler/Nenner berichten.",
+    "R80_rule": "Die global im jeweiligen gesamten gemischten Test bestimmten R80-Gewichte beibehalten und dann nach Herkunft aufschlüsseln. Keine neue 80%-Quote je Herkunft oder Klasse; zusätzlich die feste interne Konfidenzschwelle auswerten.",
+    "summary": "Einzelwerte und Spannweiten über Splits/Seeds, keine künstliche Vervielfachung der Fallzahl. Leere Klassen oder Annahmemengen: undefiniert. Keine ergebnisabhängige Auswahl der Herkunftsgruppe."
+  },
+  "runtime_estimate": {
+    "status": "Extrapolation früherer Messung, kein neuer Benchmark oder Lauf",
+    "reference": "docs/reproduction-512/training_run.json",
+    "reference_sha256": "4e79cd25255a56120684f9727f4a975ed3ecd19ccb07526592e385cc7c108df2",
+    "hardware": "Wie Referenz: CPU Xeon Platinum 8573C, ein Torch-/BLAS-Rechenthread, serielle Läufe.",
+    "reference_images": 4753,
+    "cache_images": 5371,
+    "cache_build_seconds_estimated": 645.7251014842831,
+    "per_medical_fit_seconds_estimated": 335.34353569299856,
+    "medical_fits": 30,
+    "medical_training_total_hours_estimated": 2.97479175070201,
+    "medical_training_hours_with_25_percent_reserve": 3.7184896883775127,
+    "bilinear_cache_additional_minutes_estimated": 10.76208502473805,
+    "additional_source_cnn_fits": 5,
+    "fit_counts_total": 35,
+    "assumptions": "Ein gemeinsamer Lanczos-Cache statt 30 Neuaufbauten; Bilderaufbereitung proportional zur Bildzahl, Kopf-/Tail-Fit wie im gemessenen Lauf. Fünf offizielle Fits nur einmal. 25% Reserve ist Planung, kein Konfidenzintervall.",
+    "excluded": "Setup/Archivdownload, Solver/Splitprüfung, Cache-Hash-I/O bei Wiederverwendung, Testinferenz, H2/H3-Auswertung, Bootstrap, OOF-Herkunfts-CNN und Bericht. Die fünf Herkunfts-Fits brauchen ein separates noch ungemessenes Budget; Kerntrainingszahl ist keine Gesamtlaufzeit der Studie. Bilinear-Cache separat geschätzt, Maskierung ausgeschlossen.",
+    "memory": "Frühere Peak-RSS 1185.7 MiB als Orientierung pro seriellem Prozess, nicht mal 30. Größerer Cache und anderes Zugriffsmuster können den Peak ändern; neue Messung erst im später genehmigten Lauf."
+  }
 }
