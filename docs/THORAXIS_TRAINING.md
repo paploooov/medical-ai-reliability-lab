@@ -1,6 +1,6 @@
 # THORAXIS: 30 Trainingsläufe ohne Testinferenz
 
-Protokoll: `c44117a`. Status: **running**, **30/30** Modelle abgeschlossen. Stand (UTC): 2026-11-12T20:15:29.919215+00:00.
+Protokoll: `c44117a`. Status: **completed**, **30/30** Modelle abgeschlossen. Stand (UTC): 2026-11-12T20:15:30.086010+00:00.
 
 Fünf offizielle Referenzmodelle und fünf gemischte Aufteilungen mit jeweils denselben Seeds 17, 42, 83, 123 und 2026. Alle Modelle starten neu vom ursprünglichen ImageNet-Encoder. Der frühere technische Probelauf bleibt getrennt. Training, Modellwahl und Kalibrierung verwenden nur die eigenen Entwicklungsdaten. Der medizinische Kopf erhält keine Testzeilen.
 
