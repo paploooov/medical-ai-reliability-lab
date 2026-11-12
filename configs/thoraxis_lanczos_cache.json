@@ -1,0 +1,87 @@
+{
+  "identity": {
+    "source_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+    "archive_sha256": "13efc055629733dbab07877f8b3c9f81097840dbcdaa326a8542322c2281ce36",
+    "encoder_weights_sha256": "047dcff4addef86ea5bc2eff13c9614dc11f47ab1160d0a71a25e7db994f4e1f",
+    "ordered_image_ids_sha256": "0aab7bd1ee8c6494995b40a9898303447d800c98db69b4599347ad7606b3fa80",
+    "preprocessing_code_sha256": "1001f500cfa86c8f2c226fd3c468c82035996d5934966caed1d35b8ef7885cb7",
+    "normalization_code_sha256": "6e309f1a93adf365931aac8b6f00d0d93c3eef9e85a48e0005aae4f9ce94193b",
+    "cache_code_sha256": "1bdc2c2376e463c207e7a8135a060bafa37e0afdef4d2764e6a6c6d35d17fa9c",
+    "size": 512,
+    "kernel": "Lanczos",
+    "dtype": "float32",
+    "python": "3.12.14",
+    "versions": {
+      "numpy": "2.2.6",
+      "torch": "2.5.1+cpu",
+      "torchvision": "0.20.1+cpu",
+      "pillow": "13.0.0",
+      "scipy": "1.16.3",
+      "scikit-learn": "1.7.2"
+    }
+  },
+  "files": {
+    "prefix.npy": {
+      "sha256": "aaa4257b0c1f96c38be62c82aba0f4c1f78a4719c25bc24c14ab37edb740794a",
+      "shape": [
+        5371,
+        96,
+        16,
+        16
+      ],
+      "bytes": 527990912,
+      "row_ids": "records order in source manifest, verified by identity hash"
+    },
+    "pooled.npy": {
+      "sha256": "adb19594aa38dfa3f65a03b888877ff2bc75fb574786f674210cb52704f5ddda",
+      "shape": [
+        5371,
+        576
+      ],
+      "bytes": 12374912,
+      "row_ids": "records order in source manifest, verified by identity hash"
+    }
+  },
+  "direct_checks": [
+    {
+      "image_id": "chest_xray/train/NORMAL/IM-0115-0001.jpeg",
+      "partition": "train",
+      "prefix_max_abs_error": 2.3245811462402344e-06,
+      "pooled_max_abs_error": 9.5367431640625e-07
+    },
+    {
+      "image_id": "chest_xray/train/NORMAL/IM-0117-0001.jpeg",
+      "partition": "train",
+      "prefix_max_abs_error": 3.337860107421875e-06,
+      "pooled_max_abs_error": 1.4901161193847656e-06
+    },
+    {
+      "image_id": "chest_xray/train/NORMAL/IM-0158-0001.jpeg",
+      "partition": "selection",
+      "prefix_max_abs_error": 2.6226043701171875e-06,
+      "pooled_max_abs_error": 1.1920928955078125e-06
+    },
+    {
+      "image_id": "chest_xray/train/NORMAL/IM-0166-0001.jpeg",
+      "partition": "selection",
+      "prefix_max_abs_error": 2.9802322387695312e-06,
+      "pooled_max_abs_error": 1.9073486328125e-06
+    },
+    {
+      "image_id": "chest_xray/train/NORMAL/IM-0128-0001.jpeg",
+      "partition": "calibration",
+      "prefix_max_abs_error": 2.682209014892578e-06,
+      "pooled_max_abs_error": 8.121132850646973e-07
+    },
+    {
+      "image_id": "chest_xray/train/NORMAL/IM-0147-0001.jpeg",
+      "partition": "calibration",
+      "prefix_max_abs_error": 2.0265579223632812e-06,
+      "pooled_max_abs_error": 1.1920928955078125e-06
+    }
+  ],
+  "medical_test_predictions": 0,
+  "total_seconds": 497.2855230099958,
+  "peak_rss_mib": 884.98046875,
+  "cache_key_sha256": "c309a14fa3a28383222e4aa68151a9a0bf58589c4500cee842c711a2356adcf9"
+}
