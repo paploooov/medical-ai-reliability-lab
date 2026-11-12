@@ -1,0 +1,57 @@
+{
+  "seed": 17,
+  "split": "existing published manifest; no resplit",
+  "counts": {
+    "train": 3842,
+    "selection": 442,
+    "calibration": 469
+  },
+  "selected_epoch": 3,
+  "history": [
+    {
+      "epoch": 0,
+      "selection_nll": 0.0838494306401385
+    },
+    {
+      "epoch": 1,
+      "training_nll": 0.018111944511550328,
+      "selection_nll": 0.0817841019060281,
+      "seconds": 99.51044705598906
+    },
+    {
+      "epoch": 2,
+      "training_nll": 0.014750168548195386,
+      "selection_nll": 0.08133291099911591,
+      "seconds": 143.95428429999447
+    },
+    {
+      "epoch": 3,
+      "training_nll": 0.011627066796452052,
+      "selection_nll": 0.08130167119351858,
+      "seconds": 119.92870504200982
+    }
+  ],
+  "selected_C": 0.1,
+  "stages": {
+    "cache_verification_and_load_seconds": 2.331754087994341,
+    "head_fit_seconds": 5.057236688007833,
+    "three_epoch_training_seconds": 363.42656406799506,
+    "calibration_export_seconds": 2.1115604169899598
+  },
+  "total_seconds": 372.9271296939987,
+  "peak_rss_mib": 1671.39453125,
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "python": "3.12.14",
+  "torch": "2.5.1+cpu",
+  "numpy": "2.2.6",
+  "cpu_threads": 1,
+  "checkpoint_sha256": "cf8ada1327214b577cfcfe2861c88d6e7fee5cbd5d9dfe5cde6eb9bb53419a81",
+  "manifest_sha256": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+  "archive_sha256": "13efc055629733dbab07877f8b3c9f81097840dbcdaa326a8542322c2281ce36",
+  "script_sha256": "aca978b00a12deb87491e22aa242fb15e7a6bc0b8b5651fcb9a70974858743ad",
+  "test_evaluated": false,
+  "cache_manifest_sha256": "ca2b4102386c6ac2fddec1625977e6a3aabc80d61fce95a16816bb7f3c9bf8e0",
+  "medical_test_predictions": 0,
+  "development_image_ids_sha256": "ab44561374377664346de432f778fee4ba16699413f9fcd98fa905a658b63d79",
+  "git_commit_before_run": "51d7f28e486beaa68d078fbf246f0e4f3cbd060c"
+}
