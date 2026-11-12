@@ -1,0 +1,208 @@
+{
+  "protocol_commit": "c44117a",
+  "purpose": "30 fresh medical training fits only; no test inference",
+  "prior_technical_trial": "Preserved separately; not substituted for any of these 30 fits",
+  "runs": [
+    {
+      "run_id": "official_seed17",
+      "split": "official",
+      "seed": 17,
+      "manifest": "reports/original_512/manifest.json"
+    },
+    {
+      "run_id": "official_seed42",
+      "split": "official",
+      "seed": 42,
+      "manifest": "reports/original_512/manifest.json"
+    },
+    {
+      "run_id": "official_seed83",
+      "split": "official",
+      "seed": 83,
+      "manifest": "reports/original_512/manifest.json"
+    },
+    {
+      "run_id": "official_seed123",
+      "split": "official",
+      "seed": 123,
+      "manifest": "reports/original_512/manifest.json"
+    },
+    {
+      "run_id": "official_seed2026",
+      "split": "official",
+      "seed": 2026,
+      "manifest": "reports/original_512/manifest.json"
+    },
+    {
+      "run_id": "20261112_seed17",
+      "split": "20261112",
+      "seed": 17,
+      "manifest": "configs/thoraxis_splits/20261112.json"
+    },
+    {
+      "run_id": "20261112_seed42",
+      "split": "20261112",
+      "seed": 42,
+      "manifest": "configs/thoraxis_splits/20261112.json"
+    },
+    {
+      "run_id": "20261112_seed83",
+      "split": "20261112",
+      "seed": 83,
+      "manifest": "configs/thoraxis_splits/20261112.json"
+    },
+    {
+      "run_id": "20261112_seed123",
+      "split": "20261112",
+      "seed": 123,
+      "manifest": "configs/thoraxis_splits/20261112.json"
+    },
+    {
+      "run_id": "20261112_seed2026",
+      "split": "20261112",
+      "seed": 2026,
+      "manifest": "configs/thoraxis_splits/20261112.json"
+    },
+    {
+      "run_id": "20261113_seed17",
+      "split": "20261113",
+      "seed": 17,
+      "manifest": "configs/thoraxis_splits/20261113.json"
+    },
+    {
+      "run_id": "20261113_seed42",
+      "split": "20261113",
+      "seed": 42,
+      "manifest": "configs/thoraxis_splits/20261113.json"
+    },
+    {
+      "run_id": "20261113_seed83",
+      "split": "20261113",
+      "seed": 83,
+      "manifest": "configs/thoraxis_splits/20261113.json"
+    },
+    {
+      "run_id": "20261113_seed123",
+      "split": "20261113",
+      "seed": 123,
+      "manifest": "configs/thoraxis_splits/20261113.json"
+    },
+    {
+      "run_id": "20261113_seed2026",
+      "split": "20261113",
+      "seed": 2026,
+      "manifest": "configs/thoraxis_splits/20261113.json"
+    },
+    {
+      "run_id": "20261114_seed17",
+      "split": "20261114",
+      "seed": 17,
+      "manifest": "configs/thoraxis_splits/20261114.json"
+    },
+    {
+      "run_id": "20261114_seed42",
+      "split": "20261114",
+      "seed": 42,
+      "manifest": "configs/thoraxis_splits/20261114.json"
+    },
+    {
+      "run_id": "20261114_seed83",
+      "split": "20261114",
+      "seed": 83,
+      "manifest": "configs/thoraxis_splits/20261114.json"
+    },
+    {
+      "run_id": "20261114_seed123",
+      "split": "20261114",
+      "seed": 123,
+      "manifest": "configs/thoraxis_splits/20261114.json"
+    },
+    {
+      "run_id": "20261114_seed2026",
+      "split": "20261114",
+      "seed": 2026,
+      "manifest": "configs/thoraxis_splits/20261114.json"
+    },
+    {
+      "run_id": "20261115_seed17",
+      "split": "20261115",
+      "seed": 17,
+      "manifest": "configs/thoraxis_splits/20261115.json"
+    },
+    {
+      "run_id": "20261115_seed42",
+      "split": "20261115",
+      "seed": 42,
+      "manifest": "configs/thoraxis_splits/20261115.json"
+    },
+    {
+      "run_id": "20261115_seed83",
+      "split": "20261115",
+      "seed": 83,
+      "manifest": "configs/thoraxis_splits/20261115.json"
+    },
+    {
+      "run_id": "20261115_seed123",
+      "split": "20261115",
+      "seed": 123,
+      "manifest": "configs/thoraxis_splits/20261115.json"
+    },
+    {
+      "run_id": "20261115_seed2026",
+      "split": "20261115",
+      "seed": 2026,
+      "manifest": "configs/thoraxis_splits/20261115.json"
+    },
+    {
+      "run_id": "20261116_seed17",
+      "split": "20261116",
+      "seed": 17,
+      "manifest": "configs/thoraxis_splits/20261116.json"
+    },
+    {
+      "run_id": "20261116_seed42",
+      "split": "20261116",
+      "seed": 42,
+      "manifest": "configs/thoraxis_splits/20261116.json"
+    },
+    {
+      "run_id": "20261116_seed83",
+      "split": "20261116",
+      "seed": 83,
+      "manifest": "configs/thoraxis_splits/20261116.json"
+    },
+    {
+      "run_id": "20261116_seed123",
+      "split": "20261116",
+      "seed": 123,
+      "manifest": "configs/thoraxis_splits/20261116.json"
+    },
+    {
+      "run_id": "20261116_seed2026",
+      "split": "20261116",
+      "seed": 2026,
+      "manifest": "configs/thoraxis_splits/20261116.json"
+    }
+  ],
+  "max_attempts_per_run": 3,
+  "timeout_seconds": 3600,
+  "execution": "Serial background process; one Torch/BLAS thread; no continuous monitoring",
+  "storage": "Checkpoints in ignored data directory; local paths, SHA256, all attempt logs and summary committed after every completed attempt",
+  "input_sha256": {
+    "configs/thoraxis_source_shift_protocol.json": "975625a19ff15b5d7e9ea8638a064580ceec06eea2c40b5a79fe099d18b4fb4b",
+    "configs/thoraxis_lanczos_cache.json": "ca2b4102386c6ac2fddec1625977e6a3aabc80d61fce95a16816bb7f3c9bf8e0",
+    "reports/original_512/manifest.json": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+    "scripts/train_thoraxis_protocol.py": "b62ece0650628b21464ddd590f25ac56aa722d8a726f1d01b4e037fb23b5f7ce",
+    "scripts/run_thoraxis_batch.py": "60ba79fb7b9968455bcb8be2565b0155bde897c2bdb5b108dae05a6e0151ef0a",
+    "scripts/prepare_thoraxis_cache.py": "1bdc2c2376e463c207e7a8135a060bafa37e0afdef4d2764e6a6c6d35d17fa9c",
+    "scripts/prepare_original_xray.py": "1001f500cfa86c8f2c226fd3c468c82035996d5934966caed1d35b8ef7885cb7",
+    "scripts/reproduce_512.py": "6e309f1a93adf365931aac8b6f00d0d93c3eef9e85a48e0005aae4f9ce94193b",
+    "requirements-reproduce-512.lock": "c657d397d4966dfe716696622e5afc9bf18c90dbe7c0f5e3ad07cd65d0202950",
+    "configs/thoraxis_splits/checks.json": "4bb891139d8ff444fa00f7ac1bb4cb1e9c736f61e3aa756dcdd6d88e42f2ac68",
+    "configs/thoraxis_splits/20261112.json": "318376d19dc05df98216126baf1720aec111aec7ffebde6f1208664af3908914",
+    "configs/thoraxis_splits/20261113.json": "1574f485bbaed7fafe1fbed9622d2d2457949f1e113d2b5b326b38ed52337744",
+    "configs/thoraxis_splits/20261114.json": "bf2a82dce3db3143ddacb0dd95deb87f35a46da6c0f4b8493208cf03658d434e",
+    "configs/thoraxis_splits/20261115.json": "159926ababc893284afc1cf1578cb64a71e0c16247f49c7c2c20360309f1f363",
+    "configs/thoraxis_splits/20261116.json": "2a14222d3500bd1f4c78931f53848821dbcf1daa99480fcff9fc7019500769eb"
+  }
+}

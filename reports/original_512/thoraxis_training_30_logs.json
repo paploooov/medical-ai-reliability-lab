@@ -1,0 +1,129 @@
+{
+  "protocol": "c44117a",
+  "status": "prepared",
+  "updated_at": "2026-11-12T16:00:17.231215+00:00",
+  "runs": {
+    "official_seed17": {
+      "status": "pending",
+      "attempts": []
+    },
+    "official_seed42": {
+      "status": "pending",
+      "attempts": []
+    },
+    "official_seed83": {
+      "status": "pending",
+      "attempts": []
+    },
+    "official_seed123": {
+      "status": "pending",
+      "attempts": []
+    },
+    "official_seed2026": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261112_seed17": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261112_seed42": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261112_seed83": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261112_seed123": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261112_seed2026": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261113_seed17": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261113_seed42": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261113_seed83": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261113_seed123": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261113_seed2026": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261114_seed17": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261114_seed42": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261114_seed83": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261114_seed123": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261114_seed2026": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261115_seed17": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261115_seed42": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261115_seed83": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261115_seed123": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261115_seed2026": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261116_seed17": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261116_seed42": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261116_seed83": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261116_seed123": {
+      "status": "pending",
+      "attempts": []
+    },
+    "20261116_seed2026": {
+      "status": "pending",
+      "attempts": []
+    }
+  },
+  "batch_error": null,
+  "medical_test_inference": false
+}
