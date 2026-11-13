@@ -1,0 +1,36 @@
+{
+  "protocol_commit": "c44117a",
+  "scope": "Only prespecified source-CNN, score/logit correlations and exploratory bilinear H3; no medical retraining, no masks",
+  "source_class_weights": "N_train / (2 * training class count): inverse prevalence normalized to mean sample weight one; BCE averaged over batch",
+  "source_epoch_candidates": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "source_folds": "Exactly protocol StratifiedGroupKFold seeds; fold manifest must be committed and pushed before fits",
+  "correlation": "Weighted midranks recomputed under shared test-group bootstrap; no p values; summaries of defined rho values",
+  "bootstrap_replicates": 2000,
+  "bootstrap_seed": 20261117,
+  "bilinear_verification": "Same six first sorted official development image IDs as Lanczos; atol 2e-4 rtol 1e-4",
+  "frozen_inputs": {
+    "scripts/thoraxis_stage3_common.py": "2a48926dca374f88d0b118a7bdb533e202f561de938423cd963d30affe1e1df6",
+    "scripts/train_thoraxis_source.py": "838e703f31f6875009226079e2fc015e9347e36085c45f6898f859cf25414564",
+    "scripts/cache_thoraxis_bilinear.py": "4234c28b180294d39de5448798909d659011d24624c6d77b89f9130f44711c5a",
+    "scripts/infer_thoraxis_bilinear.py": "528edb5739f7f88b8c88dcef6e8a8e0eb353f08e6aa92ac5fcb85c8a83818397",
+    "scripts/analyze_thoraxis_stage3.py": "23e084490515f589b4b28d71c538990f5112e174cdbd3d6b60cfef48430675f6",
+    "scripts/check_thoraxis_source_auc.py": "d1f66f8c733b346515330b0d6e9be910ab4f001de2a76575e87ee3acd576a73f",
+    "scripts/plot_thoraxis_stage3.py": "ef9af355279e74dcd275ca4d59983bd5eb4e12cc21f5d53aa4bd58946f78b62f",
+    "tests/test_thoraxis_stage3.py": "65de86ca3ecc296fafe614e932d661bed3f55c47d4fad6c6489c3fc85664df9b",
+    "configs/thoraxis_source_shift_protocol.json": "975625a19ff15b5d7e9ea8638a064580ceec06eea2c40b5a79fe099d18b4fb4b",
+    "configs/thoraxis_lanczos_cache.json": "ca2b4102386c6ac2fddec1625977e6a3aabc80d61fce95a16816bb7f3c9bf8e0",
+    "configs/thoraxis_training_batch.json": "29ac9d59dacca03e2febd6d670a66f43f560a4f71a5a8bb3352bcb4652d38e82",
+    "reports/original_512/manifest.json": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+    "reports/original_512/thoraxis_30/checkpoints/manifest.json": "9f2dde8236521aa9e8a14bffd48d4ac4e7d6ced262f4595dc7fde86ecbba8686",
+    "reports/original_512/thoraxis_30/prediction_manifest.json": "8efc34c30e27874e6c0b71c81f683c63b0c92abe36f0ecdf18036bba9332766c",
+    "scripts/analyze_thoraxis_h1_h2.py": "dcde8af1fc9b41446c14f6f3f09cc63e8d729ae89cad4d9c8ca37a5d2d40cd93",
+    "scripts/prepare_thoraxis_cache.py": "1bdc2c2376e463c207e7a8135a060bafa37e0afdef4d2764e6a6c6d35d17fa9c",
+    "scripts/prepare_original_xray.py": "1001f500cfa86c8f2c226fd3c468c82035996d5934966caed1d35b8ef7885cb7",
+    "scripts/reproduce_512.py": "6e309f1a93adf365931aac8b6f00d0d93c3eef9e85a48e0005aae4f9ce94193b"
+  }
+}
