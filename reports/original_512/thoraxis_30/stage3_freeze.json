@@ -1,0 +1,10 @@
+{
+  "code_commit": "5622c800ca9fda788116ba183ae74dddc3a4014c",
+  "ls_remote_origin_main": "5622c800ca9fda788116ba183ae74dddc3a4014c\trefs/heads/main\n",
+  "fold_preparation_gate": {
+    "remote_main": "5622c800ca9fda788116ba183ae74dddc3a4014c",
+    "checked_at_utc": "2026-11-13T12:50:43.018997+00:00"
+  },
+  "synthetic_checks_passed": 4,
+  "no_protocol_change": true
+}
