@@ -1,0 +1,421 @@
+{
+  "repository": "paploooov/medical-ai-reliability-lab",
+  "source": "GitHub REST repository activity: server-provided timestamp field for push events",
+  "api_documentation": "https://docs.github.com/en/rest/repos/repos#list-repository-activities",
+  "activity_page": "https://github.com/paploooov/medical-ai-reliability-lab/activity",
+  "scope": "Observed pushes to main in the returned activity window; timestamps refer to ref updates, not author/committer dates or a separate upload per commit.",
+  "responses": [
+    {
+      "url": "https://api.github.com/repos/paploooov/medical-ai-reliability-lab/activity?activity_type=push&per_page=100",
+      "retrieved_at_utc": "2026-11-13T12:40:49.304650+00:00",
+      "http_status": 200,
+      "server_date": "Fri, 13 Nov 2026 12:40:49 GMT",
+      "github_request_id": "2F5A:3E591:53755FD:109C1097:6AF70550",
+      "link": null,
+      "response_sha256": "43dfe205b1372c1442af21d964b1144240b973a10001574978155baab146cb6d"
+    },
+    {
+      "url": "https://api.github.com/repos/paploooov/medical-ai-reliability-lab/compare/c44117a92e6a281c1c61763baf6da94f5d21dedb...7041378a800a8d192965256707fe96f034f2579f",
+      "retrieved_at_utc": "2026-11-13T12:40:50.980737+00:00",
+      "http_status": 200,
+      "server_date": "Fri, 13 Nov 2026 12:40:50 GMT",
+      "github_request_id": "F73C:D15B0:4D7E4B1:F6D147A:6AF70551",
+      "link": null,
+      "response_sha256": "59c3bda16c3a6b6c28190dd5fb16179337935927f14783c8ba2f87dd7ce46a02"
+    }
+  ],
+  "commits": [
+    {
+      "commit": "c44117a92e6a281c1c61763baf6da94f5d21dedb",
+      "short_commit": "c44117a",
+      "push_timestamp_utc": "2026-11-12T10:59:44Z",
+      "push_timestamp_berlin": "2026-11-12T11:59:44+01:00",
+      "activity_id": 49995053128,
+      "ref": "refs/heads/main",
+      "push_before": "598d26cb55c61999ebf1cf84fb329fc240c5fe04",
+      "push_after": "c44117a92e6a281c1c61763baf6da94f5d21dedb",
+      "matching_method": "push_after_sha"
+    },
+    {
+      "commit": "5305e2c246cd63ab44c98b963463b3677d5d8eca",
+      "short_commit": "5305e2c",
+      "push_timestamp_utc": "2026-11-12T17:29:13Z",
+      "push_timestamp_berlin": "2026-11-12T18:29:13+01:00",
+      "activity_id": 50043565820,
+      "ref": "refs/heads/main",
+      "push_before": "c44117a92e6a281c1c61763baf6da94f5d21dedb",
+      "push_after": "7041378a800a8d192965256707fe96f034f2579f",
+      "matching_method": "commit_in_github_compare_of_push_before_after"
+    },
+    {
+      "commit": "dad81070d91be43ae352ea1770d9372f35a555f0",
+      "short_commit": "dad8107",
+      "push_timestamp_utc": "2026-11-12T17:29:13Z",
+      "push_timestamp_berlin": "2026-11-12T18:29:13+01:00",
+      "activity_id": 50043565820,
+      "ref": "refs/heads/main",
+      "push_before": "c44117a92e6a281c1c61763baf6da94f5d21dedb",
+      "push_after": "7041378a800a8d192965256707fe96f034f2579f",
+      "matching_method": "commit_in_github_compare_of_push_before_after"
+    },
+    {
+      "commit": "8592f3a0ebd696a3ac3ca5a1d751bab7b8f56867",
+      "short_commit": "8592f3a",
+      "push_timestamp_utc": "2026-11-12T20:23:41Z",
+      "push_timestamp_berlin": "2026-11-12T21:23:41+01:00",
+      "activity_id": 50064079159,
+      "ref": "refs/heads/main",
+      "push_before": "7041378a800a8d192965256707fe96f034f2579f",
+      "push_after": "8592f3a0ebd696a3ac3ca5a1d751bab7b8f56867",
+      "matching_method": "push_after_sha"
+    },
+    {
+      "commit": "1bc385113165c9cf692ded171ddd67e1af258c1a",
+      "short_commit": "1bc3851",
+      "push_timestamp_utc": "2026-11-12T20:26:05Z",
+      "push_timestamp_berlin": "2026-11-12T21:26:05+01:00",
+      "activity_id": 50064347129,
+      "ref": "refs/heads/main",
+      "push_before": "8592f3a0ebd696a3ac3ca5a1d751bab7b8f56867",
+      "push_after": "1bc385113165c9cf692ded171ddd67e1af258c1a",
+      "matching_method": "push_after_sha"
+    },
+    {
+      "commit": "ca89847953f2d9f557aefd2192e5faadf404148d",
+      "short_commit": "ca89847",
+      "push_timestamp_utc": "2026-11-12T20:33:43Z",
+      "push_timestamp_berlin": "2026-11-12T21:33:43+01:00",
+      "activity_id": 50065200547,
+      "ref": "refs/heads/main",
+      "push_before": "1bc385113165c9cf692ded171ddd67e1af258c1a",
+      "push_after": "ca89847953f2d9f557aefd2192e5faadf404148d",
+      "matching_method": "push_after_sha"
+    }
+  ],
+  "activity_evidence": [
+    {
+      "id": 50065200547,
+      "node_id": "PSH_kwLOVnN7m88AAAALqB5Vow",
+      "before": "1bc385113165c9cf692ded171ddd67e1af258c1a",
+      "after": "ca89847953f2d9f557aefd2192e5faadf404148d",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-12T20:33:43Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 50064347129,
+      "node_id": "PSH_kwLOVnN7m88AAAALqBFP-Q",
+      "before": "8592f3a0ebd696a3ac3ca5a1d751bab7b8f56867",
+      "after": "1bc385113165c9cf692ded171ddd67e1af258c1a",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-12T20:26:05Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 50064079159,
+      "node_id": "PSH_kwLOVnN7m88AAAALqA05Nw",
+      "before": "7041378a800a8d192965256707fe96f034f2579f",
+      "after": "8592f3a0ebd696a3ac3ca5a1d751bab7b8f56867",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-12T20:23:41Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 50043565820,
+      "node_id": "PSH_kwLOVnN7m88AAAALptQ2_A",
+      "before": "c44117a92e6a281c1c61763baf6da94f5d21dedb",
+      "after": "7041378a800a8d192965256707fe96f034f2579f",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-12T17:29:13Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49995053128,
+      "node_id": "PSH_kwLOVnN7m88AAAALo-_4SA",
+      "before": "598d26cb55c61999ebf1cf84fb329fc240c5fe04",
+      "after": "c44117a92e6a281c1c61763baf6da94f5d21dedb",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-12T10:59:44Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49982624500,
+      "node_id": "PSH_kwLOVnN7m88AAAALozJS9A",
+      "before": "608a394b5d06d554eb55cca605b52ab290554a46",
+      "after": "598d26cb55c61999ebf1cf84fb329fc240c5fe04",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-12T09:08:13Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49976869977,
+      "node_id": "PSH_kwLOVnN7m88AAAALotqEWQ",
+      "before": "1fa32a8d0290d92ef7449746f77fba86e6ca5d68",
+      "after": "608a394b5d06d554eb55cca605b52ab290554a46",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-12T08:14:47Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49919765957,
+      "node_id": "PSH_kwLOVnN7m88AAAALn3MtxQ",
+      "before": "73d849ae30ef98a6958a0420d2f251ccfb671983",
+      "after": "1fa32a8d0290d92ef7449746f77fba86e6ca5d68",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-11T21:41:48Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49900222320,
+      "node_id": "PSH_kwLOVnN7m88AAAALnkj3cA",
+      "before": "e643b6d37a3fe9d7b97787010d42721dde31452f",
+      "after": "ec688559a44808a3fb55f0f182807772a85fd7f1",
+      "ref": "refs/heads/research/ci-reproducibility-2026-11-11",
+      "timestamp": "2026-11-11T18:37:57Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49900195882,
+      "node_id": "PSH_kwLOVnN7m88AAAALnkiQKg",
+      "before": "d43bde592cad39c9219f9426a2d36e94c5350bb5",
+      "after": "e643b6d37a3fe9d7b97787010d42721dde31452f",
+      "ref": "refs/heads/research/ci-reproducibility-2026-11-11",
+      "timestamp": "2026-11-11T18:37:42Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49900191045,
+      "node_id": "PSH_kwLOVnN7m88AAAALnkh9RQ",
+      "before": "73d849ae30ef98a6958a0420d2f251ccfb671983",
+      "after": "d43bde592cad39c9219f9426a2d36e94c5350bb5",
+      "ref": "refs/heads/research/ci-reproducibility-2026-11-11",
+      "timestamp": "2026-11-11T18:37:40Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49886848114,
+      "node_id": "PSH_kwLOVnN7m88AAAALnXzkcg",
+      "before": "60cfd8140804a923d3b2fa9ab556d5eb684245cf",
+      "after": "73d849ae30ef98a6958a0420d2f251ccfb671983",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-11T16:43:45Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49885851762,
+      "node_id": "PSH_kwLOVnN7m88AAAALnW2wcg",
+      "before": "3f4850216322f85749456d3607c7f48edec04273",
+      "after": "60cfd8140804a923d3b2fa9ab556d5eb684245cf",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-11T16:35:22Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49885495237,
+      "node_id": "PSH_kwLOVnN7m88AAAALnWg_xQ",
+      "before": "13d576c1777e7bbcc9146e737a4eada4b889df23",
+      "after": "3f4850216322f85749456d3607c7f48edec04273",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-11T16:32:23Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49838721826,
+      "node_id": "PSH_kwLOVnN7m88AAAALmp6LIg",
+      "before": "b9b107f4d42ed0f35cf821f18990e679cf3d3422",
+      "after": "13d576c1777e7bbcc9146e737a4eada4b889df23",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-11T09:50:41Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49834084517,
+      "node_id": "PSH_kwLOVnN7m88AAAALmlfIpQ",
+      "before": "22e1c1ceaf0df0dcba962efc7d659e1d1538df77",
+      "after": "b9b107f4d42ed0f35cf821f18990e679cf3d3422",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-11T09:07:07Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49627490737,
+      "node_id": "PSH_kwLOVnN7m88AAAALjgdpsQ",
+      "before": "80adebdba650888eb02ee383de904ff039c71a13",
+      "after": "6ae745bbb6d13fb50021a10620a9c781131486c3",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T21:30:01Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49621301992,
+      "node_id": "PSH_kwLOVnN7m88AAAALjaj66A",
+      "before": "87100165715091e87987e46d2ef3a9585fcea82e",
+      "after": "80adebdba650888eb02ee383de904ff039c71a13",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T20:31:48Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49621087553,
+      "node_id": "PSH_kwLOVnN7m88AAAALjaW1QQ",
+      "before": "9063c199fdad2595c6006ad5b31285e4c17e6500",
+      "after": "938d3f693b61ee0f5d84e3dd73fd9632858343bb",
+      "ref": "refs/heads/refactor/clean-scientific-presentation",
+      "timestamp": "2026-11-09T20:29:54Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49618817881,
+      "node_id": "PSH_kwLOVnN7m88AAAALjYMTWQ",
+      "before": "79b1375d0ffe4109a43fbda2a5cbeb8420f6dae9",
+      "after": "e33928b7a3002ac97e7d96cc5c78ad3c39194229",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T20:08:49Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49617788206,
+      "node_id": "PSH_kwLOVnN7m88AAAALjXNdLg",
+      "before": "160329f345d6837f02da6080bc6d2345e4941bc1",
+      "after": "79b1375d0ffe4109a43fbda2a5cbeb8420f6dae9",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T19:59:32Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49616369566,
+      "node_id": "PSH_kwLOVnN7m88AAAALjV23ng",
+      "before": "97a1b0f19cad283bb90776b42f148a9e11bdd9d2",
+      "after": "160329f345d6837f02da6080bc6d2345e4941bc1",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T19:46:13Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49602148714,
+      "node_id": "PSH_kwLOVnN7m88AAAALjIS5ag",
+      "before": "25dc6a93c9a9459d9beca19e02c3ce7c72396dcb",
+      "after": "97a1b0f19cad283bb90776b42f148a9e11bdd9d2",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T17:33:27Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49582740965,
+      "node_id": "PSH_kwLOVnN7m88AAAALi1yV5Q",
+      "before": "b96722309accd722680f9eb6f283c441aa8c6d78",
+      "after": "25dc6a93c9a9459d9beca19e02c3ce7c72396dcb",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T14:48:29Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49581842541,
+      "node_id": "PSH_kwLOVnN7m88AAAALi07gbQ",
+      "before": "d65d9db748cc149320bd44e2076712d9a4635100",
+      "after": "b96722309accd722680f9eb6f283c441aa8c6d78",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-09T14:41:01Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49492351828,
+      "node_id": "PSH_kwLOVnN7m88AAAALhflbVA",
+      "before": "b34249180c68ae425d37a0e6ae531d5e87533a04",
+      "after": "d65d9db748cc149320bd44e2076712d9a4635100",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T20:55:39Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49484207817,
+      "node_id": "PSH_kwLOVnN7m88AAAALhX0WyQ",
+      "before": "de872cac0a61aacf6f3b07ee47cf1a5ab5f82c0d",
+      "after": "b34249180c68ae425d37a0e6ae531d5e87533a04",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T19:06:22Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49483995479,
+      "node_id": "PSH_kwLOVnN7m88AAAALhXnZVw",
+      "before": "9b5e928d2c374bb8d523df7e2c7ac28c367ca68b",
+      "after": "de872cac0a61aacf6f3b07ee47cf1a5ab5f82c0d",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T19:03:39Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49483327260,
+      "node_id": "PSH_kwLOVnN7m88AAAALhW-nHA",
+      "before": "ecd71f4a96ae8a051a8463b4f5256e9039a1a8f1",
+      "after": "9b5e928d2c374bb8d523df7e2c7ac28c367ca68b",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T18:54:52Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49482861506,
+      "node_id": "PSH_kwLOVnN7m88AAAALhWiLwg",
+      "before": "47f49216046ae45a7fbf328c4184884d54b05395",
+      "after": "ecd71f4a96ae8a051a8463b4f5256e9039a1a8f1",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T18:48:35Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49482578487,
+      "node_id": "PSH_kwLOVnN7m88AAAALhWQ6Nw",
+      "before": "b3325f352c819b3f04f5681186ad803a1774461b",
+      "after": "47f49216046ae45a7fbf328c4184884d54b05395",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T18:44:59Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49482164383,
+      "node_id": "PSH_kwLOVnN7m88AAAALhV3onw",
+      "before": "cf9ad63880b8b808be8e88daab5864c04fed228c",
+      "after": "b3325f352c819b3f04f5681186ad803a1774461b",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T18:39:26Z",
+      "activity_type": "push"
+    },
+    {
+      "id": 49481567933,
+      "node_id": "PSH_kwLOVnN7m88AAAALhVTOvQ",
+      "before": "89f1aabba45d67d7f10d38cb12d8af6276bc4837",
+      "after": "cf9ad63880b8b808be8e88daab5864c04fed228c",
+      "ref": "refs/heads/main",
+      "timestamp": "2026-11-08T18:31:26Z",
+      "activity_type": "push"
+    }
+  ],
+  "batch_comparison_evidence": {
+    "url": "https://api.github.com/repos/paploooov/medical-ai-reliability-lab/compare/c44117a92e6a281c1c61763baf6da94f5d21dedb...7041378a800a8d192965256707fe96f034f2579f",
+    "html_url": "https://github.com/paploooov/medical-ai-reliability-lab/compare/c44117a92e6a281c1c61763baf6da94f5d21dedb...7041378a800a8d192965256707fe96f034f2579f",
+    "status": "ahead",
+    "total_commits": 18,
+    "commit_shas": [
+      "d8aee4e5c25c14743acb5bbd7d68f0dfb9749aac",
+      "b15471906447b1ae69b6f652e2ef478069e0f096",
+      "d75e4cdf52af3acb7fa05fa9323e272c69f9324d",
+      "51d7f28e486beaa68d078fbf246f0e4f3cbd060c",
+      "5305e2c246cd63ab44c98b963463b3677d5d8eca",
+      "dad81070d91be43ae352ea1770d9372f35a555f0",
+      "7de75e0b0766886ce70a2f53a09a3c4b42d787d1",
+      "891b2edd4dbf2ee58f5280a19c5defbc3ea51567",
+      "eeeb8531a18a208c881778f9a85a01b3bee56d8b",
+      "c344e34213b39d905990c3ca2cc6d9f1a576e353",
+      "d2cafae263bd2617f422f135f97d51883538d439",
+      "10cc24224d630d9b62773227f3f1e89743982f0a",
+      "61d9903e540ea41dcfb1f8d1d1e7b8cc56f11dde",
+      "b7ffad199c5b7912d9dee592a5784f71c0f7eedb",
+      "51fd317dccf46b3e4848928c5a049c6706a72321",
+      "32a27e0f5c3ec2ebf826cf3ea4c23adc6957cc84",
+      "0240c35690b6ac1272feb89b5c1e6701f529d5f1",
+      "7041378a800a8d192965256707fe96f034f2579f"
+    ]
+  },
+  "limitations": "First-introduction evidence is scoped to the returned activity history; no claim of first appearance on every branch or elsewhere. GitHub push timestamps independently corroborate local reflog times; inference start remains a local timestamp."
+}
