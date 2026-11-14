@@ -69,8 +69,8 @@
     "reports/original_512/thoraxis_30/source_scores_by_origin.json": "2ce3c2393a6795b0bc97b6418f3ba5f37ad6d60bfb48b79bf676e5a6dcb62344",
     "reports/original_512/thoraxis_30/stage3_correlation_check.json": "13cfb672049f23f8afb0f809844dc24b236bb45fdb0dccb6bd770e4af28ca925",
     "reports/original_512/thoraxis_30/stage3_freeze.json": "9a3082710d13f56fd7ec69e44305ca9c41130b6b3ac81efd3c64f3ccbe7ec5db",
-    "reports/original_512/thoraxis_30/stage3_h3.svg": "d774c8d31e0008c6320616f332f3471bc5e181572a9a34d3fe4c8363099ac421",
-    "reports/original_512/thoraxis_30/stage3_source_correlation.svg": "553f3b444e1cbcca1d829c73873a6007cd28152e563302dbcd48932b98826c16"
+    "reports/original_512/thoraxis_30/stage3_h3.svg": "a5dd6c7b11c4fc6a7e049e6ded46251d5850fb38746b435b8842662ab48a6c01",
+    "reports/original_512/thoraxis_30/stage3_source_correlation.svg": "bb7912dab49657c8dfb6d4f6a0fe044abe2d0ff0ef7b7471a435e3d01eccf56e"
   },
   "report_sha256": "0bfae73db950f7f567508db94caa8d6f3f907a5975b3340ceffab1b4ab87225e"
 }

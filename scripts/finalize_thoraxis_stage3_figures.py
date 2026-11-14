@@ -9,3 +9,5 @@ tree=ET.parse(path)
 legend=next(node for node in tree.getroot().iter() if node.attrib.get('id')=='legend_1')
 legend.set('transform','translate(0,-45)')
 tree.write(path,encoding='utf-8',xml_declaration=True)
+for figure in path.parent.glob('stage3_*.svg'):
+    figure.write_text('\n'.join(line.rstrip() for line in figure.read_text().splitlines())+'\n')
