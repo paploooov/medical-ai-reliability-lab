@@ -1,0 +1,43 @@
+{
+  "analysis_id": "posthoc_partial_spearman_dimensions",
+  "status": "exploratory_posthoc_not_in_protocol_c44117a",
+  "decision_context": "Festgelegt nach Sichtung der Etappe-3-Ergebnisse, auf ausdrücklichen Nutzerauftrag; keine neue Präregistrierung und keine Änderung von c44117a.",
+  "question": "Bleibt der Zusammenhang zwischen OOF-Herkunftsscore und Pneumonie-Logit nach statistischer Kontrolle der Originalbildgröße bestehen?",
+  "population": "Test-NORMAL-Bilder jedes der 30 unveränderten medizinischen Modelle; insgesamt sowie getrennt nach ursprünglichem Train/Test. Keine zusätzlichen Trainings-, Selection- oder Kalibrierungsfälle.",
+  "variables": {
+    "x": "Gespeicherter OOF-Herkunftsscore für ursprünglichen offiziellen Test",
+    "y": "Gespeicherter Lanczos-Pneumonie-Logit",
+    "controls": [
+      "natürlicher Logarithmus der Originalbreite",
+      "natürlicher Logarithmus der Originalhöhe"
+    ]
+  },
+  "method": "Klassische partielle Spearman-Korrelation: innerhalb jeder Auswertungsmenge mittlere Ränge aller vier Variablen bilden; Ränge von Score und Logit jeweils auf Interzept und Ränge der beiden Kontrollvariablen regressieren; Pearson-Korrelation der Residuen. Logarithmieren ist streng monoton und ändert die Größenränge nicht. Es wird nur der lineare Zusammenhang auf der Rangskala entfernt.",
+  "ties_and_degeneracy": "Mittlere Ränge bei Bindungen; gewichtete Ränge und gewichtete kleinste Quadrate im Bootstrap. Pseudoinverse bei redundanten Kontrollen, Designrang ausgeben. Bei zu wenigen Fällen (N <= Designrang+1) oder numerisch konstantem Residuum undefiniert statt Null.",
+  "uncertainty": {
+    "replicates": 2000,
+    "seed": 20261117,
+    "unit": "Gemeinsame Dateinamen-Gruppen-Multiplizitäten aus der Vereinigung aller sechs medizinischen Testgruppen; wie Etappe 3. Ränge und Residualregression in jeder Ziehung neu berechnen, ohne Modelle neu zu fitten.",
+    "report": "Unbereinigte und partielle Korrelation je Modell/Herkunft mit Fall-/Gruppenzahlen, 95%-Perzentilen und Zahl undefinierter Ziehungen; beschreibende Modellmittel, Spannweiten, Seed-/Splitmittel. Gemeinsame Bootstrap-Mittel nur bei vollständigen definierten Komponenten, keine p-Wert-Suche."
+  },
+  "limits": [
+    "Nachträgliche explorative Analyse bekannter Testdaten.",
+    "Bildgröße ist kein gemessenes Alter; es liegen keine Altersdaten vor.",
+    "Mögliche Grenzfälle oder Fehler in Normal-Labels sind unbestätigte Alternativerklärungen; keine neue Labelprüfung in dieser Etappe.",
+    "Partielle Korrelation belegt weder einen kausalen Shortcut noch vollständige Kontrolle aller Bildgrößeneffekte.",
+    "Feste Modelle, wiederverwendete Fälle und unbestätigte Patientenidentitäten."
+  ],
+  "forbidden": [
+    "neues Modelltraining",
+    "neue Bildinferenz",
+    "Schwellenänderungen",
+    "Labeländerungen"
+  ],
+  "inputs_sha256": {
+    "reports/original_512/manifest.json": "1c895d5967f7d565725e3cfa33b3db9805162626285ad70085a893e10920b568",
+    "reports/original_512/thoraxis_30/source_oof.npz": "75d375aed1ac8f6aa41d1de71a21362ec4500bb0b703c04ac13e29618e32b7cc",
+    "reports/original_512/thoraxis_30/source_oof_manifest.json": "c85433e7aecc8e6b39a963ebfd259908365e060deffae6176fc279a64b63277c",
+    "reports/original_512/thoraxis_30/prediction_manifest.json": "8efc34c30e27874e6c0b71c81f683c63b0c92abe36f0ecdf18036bba9332766c",
+    "reports/original_512/thoraxis_30/source_logit_correlations.json": "96fe3788548a2910d8dc14d25d12bb662ede0b758e2823c0a2dd1a060803ed15"
+  }
+}
