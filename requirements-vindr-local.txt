@@ -1,0 +1,11 @@
+# Python 3.11 or 3.12. CPU inference only, no pretrained download.
+torch==2.5.1
+torchvision==0.20.1
+numpy==2.2.6
+scipy==1.16.3
+Pillow==13.0.0
+pydicom==3.0.1
+pylibjpeg==2.1.0
+pylibjpeg-libjpeg==2.3.0
+pylibjpeg-openjpeg==2.5.0
+pyjpegls==1.5.1
