@@ -186,6 +186,7 @@ class SyntheticTests(unittest.TestCase):
             self.assertNotIn('PRIVATE', output)
             result = json.loads(output)
             self.assertEqual(len(result['models']), 30)
+            self.assertEqual(result['versions']['Pillow'], v.PIL.__version__)
             self.assertEqual(result['total_label_records'], 8)
             self.assertEqual(result['grouping'], 'published_one_image_per_study_proxy')
             self.assertEqual(result['bootstrap']['R80']['contrast']['valid_replicates'], 2000)

@@ -10,12 +10,65 @@ import re
 import sys
 import time
 import warnings
+import functools
+import importlib
+import tempfile
 from pathlib import Path
 
-import numpy as np
-from PIL import Image
-from scipy.special import expit
-from scipy.stats import t
+_IMPORT_FAILED = False
+try:
+    import numpy as np
+    import PIL
+    from PIL import Image
+    from scipy.special import expit
+    from scipy.stats import t
+except Exception:
+    _IMPORT_FAILED = True
+
+ERRORS = {
+    'E1': 'Abhängigkeit fehlt oder Installation ist nicht funktionsfähig.',
+    'E2': 'Labeldatei fehlt oder Labelschema ist ungültig.',
+    'E3': 'Bildanzahl oder Zuordnung zwischen Bildern und Labels stimmt nicht.',
+    'E4': 'DICOM-Format oder synthetische Pipeline-Prüfung fehlgeschlagen.',
+    'E5': 'Checkpoint oder Manifest fehlt, ist ungültig oder hat einen falschen Hash.',
+    'E6': 'Ausgabepfad nicht verfügbar oder Ergebnisdatei existiert bereits.',
+    'E7': 'Berechnung fehlgeschlagen; keine Datenwerte ausgegeben.',
+    'E8': 'Aufruf prüfen: entweder --selftest oder --data-dir und --out.',
+}
+
+
+class EvaluationError(ValueError):
+    def __init__(self, code):
+        self.code = code
+        super().__init__(code)
+
+
+@contextlib.contextmanager
+def stage(code):
+    try:
+        yield
+    except EvaluationError:
+        raise
+    except Exception:
+        raise EvaluationError(code) from None
+
+
+def coded(code):
+    def decorate(func):
+        @functools.wraps(func)
+        def wrapped(*args, **kwargs):
+            with stage(code):
+                return func(*args, **kwargs)
+        return wrapped
+    return decorate
+
+
+@coded('E1')
+def check_installation():
+    require(not _IMPORT_FAILED)
+    for name in ('torch', 'torchvision', 'pydicom', 'numpy', 'scipy', 'PIL',
+                 'pylibjpeg', 'libjpeg', 'openjpeg', 'jpeg_ls'):
+        importlib.import_module(name)
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTOCOL = ROOT / 'configs/thoraxis_vindr_external.json'
@@ -39,6 +92,7 @@ def canonical(name):
     return 'brochopneumonia' if name == 'bronchopneumonia' else name
 
 
+@coded('E2')
 def read_labels(path, expected=1397):
     """Only named one-hot columns; fail closed on ambiguous vectors or duplicates."""
     records, excluded = [], 0
@@ -70,10 +124,12 @@ def read_labels(path, expected=1397):
             else:
                 label = -1  # descriptive control, NOT a negative pneumonia label
             records.append((image_id, label))
-    require(len(records) == expected)
+    if len(records) != expected:
+        raise EvaluationError('E3')
     return records, excluded
 
 
+@coded('E4')
 def dicom_to_uint8(ds):
     from pydicom.pixels import apply_modality_lut, apply_voi_lut
     require(ds.PhotometricInterpretation in ('MONOCHROME1', 'MONOCHROME2'))
@@ -105,6 +161,7 @@ def letterbox(array):
     return np.asarray(out)
 
 
+@coded('E5')
 def load_models():
     import torch
     from torchvision.models import mobilenet_v3_small
@@ -275,26 +332,29 @@ def run(data_dir, out):
     import torch
     import torchvision
     import scipy
-    require(not out.exists())  # never silently replace an earlier evaluation
+    with stage('E6'):
+        require(not out.exists() and out.parent.is_dir())  # never overwrite results
     torch.set_num_threads(1)
     torch.use_deterministic_algorithms(True)
     start = time.monotonic()
     models, cutoffs, hashes = load_models()
     protocol = json.loads(PROTOCOL.read_text())
     records, excluded = read_labels(data_dir / protocol['label_file'])
-    files = {p.stem: p for p in (data_dir / 'test').glob('*.dicom')}
-    dcm = list((data_dir / 'test').glob('*.dcm'))
-    require(not (files.keys() & {p.stem for p in dcm}))
-    files.update({p.stem: p for p in dcm})
-    require(set(files) == {r[0] for r in records})
+    with stage('E3'):
+        files = {p.stem: p for p in (data_dir / 'test').glob('*.dicom')}
+        dcm = list((data_dir / 'test').glob('*.dcm'))
+        require(not (files.keys() & {p.stem for p in dcm}))
+        files.update({p.stem: p for p in dcm})
+        require(set(files) == {r[0] for r in records})
     arrays, predictions, groups, labels = [], [], [], []
     for image_id, label in records:
         if label == -2:
             continue
-        ds = pydicom.dcmread(files[image_id])
-        groups.append(str(getattr(ds, 'StudyInstanceUID', '')).strip())
-        labels.append(label)
-        arrays.append(letterbox(dicom_to_uint8(ds)))
+        with stage('E4'):
+            ds = pydicom.dcmread(files[image_id])
+            groups.append(str(getattr(ds, 'StudyInstanceUID', '')).strip())
+            labels.append(label)
+            arrays.append(letterbox(dicom_to_uint8(ds)))
         if len(arrays) == 4:
             predictions.append(predict(models, arrays))
             arrays.clear()
@@ -314,31 +374,90 @@ def run(data_dir, out):
                        total_label_records=len(records), inference_seconds=inference_seconds,
                        total_seconds=time.monotonic()-start,
                        versions=dict(torch=torch.__version__, torchvision=torchvision.__version__, numpy=np.__version__,
-                                     scipy=scipy.__version__, pydicom=pydicom.__version__),
+                                     scipy=scipy.__version__, pydicom=pydicom.__version__, Pillow=PIL.__version__),
                        warnings=['Study bootstrap cannot guarantee patient independence.',
                                  'Zero observed errors or a degenerate bootstrap interval do not imply zero risk.',
                                  'Radiological labels are not clinical confirmation.']))
     # Exclusive creation prevents overwriting results even when concurrent runs finish.
-    with out.open('x', encoding='utf-8') as f:
-        json.dump(clean(result), f, ensure_ascii=False, indent=2, allow_nan=False)
-        f.write('\n')
+    with stage('E6'):
+        with out.open('x', encoding='utf-8') as f:
+            json.dump(clean(result), f, ensure_ascii=False, indent=2, allow_nan=False)
+            f.write('\n')
+
+
+def selftest():
+    """Installation and real checkpoint checks, but only generated image pixels."""
+    check_installation()
+    import torch
+    import pydicom
+    from pydicom.dataset import FileDataset, FileMetaDataset
+    from pydicom.uid import ExplicitVRLittleEndian, SecondaryCaptureImageStorage, generate_uid
+    torch.set_num_threads(1)
+    torch.use_deterministic_algorithms(True)
+    models, _, _ = load_models()
+    arrays = []
+    with stage('E4'), tempfile.TemporaryDirectory() as directory:
+        for bits in (8, 12, 16):
+            for window in (False, True):
+                pair = []
+                for inverted in (False, True):
+                    meta = FileMetaDataset()
+                    meta.TransferSyntaxUID = ExplicitVRLittleEndian
+                    meta.MediaStorageSOPClassUID = SecondaryCaptureImageStorage
+                    meta.MediaStorageSOPInstanceUID = generate_uid()
+                    path = Path(directory) / 'synthetic.dcm'
+                    ds = FileDataset(str(path), {}, file_meta=meta, preamble=b'\0' * 128)
+                    ds.Rows, ds.Columns, ds.SamplesPerPixel = 32, 24, 1
+                    ds.PhotometricInterpretation = 'MONOCHROME1' if inverted else 'MONOCHROME2'
+                    ds.BitsAllocated = 8 if bits == 8 else 16
+                    ds.BitsStored, ds.HighBit, ds.PixelRepresentation = bits, bits - 1, 0
+                    pixels = np.rint(np.linspace(0, 2**bits-1, 32*24)).reshape(32, 24)
+                    if inverted:
+                        pixels = 2**bits-1-pixels
+                    ds.PixelData = pixels.astype(np.uint8 if bits == 8 else '<u2').tobytes()
+                    if window:
+                        ds.WindowCenter, ds.WindowWidth = 2**(bits-1), 2**bits
+                    ds.save_as(path, enforce_file_format=True)
+                    converted = dicom_to_uint8(pydicom.dcmread(path))
+                    require(converted.dtype == np.uint8 and converted.min() == 0 and converted.max() == 255)
+                    pair.append(converted)
+                require(np.array_equal(*pair))
+                image = letterbox(pair[0])
+                require(image.shape == (512, 512) and not image[:, :64].any())
+                arrays.append(image)
+    with stage('E1'):
+        output = predict(models, arrays[:2])
+        require(output.shape == (30, 2) and np.isfinite(output).all())
+
+
+class SafeParser(argparse.ArgumentParser):
+    def error(self, message):
+        raise EvaluationError('E8')
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Offline-Auswertung; ausschließlich aggregierte JSON-Ausgabe.')
-    parser.add_argument('--data-dir', type=Path, required=True)
-    parser.add_argument('--out', type=Path, required=True)
-    args = parser.parse_args()
-    # DICOM library diagnostics can contain private tag values. Never forward them.
     warnings.filterwarnings('ignore')
     logging.disable(logging.CRITICAL)
     try:
+        parser = SafeParser(description='Offline-Auswertung oder synthetischer Selbsttest.')
+        parser.add_argument('--data-dir', type=Path)
+        parser.add_argument('--out', type=Path)
+        parser.add_argument('--selftest', action='store_true')
+        args = parser.parse_args()
+        if (args.selftest and (args.data_dir or args.out)) or (not args.selftest and not (args.data_dir and args.out)):
+            raise EvaluationError('E8')
         with open(os.devnull, 'w') as sink, contextlib.redirect_stdout(sink), contextlib.redirect_stderr(sink):
-            run(args.data_dir, args.out)
-    except Exception:
-        print('Abbruch: Eingabe, Abhängigkeiten, Checkpoint-Hashes oder Ausgabepfad prüfen. Keine Details mit Datenbezug ausgegeben.', file=sys.stderr)
+            check_installation()
+            if args.selftest:
+                selftest()
+            else:
+                run(args.data_dir, args.out)
+    except Exception as error:
+        code = error.code if isinstance(error, EvaluationError) else 'E7'
+        print(f'{code}: {ERRORS[code]}', file=sys.stderr)
         return 1
-    print('Fertig. Nur die aggregierte Ergebnis-JSON weitergeben.')
+    print('Selbsttest bestanden: Installation, 30 Checkpoints und synthetische DICOM-Pipeline.' if args.selftest
+          else 'Fertig. Nur die aggregierte Ergebnis-JSON weitergeben.')
     return 0
 
 
