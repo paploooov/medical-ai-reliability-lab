@@ -1,0 +1,10 @@
+{
+  "file": "source_oof.npz",
+  "sha256": "75d375aed1ac8f6aa41d1de71a21362ec4500bb0b703c04ac13e29618e32b7cc",
+  "n": 1579,
+  "counts": [
+    1348,
+    231
+  ],
+  "fold_manifest_sha256": "d648b6e25260df93795e4a3e54e6404a2dbd069cfd421227c99268aabf591ded"
+}

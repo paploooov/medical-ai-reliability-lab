@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "pairwise_auroc": 0.8685048877927216,
+  "reported_auroc": 0.8685048877927216,
+  "absolute_difference": 0.0,
+  "n": 1579,
+  "normal_only": true,
+  "group_isolation_checked": true
+}

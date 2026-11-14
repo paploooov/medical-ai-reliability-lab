@@ -1,0 +1,5 @@
+{
+  "checked_defined_correlations": 510,
+  "max_absolute_difference": 2.220446049250313e-16,
+  "comparison": "scipy.stats.spearmanr versus weighted-midrank implementation at unit weights; stored scores only"
+}

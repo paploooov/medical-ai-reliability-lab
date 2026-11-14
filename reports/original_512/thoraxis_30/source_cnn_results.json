@@ -1,0 +1,76 @@
+{
+  "auroc": 0.8685048877927216,
+  "balanced_accuracy": 0.6818888332241448,
+  "counts": [
+    1348,
+    231
+  ],
+  "groups": 1443,
+  "group_bootstrap": {
+    "percentile95": [
+      0.8438512689291339,
+      0.8909959944709371
+    ],
+    "defined": 2000,
+    "undefined": 0
+  },
+  "replicates": 2000,
+  "bootstrap_seed": 20261117,
+  "folds": [
+    {
+      "fold": 0,
+      "n": 309,
+      "groups": 289,
+      "counts": [
+        263,
+        46
+      ],
+      "auroc": 0.8838651016696975,
+      "balanced_accuracy": 0.6761034881798644
+    },
+    {
+      "fold": 1,
+      "n": 320,
+      "groups": 288,
+      "counts": [
+        277,
+        43
+      ],
+      "auroc": 0.8856519183947611,
+      "balanced_accuracy": 0.7145075980186383
+    },
+    {
+      "fold": 2,
+      "n": 315,
+      "groups": 288,
+      "counts": [
+        269,
+        46
+      ],
+      "auroc": 0.8661710037174721,
+      "balanced_accuracy": 0.6749232261192823
+    },
+    {
+      "fold": 3,
+      "n": 324,
+      "groups": 290,
+      "counts": [
+        273,
+        51
+      ],
+      "auroc": 0.8723694606047547,
+      "balanced_accuracy": 0.7151475975005387
+    },
+    {
+      "fold": 4,
+      "n": 311,
+      "groups": 288,
+      "counts": [
+        266,
+        45
+      ],
+      "auroc": 0.837844611528822,
+      "balanced_accuracy": 0.6256474519632413
+    }
+  ]
+}
