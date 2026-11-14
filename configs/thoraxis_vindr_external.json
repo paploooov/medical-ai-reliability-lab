@@ -1,0 +1,78 @@
+{
+  "stage": "4a",
+  "version": 1,
+  "status": "fixed_before_local_external_data_contact",
+  "question": "Unterscheiden sich offizieller und gemischter Arm extern im Fehler bei 80 Prozent Abdeckung?",
+  "dataset": "VinDr-PCXR 1.0.0",
+  "partition": "test",
+  "expected_images": 1397,
+  "label_file": "image_labels_test.csv",
+  "image_directory": "test",
+  "positive_labels": [
+    "Pneumonia",
+    "Brocho-pneumonia",
+    "Pleuro-pneumonia"
+  ],
+  "normal_label": "No finding",
+  "label_policy": "OR of pneumonia diagnoses, including comorbidities; exclusive No finding negative; other positive findings descriptive control; conflicting No finding and any finding or no positive label excluded; malformed/duplicate/missing records abort",
+  "published_test_counts": {
+    "Pneumonia": 89,
+    "Brocho-pneumonia": 84,
+    "Pleuro-pneumonia": 0,
+    "No finding": 907
+  },
+  "sample_size_decision": "Keep official test: union lower bound 89 exceeds prespecified adequacy floor 80 (worst-case binomial 95 percent half-width about 11 percentage points). No power claim, no extension after observing results.",
+  "training_seeds": [
+    17,
+    42,
+    83,
+    123,
+    2026
+  ],
+  "split_seeds": [
+    20261112,
+    20261113,
+    20261114,
+    20261115,
+    20261116
+  ],
+  "checkpoint_manifest": "reports/original_512/thoraxis_30/checkpoints/manifest.json",
+  "checkpoint_manifest_sha256": "9f2dde8236521aa9e8a14bffd48d4ac4e7d6ced262f4595dc7fde86ecbba8686",
+  "classification_threshold": 0.5,
+  "fixed_rejection": "confidence >= unchanged checkpoint cutoff",
+  "primary": "R80: error in most confident 80 percent of pneumonia/normal cohort; equal fractional weight for boundary ties; no label-based tie breaking",
+  "contrast": "official minus mixed; 5x5 paired training-seed contrasts, mean over splits and seeds; positive means mixed arm lower error",
+  "secondary": [
+    "specificity",
+    "sensitivity",
+    "fixed acceptance",
+    "fixed accepted error",
+    "classwise R80 coverage and error",
+    "classwise fixed acceptance and error"
+  ],
+  "control": "other findings: count, positive prediction fraction, fixed acceptance and mean confidence only; no invented negative labels",
+  "dicom": {
+    "single_frame_monochrome_only": true,
+    "pipeline": "decode; padding mask in stored values; modality LUT/rescale; first VOI LUT preferred else first window else unchanged; finite nonpadding min/max to [0,1]; MONOCHROME1 inversion; round to uint8; padding black; exact 512 Lanczos centered black letterbox; RGB replication and ImageNet normalization",
+    "constant_or_invalid_pixels": "abort with generic error, no silent image loss",
+    "training_preprocessing_after_uint8_unchanged": true
+  },
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20261117,
+    "interval": "95 percent percentile; common cluster multiplicities across all 30 models, recompute R80 each draw",
+    "unit": "StudyInstanceUID if present for every image; otherwise published one-study-per-image design, explicitly flagged study proxy. Patient linkage is removed; no patient-level independence claim.",
+    "outputs": "arm means and paired contrast for R80, specificity, sensitivity, fixed acceptance, fixed accepted error; valid replicate counts; null when undefined"
+  },
+  "model_variation": "training-seed means over splits and split means over training seeds separately: SD, min/max, t95 df4; no pooled 30-model independence assumption",
+  "zero_error": "report accepted group count and one-sided 95 percent upper bound for probability a group has any accepted error when zero observed; bootstrap [0,0] does not mean zero risk",
+  "execution": "CPU float32, eval, deterministic; frozen shared encoder allowed only after bitwise state equality check; no training, threshold fitting or repeated model selection",
+  "privacy": "offline only; identifiers, labels, pixels and per-image predictions stay in local RAM; no per-image cache/log/export; only aggregate JSON; generic errors; no path or DICOM-tag output",
+  "sources": [
+    "https://physionet.org/content/vindr-pcxr/1.0.0/",
+    "https://doi.org/10.13026/k8qc-na36",
+    "https://arxiv.org/html/2203.10612v1",
+    "https://arxiv.org/html/2203.10612v3",
+    "https://pydicom.github.io/pydicom/stable/reference/generated/pydicom.pixels.apply_voi_lut.html"
+  ]
+}
