@@ -7,3 +7,4 @@ __pycache__/
 .venv-512/
 
 .venv-vindr/
+.venv-test/

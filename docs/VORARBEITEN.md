@@ -2,7 +2,7 @@
 
 Stand: 11. November 2026. Diese Übersicht bündelt die Arbeiten aus `reports/`, `docs/archive/` und `docs/research/`, einschließlich späterer technischer Reproduktionsprüfungen; Protokoll und Ergebnisbericht werden gemeinsam behandelt, reine Verweisdateien nicht doppelt gezählt. Alte Vollberichte sind über die Archivlinks in der Projekt-README erreichbar; hier führen Links direkt zu gespeicherten Daten.
 
-Alle klinischen Befunde sind explorativ; wiederholt untersuchte Testfälle sind keine unabhängigen Bestätigungskohorten. „pp“ bedeutet Prozentpunkte, „akzeptiert“ die nach einer Konfidenzregel behaltenen Vorhersagen; Unsicherheitsintervalle gelten jeweils nur unter den im verlinkten Datensatz dokumentierten Annahmen.
+Alle Ergebnisse sind explorativ; wiederholt untersuchte Testfälle sind keine unabhängigen Bestätigungskohorten. „pp“ bedeutet Prozentpunkte, „akzeptiert“ die nach einer Konfidenzregel behaltenen Vorhersagen; Unsicherheitsintervalle gelten jeweils nur unter den im verlinkten Datensatz dokumentierten Annahmen.
 
 ## Frühe Modelle und Datenprüfung
 

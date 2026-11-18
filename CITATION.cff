@@ -3,7 +3,8 @@ message: "If you use THORAXIS software or its research artifacts, please cite th
 type: software
 title: "THORAXIS: Medical AI Reliability Lab"
 authors:
-  - name: "Medical AI Reliability Lab contributors"
+  - given-names: "Elias"
+    family-names: "Aral"
 repository-code: "https://github.com/paploooov/medical-ai-reliability-lab"
 url: "https://github.com/paploooov/medical-ai-reliability-lab"
 abstract: "Research software for investigating chest radiograph classification reliability, preprocessing sensitivity, and transfer. THORAXIS adapts pretrained MobileNetV3-Small models."

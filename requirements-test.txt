@@ -1,0 +1,8 @@
+# Everything needed for `make test` (133 unit tests on synthetic data, no downloads).
+# Install CPU torch first:
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 torchvision==0.20.1
+-r requirements.txt
+-r requirements-vindr-local.txt
+matplotlib==3.10.3
+reportlab==4.4.9
+pytest==8.4.2
